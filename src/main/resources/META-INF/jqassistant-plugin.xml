@@ -1,0 +1,9 @@
+<jqassistant-plugin xmlns="http://schema.jqassistant.org/plugin/v1.10"
+                    name="jQAssistant OpenApi Plugin">
+    <description></description>
+    <model>
+        <class>org.jqassistant.plugin.openapi.api.model.ContractDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.ServerDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.TagDescriptor</class>
+    </model>
+</jqassistant-plugin>
