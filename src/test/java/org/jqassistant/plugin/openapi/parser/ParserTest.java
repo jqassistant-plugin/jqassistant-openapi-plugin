@@ -1,4 +1,4 @@
-package org.jsqassistant.plugin.openapi.parser;
+package org.jqassistant.plugin.openapi.parser;
 
 import com.buschmais.jqassistant.core.test.plugin.AbstractPluginIT;
 import io.swagger.v3.oas.models.OpenAPI;
