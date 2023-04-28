@@ -116,7 +116,7 @@
                     <execution>
                         <phase>generate-sources</phase>
                         <configuration>
-                            <skip>false</skip>
+                            <skip>true</skip>
                         </configuration>
                     </execution>
                 </executions>
