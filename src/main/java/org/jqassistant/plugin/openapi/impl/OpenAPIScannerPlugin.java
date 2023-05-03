@@ -12,10 +12,7 @@ import io.swagger.v3.oas.models.servers.Server;
 import io.swagger.v3.oas.models.tags.Tag;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.parser.OpenAPIV3Parser;
-import org.jqassistant.plugin.openapi.api.model.ContactDescriptor;
-import org.jqassistant.plugin.openapi.api.model.ContractDescriptor;
-import org.jqassistant.plugin.openapi.api.model.ServerDescriptor;
-import org.jqassistant.plugin.openapi.api.model.TagDescriptor;
+import org.jqassistant.plugin.openapi.api.model.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,21 +34,29 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
         OpenAPI openAPI = parser.read(path); // TODO: Exception handling
 
         ContractDescriptor contractDescriptor = store.create(ContractDescriptor.class);
+        contractDescriptor.setFileName(fileResource.getFile().getName());
 
         // Read Info object
         Info info = openAPI.getInfo();
         contractDescriptor.setTitle(info.getTitle());
-        contractDescriptor.setDescription(info.getDescription());
+
+        if(info.getDescription() != null)
+            contractDescriptor.setDescription(info.getDescription());
         //contractDescriptor.setOpenApiVersion(); // TODO
-        contractDescriptor.setApiVersion(info.getVersion());
-        contractDescriptor.setFileName(fileResource.getFile().getName());
-        contractDescriptor.setContact(parseContact(info.getContact(), store));
+        if(info.getVersion() != null)
+            contractDescriptor.setApiVersion(info.getVersion());
+
+        if(info.getContact() != null)
+            contractDescriptor.setContact(parseContact(info.getContact(), store));
 
         // Read all Tags
-        contractDescriptor.getTags().addAll(parseTags(openAPI.getTags(), store));
+        if(openAPI.getTags().size() > 0)
+            contractDescriptor.getTags().addAll(parseTags(openAPI.getTags(), store));
 
         // Read all Servers
-        contractDescriptor.getServers().addAll(parseSevers(openAPI.getServers(), store));
+        if(openAPI.getServers().size() > 0)
+            contractDescriptor.getServers().addAll(parseSevers(openAPI.getServers(), store));
+
 
         return contractDescriptor;
     }
@@ -66,9 +71,12 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
     ContactDescriptor parseContact(Contact contact, Store store){
         ContactDescriptor contactDescriptor = store.create(ContactDescriptor.class);
 
-        contactDescriptor.setName(contact.getName());
-        contactDescriptor.setEmail(contact.getEmail());
-        contactDescriptor.setUrl(contact.getUrl());
+        if(contact.getName() != null)
+            contactDescriptor.setName(contact.getName());
+        if(contact.getEmail() != null)
+            contactDescriptor.setEmail(contact.getEmail());
+        if(contact.getUrl() != null)
+            contactDescriptor.setUrl(contact.getUrl());
 
         return contactDescriptor;
     }
@@ -85,8 +93,12 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
 
         for (Tag tag : tags){
             TagDescriptor tagDescriptor = store.create(TagDescriptor.class);
-            tagDescriptor.setTag(tag.getName());
-            tagDescriptor.setDescription(tag.getDescription());
+            if(tag.getName() != null)
+                tagDescriptor.setTag(tag.getName());
+            if(tag.getDescription() != null)
+                tagDescriptor.setDescription(tag.getDescription());
+
+            retTags.add(tagDescriptor);
         }
 
         return retTags;
@@ -106,7 +118,11 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
             ServerDescriptor serverDescriptor = store.create(ServerDescriptor.class);
 
             serverDescriptor.setUrl(server.getUrl());
-            serverDescriptor.setDescription(server.getDescription());
+
+            if(server.getDescription() != null)
+                serverDescriptor.setDescription(server.getDescription());
+
+            retServers.add(serverDescriptor);
         }
 
         return retServers;

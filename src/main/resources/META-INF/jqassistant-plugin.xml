@@ -2,8 +2,12 @@
                     name="jQAssistant OpenApi Plugin">
     <description></description>
     <model>
+        <class>org.jqassistant.plugin.openapi.api.model.ContactDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.ContractDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.ServerDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.TagDescriptor</class>
     </model>
+    <scanner>
+        <class>org.jqassistant.plugin.openapi.impl.OpenAPIScannerPlugin</class>
+    </scanner>
 </jqassistant-plugin>
