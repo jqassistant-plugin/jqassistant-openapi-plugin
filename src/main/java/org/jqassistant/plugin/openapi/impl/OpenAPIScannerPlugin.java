@@ -50,11 +50,11 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
             contractDescriptor.setContact(parseContact(info.getContact(), store));
 
         // Read all Tags
-        if(openAPI.getTags().size() > 0)
+        if(!openAPI.getTags().isEmpty())
             contractDescriptor.getTags().addAll(parseTags(openAPI.getTags(), store));
 
         // Read all Servers
-        if(openAPI.getServers().size() > 0)
+        if(!openAPI.getServers().isEmpty())
             contractDescriptor.getServers().addAll(parseSevers(openAPI.getServers(), store));
 
 

@@ -8,11 +8,10 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 
 import static org.assertj.core.api.Assertions.*;
-
-public class OpenAPIScannerPluginTest extends AbstractPluginIT {
+ class OpenAPIScannerPluginTest extends AbstractPluginIT {
 
     @Test
-    public void scanYAMLFile(){
+    void scanYAMLFile(){
 
         File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-metadata.yaml");
         ContractDescriptor contract = getScanner().scan(testFile, "/example-metadata.yaml", DefaultScope.NONE);
@@ -24,12 +23,12 @@ public class OpenAPIScannerPluginTest extends AbstractPluginIT {
         assertThat(contract.getApiVersion()).isEqualTo("1.0.0");
         assertThat(contract.getTitle()).isEqualTo("Issues");
         assertThat(contract.getDescription()).isEqualTo("Issues API");
-        assertThat(contract.getServers().size()).isEqualTo(1);
 
+        assertThat(contract.getServers()).hasSize(1);
         ServerDescriptor server = contract.getServers().get(0);
         assertThat(server.getUrl()).isEqualTo("/rest/v1/users");
 
-        assertThat(contract.getTags().size()).isEqualTo(1);
+        assertThat(contract.getTags()).hasSize(1);
         TagDescriptor tag = contract.getTags().get(0);
         assertThat(tag.getTag()).isEqualTo("issues");
         assertThat(tag.getDescription()).isEqualTo("Issues API");
