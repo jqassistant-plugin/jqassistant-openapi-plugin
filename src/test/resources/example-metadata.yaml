@@ -1,0 +1,10 @@
+openapi: 3.0.2
+servers:
+  - url: /rest/v1/users
+info:
+  title: Issues
+  description: "Issues API"
+  version: 1.0.0
+tags:
+  - name: issues
+    description: Issues API
