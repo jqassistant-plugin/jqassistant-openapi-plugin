@@ -10,8 +10,28 @@ import java.io.File;
 import static org.assertj.core.api.Assertions.*;
  class OpenAPIScannerPluginTest extends AbstractPluginIT {
 
+     @Test
+     void scanNullContract(){
+         File file = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-nulltest.yaml");
+         try {
+             getScanner().scan(file, "example-nulltest.yaml", DefaultScope.NONE);
+         } catch (Exception e){
+            fail("Reading contract not containing any data failed", e);
+         }
+     }
+
+     @Test
+     void scanEmptyContract(){
+         File file = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-emptytest.yaml");
+         try {
+             getScanner().scan(file, "example-emptytest.yaml", DefaultScope.NONE);
+         } catch (Exception e){
+             fail("Reading contract only containing container data failed", e);
+         }
+     }
+
     @Test
-    void scanYAMLFile(){
+    void scanMetaData(){
 
         File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-metadata.yaml");
         ContractDescriptor contract = getScanner().scan(testFile, "/example-metadata.yaml", DefaultScope.NONE);
