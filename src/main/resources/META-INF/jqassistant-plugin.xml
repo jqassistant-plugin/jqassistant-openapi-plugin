@@ -6,6 +6,7 @@
         <class>org.jqassistant.plugin.openapi.api.model.ContractDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.ServerDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.TagDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.OpenApiDescriptor</class>
     </model>
     <scanner>
         <class>org.jqassistant.plugin.openapi.impl.OpenAPIScannerPlugin</class>
