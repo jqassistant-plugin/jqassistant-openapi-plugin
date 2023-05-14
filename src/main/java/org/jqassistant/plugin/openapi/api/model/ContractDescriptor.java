@@ -30,4 +30,7 @@ public interface ContractDescriptor extends OpenApiDescriptor, FileDescriptor {
     @Relation("HAS_TAG")
     List<TagDescriptor> getTags();
 
+    @Relation("DEFINES")
+    List<PathDescriptor> getPaths();
+
 }
