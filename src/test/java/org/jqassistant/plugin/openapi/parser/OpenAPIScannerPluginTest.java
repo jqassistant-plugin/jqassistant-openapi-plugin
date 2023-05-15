@@ -14,17 +14,19 @@ import static org.assertj.core.api.Assertions.*;
      void scanNullContract(){
          File file = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-nulltest.yaml");
          try {
-             getScanner().scan(file, "example-nulltest.yaml", DefaultScope.NONE);
+             ContractDescriptor contract = getScanner().scan(file, "example-nulltest.yaml", DefaultScope.NONE);
+             assertThat(contract).isNotNull();
          } catch (Exception e){
             fail("Reading contract not containing any data failed", e);
          }
      }
 
      @Test
-     void scanEmptyContract(){
+     void scanEmptyContract(){  
          File file = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-emptytest.yaml");
          try {
-             getScanner().scan(file, "example-emptytest.yaml", DefaultScope.NONE);
+             ContractDescriptor contract = getScanner().scan(file, "example-emptytest.yaml", DefaultScope.NONE);
+             assertThat(contract).isNotNull();
          } catch (Exception e){
              fail("Reading contract only containing container data failed", e);
          }
