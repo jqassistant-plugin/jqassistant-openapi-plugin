@@ -8,8 +8,8 @@ import java.util.List;
 @Label("Path")
 public interface PathDescriptor extends OpenApiDescriptor{
 
-    String getReferenceString();
-    void setReferenceString(String referenceString);
+    String get$ref();
+    void set$ref(String referenceString);
 
     String getSummary();
     void setSummary(String summary);
