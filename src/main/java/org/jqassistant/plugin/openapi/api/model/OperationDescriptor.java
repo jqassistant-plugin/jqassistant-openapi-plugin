@@ -1,5 +1,6 @@
 package org.jqassistant.plugin.openapi.api.model;
 
+import com.buschmais.xo.neo4j.api.annotation.Label;
 import com.buschmais.xo.neo4j.api.annotation.Relation;
 
 import java.util.List;
@@ -15,14 +16,13 @@ enum HTTPOperationType {
     TRACE
 
 }
+
+@Label("Operation")
 public interface OperationDescriptor extends OpenApiDescriptor{
     //, deprecated, security
 
     HTTPOperationType getType();
     void setType(HTTPOperationType type);
-
-    List<String> getTags();
-    void setTags(List<String> tags);
 
     String getSummary();
     void setSummary(String summary);
@@ -39,6 +39,9 @@ public interface OperationDescriptor extends OpenApiDescriptor{
     //TODO (TBD) implement Security object
 
     //TODO (TBD) implement ExternalDocs object
+
+    @Relation("HAS_TAG")
+    List<TagDescriptor> getTags();
 
     @Relation("SERVED_BY")
     List<ServerDescriptor> getServers();
