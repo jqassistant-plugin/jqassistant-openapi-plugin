@@ -3,8 +3,10 @@ package org.jqassistant.plugin.openapi.api.model;
 import com.buschmais.xo.neo4j.api.annotation.Label;
 import com.buschmais.xo.neo4j.api.annotation.Relation;
 
+import java.util.List;
+
 @Label("RequestBody")
-public interface RequestBodyDescriptor {
+public interface RequestBodyDescriptor extends OpenApiDescriptor{
 
     String getDescription();
     void setDescription(String description);
@@ -13,5 +15,8 @@ public interface RequestBodyDescriptor {
     void setIsRequired(Boolean isRequired);
 
     @Relation("CONTAINS")
-    MediaTypeObjectDescriptor getMediaTypeObject();
+    List<MediaTypeObjectDescriptor> getMediaTypeObjects();
+
+    // TODO implement $ref
+    // TODO implement extensions
 }
