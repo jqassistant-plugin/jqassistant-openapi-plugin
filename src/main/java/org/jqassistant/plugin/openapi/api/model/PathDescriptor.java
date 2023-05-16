@@ -9,7 +9,7 @@ import java.util.List;
 public interface PathDescriptor extends OpenApiDescriptor{
 
     String get$ref();
-    void set$ref(String referenceString);
+    void set$ref(String $ref);
 
     String getSummary();
     void setSummary(String summary);
