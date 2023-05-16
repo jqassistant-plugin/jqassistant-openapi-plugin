@@ -35,4 +35,15 @@ import static org.assertj.core.api.Assertions.*;
 
         store.commitTransaction();
     }
+
+     @Test
+     void scanPaths(){
+         File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example.yaml");
+         ContractDescriptor contract = getScanner().scan(testFile, "/example.yaml", DefaultScope.NONE);
+         store.beginTransaction();
+
+         assertThat(contract.getPaths().size()).isEqualTo(13);
+
+         store.commitTransaction();
+     }
 }
