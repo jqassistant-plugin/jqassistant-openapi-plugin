@@ -27,12 +27,11 @@ public interface OperationDescriptor extends OpenApiDescriptor{
     Boolean getIsDeprecated();
     void setIsDeprecated(Boolean isDeprecated);
 
-    //TODO (TBD) implement Security object
+    // TODO (TBD) implement tags
 
-    //TODO (TBD) implement ExternalDocs object
+    // TODO (TBD) implement Security object
 
-    @Relation("HAS_TAG")
-    List<TagDescriptor> getTags();
+    // TODO (TBD) implement ExternalDocs object
 
     @Relation("SERVED_BY")
     List<ServerDescriptor> getServers();
@@ -42,6 +41,7 @@ public interface OperationDescriptor extends OpenApiDescriptor{
 
     @Relation("EXPECTS")
     RequestBodyDescriptor getRequestBody();
+    void setRequestBody(RequestBodyDescriptor requestBody);
 
     @Relation("RETURNS")
     List<ResponseDescriptor> getResponses();
