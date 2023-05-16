@@ -5,21 +5,11 @@ import com.buschmais.xo.neo4j.api.annotation.Relation;
 
 import java.util.List;
 
-enum HTTPOperationType {
-    GET,
-    PUT,
-    POST,
-    DELETE,
-    OPTIONS,
-    HEAD,
-    PATCH,
-    TRACE
-
-}
-
 @Label("Operation")
 public interface OperationDescriptor extends OpenApiDescriptor{
-    //, deprecated, security
+    enum HTTPOperationType {
+        GET, PUT, POST, DELETE, OPTIONS, HEAD, PATCH, TRACE
+    }
 
     HTTPOperationType getType();
     void setType(HTTPOperationType type);

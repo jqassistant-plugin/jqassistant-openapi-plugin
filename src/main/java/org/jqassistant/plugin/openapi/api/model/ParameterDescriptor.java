@@ -3,12 +3,12 @@ package org.jqassistant.plugin.openapi.api.model;
 
 import com.buschmais.xo.neo4j.api.annotation.Label;
 
-enum ParameterLocation {
-    QUERY, HEADER, PATH, COOKIE
-}
-
 @Label("Parameter")
 public interface ParameterDescriptor extends OpenApiDescriptor{
+
+    enum ParameterLocation {
+        QUERY, HEADER, PATH, COOKIE
+    }
 
     String getName();
     void setName(String name);
