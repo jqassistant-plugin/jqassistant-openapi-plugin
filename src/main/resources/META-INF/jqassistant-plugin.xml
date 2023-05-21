@@ -1,12 +1,11 @@
 <jqassistant-plugin xmlns="http://schema.jqassistant.org/plugin/v1.10"
                     name="jQAssistant OpenApi Plugin">
-    <description></description>
+    <description>Ziel ist die Erstellung eines jQAssistant Plugins zur Validierung von OpenAPI Files.</description>
     <model>
         <class>org.jqassistant.plugin.openapi.api.model.ContactDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.ContractDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.ServerDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.TagDescriptor</class>
-        <class>org.jqassistant.plugin.openapi.api.model.OpenApiDescriptor</class>
     </model>
     <scanner>
         <class>org.jqassistant.plugin.openapi.impl.OpenAPIScannerPlugin</class>
