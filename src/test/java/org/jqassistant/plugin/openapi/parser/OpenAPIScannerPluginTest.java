@@ -40,7 +40,7 @@ import static org.assertj.core.api.Assertions.*;
 
         store.beginTransaction();
         assertThat(contract).isNotNull();
-        assertThat(contract.getFileName()).isEqualTo("example-metadata.yaml");
+        assertThat(contract.getFileName()).isEqualTo("/example-metadata.yaml");
 
         assertThat(contract.getApiVersion()).isEqualTo("1.0.0");
         assertThat(contract.getTitle()).isEqualTo("Issues");
