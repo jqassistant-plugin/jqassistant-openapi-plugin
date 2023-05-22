@@ -85,6 +85,8 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
 
         PathDescriptor pathDescriptor = store.create(PathDescriptor.class);
 
+        pathDescriptor.setPathUrl(pathname);
+
         if(pathItem.get$ref() != null && !pathItem.get$ref().isEmpty())
             pathDescriptor.set$ref(pathItem.get$ref());
         if(pathItem.getSummary() != null && !pathItem.getSummary().isEmpty())
