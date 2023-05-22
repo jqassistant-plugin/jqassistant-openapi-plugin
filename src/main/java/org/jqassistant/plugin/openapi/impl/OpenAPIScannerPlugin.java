@@ -35,7 +35,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
 
     @Override
     public ContractDescriptor scan(FileResource fileResource, String path, Scope scope, Scanner scanner) throws IOException {
-        System.out.println("--scan started--");
+        System.out.print("scanning");
         ScannerContext context = scanner.getContext();
         final Store store = context.getStore();
 
@@ -70,7 +70,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
         if(openAPI.getPaths() != null && !openAPI.getPaths().isEmpty())
             contractDescriptor.getPaths().addAll(parsePaths(openAPI.getPaths(), store));
 
-        System.out.println("--finished scan--");
+        System.out.println("...finished");
         return contractDescriptor;
     }
 
@@ -81,7 +81,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
     }
 
     PathDescriptor parsePath (String pathname, PathItem pathItem, Store store){
-        System.out.printf("starting parsing path <%s>\n", pathname);
+        //System.out.printf("starting parsing path <%s>\n", pathname);
 
         PathDescriptor pathDescriptor = store.create(PathDescriptor.class);
 
@@ -121,12 +121,12 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
         if(pathItem.getTrace() != null)
             pathOperations.add(parseOperation(pathItem.getTrace(), OperationDescriptor.HTTPOperationType.TRACE, store));
 
-        System.out.println("finished parsing path");
+        //System.out.println("finished parsing path");
         return pathDescriptor;
     }
 
     OperationDescriptor parseOperation(Operation operation, OperationDescriptor.HTTPOperationType operationType, Store store){
-        System.out.printf("  starting parsing operation <%s>\n", operationType);
+        //System.out.printf("  starting parsing operation <%s>\n", operationType);
 
         OperationDescriptor operationDescriptor = store.create(OperationDescriptor.class);
 
@@ -151,12 +151,12 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
         // TODO externalDocs
         // TODO security
 
-        System.out.println("  finished parsing operation");
+        //System.out.println("  finished parsing operation");
         return operationDescriptor;
     }
 
     RequestBodyDescriptor parseRequestBody(RequestBody requestBody, Store store){
-        System.out.println("    started parsing RequestBody");
+        //System.out.println("    started parsing RequestBody");
         RequestBodyDescriptor requestBodyDescriptor = store.create(RequestBodyDescriptor.class);
 
         if(requestBody.getDescription() != null && !requestBody.getDescription().isEmpty())
@@ -168,7 +168,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
         if(requestBody.getContent() != null && !requestBody.getContent().isEmpty())
             requestBodyDescriptor.getMediaTypeObjects().addAll(parseContent(requestBody.getContent(), store));
 
-        System.out.println("    finished parsing RequestBody");
+        //System.out.println("    finished parsing RequestBody");
         return requestBodyDescriptor;
     }
 
@@ -179,7 +179,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
     }
 
     ResponseDescriptor parseResponse(String statusCodeOrDefault, ApiResponse response, Store store){
-        System.out.printf("    started parsing ApiResponse <%s>\n", statusCodeOrDefault);
+        //System.out.printf("    started parsing ApiResponse <%s>\n", statusCodeOrDefault);
         ResponseDescriptor responseDescriptor = store.create(ResponseDescriptor.class);
 
         if(statusCodeOrDefault.equals("default"))
@@ -196,7 +196,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
         if(response.getContent() != null && !response.getContent().isEmpty())
             responseDescriptor.getMediaTypeObject().addAll(parseContent(response.getContent(), store));
 
-        System.out.println("    finished parsing ApiResponse");
+        //System.out.println("    finished parsing ApiResponse");
         return responseDescriptor;
     }
 
@@ -207,7 +207,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
     }
 
     MediaTypeObjectDescriptor parseMediaTypeObject(String mediaType, MediaType mediaTypeObject, Store store){
-        System.out.printf("      started parsing MediaTypeObject <%s>\n", mediaType);
+        //System.out.printf("      started parsing MediaTypeObject <%s>\n", mediaType);
         MediaTypeObjectDescriptor mediaTypeObjectDescriptor = store.create(MediaTypeObjectDescriptor.class);
 
         mediaTypeObjectDescriptor.setMediaType(mediaType);
@@ -216,7 +216,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
         // TODO implement encoding
         // TODO implement schema
 
-        System.out.println("      finished parsing MediaTypeObject");
+        //System.out.println("      finished parsing MediaTypeObject");
         return mediaTypeObjectDescriptor;
     }
 
