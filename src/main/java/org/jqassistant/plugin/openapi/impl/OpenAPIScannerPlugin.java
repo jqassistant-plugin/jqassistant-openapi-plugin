@@ -36,25 +36,27 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
         ContractDescriptor contractDescriptor = store.create(ContractDescriptor.class);
         contractDescriptor.setFileName(fileResource.getFile().getName());
 
+        contractDescriptor.setApiVersion(openAPI.getOpenapi());
+
         // Read Info object
         Info info = openAPI.getInfo();
-        contractDescriptor.setTitle(info.getTitle());
-
-        if(info.getDescription() != null)
-            contractDescriptor.setDescription(info.getDescription());
-        //contractDescriptor.setOpenApiVersion(); // TODO
-        if(info.getVersion() != null)
-            contractDescriptor.setApiVersion(info.getVersion());
-
-        if(info.getContact() != null)
-            contractDescriptor.setContact(parseContact(info.getContact(), store));
+        if(info != null) {
+            if(info.getTitle() != null)
+                contractDescriptor.setTitle(info.getTitle());
+            if (info.getDescription() != null)
+                contractDescriptor.setDescription(info.getDescription());
+            if (info.getVersion() != null)
+                contractDescriptor.setApiVersion(info.getVersion());
+            if (info.getContact() != null)
+                contractDescriptor.setContact(parseContact(info.getContact(), store));
+        }
 
         // Read all Tags
-        if(!openAPI.getTags().isEmpty())
+        if(openAPI.getTags() != null && !openAPI.getTags().isEmpty())
             contractDescriptor.getTags().addAll(parseTags(openAPI.getTags(), store));
 
         // Read all Servers
-        if(!openAPI.getServers().isEmpty())
+        if(openAPI.getServers() != null && !openAPI.getServers().isEmpty())
             contractDescriptor.getServers().addAll(parseSevers(openAPI.getServers(), store));
 
 
