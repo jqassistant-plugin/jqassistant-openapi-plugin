@@ -2,8 +2,10 @@ package org.jqassistant.plugin.openapi.impl;
 
 import com.buschmais.jqassistant.core.scanner.api.Scanner;
 import com.buschmais.jqassistant.core.scanner.api.ScannerContext;
+import com.buschmais.jqassistant.core.scanner.api.ScannerPlugin.Requires;
 import com.buschmais.jqassistant.core.scanner.api.Scope;
 import com.buschmais.jqassistant.core.store.api.Store;
+import com.buschmais.jqassistant.plugin.common.api.model.FileDescriptor;
 import com.buschmais.jqassistant.plugin.common.api.scanner.AbstractScannerPlugin;
 import com.buschmais.jqassistant.plugin.common.api.scanner.filesystem.FileResource;
 import io.swagger.v3.oas.models.info.Contact;
@@ -18,6 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Requires(FileDescriptor.class)
 public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, ContractDescriptor> {
     @Override
     public boolean accepts(FileResource fileResource, String path, Scope scope) throws IOException {
@@ -33,28 +36,31 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
         OpenAPIV3Parser parser = new OpenAPIV3Parser();
         OpenAPI openAPI = parser.read(path); // TODO: Exception handling
 
-        ContractDescriptor contractDescriptor = store.create(ContractDescriptor.class);
-        contractDescriptor.setFileName(fileResource.getFile().getName());
+        // Retrieve the scanned file node from the scanner context.
+        final FileDescriptor fileDescriptor = context.getCurrentDescriptor();
+        final ContractDescriptor contractDescriptor = store.addDescriptorType(fileDescriptor, ContractDescriptor.class);
+
+        contractDescriptor.setApiVersion(openAPI.getOpenapi());
 
         // Read Info object
         Info info = openAPI.getInfo();
-        contractDescriptor.setTitle(info.getTitle());
-
-        if(info.getDescription() != null)
-            contractDescriptor.setDescription(info.getDescription());
-        //contractDescriptor.setOpenApiVersion(); // TODO
-        if(info.getVersion() != null)
-            contractDescriptor.setApiVersion(info.getVersion());
-
-        if(info.getContact() != null)
-            contractDescriptor.setContact(parseContact(info.getContact(), store));
+        if(info != null) {
+            if(info.getTitle() != null)
+                contractDescriptor.setTitle(info.getTitle());
+            if (info.getDescription() != null)
+                contractDescriptor.setDescription(info.getDescription());
+            if (info.getVersion() != null)
+                contractDescriptor.setApiVersion(info.getVersion());
+            if (info.getContact() != null)
+                contractDescriptor.setContact(parseContact(info.getContact(), store));
+        }
 
         // Read all Tags
-        if(!openAPI.getTags().isEmpty())
+        if(openAPI.getTags() != null && !openAPI.getTags().isEmpty())
             contractDescriptor.getTags().addAll(parseTags(openAPI.getTags(), store));
 
         // Read all Servers
-        if(!openAPI.getServers().isEmpty())
+        if(openAPI.getServers() != null && !openAPI.getServers().isEmpty())
             contractDescriptor.getServers().addAll(parseSevers(openAPI.getServers(), store));
 
 
