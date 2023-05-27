@@ -7,16 +7,14 @@ import java.util.List;
 
 @Label("RequestBody")
 public interface RequestBodyDescriptor extends OpenApiDescriptor{
+    // TODO implement $ref
+    // TODO implement extensions
 
     String getDescription();
     void setDescription(String description);
-
     Boolean getIsRequired();
     void setIsRequired(Boolean isRequired);
 
     @Relation("CONTAINS")
     List<MediaTypeObjectDescriptor> getMediaTypeObjects();
-
-    // TODO implement $ref
-    // TODO implement extensions
 }

@@ -7,16 +7,12 @@ import java.util.List;
 
 @Label("Path")
 public interface PathDescriptor extends OpenApiDescriptor{
-
     String getPathUrl();
     void setPathUrl(String pathUrl);
-
     String get$ref();
     void set$ref(String $ref);
-
     String getSummary();
     void setSummary(String summary);
-
     String getDescription();
     void setDescription(String description);
 

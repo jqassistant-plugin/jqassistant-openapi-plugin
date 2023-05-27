@@ -5,17 +5,10 @@ import com.buschmais.xo.neo4j.api.annotation.Relation;
 
 @Label("MediaTypeObject")
 public interface MediaTypeObjectDescriptor extends OpenApiDescriptor{
+    // TODO (TBD) implement examples property
+    // TODO (TBD) implement encoding property
+    // TODO (TBD) implement SchemaDescriptor
 
     String getMediaType();
     void setMediaType(String mediaType);
-
-    // TODO (TBD) implement examples property
-
-    // TODO (TBD) implement encoding property
-
-    /* TODO (TBD) implement SchemaDescriptor
-     * @Relation("DEFINED_BY")
-     * SchemaDescriptor getSchema();
-     */
-
 }

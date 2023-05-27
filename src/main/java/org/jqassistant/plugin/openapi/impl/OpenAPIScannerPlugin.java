@@ -80,18 +80,31 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
         return contractDescriptor;
     }
 
+    /**
+     * Parses list of OpenApi Path objects
+     *
+     * @param paths list of objects to parse
+     * @param store store object to create internal object from
+     * @return list of parsed internal objects
+     */
     List<PathDescriptor> parsePaths (Paths paths, Store store){
         List<PathDescriptor> pathDescriptors = new ArrayList<>();
         paths.forEach((pathname, pathItem) -> pathDescriptors.add(parsePath(pathname, pathItem, store)));
         return pathDescriptors;
     }
 
-    PathDescriptor parsePath (String pathname, PathItem pathItem, Store store){
-        //System.out.printf("starting parsing path <%s>\n", pathname);
-
+    /**
+     * Parses OpenApi Path object to internal object
+     *
+     * @param pathUrl url of the path to parse
+     * @param pathItem object to parse
+     * @param store store object to create internal object from
+     * @return parsed internal objects
+     */
+    PathDescriptor parsePath (String pathUrl, PathItem pathItem, Store store){
         PathDescriptor pathDescriptor = store.create(PathDescriptor.class);
 
-        pathDescriptor.setPathUrl(pathname);
+        pathDescriptor.setPathUrl(pathUrl);
 
         if(pathItem.get$ref() != null && !pathItem.get$ref().isEmpty())
             pathDescriptor.set$ref(pathItem.get$ref());
@@ -111,33 +124,42 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
         // Read all Operations
         List<OperationDescriptor> pathOperations = pathDescriptor.getOperations();
         if(pathItem.getGet() != null)
-            pathOperations.add(parseOperation(pathItem.getGet(), OperationDescriptor.HTTPOperationType.GET, store));
+            pathOperations.add(parseOperation(pathItem.getGet(), OperationDescriptor.HTTPMethod.GET, store));
         if(pathItem.getPut() != null)
-            pathOperations.add(parseOperation(pathItem.getPut(), OperationDescriptor.HTTPOperationType.PUT, store));
+            pathOperations.add(parseOperation(pathItem.getPut(), OperationDescriptor.HTTPMethod.PUT, store));
         if(pathItem.getPost() != null)
-            pathOperations.add(parseOperation(pathItem.getPost(), OperationDescriptor.HTTPOperationType.POST, store));
+            pathOperations.add(parseOperation(pathItem.getPost(), OperationDescriptor.HTTPMethod.POST, store));
         if(pathItem.getDelete() != null)
-            pathOperations.add(parseOperation(pathItem.getDelete(), OperationDescriptor.HTTPOperationType.DELETE, store));
+            pathOperations.add(parseOperation(pathItem.getDelete(), OperationDescriptor.HTTPMethod.DELETE, store));
         if(pathItem.getOptions() != null)
-            pathOperations.add(parseOperation(pathItem.getOptions(), OperationDescriptor.HTTPOperationType.OPTIONS, store));
+            pathOperations.add(parseOperation(pathItem.getOptions(), OperationDescriptor.HTTPMethod.OPTIONS, store));
         if(pathItem.getHead() != null)
-            pathOperations.add(parseOperation(pathItem.getHead(), OperationDescriptor.HTTPOperationType.HEAD, store));
+            pathOperations.add(parseOperation(pathItem.getHead(), OperationDescriptor.HTTPMethod.HEAD, store));
         if(pathItem.getPatch() != null)
-            pathOperations.add(parseOperation(pathItem.getPatch(), OperationDescriptor.HTTPOperationType.PATCH, store));
+            pathOperations.add(parseOperation(pathItem.getPatch(), OperationDescriptor.HTTPMethod.PATCH, store));
         if(pathItem.getTrace() != null)
-            pathOperations.add(parseOperation(pathItem.getTrace(), OperationDescriptor.HTTPOperationType.TRACE, store));
+            pathOperations.add(parseOperation(pathItem.getTrace(), OperationDescriptor.HTTPMethod.TRACE, store));
 
-        //System.out.println("finished parsing path");
         return pathDescriptor;
     }
 
-    OperationDescriptor parseOperation(Operation operation, OperationDescriptor.HTTPOperationType operationType, Store store){
-        //System.out.printf("  starting parsing operation <%s>\n", operationType);
+    /**
+     * Parses OpenApi operation object to internal object
+     *
+     * @param httpMethod http method of the operation to parse
+     * @param operation object to parse
+     * @param store store object to create internal object from
+     * @return parsed internal objects
+     */
+    OperationDescriptor parseOperation(Operation operation, OperationDescriptor.HTTPMethod httpMethod, Store store){
+        // TODO tags
+        // TODO externalDocs
+        // TODO security
 
         OperationDescriptor operationDescriptor = store.create(OperationDescriptor.class);
 
-        operationDescriptor.setType(operationType);
-
+        // read properties
+        operationDescriptor.setType(httpMethod);
         if(operation.getSummary() != null && !operation.getSummary().isEmpty())
             operationDescriptor.setSummary(operation.getSummary());
         if(operation.getDescription() != null && !operation.getDescription().isEmpty())
@@ -147,47 +169,67 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
         if(operation.getDeprecated() != null)
             operationDescriptor.setIsDeprecated(operation.getDeprecated());
 
+        // read responses
         if(operation.getResponses() != null && !operation.getResponses().isEmpty())
             operationDescriptor.getResponses().addAll(parseResponses(operation.getResponses(), store));
 
+        // read requestBody
         if(operation.getRequestBody() != null)
             operationDescriptor.setRequestBody(parseRequestBody(operation.getRequestBody(), store));
 
-        // TODO tags
-        // TODO externalDocs
-        // TODO security
-
-        //System.out.println("  finished parsing operation");
         return operationDescriptor;
     }
 
+    /**
+     * Parses OpenApi requestBody object to internal object
+     *
+     * @param requestBody object to parse
+     * @param store store object to create internal object from
+     * @return parsed internal objects
+     */
     RequestBodyDescriptor parseRequestBody(RequestBody requestBody, Store store){
-        //System.out.println("    started parsing RequestBody");
         RequestBodyDescriptor requestBodyDescriptor = store.create(RequestBodyDescriptor.class);
 
+        // read properties
         if(requestBody.getDescription() != null && !requestBody.getDescription().isEmpty())
             requestBodyDescriptor.setDescription(requestBody.getDescription());
-
         if(requestBody.getRequired() != null)
             requestBodyDescriptor.setIsRequired(requestBody.getRequired());
 
+        // read content
         if(requestBody.getContent() != null && !requestBody.getContent().isEmpty())
             requestBodyDescriptor.getMediaTypeObjects().addAll(parseContent(requestBody.getContent(), store));
 
-        //System.out.println("    finished parsing RequestBody");
         return requestBodyDescriptor;
     }
 
+    /**
+     * Parses list of OpenApi Response objects
+     *
+     * @param responses list of objects to parse
+     * @param store store object to create internal object from
+     * @return list of parsed internal objects
+     */
     List<ResponseDescriptor> parseResponses(ApiResponses responses, Store store){
         List<ResponseDescriptor> retResponses = new ArrayList<>();
         responses.forEach((s, apiResponse) -> retResponses.add(parseResponse(s, apiResponse, store)));
         return retResponses;
     }
 
+    /**
+     * Parses OpenApi response object to internal object
+     *
+     * @param statusCodeOrDefault statusCode of response or "default"
+     * @param response object to parse
+     * @param store store object to create internal object from
+     * @return parsed internal objects
+     */
     ResponseDescriptor parseResponse(String statusCodeOrDefault, ApiResponse response, Store store){
-        //System.out.printf("    started parsing ApiResponse <%s>\n", statusCodeOrDefault);
+        // TODO implement mediaTypeObject parsing
+
         ResponseDescriptor responseDescriptor = store.create(ResponseDescriptor.class);
 
+        // read statusCode and default flag
         if(statusCodeOrDefault.equals("default"))
             responseDescriptor.setIsDefault(true);
         else {
@@ -195,44 +237,67 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
             responseDescriptor.setStatusCode(statusCodeOrDefault);
         }
 
+        // read properties
         if(response.getDescription() != null && !response.getDescription().isEmpty())
             responseDescriptor.setDescription(response.getDescription());
 
-        // TODO implement mediaTypeObject parsing
+        // read content
         if(response.getContent() != null && !response.getContent().isEmpty())
             responseDescriptor.getMediaTypeObject().addAll(parseContent(response.getContent(), store));
 
-        //System.out.println("    finished parsing ApiResponse");
         return responseDescriptor;
     }
 
+    /**
+     * Parses OpenApi Content object
+     *
+     * @param content object to parse
+     * @param store store object to create internal object from
+     * @return list of parsed internal mediaType objects
+     */
     List<MediaTypeObjectDescriptor> parseContent(Content content, Store store){
         List<MediaTypeObjectDescriptor> retMediaTypeObjects = new ArrayList<>();
         content.forEach((mediaType, mediaTypeObject) -> retMediaTypeObjects.add(parseMediaTypeObject(mediaType, mediaTypeObject, store)));
         return retMediaTypeObjects;
     }
 
+    /**
+     * Parses OpenApi mediaTypeObject object to internal object
+     *
+     * @param mediaType media type or media type range
+     * @param mediaTypeObject object to parse
+     * @param store store object to create internal object from
+     * @return parsed internal objects
+     */
     MediaTypeObjectDescriptor parseMediaTypeObject(String mediaType, MediaType mediaTypeObject, Store store){
-        //System.out.printf("      started parsing MediaTypeObject <%s>\n", mediaType);
-        MediaTypeObjectDescriptor mediaTypeObjectDescriptor = store.create(MediaTypeObjectDescriptor.class);
-
-        mediaTypeObjectDescriptor.setMediaType(mediaType);
-
         // TODO implement examples
         // TODO implement encoding
-        // TODO implement schema
+        // TODO implement schemas
 
-        //System.out.println("      finished parsing MediaTypeObject");
+        MediaTypeObjectDescriptor mediaTypeObjectDescriptor = store.create(MediaTypeObjectDescriptor.class);
+
+        // read properties
+        mediaTypeObjectDescriptor.setMediaType(mediaType);
+
         return mediaTypeObjectDescriptor;
     }
 
+    /**
+     * Parses list of OpenApi Parameter objects
+     *
+     * @param parameters list of objects to parse
+     * @param store store object to create internal object from
+     * @return list of parsed internal objects
+     */
     List<ParameterDescriptor> parseParameters(List<Parameter> parameters, Store store){
+        // TODO implement scanning of further props (might also be still missing in param descriptor)
 
         List<ParameterDescriptor> retParameters = new ArrayList<>();
 
         for (Parameter parameter : parameters){
             ParameterDescriptor parameterDescriptor = store.create(ParameterDescriptor.class);
 
+            // read properties
             if(parameter.getName() != null && !parameter.getName().isEmpty())
                 parameterDescriptor.setName(parameter.getName());
             if(parameter.getIn() != null && !parameter.getIn().isEmpty())
@@ -246,8 +311,6 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
                 parameterDescriptor.setIsDeprecated(parameter.getDeprecated());
             if(parameter.getAllowEmptyValue() != null)
                 parameterDescriptor.setAllowsEmptyValue(parameter.getAllowEmptyValue());
-
-            // TODO implement scanning of further props (might also be still missing in param descriptor)
 
             retParameters.add(parameterDescriptor);
         }
