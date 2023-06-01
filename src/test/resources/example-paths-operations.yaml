@@ -1,0 +1,59 @@
+openapi: 3.0.3
+paths:
+  /sample:
+    get:
+      summery: i am a summery!
+      description: i am a description!
+  /more_than_one_operaton:
+    get:
+      summery: i am a summery!
+    put:
+      summery: i am a summery!
+  /wrong_type:
+    foo:
+      summery: i am a summery!
+  /with_tags:
+    get:
+      summery: i am a summery!
+      tags:
+        - tag1
+        - tag2
+  /with_op_id:
+    get:
+      summery: i am a summery!
+      operationId: with_op_id
+  /with_depricated:
+    get:
+      summery: i am a summery!
+      deprecated: true
+  /without_depricated:
+    get:
+      summery: i am a summery!
+  /with_parameter:
+    get:
+      summery: i am a summery!
+      parameters:
+        - name: param
+          in: query
+  /with_parameters:
+    get:
+      summery: i am a summery!
+      parameters:
+        - name: param1
+          in: query
+        - name: param2
+          in: query
+  /with_response:
+    get:
+      summery: i am a summery!
+      responses:
+        '200':
+          description: successful operation
+  /with_responses:
+    get:
+      summery: i am a summery!
+      responses:
+        '200':
+          description: successful operation
+        '202':
+          description: accepted operation
