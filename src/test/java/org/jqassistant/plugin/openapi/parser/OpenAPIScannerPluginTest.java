@@ -34,7 +34,6 @@ import static org.assertj.core.api.Assertions.*;
      }
 
      @Test
-     @TestStore(type = TestStore.Type.REMOTE)
      void pathTest(){
          File file = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-path.yaml");
          ContractDescriptor contract = getScanner().scan(file, "/example-path.yaml", DefaultScope.NONE);
