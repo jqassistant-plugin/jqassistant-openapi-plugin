@@ -49,9 +49,12 @@ import static org.assertj.core.api.Assertions.*;
          for (PathDescriptor path : paths){
              assertThat(path).isNotNull();
              switch (path.getPathUrl()){
+                 // mostly checking for existence of path, more detailed test will be done in different tests.
                  case "/path_sample":               // Sanity check
                  case "/path_sample/sub_path":      // check sub-paths
                  case "/example_from_sawgger_io":   // real world example from swagger.io
+                 case "/path_with_a_/{single}/parameter":   // path with single parameter
+                 case "/path_with_/{t}/w/{o}/parameters":    // path with more than one parameter
                      assertThat(path.getOperations()).hasSize(1);
                      break;
                  case "/path_with_two_ops":         // path with more than one operation
@@ -59,12 +62,6 @@ import static org.assertj.core.api.Assertions.*;
                      break;
                  case "/path_with_nothing":         // empty path entry
                      fail("contains empty attribute");
-                     break;
-                 case "/path_with_a_/{single}/parameter":   // path with single parameter
-                     assertThat(path.getParameters()).hasSize(1);
-                     break;
-                 case "/path_with_/{t}/w/{o}/parameters":    // path with more than one parameter
-                     assertThat(path.getParameters()).hasSize(2);
                      break;
                  default:
                      fail("not expected path found! (" + path.getPathUrl() + ")");
