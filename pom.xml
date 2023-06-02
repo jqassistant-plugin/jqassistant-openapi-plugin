@@ -45,7 +45,6 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jqa-plugin-common.version>2.0.0</jqa-plugin-common.version>
-        <sonar.branch.target>main</sonar.branch.target>
     </properties>
 
     <dependencies>
@@ -119,18 +118,6 @@
                         <configuration>
                             <skip>true</skip>
                         </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>io.github.git-commit-id</groupId>
-                <artifactId>git-commit-id-maven-plugin</artifactId>
-                <version>6.0.0</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>revision</goal>
-                        </goals>
                     </execution>
                 </executions>
             </plugin>
