@@ -104,7 +104,6 @@
             <artifactId>swagger-parser</artifactId>
             <version>2.1.13</version>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -123,5 +122,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
