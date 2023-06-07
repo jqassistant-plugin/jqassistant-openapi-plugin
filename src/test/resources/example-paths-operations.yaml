@@ -1,43 +1,45 @@
 openapi: 3.0.3
 paths:
   /sample:
+    summary: i am a summary!
+    description: i am a description!
     get:
-      summery: i am a summery!
+      summary: i am a summary!
       description: i am a description!
   /more_than_one_operaton:
     get:
-      summery: i am a summery!
+      summary: i am a summary!
     put:
-      summery: i am a summery!
+      summary: i am a summary!
   /wrong_type:
     foo:
-      summery: i am a summery!
+      summary: i am a summary!
   /with_tags:
     get:
-      summery: i am a summery!
+      summary: i am a summary!
       tags:
         - tag1
         - tag2
   /with_op_id:
     get:
-      summery: i am a summery!
+      summary: i am a summary!
       operationId: with_op_id
   /with_depricated:
     get:
-      summery: i am a summery!
+      summary: i am a summary!
       deprecated: true
   /without_depricated:
     get:
-      summery: i am a summery!
+      summary: i am a summary!
   /with_parameter:
     get:
-      summery: i am a summery!
+      summary: i am a summary!
       parameters:
         - name: param
           in: query
   /with_parameters:
     get:
-      summery: i am a summery!
+      summary: i am a summary!
       parameters:
         - name: param1
           in: query
@@ -45,13 +47,13 @@ paths:
           in: query
   /with_response:
     get:
-      summery: i am a summery!
+      summary: i am a summary!
       responses:
         '200':
           description: successful operation
   /with_responses:
     get:
-      summery: i am a summery!
+      summary: i am a summary!
       responses:
         '200':
           description: successful operation

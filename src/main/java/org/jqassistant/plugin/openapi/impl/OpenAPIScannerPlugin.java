@@ -168,6 +168,8 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
             operationDescriptor.setOperationId(operation.getOperationId());
         if(operation.getDeprecated() != null)
             operationDescriptor.setIsDeprecated(operation.getDeprecated());
+        else
+            operationDescriptor.setIsDeprecated(false); // Default Value
 
         // read responses
         if(operation.getResponses() != null && !operation.getResponses().isEmpty())
