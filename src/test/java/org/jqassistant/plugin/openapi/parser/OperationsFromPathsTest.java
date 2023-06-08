@@ -13,7 +13,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class OperationsFromPathsTest extends AbstractPluginIT {
+class OperationsFromPathsTest extends AbstractPluginIT {
 
     ContractDescriptor contract;
     List<PathDescriptor> paths;
@@ -59,7 +59,7 @@ public class OperationsFromPathsTest extends AbstractPluginIT {
     @Test
     void wrongTypesGetFiltered(){
         List<OperationDescriptor> ops = getPathOpsWithUrl("/wrong_type");
-        assertThat(ops).hasSize(0);
+        assertThat(ops).isEmpty();
     }
 
     @Test
@@ -72,13 +72,13 @@ public class OperationsFromPathsTest extends AbstractPluginIT {
     @Test
     void depricatedFlag(){
         List<OperationDescriptor> ops = getPathOpsWithUrl("/with_depricated");
-        assertThat(ops.get(0).getIsDeprecated()).isEqualTo(true);
+        assertThat(ops.get(0).getIsDeprecated()).isTrue();
     }
 
     @Test
     void depricatedFlagDefaultValue(){
         List<OperationDescriptor> ops = getPathOpsWithUrl("/without_depricated");
-        assertThat(ops.get(0).getIsDeprecated()).isEqualTo(false);
+        assertThat(ops.get(0).getIsDeprecated()).isFalse();
     }
 
     @Test
