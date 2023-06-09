@@ -4,6 +4,12 @@
     <model>
         <class>org.jqassistant.plugin.openapi.api.model.ContactDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.ContractDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.MediaTypeObjectDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.OperationDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.ParameterDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.PathDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.RequestBodyDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.ResponseDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.ServerDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.TagDescriptor</class>
     </model>
