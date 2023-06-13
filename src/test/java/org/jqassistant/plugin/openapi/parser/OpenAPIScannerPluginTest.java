@@ -6,6 +6,7 @@ import org.jqassistant.plugin.openapi.api.model.*;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
  class OpenAPIScannerPluginTest extends AbstractPluginIT {
@@ -31,6 +32,7 @@ import static org.assertj.core.api.Assertions.*;
              fail("Reading contract only containing container data failed", e);
          }
      }
+
 
     @Test
     void scanMetaData(){
