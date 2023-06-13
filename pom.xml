@@ -26,6 +26,26 @@
             <name>Dirk Mahler</name>
             <email>dirk.mahler@buschmais.com</email>
         </developer>
+        <developer>
+            <id>Ansgar Dabow</id>
+            <name>Ansgar Dabow</name>
+            <email>jp06upel@studserv.uni-leipzig.de</email>
+        </developer>
+        <developer>
+            <id>Lukas Reichelt</id>
+            <name>Lukas Reichelt</name>
+            <email>ge24nete@studserv.uni-leipzig.de</email>
+        </developer>
+        <developer>
+            <id>Robin Kupfer</id>
+            <name>Robin Kupfer</name>
+            <email>robin.kupfer@ideeaner.de</email>
+        </developer>
+        <developer>
+            <id>Uzeyir Mammadov</id>
+            <name>Uzeyir Mammadov</name>
+            <email>uzeyirmammad@gmail.com</email>
+        </developer>
     </developers>
 
     <licenses>
@@ -45,9 +65,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jqa-plugin-common.version>2.0.0</jqa-plugin-common.version>
-        <sonar.branch.target>main</sonar.branch.target>
+        <jqassistant.version>1.10.0</jqassistant.version>
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.yaml</groupId>
@@ -77,7 +96,7 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <scope>test</scope>
-        </dependency>
+        </dependency> 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
@@ -91,7 +110,7 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
         </dependency>
-        <dependency>
+        <dependency> 
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
         </dependency>
@@ -105,7 +124,6 @@
             <artifactId>swagger-parser</artifactId>
             <version>2.1.13</version>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -122,19 +140,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>io.github.git-commit-id</groupId>
-                <artifactId>git-commit-id-maven-plugin</artifactId>
-                <version>6.0.0</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>revision</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
-
 </project>
