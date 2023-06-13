@@ -1,0 +1,61 @@
+openapi: 3.0.3
+paths:
+  /sample:
+    summary: i am a summary!
+    description: i am a description!
+    get:
+      summary: i am a summary!
+      description: i am a description!
+  /more_than_one_operaton:
+    get:
+      summary: i am a summary!
+    put:
+      summary: i am a summary!
+  /wrong_type:
+    foo:
+      summary: i am a summary!
+  /with_tags:
+    get:
+      summary: i am a summary!
+      tags:
+        - tag1
+        - tag2
+  /with_op_id:
+    get:
+      summary: i am a summary!
+      operationId: with_op_id
+  /with_depricated:
+    get:
+      summary: i am a summary!
+      deprecated: true
+  /without_depricated:
+    get:
+      summary: i am a summary!
+  /with_parameter:
+    get:
+      summary: i am a summary!
+      parameters:
+        - name: param
+          in: query
+  /with_parameters:
+    get:
+      summary: i am a summary!
+      parameters:
+        - name: param1
+          in: query
+        - name: param2
+          in: query
+  /with_response:
+    get:
+      summary: i am a summary!
+      responses:
+        '200':
+          description: successful operation
+  /with_responses:
+    get:
+      summary: i am a summary!
+      responses:
+        '200':
+          description: successful operation
+        '202':
+          description: accepted operation
