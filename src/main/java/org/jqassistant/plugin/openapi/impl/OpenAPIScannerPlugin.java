@@ -8,20 +8,22 @@ import com.buschmais.jqassistant.core.store.api.Store;
 import com.buschmais.jqassistant.plugin.common.api.model.FileDescriptor;
 import com.buschmais.jqassistant.plugin.common.api.scanner.AbstractScannerPlugin;
 import com.buschmais.jqassistant.plugin.common.api.scanner.filesystem.FileResource;
-import io.swagger.v3.oas.models.Operation;
-import io.swagger.v3.oas.models.PathItem;
-import io.swagger.v3.oas.models.Paths;
+import io.swagger.v3.oas.models.*;
+import io.swagger.v3.oas.models.callbacks.Callback;
+import io.swagger.v3.oas.models.examples.Example;
+import io.swagger.v3.oas.models.headers.Header;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.links.Link;
 import io.swagger.v3.oas.models.media.Content;
 import io.swagger.v3.oas.models.media.MediaType;
 import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.parameters.RequestBody;
 import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
 import io.swagger.v3.oas.models.tags.Tag;
-import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.parser.OpenAPIV3Parser;
 import org.jqassistant.plugin.openapi.api.model.*;
 
@@ -384,4 +386,211 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
 
         return retServers;
     }
+
+    /**
+     Parses a Callback object and creates a CallbackDescriptor based on the provided Callback and Store.
+     *
+     @param callback The Callback object to parse.
+     @param store The Store object used to create the CallbackDescriptor.
+     @return The parsed CallbackDescriptor object.
+     */
+    CallbackDescriptor parseCallbacks(Callback callback, Store store){
+        CallbackDescriptor callbackDescriptor = store.create(CallbackDescriptor.class);
+
+        if(callback.get$ref() != null){
+            callbackDescriptor.set$ref(callback.get$ref());
+        }
+
+        return callbackDescriptor;
+    }
+
+
+    /**
+     Parses a SecurityScheme object and creates a SecuritySchemaDescriptor based on the provided SecurityScheme and Store.
+     @param securityScheme The SecurityScheme object to parse.
+     @param store The Store object used to create the SecuritySchemaDescriptor.
+     @return The parsed SecuritySchemaDescriptor object.
+     */
+    SecuritySchemaDescriptor parseSecuritySchemas(SecurityScheme securityScheme, Store store){
+        SecuritySchemaDescriptor securitySchemaDescriptor = store.create(SecuritySchemaDescriptor.class);
+
+        if(securityScheme.getName() != null){
+            securitySchemaDescriptor.setName(securityScheme.getName());
+        }
+
+        return securitySchemaDescriptor;
+    }
+
+    /**
+
+     Parses a PathItem object and creates a PathItemDescriptor based on the provided PathItem and Store.
+     @param pathItem The PathItem object to parse.
+     @param store The Store object used to create the PathItemDescriptor.
+     @return The parsed PathItemDescriptor object.
+     */
+    PathItemDescriptor parsePathItems(PathItem pathItem, Store store){
+
+        PathItemDescriptor pathItemDescriptor = store.create(PathItemDescriptor.class);
+        if(pathItem.getSummary() != null){
+            pathItemDescriptor.setSummary(pathItem.getSummary());
+        }
+
+        return pathItemDescriptor;
+    }
+
+    /**
+     Parses a Link object and creates a LinkDescriptor based on the provided Link and Store.
+     @param link The Link object to parse.
+     @param store The Store object used to create the LinkDescriptor.
+     @return The parsed LinkDescriptor object.
+     */
+    LinkDescriptor parseLinks(Link link, Store store){
+        LinkDescriptor linkDescriptor = store.create(LinkDescriptor.class);
+
+        if(linkDescriptor.getOperationRef() != null){
+            linkDescriptor.setOperationRef(link.getOperationRef());
+        }
+
+        return linkDescriptor;
+    }
+
+    /**
+
+     Parses a Header object and creates a HeaderDescriptor based on the provided Header and Store.
+     @param header The Header object to parse.
+     @param store The Store object used to create the HeaderDescriptor.
+     @return The parsed HeaderDescriptor object.
+     */
+    HeaderDescriptor parseHeaders(Header header, Store store){
+        HeaderDescriptor headerDescriptor = store.create(HeaderDescriptor.class);
+
+        if(headerDescriptor.getDescription() != null){
+            headerDescriptor.setDescription(header.getDescription());
+        }
+
+        return headerDescriptor;
+    }
+
+
+    /**
+
+     Parses an Example object and creates an ExampleDescriptor based on the provided Example and Store.
+     @param example The Example object to parse.
+     @param store The Store object used to create the ExampleDescriptor.
+     @return The parsed ExampleDescriptor object.
+     */
+    ExampleDescriptor parseExamples(Example example, Store store){
+        ExampleDescriptor exampleDescriptor = store.create(ExampleDescriptor.class);
+
+        if(exampleDescriptor.getDescription() != null){
+            exampleDescriptor.setDescription(example.getDescription());
+        }
+
+        return exampleDescriptor;
+    }
+
+    /**
+     * Parses OpenApi Components object to internal object
+     *
+     * @param components the OpenApi Components object to parse
+     * @param store the store object to create internal object from
+     * @return parsed internal ComponentDescriptor object
+     */
+    ComponentDescriptor parseComponents(Components components, Store store) {
+        ComponentDescriptor componentDescriptor = store.create(ComponentDescriptor.class);
+
+        // Read all Request Bodies
+        if (components.getRequestBodies() != null && !components.getRequestBodies().isEmpty()) {
+            List<RequestBodyDescriptor> requestBodyDescriptors = new ArrayList<>();
+            for (RequestBody requestBody : components.getRequestBodies().values()) {
+                requestBodyDescriptors.add(parseRequestBody(requestBody, store));
+            }
+            componentDescriptor.getRequestBodies().addAll(requestBodyDescriptors);
+        }
+
+        // Read all Headers
+        if (components.getHeaders() != null && !components.getHeaders().isEmpty()) {
+            List<HeaderDescriptor> headerDescriptors = new ArrayList<>();
+            for (Header header : components.getHeaders().values()) {
+                headerDescriptors.add(parseHeaders(header, store));
+            }
+            componentDescriptor.getHeaders().addAll(headerDescriptors);
+        }
+
+        // Read all Security Schemas
+        if (components.getSecuritySchemes() != null && !components.getSecuritySchemes().isEmpty()) {
+            List<SecuritySchemaDescriptor> securitySchemaDescriptors = new ArrayList<>();
+            for (SecurityScheme securityScheme : components.getSecuritySchemes().values()) {
+                securitySchemaDescriptors.add(parseSecuritySchemas(securityScheme, store));
+            }
+            componentDescriptor.getSecuritySchemas().addAll(securitySchemaDescriptors);
+        }
+
+        // Read all Links
+        if (components.getLinks() != null && !components.getLinks().isEmpty()) {
+            List<LinkDescriptor> linkDescriptors = new ArrayList<>();
+            for (Link link : components.getLinks().values()) {
+                linkDescriptors.add(parseLinks(link, store));
+            }
+            componentDescriptor.getLinks().addAll(linkDescriptors);
+        }
+
+        // Read all Callbacks
+        if (components.getCallbacks() != null && !components.getCallbacks().isEmpty()) {
+            List<CallbackDescriptor> callbackDescriptors = new ArrayList<>();
+            for (Callback callback : components.getCallbacks().values()) {
+                callbackDescriptors.add(parseCallbacks(callback, store));
+            }
+            componentDescriptor.getCallBacks().addAll(callbackDescriptors);
+        }
+
+        // Read all Path Items
+        if (components.getPathItems() != null && !components.getPathItems().isEmpty()) {
+            List<PathItemDescriptor> pathItemDescriptors = new ArrayList<>();
+            for (PathItem pathItem : components.getPathItems().values()) {
+                pathItemDescriptors.add(parsePathItems(pathItem, store));
+            }
+            componentDescriptor.getPathItems().addAll(pathItemDescriptors);
+        }
+
+        // Read all Examples
+        if (components.getExamples() != null && !components.getExamples().isEmpty()) {
+            List<ExampleDescriptor> exampleDescriptors = new ArrayList<>();
+            for (Example example : components.getExamples().values()) {
+                exampleDescriptors.add(parseExamples(example, store));
+            }
+            componentDescriptor.getExamples().addAll(exampleDescriptors);
+        }
+
+        // Read all Responses
+        if (components.getResponses() != null && !components.getResponses().isEmpty()) {
+            ApiResponses apiResponses = new ApiResponses();
+            apiResponses.putAll(components.getResponses());
+            List<ResponseDescriptor> responseDescriptors = parseResponses(apiResponses, store);
+            componentDescriptor.getResponses().addAll(responseDescriptors);
+        }
+
+
+        // Read all Parameters
+        if (components.getParameters() != null && !components.getParameters().isEmpty()) {
+            List<ParameterDescriptor> parameterDescriptors = new ArrayList<>();
+            for (Parameter parameter : components.getParameters().values()) {
+                List<Parameter> singleParameterList = new ArrayList<>();
+                singleParameterList.add(parameter);
+                parameterDescriptors.addAll(parseParameters(singleParameterList, store));
+            }
+
+            componentDescriptor.getParameters().addAll(parameterDescriptors);
+        }
+
+        return componentDescriptor;
+    }
+
+
+
+
+
+
+
+
 }

@@ -4,6 +4,6 @@ import com.buschmais.xo.neo4j.api.annotation.Label;
 
 @Label("PathItems")
 public interface PathItemDescriptor extends OpenApiDescriptor{
-    String getName();
-    void setName(String name);
+    String getSummary();
+    void setSummary(String summary);
 }
