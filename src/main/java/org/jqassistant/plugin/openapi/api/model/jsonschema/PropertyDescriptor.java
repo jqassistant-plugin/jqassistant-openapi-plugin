@@ -14,9 +14,5 @@ public interface PropertyDescriptor extends JsonSchemaDescriptor {
 
     String getFormat();
     void setFormat(String format);
-    DataType getType();
-
-    void setType(DataType type);
-
 
 }
