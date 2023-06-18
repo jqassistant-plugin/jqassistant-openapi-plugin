@@ -27,6 +27,7 @@ import io.swagger.v3.oas.models.tags.Tag;
 import io.swagger.v3.parser.OpenAPIV3Parser;
 import org.jqassistant.plugin.openapi.api.model.*;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,6 +78,10 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
         //Read all Paths
         if(openAPI.getPaths() != null && !openAPI.getPaths().isEmpty())
             contractDescriptor.getPaths().addAll(parsePaths(openAPI.getPaths(), store));
+
+        //Read Components
+        if (openAPI.getComponents() != null)
+            contractDescriptor.setComponents(parseComponent(openAPI.getComponents(), store));
 
         System.out.println("...finished");
         return contractDescriptor;
@@ -496,7 +501,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
      * @param store the store object to create internal object from
      * @return parsed internal ComponentDescriptor object
      */
-    ComponentDescriptor parseComponents(Components components, Store store) {
+    ComponentDescriptor parseComponent(Components components, Store store) {
         ComponentDescriptor componentDescriptor = store.create(ComponentDescriptor.class);
 
         // Read all Request Bodies
