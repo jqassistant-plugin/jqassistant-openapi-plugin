@@ -507,6 +507,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
         ComponentDescriptor componentDescriptor = store.create(ComponentDescriptor.class);
 
         // Read all Request Bodies
+        //TODO-adjust after the implementation of RequestDescriptor is finished
         if (components.getRequestBodies() != null && !components.getRequestBodies().isEmpty()) {
             List<RequestBodyDescriptor> requestBodyDescriptors = new ArrayList<>();
             for (RequestBody requestBody : components.getRequestBodies().values()) {
@@ -516,6 +517,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
         }
 
         // Read all Headers
+        //TODO-adjust after the implementation of HeaderDescriptor is finished
         if (components.getHeaders() != null && !components.getHeaders().isEmpty()) {
             List<HeaderDescriptor> headerDescriptors = new ArrayList<>();
             for (Header header : components.getHeaders().values()) {
@@ -525,6 +527,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
         }
 
         // Read all Security Schemas
+        //TODO-adjust after the implementation of SecuritySchemaDescriptor is finished
         if (components.getSecuritySchemes() != null && !components.getSecuritySchemes().isEmpty()) {
             List<SecuritySchemaDescriptor> securitySchemaDescriptors = new ArrayList<>();
             for (SecurityScheme securityScheme : components.getSecuritySchemes().values()) {
@@ -534,6 +537,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
         }
 
         // Read all Links
+        //TODO-adjust after the implementation of LinkDescriptor is finished
         if (components.getLinks() != null && !components.getLinks().isEmpty()) {
             List<LinkDescriptor> linkDescriptors = new ArrayList<>();
             for (Link link : components.getLinks().values()) {
@@ -543,6 +547,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
         }
 
         // Read all Callbacks
+        //TODO-adjust after the implementation of CallbackDescriptor is finished
         if (components.getCallbacks() != null && !components.getCallbacks().isEmpty()) {
             List<CallbackDescriptor> callbackDescriptors = new ArrayList<>();
             for (Callback callback : components.getCallbacks().values()) {
@@ -552,6 +557,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
         }
 
         // Read all Path Items
+        //TODO-adjust after the implementation of PathItemDescriptor is finished
         if (components.getPathItems() != null && !components.getPathItems().isEmpty()) {
             List<PathItemDescriptor> pathItemDescriptors = new ArrayList<>();
             for (PathItem pathItem : components.getPathItems().values()) {
@@ -561,6 +567,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
         }
 
         // Read all Examples
+        //TODO-adjust after the implementation of ExampleDescriptor is finished
         if (components.getExamples() != null && !components.getExamples().isEmpty()) {
             List<ExampleDescriptor> exampleDescriptors = new ArrayList<>();
             for (Example example : components.getExamples().values()) {
@@ -570,6 +577,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
         }
 
         // Read all Responses
+        //TODO-adjust after the implementation of ResponseDescriptor is finished
         if (components.getResponses() != null && !components.getResponses().isEmpty()) {
             ApiResponses apiResponses = new ApiResponses();
             apiResponses.putAll(components.getResponses());
@@ -579,6 +587,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
 
 
         // Read all Parameters
+        //TODO-adjust after the implementation of ParameterDescriptor is finished
         if (components.getParameters() != null && !components.getParameters().isEmpty()) {
             List<ParameterDescriptor> parameterDescriptors = new ArrayList<>();
             for (Parameter parameter : components.getParameters().values()) {
