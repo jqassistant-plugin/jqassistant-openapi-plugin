@@ -5,7 +5,7 @@ import com.buschmais.xo.neo4j.api.annotation.Relation;
 
 import java.util.List;
 
-@Label("Components")
+@Label("Component")
 public interface ComponentDescriptor extends OpenApiDescriptor {
 
     @Relation("INCLUDES")
