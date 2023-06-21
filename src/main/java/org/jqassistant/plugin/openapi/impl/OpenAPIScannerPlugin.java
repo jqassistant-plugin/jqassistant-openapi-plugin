@@ -39,7 +39,10 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
 
     private final OpenAPIElementReader openAPIElementReader;
 
+    private final ComponentElementReader componentElementReader;
+
     public OpenAPIScannerPlugin() {
+        this.componentElementReader = new ComponentElementReader(this);
         this.openAPIElementReader = new OpenAPIElementReader(this);
     }
 
@@ -397,7 +400,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
         CallbackDescriptor callbackDescriptor = store.create(CallbackDescriptor.class);
 
         if(callback.get$ref() != null){
-            callbackDescriptor.set$ref(callback.get$ref());
+            callbackDescriptor.setRef(callback.get$ref());
         }
 
         return callbackDescriptor;
@@ -418,23 +421,6 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
         }
 
         return securitySchemaDescriptor;
-    }
-
-    /**
-
-     Parses a PathItem object and creates a PathItemDescriptor based on the provided PathItem and Store.
-     @param pathItem The PathItem object to parse.
-     @param store The Store object used to create the PathItemDescriptor.
-     @return The parsed PathItemDescriptor object.
-     */
-    PathItemDescriptor parsePathItems(PathItem pathItem, Store store){
-
-        PathItemDescriptor pathItemDescriptor = store.create(PathItemDescriptor.class);
-        if(pathItem.getSummary() != null){
-            pathItemDescriptor.setSummary(pathItem.getSummary());
-        }
-
-        return pathItemDescriptor;
     }
 
     /**
@@ -498,98 +484,17 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
     ComponentDescriptor parseComponents(Components components, Store store) {
         ComponentDescriptor componentDescriptor = store.create(ComponentDescriptor.class);
 
-        // Read all Request Bodies
-        if (components.getRequestBodies() != null && !components.getRequestBodies().isEmpty()) {
-            List<RequestBodyDescriptor> requestBodyDescriptors = new ArrayList<>();
-            for (RequestBody requestBody : components.getRequestBodies().values()) {
-                requestBodyDescriptors.add(parseRequestBody(requestBody, store));
-            }
-            componentDescriptor.getRequestBodies().addAll(requestBodyDescriptors);
-        }
-
-        // Read all Headers
-        if (components.getHeaders() != null && !components.getHeaders().isEmpty()) {
-            List<HeaderDescriptor> headerDescriptors = new ArrayList<>();
-            for (Header header : components.getHeaders().values()) {
-                headerDescriptors.add(parseHeaders(header, store));
-            }
-            componentDescriptor.getHeaders().addAll(headerDescriptors);
-        }
-
-        // Read all Security Schemas
-        if (components.getSecuritySchemes() != null && !components.getSecuritySchemes().isEmpty()) {
-            List<SecuritySchemaDescriptor> securitySchemaDescriptors = new ArrayList<>();
-            for (SecurityScheme securityScheme : components.getSecuritySchemes().values()) {
-                securitySchemaDescriptors.add(parseSecuritySchemas(securityScheme, store));
-            }
-            componentDescriptor.getSecuritySchemas().addAll(securitySchemaDescriptors);
-        }
-
-        // Read all Links
-        if (components.getLinks() != null && !components.getLinks().isEmpty()) {
-            List<LinkDescriptor> linkDescriptors = new ArrayList<>();
-            for (Link link : components.getLinks().values()) {
-                linkDescriptors.add(parseLinks(link, store));
-            }
-            componentDescriptor.getLinks().addAll(linkDescriptors);
-        }
-
-        // Read all Callbacks
-        if (components.getCallbacks() != null && !components.getCallbacks().isEmpty()) {
-            List<CallbackDescriptor> callbackDescriptors = new ArrayList<>();
-            for (Callback callback : components.getCallbacks().values()) {
-                callbackDescriptors.add(parseCallbacks(callback, store));
-            }
-            componentDescriptor.getCallBacks().addAll(callbackDescriptors);
-        }
-
-        // Read all Path Items
-        if (components.getPathItems() != null && !components.getPathItems().isEmpty()) {
-            List<PathItemDescriptor> pathItemDescriptors = new ArrayList<>();
-            for (PathItem pathItem : components.getPathItems().values()) {
-                pathItemDescriptors.add(parsePathItems(pathItem, store));
-            }
-            componentDescriptor.getPathItems().addAll(pathItemDescriptors);
-        }
-
-        // Read all Examples
-        if (components.getExamples() != null && !components.getExamples().isEmpty()) {
-            List<ExampleDescriptor> exampleDescriptors = new ArrayList<>();
-            for (Example example : components.getExamples().values()) {
-                exampleDescriptors.add(parseExamples(example, store));
-            }
-            componentDescriptor.getExamples().addAll(exampleDescriptors);
-        }
-
-        // Read all Responses
-        if (components.getResponses() != null && !components.getResponses().isEmpty()) {
-            ApiResponses apiResponses = new ApiResponses();
-            apiResponses.putAll(components.getResponses());
-            List<ResponseDescriptor> responseDescriptors = parseResponses(apiResponses, store);
-            componentDescriptor.getResponses().addAll(responseDescriptors);
-        }
-
-
-        // Read all Parameters
-        if (components.getParameters() != null && !components.getParameters().isEmpty()) {
-            List<ParameterDescriptor> parameterDescriptors = new ArrayList<>();
-            for (Parameter parameter : components.getParameters().values()) {
-                List<Parameter> singleParameterList = new ArrayList<>();
-                singleParameterList.add(parameter);
-                parameterDescriptors.addAll(parseParameters(singleParameterList, store));
-            }
-
-            componentDescriptor.getParameters().addAll(parameterDescriptors);
-        }
+        componentElementReader.readRequestBodies(components, store, componentDescriptor);
+        componentElementReader.readHeaders(components, store, componentDescriptor);
+        componentElementReader.readSecuritySchemas(components, store, componentDescriptor);
+        componentElementReader.readLinks(components, store, componentDescriptor);
+        componentElementReader.readPathItems(components, store, componentDescriptor);
+        componentElementReader.readCallbacks(components, store, componentDescriptor);
+        componentElementReader.readExamples(components, store, componentDescriptor);
+        componentElementReader.readResponses(components, store, componentDescriptor);
+        componentElementReader.readParameters(components, store, componentDescriptor);
 
         return componentDescriptor;
     }
-
-
-
-
-
-
-
 
 }
