@@ -13,7 +13,6 @@ import io.swagger.v3.oas.models.callbacks.Callback;
 import io.swagger.v3.oas.models.examples.Example;
 import io.swagger.v3.oas.models.headers.Header;
 import io.swagger.v3.oas.models.info.Contact;
-import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.links.Link;
 import io.swagger.v3.oas.models.media.Content;
 import io.swagger.v3.oas.models.media.MediaType;
@@ -26,14 +25,24 @@ import io.swagger.v3.oas.models.servers.Server;
 import io.swagger.v3.oas.models.tags.Tag;
 import io.swagger.v3.parser.OpenAPIV3Parser;
 import org.jqassistant.plugin.openapi.api.model.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Requires(FileDescriptor.class)
 public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, ContractDescriptor> {
+
+    private static final Logger LOG = LoggerFactory.getLogger(OpenAPIScannerPlugin.class);
+
+    private final OpenAPIElementReader openAPIElementReader;
+
+    public OpenAPIScannerPlugin() {
+        this.openAPIElementReader = new OpenAPIElementReader(this);
+    }
+
     @Override
     public boolean accepts(FileResource fileResource, String path, Scope scope) throws IOException {
         return path.toLowerCase().endsWith(".yaml");  // TODO maybe add more testing
@@ -41,11 +50,12 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
 
     @Override
     public ContractDescriptor scan(FileResource fileResource, String path, Scope scope, Scanner scanner) throws IOException {
-        System.out.print("scanning");
+        LOG.info("Starting scanning process");
         ScannerContext context = scanner.getContext();
         final Store store = context.getStore();
 
         OpenAPIV3Parser parser = new OpenAPIV3Parser();
+        LOG.info("Reading OpenAPI document from path: {}", path);
         OpenAPI openAPI = parser.read(path); // TODO: Exception handling
 
         // Retrieve the scanned file node from the scanner context.
@@ -54,36 +64,18 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
 
         contractDescriptor.setApiVersion(openAPI.getOpenapi());
 
-        // Read Info object
-        Info info = openAPI.getInfo();
-        if(info != null) {
-            if(info.getTitle() != null)
-                contractDescriptor.setTitle(info.getTitle());
-            if (info.getDescription() != null)
-                contractDescriptor.setDescription(info.getDescription());
-            if (info.getVersion() != null)
-                contractDescriptor.setApiVersion(info.getVersion());
-            if (info.getContact() != null)
-                contractDescriptor.setContact(parseContact(info.getContact(), store));
-        }
+        LOG.info("Reading Info object");
+        openAPIElementReader.readInfo(openAPI, contractDescriptor, store);
+        LOG.info("Reading OpeanAPI Tags");
+        openAPIElementReader.readTags(openAPI, contractDescriptor, store);
+        LOG.info("Reading OpeanAPI Servers");
+        openAPIElementReader.readServers(openAPI, contractDescriptor, store);
+        LOG.info("Reading OpeanAPI Paths");
+        openAPIElementReader.readPaths(openAPI, contractDescriptor, store);
+        LOG.info("Reading OpeanAPI Components");
+        openAPIElementReader.readComponents(openAPI, contractDescriptor, store);
 
-        // Read all Tags
-        if(openAPI.getTags() != null && !openAPI.getTags().isEmpty())
-            contractDescriptor.getTags().addAll(parseTags(openAPI.getTags(), store));
-
-        // Read all Servers
-        if(openAPI.getServers() != null && !openAPI.getServers().isEmpty())
-            contractDescriptor.getServers().addAll(parseSevers(openAPI.getServers(), store));
-
-        //Read all Paths
-        if(openAPI.getPaths() != null && !openAPI.getPaths().isEmpty())
-            contractDescriptor.getPaths().addAll(parsePaths(openAPI.getPaths(), store));
-
-        //Read Components
-        if (openAPI.getComponents() != null)
-            contractDescriptor.setComponents(parseComponent(openAPI.getComponents(), store));
-
-        System.out.println("...finished");
+        LOG.info("...finished");
         return contractDescriptor;
     }
 
@@ -503,7 +495,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
      * @param store the store object to create internal object from
      * @return parsed internal ComponentDescriptor object
      */
-    ComponentDescriptor parseComponent(Components components, Store store) {
+    ComponentDescriptor parseComponents(Components components, Store store) {
         ComponentDescriptor componentDescriptor = store.create(ComponentDescriptor.class);
 
         // Read all Request Bodies
