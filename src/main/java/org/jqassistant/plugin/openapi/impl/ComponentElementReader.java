@@ -24,7 +24,7 @@ public class ComponentElementReader {
     }
 
 
-    public void readParameters(Components components, Store store, ComponentDescriptor componentDescriptor) {
+    public void readParameters(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
         if (components.getParameters() != null && !components.getParameters().isEmpty()) {
             List<ParameterDescriptor> parameterDescriptors = new ArrayList<>();
             for (Parameter parameter : components.getParameters().values()) {
@@ -33,84 +33,84 @@ public class ComponentElementReader {
                 parameterDescriptors.addAll(openAPIScannerPlugin.parseParameters(singleParameterList, store));
             }
 
-            componentDescriptor.getParameters().addAll(parameterDescriptors);
+            componentsDescriptor.getParameters().addAll(parameterDescriptors);
         }
     }
 
-    public void readResponses(Components components, Store store, ComponentDescriptor componentDescriptor) {
+    public void readResponses(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
         if (components.getResponses() != null && !components.getResponses().isEmpty()) {
             ApiResponses apiResponses = new ApiResponses();
             apiResponses.putAll(components.getResponses());
             List<ResponseDescriptor> responseDescriptors = openAPIScannerPlugin.parseResponses(apiResponses, store);
-            componentDescriptor.getResponses().addAll(responseDescriptors);
+            componentsDescriptor.getResponses().addAll(responseDescriptors);
         }
     }
 
-    public void readExamples(Components components, Store store, ComponentDescriptor componentDescriptor) {
+    public void readExamples(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
         if (components.getExamples() != null && !components.getExamples().isEmpty()) {
             List<ExampleDescriptor> exampleDescriptors = new ArrayList<>();
             for (Example example : components.getExamples().values()) {
                 exampleDescriptors.add(openAPIScannerPlugin.parseExamples(example, store));
             }
-            componentDescriptor.getExamples().addAll(exampleDescriptors);
+            componentsDescriptor.getExamples().addAll(exampleDescriptors);
         }
     }
 
-    public void readCallbacks(Components components, Store store, ComponentDescriptor componentDescriptor) {
+    public void readCallbacks(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
         if (components.getCallbacks() != null && !components.getCallbacks().isEmpty()) {
             List<CallbackDescriptor> callbackDescriptors = new ArrayList<>();
             for (Callback callback : components.getCallbacks().values()) {
                 callbackDescriptors.add(openAPIScannerPlugin.parseCallbacks(callback, store));
             }
-            componentDescriptor.getCallBacks().addAll(callbackDescriptors);
+            componentsDescriptor.getCallBacks().addAll(callbackDescriptors);
         }
     }
 
-    public void readLinks(Components components, Store store, ComponentDescriptor componentDescriptor) {
+    public void readLinks(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
         if (components.getLinks() != null && !components.getLinks().isEmpty()) {
             List<LinkDescriptor> linkDescriptors = new ArrayList<>();
             for (Link link : components.getLinks().values()) {
                 linkDescriptors.add(openAPIScannerPlugin.parseLinks(link, store));
             }
-            componentDescriptor.getLinks().addAll(linkDescriptors);
+            componentsDescriptor.getLinks().addAll(linkDescriptors);
         }
     }
 
-    public void readSecuritySchemas(Components components, Store store, ComponentDescriptor componentDescriptor) {
+    public void readSecuritySchemas(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
         if (components.getSecuritySchemes() != null && !components.getSecuritySchemes().isEmpty()) {
             List<SecuritySchemaDescriptor> securitySchemaDescriptors = new ArrayList<>();
             for (SecurityScheme securityScheme : components.getSecuritySchemes().values()) {
                 securitySchemaDescriptors.add(openAPIScannerPlugin.parseSecuritySchemas(securityScheme, store));
             }
-            componentDescriptor.getSecuritySchemas().addAll(securitySchemaDescriptors);
+            componentsDescriptor.getSecuritySchemas().addAll(securitySchemaDescriptors);
         }
     }
 
-    public void readHeaders(Components components, Store store, ComponentDescriptor componentDescriptor) {
+    public void readHeaders(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
         if (components.getHeaders() != null && !components.getHeaders().isEmpty()) {
             List<HeaderDescriptor> headerDescriptors = new ArrayList<>();
             for (Header header : components.getHeaders().values()) {
                 headerDescriptors.add(openAPIScannerPlugin.parseHeaders(header, store));
             }
-            componentDescriptor.getHeaders().addAll(headerDescriptors);
+            componentsDescriptor.getHeaders().addAll(headerDescriptors);
         }
     }
 
-    public void readPathItems(Components components, Store store, ComponentDescriptor componentDescriptor){
+    public void readPathItems(Components components, Store store, ComponentsDescriptor componentsDescriptor){
         if (components.getPathItems() != null && !components.getPathItems().isEmpty()) {
             Paths paths = new Paths();
             paths.putAll(components.getPathItems());
-            componentDescriptor.getPaths().addAll(openAPIScannerPlugin.parsePaths(paths, store));
+            componentsDescriptor.getPaths().addAll(openAPIScannerPlugin.parsePaths(paths, store));
         }
     }
 
-    public void readRequestBodies(Components components, Store store, ComponentDescriptor componentDescriptor) {
+    public void readRequestBodies(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
         if (components.getRequestBodies() != null && !components.getRequestBodies().isEmpty()) {
             List<RequestBodyDescriptor> requestBodyDescriptors = new ArrayList<>();
             for (RequestBody requestBody : components.getRequestBodies().values()) {
                 requestBodyDescriptors.add(openAPIScannerPlugin.parseRequestBody(requestBody, store));
             }
-            componentDescriptor.getRequestBodies().addAll(requestBodyDescriptors);
+            componentsDescriptor.getRequestBodies().addAll(requestBodyDescriptors);
         }
     }
 

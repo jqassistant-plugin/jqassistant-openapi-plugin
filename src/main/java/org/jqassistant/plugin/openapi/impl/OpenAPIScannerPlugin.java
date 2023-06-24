@@ -479,22 +479,22 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
      *
      * @param components the OpenApi Components object to parse
      * @param store the store object to create internal object from
-     * @return parsed internal ComponentDescriptor object
+     * @return parsed internal ComponentsDescriptor object
      */
-    ComponentDescriptor parseComponents(Components components, Store store) {
-        ComponentDescriptor componentDescriptor = store.create(ComponentDescriptor.class);
+    ComponentsDescriptor parseComponents(Components components, Store store) {
+        ComponentsDescriptor componentsDescriptor = store.create(ComponentsDescriptor.class);
 
-        componentElementReader.readRequestBodies(components, store, componentDescriptor);
-        componentElementReader.readHeaders(components, store, componentDescriptor);
-        componentElementReader.readSecuritySchemas(components, store, componentDescriptor);
-        componentElementReader.readLinks(components, store, componentDescriptor);
-        componentElementReader.readPathItems(components, store, componentDescriptor);
-        componentElementReader.readCallbacks(components, store, componentDescriptor);
-        componentElementReader.readExamples(components, store, componentDescriptor);
-        componentElementReader.readResponses(components, store, componentDescriptor);
-        componentElementReader.readParameters(components, store, componentDescriptor);
+        componentElementReader.readRequestBodies(components, store, componentsDescriptor);
+        componentElementReader.readHeaders(components, store, componentsDescriptor);
+        componentElementReader.readSecuritySchemas(components, store, componentsDescriptor);
+        componentElementReader.readLinks(components, store, componentsDescriptor);
+        componentElementReader.readPathItems(components, store, componentsDescriptor);
+        componentElementReader.readCallbacks(components, store, componentsDescriptor);
+        componentElementReader.readExamples(components, store, componentsDescriptor);
+        componentElementReader.readResponses(components, store, componentsDescriptor);
+        componentElementReader.readParameters(components, store, componentsDescriptor);
 
-        return componentDescriptor;
+        return componentsDescriptor;
     }
 
 }
