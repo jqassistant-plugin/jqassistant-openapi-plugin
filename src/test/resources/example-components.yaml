@@ -1,109 +1,40 @@
-openapi: "3.0.0"
-info:
-  version: "1.0.0"
-  title: "Mock API for Testing"
-paths: {}
-
+openapi: 3.0.2
 components:
   requestBodies:
     UserBody:
       description: "A user object that needs to be added to the system"
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/User"
 
   headers:
-    MaxRate:
-      description: "Max rate header"
-      required: true
-      schema:
-        type: integer
-        format: int32
+    X-Request-Id:
+      description: "Request ID header"
 
   securitySchemes:
-    api_key:
+    ApiKeyAuth:
       type: apiKey
-      name: api_key
       in: header
+      name: X-Api-Key
 
   links:
-    GetUserByUsername:
-      operationId: "getUserByUsername"
-      parameters:
-        username: "$response.body#/username"
+    UserLink:
+      operationId: "getUser"
 
   callbacks:
-    webhook:
+    MyWebhook:
       '{$request.query.callbackUrl}':
         post:
           requestBody:
-            description: Callback payload
-            content:
-              'application/json':
-                schema:
-                  $ref: '#/components/schemas/SomePayload'
-          responses:
-            '200':
-              description: webhook processed!
+            description: "Webhook payload"
 
   examples:
-    user:
-      summary: "An example user"
-      value:
-        id: 1
-        username: "exampleuser"
-        firstName: "Example"
-        lastName: "User"
+    UserData:
+      summary: "Example user data"
 
   responses:
-    NotFound:
-      description: "Entity not found."
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/Error"
-    BadRequest:
-      description: "Invalid request."
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/Error"
+    Success:
+      description: "Successful operation"
 
   parameters:
-    skipParam:
-      name: skip
-      in: query
-      description: "number of items to skip"
-      required: true
-      schema:
-        type: integer
-        format: int32
-
-  schemas:
-    User:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        username:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-    Error:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
-    SomePayload:
-      type: object
-      properties:
-        message:
-          type: string
+    userId:
+      name: id
+      in: path
+      description: "User ID"
