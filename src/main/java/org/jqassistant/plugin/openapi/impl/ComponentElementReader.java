@@ -7,6 +7,7 @@ import io.swagger.v3.oas.models.callbacks.Callback;
 import io.swagger.v3.oas.models.examples.Example;
 import io.swagger.v3.oas.models.headers.Header;
 import io.swagger.v3.oas.models.links.Link;
+import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.parameters.RequestBody;
 import io.swagger.v3.oas.models.responses.ApiResponses;
@@ -111,6 +112,16 @@ public class ComponentElementReader {
                 requestBodyDescriptors.add(openAPIScannerPlugin.parseRequestBody(requestBody, store));
             }
             componentsDescriptor.getRequestBodies().addAll(requestBodyDescriptors);
+        }
+    }
+
+    public void readSchemas(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
+        if (components.getSchemas() != null && !components.getSchemas().isEmpty()) {
+            List<SchemaDescriptor> schemaDescriptors = new ArrayList<>();
+            for (Schema schema : components.getSchemas().values()) {
+                schemaDescriptors.add(openAPIScannerPlugin.parseSchemas(schema, store));
+            }
+            componentsDescriptor.getSchemas().addAll(schemaDescriptors);
         }
     }
 

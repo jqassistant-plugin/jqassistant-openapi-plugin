@@ -16,6 +16,7 @@ import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.links.Link;
 import io.swagger.v3.oas.models.media.Content;
 import io.swagger.v3.oas.models.media.MediaType;
+import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.parameters.RequestBody;
 import io.swagger.v3.oas.models.responses.ApiResponse;
@@ -458,6 +459,24 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
 
 
     /**
+     *
+     Parses an OpenAPI Schema object and creates a SchemaDescriptor based on the provided Schema and Store.
+     @param schema The Schema object to parse.
+     @param store The Store object used to create the SchemaDescriptor.
+     @return The parsed SchemaDescriptor object.
+     */
+    SchemaDescriptor parseSchemas(Schema schema, Store store){
+        SchemaDescriptor schemaDescriptor = store.create(SchemaDescriptor.class);
+
+        if(schemaDescriptor.getName() != null){
+            schemaDescriptor.setName(schema.getName());
+        }
+
+        return schemaDescriptor;
+    }
+
+
+    /**
 
      Parses an Example object and creates an ExampleDescriptor based on the provided Example and Store.
      @param example The Example object to parse.
@@ -484,6 +503,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
     ComponentsDescriptor parseComponents(Components components, Store store) {
         ComponentsDescriptor componentsDescriptor = store.create(ComponentsDescriptor.class);
 
+        componentElementReader.readSchemas(components, store, componentsDescriptor);
         componentElementReader.readRequestBodies(components, store, componentsDescriptor);
         componentElementReader.readHeaders(components, store, componentsDescriptor);
         componentElementReader.readSecuritySchemas(components, store, componentsDescriptor);
