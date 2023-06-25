@@ -465,7 +465,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
      @param store The Store object used to create the SchemaDescriptor.
      @return The parsed SchemaDescriptor object.
      */
-    SchemaDescriptor parseSchema(Schema schema, Store store){
+    SchemaDescriptor parseSchema(Schema<?> schema, Store store){
         SchemaDescriptor schemaDescriptor = store.create(SchemaDescriptor.class);
 
         if(schemaDescriptor.getName() != null){
