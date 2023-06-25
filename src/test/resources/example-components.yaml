@@ -1,12 +1,32 @@
 openapi: 3.0.2
+info:
+  title: Sample API
+  description: API description in Markdown.
+  version: 1.0.0
+paths: {}
+
 components:
+
+  schemas:
+    Category:
+      type: object
+      properties:
+        name:
+          type: string
+
   requestBodies:
     UserBody:
       description: "A user object that needs to be added to the system"
+      content:
+        application/json:
+          schema:
+            type: object
 
   headers:
     X-Request-Id:
       description: "Request ID header"
+      schema:
+        type: string
 
   securitySchemes:
     ApiKeyAuth:
@@ -24,6 +44,13 @@ components:
         post:
           requestBody:
             description: "Webhook payload"
+            content:
+              application/json:
+                schema:
+                  type: object
+          responses:
+            '200':
+              description: Successful response
 
   examples:
     UserData:
@@ -38,3 +65,6 @@ components:
       name: id
       in: path
       description: "User ID"
+      required: true
+      schema:
+        type: string
