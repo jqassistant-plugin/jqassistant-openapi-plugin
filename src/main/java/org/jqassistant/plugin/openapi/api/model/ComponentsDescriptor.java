@@ -4,8 +4,8 @@ import com.buschmais.xo.neo4j.api.annotation.Label;
 import com.buschmais.xo.neo4j.api.annotation.Relation;
 
 import java.util.List;
-@Label("Component")
-public interface ComponentsDescriptor extends OpenApiDescriptor {
+@Label("Components")
+public interface ComponentsDescriptor extends OpenApiDescriptor, DescriptionTemplate  {
 
     @Relation("INCLUDES")
     List<RequestBodyDescriptor> getRequestBodies();

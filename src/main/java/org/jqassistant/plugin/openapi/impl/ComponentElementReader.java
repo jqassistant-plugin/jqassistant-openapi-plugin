@@ -119,7 +119,7 @@ public class ComponentElementReader {
         if (components.getSchemas() != null && !components.getSchemas().isEmpty()) {
             List<SchemaDescriptor> schemaDescriptors = new ArrayList<>();
             for (Schema schema : components.getSchemas().values()) {
-                schemaDescriptors.add(openAPIScannerPlugin.parseSchemas(schema, store));
+                schemaDescriptors.add(openAPIScannerPlugin.parseSchema(schema, store));
             }
             componentsDescriptor.getSchemas().addAll(schemaDescriptors);
         }

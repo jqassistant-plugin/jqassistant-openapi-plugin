@@ -4,6 +4,6 @@ import com.buschmais.xo.neo4j.api.annotation.Label;
 
 @Label("Callback")
 public interface CallbackDescriptor extends OpenApiDescriptor{
-    String setRef();
+    String getRef();
     void setRef(String ref);
 }

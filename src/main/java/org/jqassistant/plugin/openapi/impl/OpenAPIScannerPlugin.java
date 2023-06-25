@@ -307,7 +307,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
                 parameterDescriptor.setName(parameter.getName());
             if(parameter.getIn() != null && !parameter.getIn().isEmpty())
                 parameterDescriptor.setLocation(ParameterDescriptor.ParameterLocation
-                        .valueOf(parameter.getIn()));
+                        .valueOf(parameter.getIn().toUpperCase()));
             if(parameter.getDescription() != null && !parameter.getDescription().isEmpty())
                 parameterDescriptor.setDescription(parameter.getDescription());
             if(parameter.getRequired() != null)
@@ -465,7 +465,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
      @param store The Store object used to create the SchemaDescriptor.
      @return The parsed SchemaDescriptor object.
      */
-    SchemaDescriptor parseSchemas(Schema schema, Store store){
+    SchemaDescriptor parseSchema(Schema schema, Store store){
         SchemaDescriptor schemaDescriptor = store.create(SchemaDescriptor.class);
 
         if(schemaDescriptor.getName() != null){

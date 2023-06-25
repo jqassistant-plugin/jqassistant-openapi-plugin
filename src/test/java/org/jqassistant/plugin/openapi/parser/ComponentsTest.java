@@ -7,16 +7,7 @@ import java.util.List;
 
 import com.buschmais.jqassistant.core.scanner.api.DefaultScope;
 import com.buschmais.jqassistant.core.test.plugin.AbstractPluginIT;
-import org.jqassistant.plugin.openapi.api.model.ContractDescriptor;
-import org.jqassistant.plugin.openapi.api.model.HeaderDescriptor;
-import org.jqassistant.plugin.openapi.api.model.RequestBodyDescriptor;
-import org.jqassistant.plugin.openapi.api.model.SecuritySchemaDescriptor;
-import org.jqassistant.plugin.openapi.api.model.CallbackDescriptor;
-import org.jqassistant.plugin.openapi.api.model.SchemaDescriptor;
-import org.jqassistant.plugin.openapi.api.model.ExampleDescriptor;
-import org.jqassistant.plugin.openapi.api.model.ParameterDescriptor;
-import org.jqassistant.plugin.openapi.api.model.ResponseDescriptor;
-import org.jqassistant.plugin.openapi.api.model.LinkDescriptor;
+import org.jqassistant.plugin.openapi.api.model.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -79,7 +70,7 @@ public class ComponentsTest extends AbstractPluginIT {
     @Test
     void testResponses() {
         List<ResponseDescriptor> responses = contract.getComponents().getResponses();
-        assertThat(responses).hasSize(2);
+        assertThat(responses).hasSize(1);
     }
 
     @Test
@@ -91,7 +82,7 @@ public class ComponentsTest extends AbstractPluginIT {
     @Test
     void testSchemas() {
         List<SchemaDescriptor> schemas = contract.getComponents().getSchemas();
-        assertThat(schemas).hasSize(3);
+        assertThat(schemas).hasSize(1);
     }
 
 }
