@@ -1,0 +1,35 @@
+<mxfile host="app.diagrams.net" modified="2023-04-25T11:01:08.632Z" agent="Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/112.0" etag="GUladTwM24Va-_YGycbT" version="21.2.1" type="device">
+  <diagram name="Page-1" id="PBCfjUG6kpBy3bA3aIBL">
+    <mxGraphModel dx="1434" dy="803" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="u2LlFkAJ_UAiBdXsyKba-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="u2LlFkAJ_UAiBdXsyKba-1" target="u2LlFkAJ_UAiBdXsyKba-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="u2LlFkAJ_UAiBdXsyKba-5" value="HAS_TAG" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="u2LlFkAJ_UAiBdXsyKba-4">
+          <mxGeometry x="0.1727" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="u2LlFkAJ_UAiBdXsyKba-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="u2LlFkAJ_UAiBdXsyKba-1" target="u2LlFkAJ_UAiBdXsyKba-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="u2LlFkAJ_UAiBdXsyKba-7" value="SERVED_BY" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="u2LlFkAJ_UAiBdXsyKba-6">
+          <mxGeometry x="-0.2308" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="u2LlFkAJ_UAiBdXsyKba-1" value="&lt;div&gt;&lt;ul&gt;&lt;li&gt;version&lt;/li&gt;&lt;li&gt;title&lt;/li&gt;&lt;li&gt;description&lt;/li&gt;&lt;li&gt;apiVersion&lt;/li&gt;&lt;li&gt;contact&lt;/li&gt;&lt;li&gt;(lots more)&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="380" y="380" width="140" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="u2LlFkAJ_UAiBdXsyKba-2" value="&lt;div align=&quot;center&quot;&gt;&lt;ul&gt;&lt;li&gt;url&lt;/li&gt;&lt;li&gt;&lt;div&gt;description&lt;/div&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&lt;div align=&quot;center&quot;&gt;(wird später&lt;/div&gt;&lt;div align=&quot;center&quot;&gt;vemrutlich erweitert)&lt;br&gt;&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;align=center;" vertex="1" parent="1">
+          <mxGeometry x="650" y="390" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="u2LlFkAJ_UAiBdXsyKba-3" value="&lt;ul&gt;&lt;li&gt;tag&lt;/li&gt;&lt;li&gt;description&lt;br&gt;&lt;/li&gt;&lt;/ul&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="50" y="395" width="110" height="110" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

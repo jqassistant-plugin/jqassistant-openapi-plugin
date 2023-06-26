@@ -33,4 +33,8 @@ public interface ContractDescriptor extends OpenApiDescriptor, FileDescriptor {
     @Relation("DEFINES")
     List<PathDescriptor> getPaths();
 
+    @Relation("DEFINES")
+    ComponentsDescriptor getComponents();
+    void setComponents(ComponentsDescriptor components);
+
 }

@@ -1,0 +1,70 @@
+openapi: 3.0.2
+info:
+  title: Sample API
+  description: API description in Markdown.
+  version: 1.0.0
+paths: {}
+
+components:
+
+  schemas:
+    Category:
+      type: object
+      properties:
+        name:
+          type: string
+
+  requestBodies:
+    UserBody:
+      description: "A user object that needs to be added to the system"
+      content:
+        application/json:
+          schema:
+            type: object
+
+  headers:
+    X-Request-Id:
+      description: "Request ID header"
+      schema:
+        type: string
+
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+
+  links:
+    UserLink:
+      operationId: "getUser"
+
+  callbacks:
+    MyWebhook:
+      '{$request.query.callbackUrl}':
+        post:
+          requestBody:
+            description: "Webhook payload"
+            content:
+              application/json:
+                schema:
+                  type: object
+          responses:
+            '200':
+              description: Successful response
+
+  examples:
+    UserData:
+      summary: "Example user data"
+
+  responses:
+    Success:
+      description: "Successful operation"
+
+  parameters:
+    userId:
+      name: id
+      in: path
+      description: "User ID"
+      required: true
+      schema:
+        type: string

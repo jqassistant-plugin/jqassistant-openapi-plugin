@@ -32,6 +32,7 @@ import static org.assertj.core.api.Assertions.*;
          }
      }
 
+
     @Test
     void scanMetaData(){
 
@@ -57,4 +58,6 @@ import static org.assertj.core.api.Assertions.*;
 
         store.commitTransaction();
     }
+
+
 }

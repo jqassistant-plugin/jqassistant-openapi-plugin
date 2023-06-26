@@ -6,7 +6,7 @@ import com.buschmais.xo.neo4j.api.annotation.Relation;
 import java.util.List;
 
 @Label("Operation")
-public interface OperationDescriptor extends OpenApiDescriptor{
+public interface OperationDescriptor extends OpenApiDescriptor, DescriptionTemplate {
     // TODO (TBD) implement tags
     // TODO (TBD) implement Security object
     // TODO (TBD) implement ExternalDocs object
@@ -19,8 +19,6 @@ public interface OperationDescriptor extends OpenApiDescriptor{
     void setType(HTTPMethod type);
     String getSummary();
     void setSummary(String summary);
-    String getDescription();
-    void setDescription(String description);
     String getOperationId();
     void setOperationId(String operationId);
     Boolean getIsDeprecated();
