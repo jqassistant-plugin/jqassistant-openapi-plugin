@@ -7,20 +7,19 @@ import io.swagger.v3.oas.models.callbacks.Callback;
 import io.swagger.v3.oas.models.examples.Example;
 import io.swagger.v3.oas.models.headers.Header;
 import io.swagger.v3.oas.models.links.Link;
-import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.parameters.RequestBody;
 import io.swagger.v3.oas.models.responses.ApiResponses;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.jqassistant.plugin.openapi.api.model.*;
-import org.jqassistant.plugin.openapi.api.model.jsonschema.ObjectPropertyDescriptor;
-import org.jqassistant.plugin.openapi.api.model.jsonschema.SchemaDescriptor;
-import org.jqassistant.plugin.openapi.impl.jsonschema.JSONSchemaObjectReader;
+import org.jqassistant.plugin.openapi.impl.util.SchemaReader;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.*;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class ComponentElementReader {
     /**
@@ -141,38 +140,26 @@ public class ComponentElementReader {
     static void readSchemas(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
         if (components.getSchemas() != null && !components.getSchemas().isEmpty()) {
 
-            List<org.jqassistant.plugin.openapi.api.model.jsonschema.SchemaDescriptor> schemaDescriptors = new ArrayList<>();
+            LinkedBlockingQueue<org.jqassistant.plugin.openapi.api.model.jsonschema.SchemaDescriptor> schemaDescriptors = new LinkedBlockingQueue<>();
+
+            ExecutorService es = Executors.newCachedThreadPool();
+            Lock lock = new ReentrantLock();
+            Condition newElementsPresent = lock.newCondition();
 
             for (String name : components.getSchemas().keySet()){
-                schemaDescriptors.add(parseSchema(name, components.getSchemas().get(name), store));
+                es.execute(new SchemaReader(schemaDescriptors, name, components.getSchemas().get(name), store, lock, newElementsPresent));
+            }
+
+            es.shutdown();
+
+            try {
+                while (!es.awaitTermination(10, TimeUnit.SECONDS));
+            } catch (InterruptedException e){
+                // TODO: Exception handling
             }
 
             componentsDescriptor.getSchemas().addAll(schemaDescriptors);
         }
-    }
-
-
-    /**
-     *
-     Parses an OpenAPI Schema object and creates a SchemaDescriptor based on the provided Schema and Store.
-     @param schema The Schema object to parse.
-     @param store The Store object used to create the SchemaDescriptor.
-     @return The parsed SchemaDescriptor object.
-     */
-    static org.jqassistant.plugin.openapi.api.model.jsonschema.SchemaDescriptor parseSchema(String name, Schema<?> schema, Store store) {
-        org.jqassistant.plugin.openapi.api.model.jsonschema.SchemaDescriptor schemaDescriptor = store.create(SchemaDescriptor.class);
-
-        JSONSchemaObjectReader or = new JSONSchemaObjectReader(store);
-
-        if (Objects.equals(schema.getType(), ObjectPropertyDescriptor.TYPE_NAME)){
-            schemaDescriptor.setObject(or.parseObject(name, schema));
-        } else {
-            throw new RuntimeException("Unknown schema!");
-        }
-
-
-        schemaDescriptor.setName(name);
-        return schemaDescriptor;
     }
 
     /**

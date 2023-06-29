@@ -9,12 +9,17 @@ import org.jqassistant.plugin.openapi.api.model.jsonschema.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.Condition;
 
 public class JSONSchemaObjectReader {
 
     private final Store store;
-    public JSONSchemaObjectReader(Store store){
+
+    private final Condition newEntryPresent;
+
+    public JSONSchemaObjectReader(Store store, Condition newEntryPresent) {
         this.store = store;
+        this.newEntryPresent = newEntryPresent;
     }
 
     PropertyDescriptor parseProperty(final String name, final Schema<?> schema) {
@@ -72,7 +77,12 @@ public class JSONSchemaObjectReader {
     ArrayPropertyDescriptor parseArray(final Schema<?> schema){
 
         ArrayPropertyDescriptor arrayPropertyDescriptor = parseDescription(schema, ArrayPropertyDescriptor.class);
-        arrayPropertyDescriptor.setItem(resolveSchema(schema.getItems().get$ref()));
+
+        if (schema.getItems().get$ref() == null){
+            // TODO: Problem: awaiting schema but could be primitive datatype
+        } else {
+            arrayPropertyDescriptor.setItem(resolveSchema(schema.getItems().get$ref()));
+        }
 
         return arrayPropertyDescriptor;
     }
@@ -131,7 +141,7 @@ public class JSONSchemaObjectReader {
         return parseDescriptionAndFormat(schema, StringPropertyDescriptor.class);
     }
 
-    final <D extends PropertyDescriptor> D parseDescription(Schema<?> schema, Class<D> clazz){
+    <D extends PropertyDescriptor> D parseDescription(Schema<?> schema, Class<D> clazz){
 
         D propertyDescriptor = store.create(clazz);
 
@@ -141,7 +151,7 @@ public class JSONSchemaObjectReader {
         return propertyDescriptor;
     }
 
-    final <D extends PropertyDescriptor> D parseDescriptionAndFormat(Schema<?> schema, Class<D> clazz) {
+    <D extends PropertyDescriptor> D parseDescriptionAndFormat(Schema<?> schema, Class<D> clazz) {
         D propertyDescriptor = parseDescription(schema, clazz);
 
         if (schema.getFormat() != null)
@@ -172,8 +182,14 @@ public class JSONSchemaObjectReader {
 
                 schemaDescriptor = compositeRowObject.get(compositeRowObject.getColumns().get(0), SchemaDescriptor.class);
             }
-        } else { // No Present Schema, create new Schema
-            System.out.println("UHM .. .yeh");
+        } else { // No Present Schema, wait till new are available
+            try {
+                newEntryPresent.await();
+
+                return resolveSchema(ref); // recursive call
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         return schemaDescriptor;

@@ -9,22 +9,16 @@ import com.buschmais.jqassistant.plugin.common.api.model.FileDescriptor;
 import com.buschmais.jqassistant.plugin.common.api.scanner.AbstractScannerPlugin;
 import com.buschmais.jqassistant.plugin.common.api.scanner.filesystem.FileResource;
 import io.swagger.v3.oas.models.*;
-import io.swagger.v3.oas.models.callbacks.Callback;
-import io.swagger.v3.oas.models.examples.Example;
-import io.swagger.v3.oas.models.headers.Header;
 import io.swagger.v3.oas.models.info.Contact;
-import io.swagger.v3.oas.models.links.Link;
 import io.swagger.v3.oas.models.media.Content;
 import io.swagger.v3.oas.models.media.MediaType;
 import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.parameters.RequestBody;
 import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
-import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
 import io.swagger.v3.oas.models.tags.Tag;
 import io.swagger.v3.parser.OpenAPIV3Parser;
-import io.swagger.v3.parser.core.models.ParseOptions;
 import org.jqassistant.plugin.openapi.api.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,11 +43,9 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
         ScannerContext context = scanner.getContext();
         final Store store = context.getStore();
 
-        ParseOptions parseOptions = new ParseOptions();
-        parseOptions.setFlatten(true);
         OpenAPIV3Parser parser = new OpenAPIV3Parser();
         LOG.info("Reading OpenAPI document from path: {}", path);
-        OpenAPI openAPI = parser.read(path, null, parseOptions); // TODO: Exception handling
+        OpenAPI openAPI = parser.read(path);
 
         // Retrieve the scanned file node from the scanner context.
         final FileDescriptor fileDescriptor = context.getCurrentDescriptor();

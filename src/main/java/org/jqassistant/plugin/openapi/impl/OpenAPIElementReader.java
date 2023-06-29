@@ -3,7 +3,6 @@ package org.jqassistant.plugin.openapi.impl;
 import com.buschmais.jqassistant.core.store.api.Store;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
-import org.checkerframework.checker.units.qual.C;
 import org.jqassistant.plugin.openapi.api.model.ContractDescriptor;
 
 public class OpenAPIElementReader {
