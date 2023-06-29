@@ -8,14 +8,7 @@ import org.jqassistant.plugin.openapi.api.model.ContractDescriptor;
 
 public class OpenAPIElementReader {
 
-    private final OpenAPIScannerPlugin openAPIScannerPlugin;
-
-    public OpenAPIElementReader(OpenAPIScannerPlugin openAPIScannerPlugin) {
-        this.openAPIScannerPlugin = openAPIScannerPlugin;
-    }
-
-
-    public void readInfo(OpenAPI openAPI, ContractDescriptor contractDescriptor, Store store){
+    public static void readInfo(OpenAPI openAPI, ContractDescriptor contractDescriptor, Store store){
         Info info = openAPI.getInfo();
         if(info != null) {
             if(info.getTitle() != null)
@@ -25,29 +18,27 @@ public class OpenAPIElementReader {
             if (info.getVersion() != null)
                 contractDescriptor.setApiVersion(info.getVersion());
             if (info.getContact() != null)
-                contractDescriptor.setContact(openAPIScannerPlugin.parseContact(info.getContact(), store));
+                contractDescriptor.setContact(OpenAPIScannerPlugin.parseContact(info.getContact(), store));
         }
     }
 
-    public void readTags(OpenAPI openAPI, ContractDescriptor contractDescriptor, Store store){
+    public static void readTags(OpenAPI openAPI, ContractDescriptor contractDescriptor, Store store){
         if(openAPI.getTags() != null && !openAPI.getTags().isEmpty())
-            contractDescriptor.getTags().addAll(openAPIScannerPlugin.parseTags(openAPI.getTags(), store));
+            contractDescriptor.getTags().addAll(OpenAPIScannerPlugin.parseTags(openAPI.getTags(), store));
     }
 
-    public void readServers(OpenAPI openAPI, ContractDescriptor contractDescriptor, Store store){
+    public static void readServers(OpenAPI openAPI, ContractDescriptor contractDescriptor, Store store){
         if(openAPI.getServers() != null && !openAPI.getServers().isEmpty())
-            contractDescriptor.getServers().addAll(openAPIScannerPlugin.parseSevers(openAPI.getServers(), store));
+            contractDescriptor.getServers().addAll(OpenAPIScannerPlugin.parseSevers(openAPI.getServers(), store));
     }
 
-    public void readPaths(OpenAPI openAPI, ContractDescriptor contractDescriptor, Store store){
+    public static void readPaths(OpenAPI openAPI, ContractDescriptor contractDescriptor, Store store){
         if(openAPI.getPaths() != null && !openAPI.getPaths().isEmpty())
-            contractDescriptor.getPaths().addAll(openAPIScannerPlugin.parsePaths(openAPI.getPaths(), store));
+            contractDescriptor.getPaths().addAll(OpenAPIScannerPlugin.parsePaths(openAPI.getPaths(), store));
     }
 
-    public void readComponents(OpenAPI openAPI, ContractDescriptor contractDescriptor, Store store){
-        ComponentElementReader cer = new ComponentElementReader(openAPIScannerPlugin);
-
+    public static void readComponents(OpenAPI openAPI, ContractDescriptor contractDescriptor, Store store){
         if (openAPI.getComponents() != null)
-            contractDescriptor.setComponents(cer.parseComponents(openAPI.getComponents(), store));
+            contractDescriptor.setComponents(ComponentElementReader.parseComponents(openAPI.getComponents(), store));
     }
 }

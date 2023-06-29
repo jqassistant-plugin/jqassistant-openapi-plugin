@@ -23,13 +23,6 @@ import java.util.Objects;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class ComponentElementReader {
-    private final OpenAPIScannerPlugin openAPIScannerPlugin; // TODO needed?
-
-    public ComponentElementReader(OpenAPIScannerPlugin openAPIScannerPlugin) {
-        this.openAPIScannerPlugin = openAPIScannerPlugin;
-    }
-
-
     /**
      * Parses OpenApi Components object to internal object
      *
@@ -37,7 +30,7 @@ public class ComponentElementReader {
      * @param store the store object to create internal object from
      * @return parsed internal ComponentsDescriptor object
      */
-    public ComponentsDescriptor parseComponents(Components components, Store store) {
+    static public ComponentsDescriptor parseComponents(Components components, Store store) {
         ComponentsDescriptor componentsDescriptor = store.create(ComponentsDescriptor.class);
 
         readSchemas(components, store, componentsDescriptor);
@@ -55,97 +48,97 @@ public class ComponentElementReader {
     }
 
 
-    void readParameters(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
+    static void readParameters(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
         if (components.getParameters() != null && !components.getParameters().isEmpty()) {
             List<ParameterDescriptor> parameterDescriptors = new ArrayList<>();
             for (Parameter parameter : components.getParameters().values()) {
                 List<Parameter> singleParameterList = new ArrayList<>();
                 singleParameterList.add(parameter);
-                parameterDescriptors.addAll(openAPIScannerPlugin.parseParameters(singleParameterList, store));
+                parameterDescriptors.addAll(OpenAPIScannerPlugin.parseParameters(singleParameterList, store));
             }
 
             componentsDescriptor.getParameters().addAll(parameterDescriptors);
         }
     }
 
-    void readResponses(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
+    static void readResponses(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
         if (components.getResponses() != null && !components.getResponses().isEmpty()) {
             ApiResponses apiResponses = new ApiResponses();
             apiResponses.putAll(components.getResponses());
-            List<ResponseDescriptor> responseDescriptors = openAPIScannerPlugin.parseResponses(apiResponses, store);
+            List<ResponseDescriptor> responseDescriptors = OpenAPIScannerPlugin.parseResponses(apiResponses, store);
             componentsDescriptor.getResponses().addAll(responseDescriptors);
         }
     }
 
-    void readExamples(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
+    static void readExamples(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
         if (components.getExamples() != null && !components.getExamples().isEmpty()) {
             List<ExampleDescriptor> exampleDescriptors = new ArrayList<>();
             for (Example example : components.getExamples().values()) {
-                exampleDescriptors.add(openAPIScannerPlugin.parseExamples(example, store));
+                exampleDescriptors.add(parseExamples(example, store));
             }
             componentsDescriptor.getExamples().addAll(exampleDescriptors);
         }
     }
 
-    void readCallbacks(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
+    static void readCallbacks(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
         if (components.getCallbacks() != null && !components.getCallbacks().isEmpty()) {
             List<CallbackDescriptor> callbackDescriptors = new ArrayList<>();
             for (Callback callback : components.getCallbacks().values()) {
-                callbackDescriptors.add(openAPIScannerPlugin.parseCallbacks(callback, store));
+                callbackDescriptors.add(parseCallbacks(callback, store));
             }
             componentsDescriptor.getCallBacks().addAll(callbackDescriptors);
         }
     }
 
-    void readLinks(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
+    static void readLinks(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
         if (components.getLinks() != null && !components.getLinks().isEmpty()) {
             List<LinkDescriptor> linkDescriptors = new ArrayList<>();
             for (Link link : components.getLinks().values()) {
-                linkDescriptors.add(openAPIScannerPlugin.parseLinks(link, store));
+                linkDescriptors.add(parseLinks(link, store));
             }
             componentsDescriptor.getLinks().addAll(linkDescriptors);
         }
     }
 
-    void readSecuritySchemas(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
+    static void readSecuritySchemas(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
         if (components.getSecuritySchemes() != null && !components.getSecuritySchemes().isEmpty()) {
             List<SecuritySchemaDescriptor> securitySchemaDescriptors = new ArrayList<>();
             for (SecurityScheme securityScheme : components.getSecuritySchemes().values()) {
-                securitySchemaDescriptors.add(openAPIScannerPlugin.parseSecuritySchemas(securityScheme, store));
+                securitySchemaDescriptors.add(parseSecuritySchemas(securityScheme, store));
             }
             componentsDescriptor.getSecuritySchemas().addAll(securitySchemaDescriptors);
         }
     }
 
-    void readHeaders(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
+    static void readHeaders(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
         if (components.getHeaders() != null && !components.getHeaders().isEmpty()) {
             List<HeaderDescriptor> headerDescriptors = new ArrayList<>();
             for (Header header : components.getHeaders().values()) {
-                headerDescriptors.add(openAPIScannerPlugin.parseHeaders(header, store));
+                headerDescriptors.add(parseHeaders(header, store));
             }
             componentsDescriptor.getHeaders().addAll(headerDescriptors);
         }
     }
 
-    void readPathItems(Components components, Store store, ComponentsDescriptor componentsDescriptor){
+    static void readPathItems(Components components, Store store, ComponentsDescriptor componentsDescriptor){
         if (components.getPathItems() != null && !components.getPathItems().isEmpty()) {
             Paths paths = new Paths();
             paths.putAll(components.getPathItems());
-            componentsDescriptor.getPaths().addAll(openAPIScannerPlugin.parsePaths(paths, store));
+            componentsDescriptor.getPaths().addAll(OpenAPIScannerPlugin.parsePaths(paths, store));
         }
     }
 
-    void readRequestBodies(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
+    static void readRequestBodies(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
         if (components.getRequestBodies() != null && !components.getRequestBodies().isEmpty()) {
             List<RequestBodyDescriptor> requestBodyDescriptors = new ArrayList<>();
             for (RequestBody requestBody : components.getRequestBodies().values()) {
-                requestBodyDescriptors.add(openAPIScannerPlugin.parseRequestBody(requestBody, store));
+                requestBodyDescriptors.add(OpenAPIScannerPlugin.parseRequestBody(requestBody, store));
             }
             componentsDescriptor.getRequestBodies().addAll(requestBodyDescriptors);
         }
     }
 
-    void readSchemas(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
+    static void readSchemas(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
         if (components.getSchemas() != null && !components.getSchemas().isEmpty()) {
 
             List<org.jqassistant.plugin.openapi.api.model.jsonschema.SchemaDescriptor> schemaDescriptors = new ArrayList<>();
@@ -166,7 +159,7 @@ public class ComponentElementReader {
      @param store The Store object used to create the SchemaDescriptor.
      @return The parsed SchemaDescriptor object.
      */
-    org.jqassistant.plugin.openapi.api.model.jsonschema.SchemaDescriptor parseSchema(String name, Schema<?> schema, Store store) {
+    static org.jqassistant.plugin.openapi.api.model.jsonschema.SchemaDescriptor parseSchema(String name, Schema<?> schema, Store store) {
         org.jqassistant.plugin.openapi.api.model.jsonschema.SchemaDescriptor schemaDescriptor = store.create(SchemaDescriptor.class);
 
         JSONSchemaObjectReader or = new JSONSchemaObjectReader(store);
@@ -180,5 +173,89 @@ public class ComponentElementReader {
 
         schemaDescriptor.setName(name);
         return schemaDescriptor;
+    }
+
+    /**
+     Parses a Callback object and creates a CallbackDescriptor based on the provided Callback and Store.
+     *
+     @param callback The Callback object to parse.
+     @param store The Store object used to create the CallbackDescriptor.
+     @return The parsed CallbackDescriptor object.
+     */
+    static CallbackDescriptor parseCallbacks(Callback callback, Store store){
+        CallbackDescriptor callbackDescriptor = store.create(CallbackDescriptor.class);
+
+        if(callback.get$ref() != null){
+            callbackDescriptor.setRef(callback.get$ref());
+        }
+
+        return callbackDescriptor;
+    }
+
+
+    /**
+     Parses a SecurityScheme object and creates a SecuritySchemaDescriptor based on the provided SecurityScheme and Store.
+     @param securityScheme The SecurityScheme object to parse.
+     @param store The Store object used to create the SecuritySchemaDescriptor.
+     @return The parsed SecuritySchemaDescriptor object.
+     */
+    static SecuritySchemaDescriptor parseSecuritySchemas(SecurityScheme securityScheme, Store store){
+        SecuritySchemaDescriptor securitySchemaDescriptor = store.create(SecuritySchemaDescriptor.class);
+
+        if(securityScheme.getName() != null){
+            securitySchemaDescriptor.setName(securityScheme.getName());
+        }
+
+        return securitySchemaDescriptor;
+    }
+
+    /**
+     Parses a Link object and creates a LinkDescriptor based on the provided Link and Store.
+     @param link The Link object to parse.
+     @param store The Store object used to create the LinkDescriptor.
+     @return The parsed LinkDescriptor object.
+     */
+    static LinkDescriptor parseLinks(Link link, Store store){
+        LinkDescriptor linkDescriptor = store.create(LinkDescriptor.class);
+
+        if(linkDescriptor.getOperationRef() != null){
+            linkDescriptor.setOperationRef(link.getOperationRef());
+        }
+
+        return linkDescriptor;
+    }
+
+    /**
+
+     Parses a Header object and creates a HeaderDescriptor based on the provided Header and Store.
+     @param header The Header object to parse.
+     @param store The Store object used to create the HeaderDescriptor.
+     @return The parsed HeaderDescriptor object.
+     */
+    static HeaderDescriptor parseHeaders(Header header, Store store){
+        HeaderDescriptor headerDescriptor = store.create(HeaderDescriptor.class);
+
+        if(headerDescriptor.getDescription() != null){
+            headerDescriptor.setDescription(header.getDescription());
+        }
+
+        return headerDescriptor;
+    }
+
+    /**
+
+     Parses an Example object and creates an ExampleDescriptor based on the provided Example and Store.
+     @param example The Example object to parse.
+     @param store The Store object used to create the ExampleDescriptor.
+     @return The parsed ExampleDescriptor object.
+     */
+    static ExampleDescriptor parseExamples(Example example, Store store){
+        ExampleDescriptor exampleDescriptor = store.create(ExampleDescriptor.class);
+
+        if(exampleDescriptor.getDescription() != null){
+            exampleDescriptor.setDescription(example.getDescription());
+        }
+
+        return exampleDescriptor;
     }
 }

@@ -38,15 +38,6 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
 
     private static final Logger LOG = LoggerFactory.getLogger(OpenAPIScannerPlugin.class);
 
-    private final OpenAPIElementReader openAPIElementReader;
-
-    private final ComponentElementReader componentElementReader;
-
-    public OpenAPIScannerPlugin() {
-        this.componentElementReader = new ComponentElementReader(this);
-        this.openAPIElementReader = new OpenAPIElementReader(this);
-    }
-
     @Override
     public boolean accepts(FileResource fileResource, String path, Scope scope) throws IOException {
         return path.toLowerCase().endsWith(".yaml");  // TODO maybe add more testing
@@ -71,15 +62,15 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
         contractDescriptor.setApiVersion(openAPI.getOpenapi());
 
         LOG.info("Reading Info object");
-        openAPIElementReader.readInfo(openAPI, contractDescriptor, store);
+        OpenAPIElementReader.readInfo(openAPI, contractDescriptor, store);
         LOG.info("Reading OpeanAPI Tags");
-        openAPIElementReader.readTags(openAPI, contractDescriptor, store);
+        OpenAPIElementReader.readTags(openAPI, contractDescriptor, store);
         LOG.info("Reading OpeanAPI Servers");
-        openAPIElementReader.readServers(openAPI, contractDescriptor, store);
+        OpenAPIElementReader.readServers(openAPI, contractDescriptor, store);
         LOG.info("Reading OpeanAPI Paths");
-        openAPIElementReader.readPaths(openAPI, contractDescriptor, store);
+        OpenAPIElementReader.readPaths(openAPI, contractDescriptor, store);
         LOG.info("Reading OpeanAPI Components");
-        openAPIElementReader.readComponents(openAPI, contractDescriptor, store);
+        OpenAPIElementReader.readComponents(openAPI, contractDescriptor, store);
 
         LOG.info("...finished");
         return contractDescriptor;
@@ -92,7 +83,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
      * @param store store object to create internal object from
      * @return list of parsed internal objects
      */
-    List<PathDescriptor> parsePaths (Paths paths, Store store){
+    static List<PathDescriptor> parsePaths (Paths paths, Store store){
         List<PathDescriptor> pathDescriptors = new ArrayList<>();
         paths.forEach((pathname, pathItem) -> pathDescriptors.add(parsePath(pathname, pathItem, store)));
         return pathDescriptors;
@@ -106,7 +97,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
      * @param store store object to create internal object from
      * @return parsed internal objects
      */
-    PathDescriptor parsePath (String pathUrl, PathItem pathItem, Store store){
+    static PathDescriptor parsePath (String pathUrl, PathItem pathItem, Store store){
         PathDescriptor pathDescriptor = store.create(PathDescriptor.class);
 
         pathDescriptor.setPathUrl(pathUrl);
@@ -156,7 +147,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
      * @param store store object to create internal object from
      * @return parsed internal objects
      */
-    OperationDescriptor parseOperation(Operation operation, OperationDescriptor.HTTPMethod httpMethod, Store store){
+    static OperationDescriptor parseOperation(Operation operation, OperationDescriptor.HTTPMethod httpMethod, Store store){
         // TODO tags
         // TODO externalDocs
         // TODO security
@@ -194,7 +185,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
      * @param store store object to create internal object from
      * @return parsed internal objects
      */
-    RequestBodyDescriptor parseRequestBody(RequestBody requestBody, Store store){
+    static RequestBodyDescriptor parseRequestBody(RequestBody requestBody, Store store){
         RequestBodyDescriptor requestBodyDescriptor = store.create(RequestBodyDescriptor.class);
 
         // read properties
@@ -217,7 +208,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
      * @param store store object to create internal object from
      * @return list of parsed internal objects
      */
-    List<ResponseDescriptor> parseResponses(ApiResponses responses, Store store){
+    static List<ResponseDescriptor> parseResponses(ApiResponses responses, Store store){
         List<ResponseDescriptor> retResponses = new ArrayList<>();
         responses.forEach((s, apiResponse) -> retResponses.add(parseResponse(s, apiResponse, store)));
         return retResponses;
@@ -231,7 +222,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
      * @param store store object to create internal object from
      * @return parsed internal objects
      */
-    ResponseDescriptor parseResponse(String statusCodeOrDefault, ApiResponse response, Store store){
+    static ResponseDescriptor parseResponse(String statusCodeOrDefault, ApiResponse response, Store store){
         // TODO implement mediaTypeObject parsing
 
         ResponseDescriptor responseDescriptor = store.create(ResponseDescriptor.class);
@@ -262,7 +253,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
      * @param store store object to create internal object from
      * @return list of parsed internal mediaType objects
      */
-    List<MediaTypeObjectDescriptor> parseContent(Content content, Store store){
+    static List<MediaTypeObjectDescriptor> parseContent(Content content, Store store){
         List<MediaTypeObjectDescriptor> retMediaTypeObjects = new ArrayList<>();
         content.forEach((mediaType, mediaTypeObject) -> retMediaTypeObjects.add(parseMediaTypeObject(mediaType, mediaTypeObject, store)));
         return retMediaTypeObjects;
@@ -276,7 +267,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
      * @param store store object to create internal object from
      * @return parsed internal objects
      */
-    MediaTypeObjectDescriptor parseMediaTypeObject(String mediaType, MediaType mediaTypeObject, Store store){
+    static MediaTypeObjectDescriptor parseMediaTypeObject(String mediaType, MediaType mediaTypeObject, Store store){
         // TODO implement examples
         // TODO implement encoding
         // TODO implement schemas
@@ -296,7 +287,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
      * @param store store object to create internal object from
      * @return list of parsed internal objects
      */
-    List<ParameterDescriptor> parseParameters(List<Parameter> parameters, Store store){
+    static List<ParameterDescriptor> parseParameters(List<Parameter> parameters, Store store){
         // TODO implement scanning of further props (might also be still missing in param descriptor)
 
         List<ParameterDescriptor> retParameters = new ArrayList<>();
@@ -332,7 +323,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
      * @param store Store object to create Internal Object from
      * @return parsed internal Object
      */
-    ContactDescriptor parseContact(Contact contact, Store store){
+    static ContactDescriptor parseContact(Contact contact, Store store){
         ContactDescriptor contactDescriptor = store.create(ContactDescriptor.class);
 
         if(contact.getName() != null)
@@ -352,7 +343,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
      * @param store Store object to create Internal Object from
      * @return parsed internal Object
      */
-    List<TagDescriptor> parseTags(List<Tag> tags, Store store){
+    static List<TagDescriptor> parseTags(List<Tag> tags, Store store){
         ArrayList<TagDescriptor> retTags = new ArrayList<>();
 
         for (Tag tag : tags){
@@ -375,7 +366,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
      * @param store Store object to create Internal Object from
      * @return parsed internal Object
      */
-    List<ServerDescriptor> parseSevers(List<Server> servers, Store store){
+    static List<ServerDescriptor> parseSevers(List<Server> servers, Store store){
         ArrayList<ServerDescriptor> retServers = new ArrayList<>();
 
         for (Server server : servers){
@@ -390,89 +381,5 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
         }
 
         return retServers;
-    }
-
-    /**
-     Parses a Callback object and creates a CallbackDescriptor based on the provided Callback and Store.
-     *
-     @param callback The Callback object to parse.
-     @param store The Store object used to create the CallbackDescriptor.
-     @return The parsed CallbackDescriptor object.
-     */
-    CallbackDescriptor parseCallbacks(Callback callback, Store store){
-        CallbackDescriptor callbackDescriptor = store.create(CallbackDescriptor.class);
-
-        if(callback.get$ref() != null){
-            callbackDescriptor.setRef(callback.get$ref());
-        }
-
-        return callbackDescriptor;
-    }
-
-
-    /**
-     Parses a SecurityScheme object and creates a SecuritySchemaDescriptor based on the provided SecurityScheme and Store.
-     @param securityScheme The SecurityScheme object to parse.
-     @param store The Store object used to create the SecuritySchemaDescriptor.
-     @return The parsed SecuritySchemaDescriptor object.
-     */
-    SecuritySchemaDescriptor parseSecuritySchemas(SecurityScheme securityScheme, Store store){
-        SecuritySchemaDescriptor securitySchemaDescriptor = store.create(SecuritySchemaDescriptor.class);
-
-        if(securityScheme.getName() != null){
-            securitySchemaDescriptor.setName(securityScheme.getName());
-        }
-
-        return securitySchemaDescriptor;
-    }
-
-    /**
-     Parses a Link object and creates a LinkDescriptor based on the provided Link and Store.
-     @param link The Link object to parse.
-     @param store The Store object used to create the LinkDescriptor.
-     @return The parsed LinkDescriptor object.
-     */
-    LinkDescriptor parseLinks(Link link, Store store){
-        LinkDescriptor linkDescriptor = store.create(LinkDescriptor.class);
-
-        if(linkDescriptor.getOperationRef() != null){
-            linkDescriptor.setOperationRef(link.getOperationRef());
-        }
-
-        return linkDescriptor;
-    }
-
-    /**
-
-     Parses a Header object and creates a HeaderDescriptor based on the provided Header and Store.
-     @param header The Header object to parse.
-     @param store The Store object used to create the HeaderDescriptor.
-     @return The parsed HeaderDescriptor object.
-     */
-    HeaderDescriptor parseHeaders(Header header, Store store){
-        HeaderDescriptor headerDescriptor = store.create(HeaderDescriptor.class);
-
-        if(headerDescriptor.getDescription() != null){
-            headerDescriptor.setDescription(header.getDescription());
-        }
-
-        return headerDescriptor;
-    }
-
-    /**
-
-     Parses an Example object and creates an ExampleDescriptor based on the provided Example and Store.
-     @param example The Example object to parse.
-     @param store The Store object used to create the ExampleDescriptor.
-     @return The parsed ExampleDescriptor object.
-     */
-    ExampleDescriptor parseExamples(Example example, Store store){
-        ExampleDescriptor exampleDescriptor = store.create(ExampleDescriptor.class);
-
-        if(exampleDescriptor.getDescription() != null){
-            exampleDescriptor.setDescription(example.getDescription());
-        }
-
-        return exampleDescriptor;
     }
 }
