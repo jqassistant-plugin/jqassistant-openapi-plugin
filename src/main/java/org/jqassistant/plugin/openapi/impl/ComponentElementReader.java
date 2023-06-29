@@ -13,19 +13,49 @@ import io.swagger.v3.oas.models.parameters.RequestBody;
 import io.swagger.v3.oas.models.responses.ApiResponses;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.jqassistant.plugin.openapi.api.model.*;
+import org.jqassistant.plugin.openapi.api.model.jsonschema.ObjectPropertyDescriptor;
+import org.jqassistant.plugin.openapi.api.model.jsonschema.SchemaDescriptor;
+import org.jqassistant.plugin.openapi.impl.jsonschema.JSONSchemaObjectReader;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class ComponentElementReader {
-    private final OpenAPIScannerPlugin openAPIScannerPlugin;
+    private final OpenAPIScannerPlugin openAPIScannerPlugin; // TODO needed?
 
     public ComponentElementReader(OpenAPIScannerPlugin openAPIScannerPlugin) {
         this.openAPIScannerPlugin = openAPIScannerPlugin;
     }
 
 
-    public void readParameters(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
+    /**
+     * Parses OpenApi Components object to internal object
+     *
+     * @param components the OpenApi Components object to parse
+     * @param store the store object to create internal object from
+     * @return parsed internal ComponentsDescriptor object
+     */
+    public ComponentsDescriptor parseComponents(Components components, Store store) {
+        ComponentsDescriptor componentsDescriptor = store.create(ComponentsDescriptor.class);
+
+        readSchemas(components, store, componentsDescriptor);
+        readRequestBodies(components, store, componentsDescriptor);
+        readHeaders(components, store, componentsDescriptor);
+        readSecuritySchemas(components, store, componentsDescriptor);
+        readLinks(components, store, componentsDescriptor);
+        readPathItems(components, store, componentsDescriptor);
+        readCallbacks(components, store, componentsDescriptor);
+        readExamples(components, store, componentsDescriptor);
+        readResponses(components, store, componentsDescriptor);
+        readParameters(components, store, componentsDescriptor);
+
+        return componentsDescriptor;
+    }
+
+
+    void readParameters(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
         if (components.getParameters() != null && !components.getParameters().isEmpty()) {
             List<ParameterDescriptor> parameterDescriptors = new ArrayList<>();
             for (Parameter parameter : components.getParameters().values()) {
@@ -38,7 +68,7 @@ public class ComponentElementReader {
         }
     }
 
-    public void readResponses(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
+    void readResponses(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
         if (components.getResponses() != null && !components.getResponses().isEmpty()) {
             ApiResponses apiResponses = new ApiResponses();
             apiResponses.putAll(components.getResponses());
@@ -47,7 +77,7 @@ public class ComponentElementReader {
         }
     }
 
-    public void readExamples(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
+    void readExamples(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
         if (components.getExamples() != null && !components.getExamples().isEmpty()) {
             List<ExampleDescriptor> exampleDescriptors = new ArrayList<>();
             for (Example example : components.getExamples().values()) {
@@ -57,7 +87,7 @@ public class ComponentElementReader {
         }
     }
 
-    public void readCallbacks(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
+    void readCallbacks(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
         if (components.getCallbacks() != null && !components.getCallbacks().isEmpty()) {
             List<CallbackDescriptor> callbackDescriptors = new ArrayList<>();
             for (Callback callback : components.getCallbacks().values()) {
@@ -67,7 +97,7 @@ public class ComponentElementReader {
         }
     }
 
-    public void readLinks(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
+    void readLinks(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
         if (components.getLinks() != null && !components.getLinks().isEmpty()) {
             List<LinkDescriptor> linkDescriptors = new ArrayList<>();
             for (Link link : components.getLinks().values()) {
@@ -77,7 +107,7 @@ public class ComponentElementReader {
         }
     }
 
-    public void readSecuritySchemas(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
+    void readSecuritySchemas(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
         if (components.getSecuritySchemes() != null && !components.getSecuritySchemes().isEmpty()) {
             List<SecuritySchemaDescriptor> securitySchemaDescriptors = new ArrayList<>();
             for (SecurityScheme securityScheme : components.getSecuritySchemes().values()) {
@@ -87,7 +117,7 @@ public class ComponentElementReader {
         }
     }
 
-    public void readHeaders(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
+    void readHeaders(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
         if (components.getHeaders() != null && !components.getHeaders().isEmpty()) {
             List<HeaderDescriptor> headerDescriptors = new ArrayList<>();
             for (Header header : components.getHeaders().values()) {
@@ -97,7 +127,7 @@ public class ComponentElementReader {
         }
     }
 
-    public void readPathItems(Components components, Store store, ComponentsDescriptor componentsDescriptor){
+    void readPathItems(Components components, Store store, ComponentsDescriptor componentsDescriptor){
         if (components.getPathItems() != null && !components.getPathItems().isEmpty()) {
             Paths paths = new Paths();
             paths.putAll(components.getPathItems());
@@ -105,7 +135,7 @@ public class ComponentElementReader {
         }
     }
 
-    public void readRequestBodies(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
+    void readRequestBodies(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
         if (components.getRequestBodies() != null && !components.getRequestBodies().isEmpty()) {
             List<RequestBodyDescriptor> requestBodyDescriptors = new ArrayList<>();
             for (RequestBody requestBody : components.getRequestBodies().values()) {
@@ -115,14 +145,40 @@ public class ComponentElementReader {
         }
     }
 
-    public void readSchemas(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
+    void readSchemas(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
         if (components.getSchemas() != null && !components.getSchemas().isEmpty()) {
-            List<SchemaDescriptor> schemaDescriptors = new ArrayList<>();
-            for (Schema<?> schema : components.getSchemas().values()) {
-                schemaDescriptors.add(openAPIScannerPlugin.parseSchema(schema, store));
+
+            List<org.jqassistant.plugin.openapi.api.model.jsonschema.SchemaDescriptor> schemaDescriptors = new ArrayList<>();
+
+            for (String name : components.getSchemas().keySet()){
+                schemaDescriptors.add(parseSchema(name, components.getSchemas().get(name), store));
             }
+
             componentsDescriptor.getSchemas().addAll(schemaDescriptors);
         }
     }
 
+
+    /**
+     *
+     Parses an OpenAPI Schema object and creates a SchemaDescriptor based on the provided Schema and Store.
+     @param schema The Schema object to parse.
+     @param store The Store object used to create the SchemaDescriptor.
+     @return The parsed SchemaDescriptor object.
+     */
+    org.jqassistant.plugin.openapi.api.model.jsonschema.SchemaDescriptor parseSchema(String name, Schema<?> schema, Store store) {
+        org.jqassistant.plugin.openapi.api.model.jsonschema.SchemaDescriptor schemaDescriptor = store.create(SchemaDescriptor.class);
+
+        JSONSchemaObjectReader or = new JSONSchemaObjectReader(store);
+
+        if (Objects.equals(schema.getType(), ObjectPropertyDescriptor.TYPE_NAME)){
+            schemaDescriptor.setObject(or.parseObject(name, schema));
+        } else {
+            throw new RuntimeException("Unknown schema!");
+        }
+
+
+        schemaDescriptor.setName(name);
+        return schemaDescriptor;
+    }
 }

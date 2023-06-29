@@ -3,11 +3,13 @@ package org.jqassistant.plugin.openapi.api.model.jsonschema;
 import com.buschmais.xo.neo4j.api.annotation.Label;
 import com.buschmais.xo.neo4j.api.annotation.Relation;
 
-@Label("ARRAY")
+@Label("Array")
 public interface ArrayPropertyDescriptor extends PropertyDescriptor {
 
-    @Relation("HAS_ITEMS")
-    PropertyDescriptor getItem();
+    String TYPE_NAME = "array";
 
-    void setItem(PropertyDescriptor item);
+    @Relation("HAS_ITEMS")
+    SchemaDescriptor getItem();
+
+    void setItem(SchemaDescriptor item);
 }

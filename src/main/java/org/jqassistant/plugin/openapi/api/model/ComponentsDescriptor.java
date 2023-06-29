@@ -5,7 +5,7 @@ import com.buschmais.xo.neo4j.api.annotation.Relation;
 
 import java.util.List;
 @Label("Components")
-public interface ComponentsDescriptor extends OpenApiDescriptor{
+public interface ComponentsDescriptor extends OpenApiDescriptor {
 
     @Relation("INCLUDES")
     List<RequestBodyDescriptor> getRequestBodies();
@@ -35,7 +35,7 @@ public interface ComponentsDescriptor extends OpenApiDescriptor{
     List<ParameterDescriptor> getParameters();
 
     @Relation("INCLUDES")
-    List<SchemaDescriptor> getSchemas();
+    List<org.jqassistant.plugin.openapi.api.model.jsonschema.SchemaDescriptor> getSchemas();
 
 
 }

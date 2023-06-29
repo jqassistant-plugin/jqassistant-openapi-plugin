@@ -30,10 +30,10 @@ public interface ContractDescriptor extends OpenApiDescriptor, FileDescriptor {
     @Relation("HAS_TAG")
     List<TagDescriptor> getTags();
 
-    @Relation("DEFINES")
+    @Relation("DEFINES_PATH")
     List<PathDescriptor> getPaths();
 
-    @Relation("DEFINES")
+    @Relation("DEFINES_COMPONENTS")
     ComponentsDescriptor getComponents();
     void setComponents(ComponentsDescriptor components);
 

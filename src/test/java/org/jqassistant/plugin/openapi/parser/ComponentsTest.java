@@ -81,7 +81,7 @@ public class ComponentsTest extends AbstractPluginIT {
 
     @Test
     void testSchemas() {
-        List<SchemaDescriptor> schemas = contract.getComponents().getSchemas();
+        List<org.jqassistant.plugin.openapi.api.model.jsonschema.SchemaDescriptor> schemas = contract.getComponents().getSchemas();
         assertThat(schemas).hasSize(1);
     }
 

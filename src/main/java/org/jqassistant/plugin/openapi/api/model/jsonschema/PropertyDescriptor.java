@@ -7,7 +7,7 @@ import com.buschmais.xo.neo4j.api.annotation.Label;
 @Label("Property")
 public interface PropertyDescriptor extends JsonSchemaDescriptor {
     String getName();
-    void setName();
+    void setName(String name);
 
     String getDescription();
     void setDescription(String Description);

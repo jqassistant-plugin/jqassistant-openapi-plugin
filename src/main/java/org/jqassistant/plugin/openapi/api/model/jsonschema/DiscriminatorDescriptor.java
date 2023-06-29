@@ -5,7 +5,7 @@ import com.buschmais.xo.neo4j.api.annotation.Relation;
 
 import java.util.List;
 
-@Label("DISCRIMINATOR")
+@Label("Discriminator")
 public interface DiscriminatorDescriptor extends JsonSchemaDescriptor {
     String getPropertyName();
     void setPropertyName(String propertyName);

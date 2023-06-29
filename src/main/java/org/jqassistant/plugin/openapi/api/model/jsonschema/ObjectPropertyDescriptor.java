@@ -3,11 +3,14 @@ package org.jqassistant.plugin.openapi.api.model.jsonschema;
 import com.buschmais.xo.neo4j.api.annotation.Label;
 import com.buschmais.xo.neo4j.api.annotation.Relation;
 
-@Label("OBJECT")
+import java.util.List;
+
+@Label("Object")
 public interface ObjectPropertyDescriptor extends PropertyDescriptor {
 
-    @Relation("HAS_PROPERTY")
-    PropertyDescriptor getProperty();
+    String TYPE_NAME = "object";
 
-    void setProperty(PropertyDescriptor property);
+    @Relation("HAS_PROPERTY")
+    List<PropertyDescriptor> getProperties();
+
 }

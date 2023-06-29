@@ -16,7 +16,6 @@ import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.links.Link;
 import io.swagger.v3.oas.models.media.Content;
 import io.swagger.v3.oas.models.media.MediaType;
-import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.parameters.RequestBody;
 import io.swagger.v3.oas.models.responses.ApiResponse;
@@ -25,6 +24,7 @@ import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
 import io.swagger.v3.oas.models.tags.Tag;
 import io.swagger.v3.parser.OpenAPIV3Parser;
+import io.swagger.v3.parser.core.models.ParseOptions;
 import org.jqassistant.plugin.openapi.api.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,9 +58,11 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
         ScannerContext context = scanner.getContext();
         final Store store = context.getStore();
 
+        ParseOptions parseOptions = new ParseOptions();
+        parseOptions.setFlatten(true);
         OpenAPIV3Parser parser = new OpenAPIV3Parser();
         LOG.info("Reading OpenAPI document from path: {}", path);
-        OpenAPI openAPI = parser.read(path); // TODO: Exception handling
+        OpenAPI openAPI = parser.read(path, null, parseOptions); // TODO: Exception handling
 
         // Retrieve the scanned file node from the scanner context.
         final FileDescriptor fileDescriptor = context.getCurrentDescriptor();
@@ -457,25 +459,6 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
         return headerDescriptor;
     }
 
-
-    /**
-     *
-     Parses an OpenAPI Schema object and creates a SchemaDescriptor based on the provided Schema and Store.
-     @param schema The Schema object to parse.
-     @param store The Store object used to create the SchemaDescriptor.
-     @return The parsed SchemaDescriptor object.
-     */
-    SchemaDescriptor parseSchema(Schema<?> schema, Store store){
-        SchemaDescriptor schemaDescriptor = store.create(SchemaDescriptor.class);
-
-        if(schemaDescriptor.getName() != null){
-            schemaDescriptor.setName(schema.getName());
-        }
-
-        return schemaDescriptor;
-    }
-
-
     /**
 
      Parses an Example object and creates an ExampleDescriptor based on the provided Example and Store.
@@ -492,29 +475,4 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
 
         return exampleDescriptor;
     }
-
-    /**
-     * Parses OpenApi Components object to internal object
-     *
-     * @param components the OpenApi Components object to parse
-     * @param store the store object to create internal object from
-     * @return parsed internal ComponentsDescriptor object
-     */
-    ComponentsDescriptor parseComponents(Components components, Store store) {
-        ComponentsDescriptor componentsDescriptor = store.create(ComponentsDescriptor.class);
-
-        componentElementReader.readSchemas(components, store, componentsDescriptor);
-        componentElementReader.readRequestBodies(components, store, componentsDescriptor);
-        componentElementReader.readHeaders(components, store, componentsDescriptor);
-        componentElementReader.readSecuritySchemas(components, store, componentsDescriptor);
-        componentElementReader.readLinks(components, store, componentsDescriptor);
-        componentElementReader.readPathItems(components, store, componentsDescriptor);
-        componentElementReader.readCallbacks(components, store, componentsDescriptor);
-        componentElementReader.readExamples(components, store, componentsDescriptor);
-        componentElementReader.readResponses(components, store, componentsDescriptor);
-        componentElementReader.readParameters(components, store, componentsDescriptor);
-
-        return componentsDescriptor;
-    }
-
 }

@@ -1,0 +1,9 @@
+openapi: 3.0.3
+components:
+  schemas:
+    AnArray:
+      type: object
+      properties:
+        theArray:
+          type: array
+          items: string

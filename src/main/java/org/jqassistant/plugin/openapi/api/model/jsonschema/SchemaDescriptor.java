@@ -2,6 +2,7 @@ package org.jqassistant.plugin.openapi.api.model.jsonschema;
 
 import com.buschmais.xo.neo4j.api.annotation.Label;
 import com.buschmais.xo.neo4j.api.annotation.Relation;
+import org.jqassistant.plugin.openapi.api.model.OpenApiDescriptor;
 
 import java.util.List;
 
@@ -10,8 +11,10 @@ public interface SchemaDescriptor extends JsonSchemaDescriptor {
     String getName();
     void setName(String name);
 
-    @Relation("HAS_PROPERTY")
-    List<PropertyDescriptor> getProperties();
+    @Relation("IS")
+    ObjectPropertyDescriptor getObject();
+
+    void setObject(ObjectPropertyDescriptor objectPropertyDescriptor);
 
     @Relation("ALL_OF")
     DiscriminatorDescriptor getDiscriminatorAllOf();

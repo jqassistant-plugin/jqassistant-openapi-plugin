@@ -1,7 +1,14 @@
 package org.jqassistant.plugin.openapi.api.model.jsonschema;
 
-public interface EnumStringPropertyDescriptor extends StringPropertyDescriptor {
-    Enum getValues();
+import com.buschmais.xo.neo4j.api.annotation.Label;
+import com.buschmais.xo.neo4j.api.annotation.Relation;
 
-    void setEnum(Enum values);
+import java.util.List;
+
+@Label("Enum")
+public interface EnumStringPropertyDescriptor extends StringPropertyDescriptor {
+    @Relation("HAS_VALUES")
+    List<EnumValueDescriptor> getValues();
+
+    void setValues(List<EnumValueDescriptor> values);
 }
