@@ -2,15 +2,16 @@ package org.jqassistant.plugin.openapi.parser;
 
 import com.buschmais.jqassistant.core.test.plugin.AbstractPluginIT;
 import org.jqassistant.plugin.openapi.api.model.SchemaDescriptor;
+import org.jqassistant.plugin.openapi.impl.util.InvalidSchemaRuntimeException;
 import org.jqassistant.plugin.openapi.impl.util.Resolver;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.Assert.assertThrows;
 
-public class ResolverTest extends AbstractPluginIT {
+class ResolverTest extends AbstractPluginIT {
 
     Resolver resolver;
     @BeforeEach
@@ -55,26 +56,11 @@ public class ResolverTest extends AbstractPluginIT {
 
         String validSchemaReference = "#/components/schemas/foo";
 
-        try {
-            resolver.createIfAbsent("invalid/reference/Schema");
-            Assertions.fail("resolved invalid reference");
-        } catch (Exception e){
-            assertThat(e).isNotNull();
-        }
+        assertThrows(InvalidSchemaRuntimeException.class, () -> resolver.createIfAbsent("invalid/reference/Schema"));
 
-        try {
-            resolver.createIfAbsent(validSchemaReference + "/nope");
-            Assertions.fail("resolved invalid reference");
-        } catch (Exception e){
-            assertThat(e).isNotNull();
-        }
+        assertThrows(InvalidSchemaRuntimeException.class, () -> resolver.createIfAbsent(validSchemaReference + "/nope"));
 
-        try {
-            resolver.createIfAbsent("name");
-            Assertions.fail("resolved invalid reference");
-        } catch (Exception e){
-            assertThat(e).isNotNull();
-        }
+        assertThrows(InvalidSchemaRuntimeException.class, () -> resolver.createIfAbsent("name"));
 
     }
 }

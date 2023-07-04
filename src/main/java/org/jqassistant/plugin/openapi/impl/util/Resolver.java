@@ -44,7 +44,7 @@ public class Resolver {
         || !splits[0].equals("#")
         || !splits[1].equals("components")
         || !splits[2].equals("schemas")){
-            throw new RuntimeException("Invalid Schema Reference: " + ref);
+            throw new InvalidSchemaRuntimeException("Invalid Schema Reference: " + ref);
         }
 
         return splits[3];
