@@ -8,6 +8,10 @@ import java.util.Map;
 
 public class Resolver {
 
+    private static final String REFERENCE_PEFIX = "#" ;
+    private static final String COMPONENTS_PREFIX = "components";
+    private static final String SCHEMA_PREFIX = "schemas";
+
     private final Map<String, SchemaDescriptor> schemaMap;
     private final Store store;
 
@@ -39,11 +43,16 @@ public class Resolver {
      * @return the object name
      */
     private static String refToName(String ref){
+
+        if(ref == null)
+            throw new InvalidSchemaRuntimeException("Invalid Schema Reference: null");
+
         String[] splits = ref.split("/");
+
         if (splits.length != 4
-        || !splits[0].equals("#")
-        || !splits[1].equals("components")
-        || !splits[2].equals("schemas")){
+        || !splits[0].equals(REFERENCE_PEFIX)
+        || !splits[1].equals(COMPONENTS_PREFIX)
+        || !splits[2].equals(SCHEMA_PREFIX)){
             throw new InvalidSchemaRuntimeException("Invalid Schema Reference: " + ref);
         }
 

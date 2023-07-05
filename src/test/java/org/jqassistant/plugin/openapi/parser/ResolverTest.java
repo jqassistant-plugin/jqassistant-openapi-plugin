@@ -62,5 +62,8 @@ class ResolverTest extends AbstractPluginIT {
 
         assertThrows(InvalidSchemaRuntimeException.class, () -> resolver.createIfAbsent("name"));
 
+        assertThrows(InvalidSchemaRuntimeException.class, () -> resolver.createIfAbsent(null));
+
+
     }
 }
