@@ -7,13 +7,14 @@ import io.swagger.v3.oas.models.callbacks.Callback;
 import io.swagger.v3.oas.models.examples.Example;
 import io.swagger.v3.oas.models.headers.Header;
 import io.swagger.v3.oas.models.links.Link;
-import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.parameters.RequestBody;
 import io.swagger.v3.oas.models.responses.ApiResponses;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.jqassistant.plugin.openapi.api.model.*;
 import org.jqassistant.plugin.openapi.api.model.jsonschema.SchemaDescriptor;
+import org.jqassistant.plugin.openapi.impl.jsonschema.SchemaParser;
+import org.jqassistant.plugin.openapi.impl.util.Resolver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,9 +120,15 @@ public class ComponentElementReader {
     public void readSchemas(Components components, Store store, ComponentsDescriptor componentsDescriptor) {
         if (components.getSchemas() != null && !components.getSchemas().isEmpty()) {
             List<SchemaDescriptor> schemaDescriptors = new ArrayList<>();
-            for (Schema<?> schema : components.getSchemas().values()) {
-                schemaDescriptors.add(openAPIScannerPlugin.parseSchema(schema, store));
+
+            // Init Parser
+            SchemaParser schemaParser = new SchemaParser(new Resolver(store), store);
+
+            // Parse every schema
+            for (String name : components.getSchemas().keySet()){
+                schemaDescriptors.add(schemaParser.parseSchema(components.getSchemas().get(name), name));
             }
+
             componentsDescriptor.getSchemas().addAll(schemaDescriptors);
         }
     }

@@ -58,6 +58,4 @@ import static org.assertj.core.api.Assertions.*;
 
         store.commitTransaction();
     }
-
-
 }
