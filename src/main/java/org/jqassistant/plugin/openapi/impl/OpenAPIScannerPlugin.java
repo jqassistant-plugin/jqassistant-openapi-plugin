@@ -26,6 +26,7 @@ import io.swagger.v3.oas.models.servers.Server;
 import io.swagger.v3.oas.models.tags.Tag;
 import io.swagger.v3.parser.OpenAPIV3Parser;
 import org.jqassistant.plugin.openapi.api.model.*;
+import org.jqassistant.plugin.openapi.api.model.jsonschema.SchemaDescriptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

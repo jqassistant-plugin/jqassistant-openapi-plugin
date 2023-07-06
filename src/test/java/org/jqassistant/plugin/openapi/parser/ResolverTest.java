@@ -1,7 +1,7 @@
 package org.jqassistant.plugin.openapi.parser;
 
 import com.buschmais.jqassistant.core.test.plugin.AbstractPluginIT;
-import org.jqassistant.plugin.openapi.api.model.SchemaDescriptor;
+import org.jqassistant.plugin.openapi.api.model.jsonschema.SchemaDescriptor;
 import org.jqassistant.plugin.openapi.impl.util.InvalidSchemaRuntimeException;
 import org.jqassistant.plugin.openapi.impl.util.Resolver;
 import org.junit.jupiter.api.AfterEach;

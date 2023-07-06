@@ -1,7 +1,7 @@
 package org.jqassistant.plugin.openapi.impl.util;
 
 import com.buschmais.jqassistant.core.store.api.Store;
-import org.jqassistant.plugin.openapi.api.model.SchemaDescriptor;
+import org.jqassistant.plugin.openapi.api.model.jsonschema.SchemaDescriptor;
 
 import java.util.HashMap;
 import java.util.Map;
