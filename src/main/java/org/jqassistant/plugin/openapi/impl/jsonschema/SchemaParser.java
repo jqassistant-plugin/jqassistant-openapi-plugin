@@ -4,6 +4,7 @@ import com.buschmais.jqassistant.core.store.api.Store;
 import io.swagger.v3.oas.models.media.Schema;
 import org.jqassistant.plugin.openapi.api.model.jsonschema.*;
 import org.jqassistant.plugin.openapi.impl.util.Resolver;
+import org.jqassistant.plugin.openapi.impl.util.UnknownTypeException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ public class SchemaParser {
 
     public SchemaDescriptor parseSchema(Schema<?> schema, String name){
 
-        SchemaDescriptor schemaDescriptor = resolver.createIfAbsent(SCHEMA_REFSTRING + name);
+        SchemaDescriptor schemaDescriptor = resolver.resolve(SCHEMA_REFSTRING + name);
 
         schemaDescriptor.setObject(parseProperty(schema, name));
 
@@ -58,7 +59,7 @@ public class SchemaParser {
                 propertyDescriptor = parseString(property);
                 break;
             default:
-                throw new RuntimeException("Unknown Type \"" + property.getType() + "\" in Schema: " + property.getName());
+                throw new UnknownTypeException("Unknown Type \"" + property.getType() + "\" in Schema: " + name);
         }
 
 
@@ -133,7 +134,7 @@ public class SchemaParser {
     ReferencePropertyDescriptor parseReference(String ref){
         ReferencePropertyDescriptor referencePropertyDescriptor = store.create(ReferencePropertyDescriptor.class);
 
-        referencePropertyDescriptor.setReference(resolver.createIfAbsent(ref));
+        referencePropertyDescriptor.setReference(resolver.resolve(ref));
 
         return referencePropertyDescriptor;
     }

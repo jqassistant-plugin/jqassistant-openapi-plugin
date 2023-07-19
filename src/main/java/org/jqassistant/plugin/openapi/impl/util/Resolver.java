@@ -20,20 +20,15 @@ public class Resolver {
         this.schemaMap = new HashMap<>();
     }
 
-    public SchemaDescriptor createIfAbsent(String ref){
+    public SchemaDescriptor resolve(String ref){
 
         String name = refToName(ref);
 
-        if (schemaMap.containsKey(name)){
-            return schemaMap.get(name);
-        } else {
+        return schemaMap.computeIfAbsent(name, key -> {
             SchemaDescriptor schemaDescriptor = store.create(SchemaDescriptor.class);
-            schemaDescriptor.setName(name);
-
-            schemaMap.put(name, schemaDescriptor);
-
+            schemaDescriptor.setName(key);
             return schemaDescriptor;
-        }
+        });
     }
 
     /**

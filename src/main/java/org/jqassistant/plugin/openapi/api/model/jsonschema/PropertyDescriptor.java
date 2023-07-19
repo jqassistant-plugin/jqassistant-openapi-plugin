@@ -10,7 +10,7 @@ public interface PropertyDescriptor extends JsonSchemaDescriptor {
     void setName(String name);
 
     String getDescription();
-    void setDescription(String Description);
+    void setDescription(String description);
 
     String getFormat();
     void setFormat(String format);
