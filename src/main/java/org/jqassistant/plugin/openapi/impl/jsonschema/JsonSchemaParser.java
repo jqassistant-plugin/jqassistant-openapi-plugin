@@ -9,13 +9,13 @@ import org.jqassistant.plugin.openapi.impl.util.UnknownTypeException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SchemaParser {
+public class JsonSchemaParser {
 
     private final Resolver resolver;
     private final Store store;
     private static final String SCHEMA_REFSTRING = "#/components/schemas/";
 
-    public SchemaParser(Resolver resolver, Store store) {
+    public JsonSchemaParser(Resolver resolver, Store store) {
         this.resolver = resolver;
         this.store = store;
     }
@@ -33,8 +33,15 @@ public class SchemaParser {
     private PropertyDescriptor parseProperty(Schema<?> property, String name){
         PropertyDescriptor propertyDescriptor;
 
-        if (property.getType() == null)
-            return parseReference(property.get$ref());
+        if (property == null)
+            return null; // No property present
+
+        if (property.getType() == null) {
+            if (property.get$ref() != null)
+                return parseReference(property.get$ref());
+            else
+                return null; // No property present
+        }
 
         switch (property.getType()) {
             case ArrayPropertyDescriptor.TYPE_NAME:
@@ -76,6 +83,8 @@ public class SchemaParser {
 
         for (String key : schema.getProperties().keySet()) {
             PropertyDescriptor prop = parseProperty(schema.getProperties().get(key), key);
+            if (prop == null)
+                continue;
             objectPropertyDescriptor.getProperties().add(prop);
         }
 
@@ -110,6 +119,7 @@ public class SchemaParser {
         enums.forEach( val -> {
             EnumValueDescriptor enumValueDescriptor = store.create(EnumValueDescriptor.class);
             enumValueDescriptor.setEnumName(val.toString());
+            //enumValueDescriptor.setEnumNumber(0); todo
             ret.add(enumValueDescriptor);
         });
 

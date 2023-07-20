@@ -13,7 +13,7 @@ import io.swagger.v3.oas.models.responses.ApiResponses;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.jqassistant.plugin.openapi.api.model.*;
 import org.jqassistant.plugin.openapi.api.model.jsonschema.SchemaDescriptor;
-import org.jqassistant.plugin.openapi.impl.jsonschema.SchemaParser;
+import org.jqassistant.plugin.openapi.impl.jsonschema.JsonSchemaParser;
 import org.jqassistant.plugin.openapi.impl.util.Resolver;
 
 import java.util.ArrayList;
@@ -122,11 +122,11 @@ public class ComponentElementReader {
             List<SchemaDescriptor> schemaDescriptors = new ArrayList<>();
 
             // Init Parser
-            SchemaParser schemaParser = new SchemaParser(new Resolver(store), store);
+            JsonSchemaParser jsonSchemaParser = new JsonSchemaParser(new Resolver(store), store);
 
             // Parse every schema
             for (String name : components.getSchemas().keySet()){
-                schemaDescriptors.add(schemaParser.parseSchema(components.getSchemas().get(name), name));
+                schemaDescriptors.add(jsonSchemaParser.parseSchema(components.getSchemas().get(name), name));
             }
 
             componentsDescriptor.getSchemas().addAll(schemaDescriptors);
