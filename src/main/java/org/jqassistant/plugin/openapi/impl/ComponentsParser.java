@@ -67,6 +67,7 @@ public class ComponentsParser {
         return componentsDescriptor;
     }
 
+    // schema map only occurs as child of components
     private static List<SchemaDescriptor> parseSchemas(Map<String, Schema> schemasMap, Store store){
         List<SchemaDescriptor> schemaDescriptors = new ArrayList<>();
         for (Schema<?> schema : schemasMap.values())
@@ -74,6 +75,7 @@ public class ComponentsParser {
         return schemaDescriptors;
     }
 
+    // reqBody map only occurs as child of components
     private static List<RequestBodyDescriptor> parseRequestBodies(Map<String, RequestBody> requestBodiesMap, Store store){
         List<RequestBodyDescriptor> requestBodyDescriptors = new ArrayList<>();
         for (RequestBody requestBody : requestBodiesMap.values())
@@ -81,13 +83,7 @@ public class ComponentsParser {
         return requestBodyDescriptors;
     }
 
-    private static List<HeaderDescriptor> parseHeaders(Map<String, Header> headersMap, Store store){
-        List<HeaderDescriptor> headerDescriptors = new ArrayList<>();
-        for (Header header : headersMap.values())
-            headerDescriptors.add(Parsers.parseHeader(header, store));
-        return headerDescriptors;
-    }
-
+    // secSchema map only occurs as child of components
     private static List<SecuritySchemaDescriptor> parseSecuritySchemes(Map<String, SecurityScheme> securitySchemesMap, Store store){
         List<SecuritySchemaDescriptor> securitySchemaDescriptors = new ArrayList<>();
         for (SecurityScheme securityScheme : securitySchemesMap.values())
@@ -95,6 +91,17 @@ public class ComponentsParser {
         return securitySchemaDescriptors;
     }
 
+    // TODO make func parseHeaders reusable
+    // gets used by parents components, encoding, response
+    private static List<HeaderDescriptor> parseHeaders(Map<String, Header> headersMap, Store store){
+        List<HeaderDescriptor> headerDescriptors = new ArrayList<>();
+        for (Header header : headersMap.values())
+            headerDescriptors.add(Parsers.parseHeader(header, store));
+        return headerDescriptors;
+    }
+
+    // TODO make func parseLinks reusable
+    // gets used by parents components, response,
     private static List<LinkDescriptor> parseLinks(Map<String, Link> linksMap, Store store){
         List<LinkDescriptor> linkDescriptors = new ArrayList<>();
         for (Link link : linksMap.values())
@@ -102,6 +109,8 @@ public class ComponentsParser {
         return linkDescriptors;
     }
 
+    // TODO make func parsePathItems reusable
+    // gets used by parents components, paths, schema (as webhook)
     private static List<PathDescriptor> parsePathItems(Map<String, PathItem> pathItemsMap, Store store){
         List<PathDescriptor> pathDescriptors = new ArrayList<>();
         for(Map.Entry<String, PathItem> pathItemEntry: pathItemsMap.entrySet())
@@ -109,6 +118,8 @@ public class ComponentsParser {
         return pathDescriptors;
     }
 
+    // TODO make func parseCallbacks reusable
+    // gets used by parents components, operation,
     private static List<CallbackDescriptor> parseCallbacks(Map<String, Callback> callbacksMap, Store store){
         List<CallbackDescriptor> callbackDescriptors = new ArrayList<>();
         for(Callback callback : callbacksMap.values())
@@ -116,6 +127,8 @@ public class ComponentsParser {
         return callbackDescriptors;
     }
 
+    // TODO make func parseExamples reusable
+    // gets used by parents components, parameter, mediaType
     private static List<ExampleDescriptor> parseExamples(Map<String, Example> examplesMap, Store store){
         List<ExampleDescriptor> exampleDescriptors = new ArrayList<>();
         for(Example example : examplesMap.values())
@@ -123,6 +136,8 @@ public class ComponentsParser {
         return exampleDescriptors;
     }
 
+    // TODO make func parseResponses reusable
+    // gets used by parent components, responses object (under operation)
     private static List<ResponseDescriptor> parseResponses(Map<String, ApiResponse> apiResponsesMap, Store store){
         List<ResponseDescriptor> responseDescriptors = new ArrayList<>();
         for(Map.Entry<String, ApiResponse> apiResponseEntry : apiResponsesMap.entrySet())
@@ -130,6 +145,8 @@ public class ComponentsParser {
         return responseDescriptors;
     }
 
+    // TODO make func parseParameters reusable
+    // gets used by parent components, pathItem, operation, parseHeaders
     private static List<ParameterDescriptor> parseParameters(Map<String, Parameter> parametersMap, Store store){
         List<ParameterDescriptor> parameterDescriptors = new ArrayList<>();
         for (Parameter parameter : parametersMap.values())
