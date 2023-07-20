@@ -1,7 +1,6 @@
 package org.jqassistant.plugin.openapi.impl;
 
 import com.buschmais.jqassistant.core.store.api.Store;
-import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.Operation;
 import io.swagger.v3.oas.models.PathItem;
 import io.swagger.v3.oas.models.Paths;
@@ -9,7 +8,6 @@ import io.swagger.v3.oas.models.callbacks.Callback;
 import io.swagger.v3.oas.models.examples.Example;
 import io.swagger.v3.oas.models.headers.Header;
 import io.swagger.v3.oas.models.info.Contact;
-import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.links.Link;
 import io.swagger.v3.oas.models.media.Content;
 import io.swagger.v3.oas.models.media.MediaType;
@@ -359,7 +357,7 @@ public class Parsers {
      @param store The Store object used to create the CallbackDescriptor.
      @return The parsed CallbackDescriptor object.
      */
-    static CallbackDescriptor parseCallbacks(Callback callback, Store store){
+    static CallbackDescriptor parseCallback(Callback callback, Store store){
         CallbackDescriptor callbackDescriptor = store.create(CallbackDescriptor.class);
 
         if(callback.get$ref() != null){
@@ -425,7 +423,7 @@ public class Parsers {
      @param store The Store object used to create the ExampleDescriptor.
      @return The parsed ExampleDescriptor object.
      */
-    static ExampleDescriptor parseExamples(Example example, Store store){
+    static ExampleDescriptor parseExample(Example example, Store store){
         ExampleDescriptor exampleDescriptor = store.create(ExampleDescriptor.class);
 
         if(exampleDescriptor.getDescription() != null){
