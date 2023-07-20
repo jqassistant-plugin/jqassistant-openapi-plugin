@@ -26,6 +26,10 @@ import java.util.List;
 
 public class Parsers {
 
+    private Parsers() {
+        throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
+    }
+
     /**
      * Parses OpenApi requestBody object to internal object
      *
@@ -109,19 +113,14 @@ public class Parsers {
 
         pathDescriptor.setPathUrl(pathUrl);
 
-        if(pathItem.get$ref() != null && !pathItem.get$ref().isEmpty())
-            pathDescriptor.set$ref(pathItem.get$ref());
-        if(pathItem.getSummary() != null && !pathItem.getSummary().isEmpty())
-            pathDescriptor.setSummary(pathItem.getSummary());
-        if(pathItem.getDescription() != null && !pathItem.getDescription().isEmpty())
-            pathDescriptor.setDescription(pathItem.getDescription());
+        setPathProperties(pathDescriptor, pathItem);
 
         // Read all Servers
-        if(pathItem.getServers() != null && !pathItem.getServers().isEmpty())
+        if(pathItem.getServers() != null)
             pathDescriptor.getServers().addAll(parseSevers(pathItem.getServers(), store));
 
         // Read all Parameters
-        if(pathItem.getParameters() != null && !pathItem.getParameters().isEmpty())
+        if(pathItem.getParameters() != null)
             pathDescriptor.getParameters().addAll(parseParameters(pathItem.getParameters(), store));
 
         // Read all Operations
@@ -144,6 +143,15 @@ public class Parsers {
             pathOperations.add(parseOperation(pathItem.getTrace(), OperationDescriptor.HTTPMethod.TRACE, store));
 
         return pathDescriptor;
+    }
+
+    static void setPathProperties(PathDescriptor pathDescriptor, PathItem pathItem){
+        if(pathItem.get$ref() != null && !pathItem.get$ref().isEmpty())
+            pathDescriptor.set$ref(pathItem.get$ref());
+        if(pathItem.getSummary() != null && !pathItem.getSummary().isEmpty())
+            pathDescriptor.setSummary(pathItem.getSummary());
+        if(pathItem.getDescription() != null && !pathItem.getDescription().isEmpty())
+            pathDescriptor.setDescription(pathItem.getDescription());
     }
 
     /**

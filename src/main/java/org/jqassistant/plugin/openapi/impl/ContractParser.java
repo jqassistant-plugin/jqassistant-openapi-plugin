@@ -11,6 +11,10 @@ public class ContractParser {
 
     private static final Logger LOG = LoggerFactory.getLogger(ContractParser.class);
 
+    private ContractParser() {
+        throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
+    }
+
     public static void parse(OpenAPI contract, ContractDescriptor contractDescriptor, Store store){
         LOG.info("Reading Info object");
         if(contract.getInfo() != null)

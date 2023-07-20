@@ -20,6 +20,10 @@ import java.util.Map;
 
 public class ComponentsParser {
 
+    private ComponentsParser() {
+        throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
+    }
+
     /**
      * Parses OpenApi Components object to internal object
      *
@@ -100,8 +104,8 @@ public class ComponentsParser {
 
     private static List<PathDescriptor> parsePathItems(Map<String, PathItem> pathItemsMap, Store store){
         List<PathDescriptor> pathDescriptors = new ArrayList<>();
-        for(String pathUrl: pathItemsMap.keySet())
-            pathDescriptors.add(Parsers.parsePath(pathUrl, pathItemsMap.get(pathUrl), store));
+        for(Map.Entry<String, PathItem> pathItemEntry: pathItemsMap.entrySet())
+            pathDescriptors.add(Parsers.parsePath(pathItemEntry.getKey(), pathItemEntry.getValue(), store));
         return pathDescriptors;
     }
 
@@ -121,8 +125,8 @@ public class ComponentsParser {
 
     private static List<ResponseDescriptor> parseResponses(Map<String, ApiResponse> apiResponsesMap, Store store){
         List<ResponseDescriptor> responseDescriptors = new ArrayList<>();
-        for(String statusCodeOrDefault : apiResponsesMap.keySet())
-            responseDescriptors.add(Parsers.parseResponse(statusCodeOrDefault, apiResponsesMap.get(statusCodeOrDefault), store));
+        for(Map.Entry<String, ApiResponse> apiResponseEntry : apiResponsesMap.entrySet())
+            responseDescriptors.add(Parsers.parseResponse(apiResponseEntry.getKey(), apiResponseEntry.getValue(), store));
         return responseDescriptors;
     }
 
