@@ -36,30 +36,13 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
         final ContractDescriptor contractDescriptor = store.addDescriptorType(fileDescriptor, ContractDescriptor.class);
 
         LOG.info("Reading OpenAPI document from path: {}", path);
-        OpenAPI openAPI = new OpenAPIV3Parser().read(path); // TODO: Exception handling
+        OpenAPI openAPIContract = new OpenAPIV3Parser().read(path); // TODO: Exception handling
 
         LOG.info("Reading contract meta data");
-        contractDescriptor.setApiVersion(openAPI.getOpenapi());
+        contractDescriptor.setApiVersion(openAPIContract.getOpenapi());
 
-        LOG.info("Reading Info object");
-        if(openAPI.getInfo() != null)
-            Parsers.parseInfo(openAPI.getInfo(), contractDescriptor, store);
-
-        LOG.info("Reading OpenAPI Tags");
-        if(openAPI.getTags() != null && !openAPI.getTags().isEmpty())
-            contractDescriptor.getTags().addAll(Parsers.parseTags(openAPI.getTags(), store));
-
-        LOG.info("Reading OpenAPI Servers");
-        if(openAPI.getServers() != null && !openAPI.getServers().isEmpty())
-            contractDescriptor.getServers().addAll(Parsers.parseSevers(openAPI.getServers(), store));
-
-        LOG.info("Reading OpenAPI Paths");
-        if(openAPI.getPaths() != null && !openAPI.getPaths().isEmpty())
-            contractDescriptor.getPaths().addAll(Parsers.parsePaths(openAPI.getPaths(), store));
-
-        LOG.info("Reading OpenAPI Components");
-        if (openAPI.getComponents() != null)
-            contractDescriptor.setComponents(Parsers.parseComponents(openAPI.getComponents(), store));
+        LOG.info("Parsing contract children");
+        ContractParser.parse(openAPIContract, contractDescriptor,store);
 
         LOG.info("...finished");
         return contractDescriptor;

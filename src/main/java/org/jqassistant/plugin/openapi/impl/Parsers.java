@@ -27,23 +27,6 @@ import java.util.List;
 public class Parsers {
 
     /**
-     * Parses OpenAPI info object to internal properties
-     * @param info object to parse
-     * @param contractDescriptor object on which properties get set
-     * @param store store object to create internal object from
-     */
-    static void parseInfo(Info info, ContractDescriptor contractDescriptor, Store store){
-        if(info.getTitle() != null)
-            contractDescriptor.setTitle(info.getTitle());
-        if (info.getDescription() != null)
-            contractDescriptor.setDescription(info.getDescription());
-        if (info.getVersion() != null)
-            contractDescriptor.setApiVersion(info.getVersion());
-        if (info.getContact() != null)
-            contractDescriptor.setContact(Parsers.parseContact(info.getContact(), store));
-    }
-
-    /**
      * Parses OpenApi requestBody object to internal object
      *
      * @param requestBody object to parse
@@ -255,32 +238,32 @@ public class Parsers {
      * @return list of parsed internal objects
      */
     static List<ParameterDescriptor> parseParameters(List<Parameter> parameters, Store store){
-        // TODO implement scanning of further props (might also be still missing in param descriptor)
-
         List<ParameterDescriptor> retParameters = new ArrayList<>();
-
-        for (Parameter parameter : parameters){
-            ParameterDescriptor parameterDescriptor = store.create(ParameterDescriptor.class);
-
-            // read properties
-            if(parameter.getName() != null && !parameter.getName().isEmpty())
-                parameterDescriptor.setName(parameter.getName());
-            if(parameter.getIn() != null && !parameter.getIn().isEmpty())
-                parameterDescriptor.setLocation(ParameterDescriptor.ParameterLocation
-                        .valueOf(parameter.getIn().toUpperCase()));
-            if(parameter.getDescription() != null && !parameter.getDescription().isEmpty())
-                parameterDescriptor.setDescription(parameter.getDescription());
-            if(parameter.getRequired() != null)
-                parameterDescriptor.setIsRequired(parameter.getRequired());
-            if(parameter.getDeprecated() != null)
-                parameterDescriptor.setIsDeprecated(parameter.getDeprecated());
-            if(parameter.getAllowEmptyValue() != null)
-                parameterDescriptor.setAllowsEmptyValue(parameter.getAllowEmptyValue());
-
-            retParameters.add(parameterDescriptor);
-        }
-
+        for(Parameter parameter: parameters)
+            retParameters.add(parseParameter(parameter, store));
         return retParameters;
+    }
+
+    static ParameterDescriptor parseParameter(Parameter parameter, Store store){
+        // TODO implement scanning of further props (might also be still missing in param descriptor)
+        ParameterDescriptor parameterDescriptor = store.create(ParameterDescriptor.class);
+
+        // read properties
+        if(parameter.getName() != null && !parameter.getName().isEmpty())
+            parameterDescriptor.setName(parameter.getName());
+        if(parameter.getIn() != null && !parameter.getIn().isEmpty())
+            parameterDescriptor.setLocation(ParameterDescriptor.ParameterLocation
+                    .valueOf(parameter.getIn().toUpperCase()));
+        if(parameter.getDescription() != null && !parameter.getDescription().isEmpty())
+            parameterDescriptor.setDescription(parameter.getDescription());
+        if(parameter.getRequired() != null)
+            parameterDescriptor.setIsRequired(parameter.getRequired());
+        if(parameter.getDeprecated() != null)
+            parameterDescriptor.setIsDeprecated(parameter.getDeprecated());
+        if(parameter.getAllowEmptyValue() != null)
+            parameterDescriptor.setAllowsEmptyValue(parameter.getAllowEmptyValue());
+
+        return parameterDescriptor;
     }
 
     /**
@@ -389,7 +372,7 @@ public class Parsers {
      @param store The Store object used to create the LinkDescriptor.
      @return The parsed LinkDescriptor object.
      */
-    static LinkDescriptor parseLinks(Link link, Store store){
+    static LinkDescriptor parseLink(Link link, Store store){
         LinkDescriptor linkDescriptor = store.create(LinkDescriptor.class);
 
         if(linkDescriptor.getOperationRef() != null){
@@ -397,23 +380,6 @@ public class Parsers {
         }
 
         return linkDescriptor;
-    }
-
-    /**
-
-     Parses a Header object and creates a HeaderDescriptor based on the provided Header and Store.
-     @param header The Header object to parse.
-     @param store The Store object used to create the HeaderDescriptor.
-     @return The parsed HeaderDescriptor object.
-     */
-    static HeaderDescriptor parseHeaders(Header header, Store store){
-        HeaderDescriptor headerDescriptor = store.create(HeaderDescriptor.class);
-
-        if(headerDescriptor.getDescription() != null){
-            headerDescriptor.setDescription(header.getDescription());
-        }
-
-        return headerDescriptor;
     }
 
     /**
@@ -451,105 +417,16 @@ public class Parsers {
     }
 
     /**
-     * Parses OpenApi Components object to internal object
      *
-     * @param components the OpenApi Components object to parse
-     * @param store the store object to create internal object from
-     * @return parsed internal ComponentsDescriptor object
+     Parses an OpenAPI Header object and creates a HeaderDescriptor based on the provided Header and Store.
+     @param header The openAPI Header object to parse.
+     @param store The Store object used to create the HeaderDescriptor.
+     @return The parsed HeaderDescriptor object.
      */
-    static ComponentsDescriptor parseComponents(Components components, Store store) {
-        ComponentsDescriptor componentsDescriptor = store.create(ComponentsDescriptor.class);
-
-        //componentElementReader.readSchemas(components, store, componentsDescriptor);
-        if (components.getSchemas() != null && !components.getSchemas().isEmpty()) {
-            List<SchemaDescriptor> schemaDescriptors = new ArrayList<>();
-            for (Schema<?> schema : components.getSchemas().values()) {
-                schemaDescriptors.add(parseSchema(schema, store));
-            }
-            componentsDescriptor.getSchemas().addAll(schemaDescriptors);
-        }
-
-        //componentElementReader.readRequestBodies(components, store, componentsDescriptor);
-        if (components.getRequestBodies() != null && !components.getRequestBodies().isEmpty()) {
-            List<RequestBodyDescriptor> requestBodyDescriptors = new ArrayList<>();
-            for (RequestBody requestBody : components.getRequestBodies().values()) {
-                requestBodyDescriptors.add(parseRequestBody(requestBody, store));
-            }
-            componentsDescriptor.getRequestBodies().addAll(requestBodyDescriptors);
-        }
-
-        //componentElementReader.readHeaders(components, store, componentsDescriptor);
-        if (components.getHeaders() != null && !components.getHeaders().isEmpty()) {
-            List<HeaderDescriptor> headerDescriptors = new ArrayList<>();
-            for (Header header : components.getHeaders().values()) {
-                headerDescriptors.add(parseHeaders(header, store));
-            }
-            componentsDescriptor.getHeaders().addAll(headerDescriptors);
-        }
-
-        //componentElementReader.readSecuritySchemas(components, store, componentsDescriptor);
-        if (components.getSecuritySchemes() != null && !components.getSecuritySchemes().isEmpty()) {
-            List<SecuritySchemaDescriptor> securitySchemaDescriptors = new ArrayList<>();
-            for (SecurityScheme securityScheme : components.getSecuritySchemes().values()) {
-                securitySchemaDescriptors.add(parseSecuritySchemas(securityScheme, store));
-            }
-            componentsDescriptor.getSecuritySchemas().addAll(securitySchemaDescriptors);
-        }
-
-        //componentElementReader.readLinks(components, store, componentsDescriptor);
-        if (components.getLinks() != null && !components.getLinks().isEmpty()) {
-            List<LinkDescriptor> linkDescriptors = new ArrayList<>();
-            for (Link link : components.getLinks().values()) {
-                linkDescriptors.add(parseLinks(link, store));
-            }
-            componentsDescriptor.getLinks().addAll(linkDescriptors);
-        }
-
-        //componentElementReader.readPathItems(components, store, componentsDescriptor);
-        if (components.getPathItems() != null && !components.getPathItems().isEmpty()) {
-            Paths paths = new Paths();
-            paths.putAll(components.getPathItems());
-            componentsDescriptor.getPaths().addAll(parsePaths(paths, store));
-        }
-
-        //componentElementReader.readCallbacks(components, store, componentsDescriptor);
-        if (components.getCallbacks() != null && !components.getCallbacks().isEmpty()) {
-            List<CallbackDescriptor> callbackDescriptors = new ArrayList<>();
-            for (Callback callback : components.getCallbacks().values()) {
-                callbackDescriptors.add(parseCallbacks(callback, store));
-            }
-            componentsDescriptor.getCallBacks().addAll(callbackDescriptors);
-        }
-
-        //componentElementReader.readExamples(components, store, componentsDescriptor);
-        if (components.getExamples() != null && !components.getExamples().isEmpty()) {
-            List<ExampleDescriptor> exampleDescriptors = new ArrayList<>();
-            for (Example example : components.getExamples().values()) {
-                exampleDescriptors.add(parseExamples(example, store));
-            }
-            componentsDescriptor.getExamples().addAll(exampleDescriptors);
-        }
-
-        //componentElementReader.readResponses(components, store, componentsDescriptor);
-        if (components.getResponses() != null && !components.getResponses().isEmpty()) {
-            ApiResponses apiResponses = new ApiResponses();
-            apiResponses.putAll(components.getResponses());
-            List<ResponseDescriptor> responseDescriptors = parseResponses(apiResponses, store);
-            componentsDescriptor.getResponses().addAll(responseDescriptors);
-        }
-
-        //componentElementReader.readParameters(components, store, componentsDescriptor);
-        if (components.getParameters() != null && !components.getParameters().isEmpty()) {
-            List<ParameterDescriptor> parameterDescriptors = new ArrayList<>();
-            for (Parameter parameter : components.getParameters().values()) {
-                List<Parameter> singleParameterList = new ArrayList<>();
-                singleParameterList.add(parameter);
-                parameterDescriptors.addAll(parseParameters(singleParameterList, store));
-            }
-
-            componentsDescriptor.getParameters().addAll(parameterDescriptors);
-        }
-
-        return componentsDescriptor;
+    static HeaderDescriptor parseHeader(Header header, Store store){
+        HeaderDescriptor headerDescriptor = store.create(HeaderDescriptor.class);
+        if(header.getDescription() != null)
+            headerDescriptor.setDescription((header.getDescription()));
+        return headerDescriptor;
     }
 }
