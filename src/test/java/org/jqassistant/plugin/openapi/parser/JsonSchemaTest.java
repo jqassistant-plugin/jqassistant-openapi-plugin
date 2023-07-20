@@ -9,15 +9,13 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import scala.sys.Prop;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class JsonSchemaTest extends AbstractPluginIT {
+class JsonSchemaTest extends AbstractPluginIT {
 
     ContractDescriptor contract;
 
@@ -42,7 +40,7 @@ public class JsonSchemaTest extends AbstractPluginIT {
         assertThat(componentsDescriptor).isNotNull();
 
         assertThat(componentsDescriptor.getSchemas()).isNotNull();
-        assertThat(componentsDescriptor.getSchemas().size()).isGreaterThan(1);
+        assertThat(componentsDescriptor.getSchemas()).hasSizeGreaterThan(1);
     }
 
     @Test
@@ -62,8 +60,9 @@ public class JsonSchemaTest extends AbstractPluginIT {
     @Test
     void schemaWithObjectTest(){
         List<PropertyDescriptor> properties = getPropertyListFromSchemaWithName("SchemaWithObject");
-        assertThat(properties).isNotNull();
-        assertThat(properties).hasSize(1);
+        assertThat(properties)
+                .isNotNull()
+                .hasSize(1);
 
         PropertyDescriptor propertyDescriptor1 = properties.get(0);
 
@@ -108,8 +107,9 @@ public class JsonSchemaTest extends AbstractPluginIT {
     void SchemaWithArraysTest(){
         List<PropertyDescriptor> properties = getPropertyListFromSchemaWithName("SchemaWithArrays");
 
-        assertThat(properties).isNotNull();
-        assertThat(properties).hasSize(2);
+        assertThat(properties)
+                .isNotNull()
+                .hasSize(2);
 
         for (PropertyDescriptor propertyDescriptor : properties){
             assertThat(propertyDescriptor).isInstanceOf(ArrayPropertyDescriptor.class);
@@ -134,8 +134,9 @@ public class JsonSchemaTest extends AbstractPluginIT {
     void SchemaWithStringTypesTest(){
         List<PropertyDescriptor> properties = getPropertyListFromSchemaWithName("SchemaWithStringTypes");
 
-        assertThat(properties).isNotNull();
-        assertThat(properties).hasSize(2);
+        assertThat(properties)
+                .isNotNull()
+                .hasSize(2);
 
         for (PropertyDescriptor propertyDescriptor : properties){
             if (propertyDescriptor.getName().equals("StringType")){
@@ -170,8 +171,9 @@ public class JsonSchemaTest extends AbstractPluginIT {
     void SchemaWithIntegerTypesTest(){
         List<PropertyDescriptor> properties = getPropertyListFromSchemaWithName("SchemaWithIntegerTypes");
 
-        assertThat(properties).isNotNull();
-        assertThat(properties).hasSize(2);
+        assertThat(properties)
+                .isNotNull()
+                .hasSize(2);
 
         for (PropertyDescriptor propertyDescriptor : properties){
             assertThat(propertyDescriptor).isInstanceOf(IntegerPropertyDescriptor.class);
@@ -192,8 +194,9 @@ public class JsonSchemaTest extends AbstractPluginIT {
     void SchemaWithNumberTypesTest(){
         List<PropertyDescriptor> properties = getPropertyListFromSchemaWithName("SchemaWithNumberTypes");
 
-        assertThat(properties).isNotNull();
-        assertThat(properties).hasSize(2);
+        assertThat(properties)
+                .isNotNull()
+                .hasSize(2);
 
         for (PropertyDescriptor propertyDescriptor : properties){
             assertThat(propertyDescriptor).isInstanceOf(NumberPropertyDescriptor.class);
@@ -214,8 +217,9 @@ public class JsonSchemaTest extends AbstractPluginIT {
     void SchemaWithReferenceTypeTest(){
         List<PropertyDescriptor> properties = getPropertyListFromSchemaWithName("SchemaWithReferenceType");
 
-        assertThat(properties).isNotNull();
-        assertThat(properties).hasSize(1);
+        assertThat(properties)
+                .isNotNull()
+                .hasSize(1);
 
         SchemaDescriptor refSchema = ((ReferencePropertyDescriptor) properties.get(0)).getReference();
 
