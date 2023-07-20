@@ -9,7 +9,6 @@ import com.buschmais.jqassistant.plugin.common.api.model.FileDescriptor;
 import com.buschmais.jqassistant.plugin.common.api.scanner.AbstractScannerPlugin;
 import com.buschmais.jqassistant.plugin.common.api.scanner.filesystem.FileResource;
 import io.swagger.v3.oas.models.*;
-import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.parser.OpenAPIV3Parser;
 import org.jqassistant.plugin.openapi.api.model.*;
 import org.slf4j.Logger;
@@ -43,9 +42,8 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
         contractDescriptor.setApiVersion(openAPI.getOpenapi());
 
         LOG.info("Reading Info object");
-        Info info = openAPI.getInfo();
-        if(info != null)
-            Parsers.parseInfo(info, contractDescriptor, store);
+        if(openAPI.getInfo() != null)
+            Parsers.parseInfo(openAPI.getInfo(), contractDescriptor, store);
 
         LOG.info("Reading OpenAPI Tags");
         if(openAPI.getTags() != null && !openAPI.getTags().isEmpty())
