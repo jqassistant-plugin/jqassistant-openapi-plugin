@@ -9,6 +9,7 @@ import io.swagger.v3.oas.models.callbacks.Callback;
 import io.swagger.v3.oas.models.examples.Example;
 import io.swagger.v3.oas.models.headers.Header;
 import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.links.Link;
 import io.swagger.v3.oas.models.media.Content;
 import io.swagger.v3.oas.models.media.MediaType;
@@ -26,6 +27,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Parsers {
+
+    /**
+     * Parses OpenAPI info object to internal properties
+     * @param info object to parse
+     * @param contractDescriptor object on which properties get set
+     * @param store store object to create internal object from
+     */
+    static void parseInfo(Info info, ContractDescriptor contractDescriptor, Store store){
+        if(info.getTitle() != null)
+            contractDescriptor.setTitle(info.getTitle());
+        if (info.getDescription() != null)
+            contractDescriptor.setDescription(info.getDescription());
+        if (info.getVersion() != null)
+            contractDescriptor.setApiVersion(info.getVersion());
+        if (info.getContact() != null)
+            contractDescriptor.setContact(Parsers.parseContact(info.getContact(), store));
+    }
 
     /**
      * Parses OpenApi requestBody object to internal object

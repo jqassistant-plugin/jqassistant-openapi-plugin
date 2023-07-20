@@ -44,16 +44,8 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
 
         LOG.info("Reading Info object");
         Info info = openAPI.getInfo();
-        if(info != null) {
-            if(info.getTitle() != null)
-                contractDescriptor.setTitle(info.getTitle());
-            if (info.getDescription() != null)
-                contractDescriptor.setDescription(info.getDescription());
-            if (info.getVersion() != null)
-                contractDescriptor.setApiVersion(info.getVersion());
-            if (info.getContact() != null)
-                contractDescriptor.setContact(Parsers.parseContact(info.getContact(), store));
-        }
+        if(info != null)
+            Parsers.parseInfo(info, contractDescriptor, store);
 
         LOG.info("Reading OpenAPI Tags");
         if(openAPI.getTags() != null && !openAPI.getTags().isEmpty())
@@ -74,6 +66,4 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
         LOG.info("...finished");
         return contractDescriptor;
     }
-
-
 }
