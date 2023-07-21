@@ -2,10 +2,7 @@ package org.jqassistant.plugin.openapi.impl;
 
 import com.buschmais.jqassistant.core.store.api.Store;
 import io.swagger.v3.oas.models.Components;
-import io.swagger.v3.oas.models.callbacks.Callback;
-import io.swagger.v3.oas.models.examples.Example;
 import io.swagger.v3.oas.models.headers.Header;
-import io.swagger.v3.oas.models.links.Link;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.jqassistant.plugin.openapi.api.model.*;
@@ -62,6 +59,15 @@ public class ComponentsParser {
         List<SecuritySchemeDescriptor> securitySchemeDescriptors = new ArrayList<>();
         securitySchemesMap.forEach((s, securityScheme) -> securitySchemeDescriptors.add(parseSecurityScheme(securityScheme, store)));
         return securitySchemeDescriptors;
+    }
+
+    private static SecuritySchemeDescriptor parseSecurityScheme(SecurityScheme securityScheme, Store store){
+        SecuritySchemeDescriptor securitySchemeDescriptor = store.create(SecuritySchemeDescriptor.class);
+
+        if(securityScheme.getName() != null)
+            securitySchemeDescriptor.setName(securityScheme.getName());
+
+        return securitySchemeDescriptor;
     }
 
     // TODO make func parseHeaders reusable
