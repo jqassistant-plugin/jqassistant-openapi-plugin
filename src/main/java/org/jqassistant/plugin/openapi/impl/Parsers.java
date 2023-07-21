@@ -112,22 +112,6 @@ public class Parsers {
         return linkDescriptor;
     }
 
-    /**
-
-     Parses an Example object and creates an ExampleDescriptor based on the provided Example and Store.
-     @param example The Example object to parse.
-     @param store The Store object used to create the ExampleDescriptor.
-     @return The parsed ExampleDescriptor object.
-     */
-    static ExampleDescriptor parseExample(Example example, Store store){
-        ExampleDescriptor exampleDescriptor = store.create(ExampleDescriptor.class);
-
-        if(exampleDescriptor.getDescription() != null){
-            exampleDescriptor.setDescription(example.getDescription());
-        }
-
-        return exampleDescriptor;
-    }
 
     /**
      *

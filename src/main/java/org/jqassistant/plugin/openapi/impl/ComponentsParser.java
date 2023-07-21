@@ -31,7 +31,7 @@ public class ComponentsParser {
             componentsDescriptor.getParameters().addAll(ParameterParser.parseAll(components.getParameters(), store));
 
         if (components.getExamples() != null)
-            componentsDescriptor.getExamples().addAll(parseExamples(components.getExamples(), store));
+            componentsDescriptor.getExamples().addAll(ExampleParser.parseAll(components.getExamples(), store));
 
         if (components.getRequestBodies() != null)
             componentsDescriptor.getRequestBodies().addAll(RequestBodyParser.parseAll(components.getRequestBodies(), store));
@@ -87,14 +87,6 @@ public class ComponentsParser {
         List<CallbackDescriptor> callbackDescriptors = new ArrayList<>();
         callbacksMap.forEach((s, callback) -> callbackDescriptors.add(Parsers.parseCallback(callback, store)));
         return callbackDescriptors;
-    }
-
-    // TODO make func parseExamples reusable
-    // gets used by parents components, parameter, mediaType
-    private static List<ExampleDescriptor> parseExamples(Map<String, Example> examplesMap, Store store){
-        List<ExampleDescriptor> exampleDescriptors = new ArrayList<>();
-        examplesMap.forEach((s, example) -> exampleDescriptors.add(Parsers.parseExample(example, store)));
-        return exampleDescriptors;
     }
 
 }
