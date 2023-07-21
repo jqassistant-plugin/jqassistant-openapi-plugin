@@ -1,9 +1,6 @@
 package org.jqassistant.plugin.openapi.impl;
 
 import com.buschmais.jqassistant.core.store.api.Store;
-import io.swagger.v3.oas.models.Operation;
-import io.swagger.v3.oas.models.PathItem;
-import io.swagger.v3.oas.models.Paths;
 import io.swagger.v3.oas.models.callbacks.Callback;
 import io.swagger.v3.oas.models.examples.Example;
 import io.swagger.v3.oas.models.headers.Header;
@@ -87,111 +84,6 @@ public class Parsers {
         return mediaTypeObjectDescriptor;
     }
 
-    /**
-     * Parses list of OpenApi Path objects
-     *
-     * @param paths list of objects to parse
-     * @param store store object to create internal object from
-     * @return list of parsed internal objects
-     */
-    static List<PathDescriptor> parsePaths (Paths paths, Store store){
-        List<PathDescriptor> pathDescriptors = new ArrayList<>();
-        paths.forEach((pathname, pathItem) -> pathDescriptors.add(parsePath(pathname, pathItem, store)));
-        return pathDescriptors;
-    }
-
-    /**
-     * Parses OpenApi Path object to internal object
-     *
-     * @param pathUrl url of the path to parse
-     * @param pathItem object to parse
-     * @param store store object to create internal object from
-     * @return parsed internal objects
-     */
-    static PathDescriptor parsePath (String pathUrl, PathItem pathItem, Store store){
-        PathDescriptor pathDescriptor = store.create(PathDescriptor.class);
-
-        pathDescriptor.setPathUrl(pathUrl);
-
-        setPathProperties(pathDescriptor, pathItem);
-
-        // Read all Servers
-        if(pathItem.getServers() != null)
-            pathDescriptor.getServers().addAll(parseSevers(pathItem.getServers(), store));
-
-        // Read all Parameters
-        if(pathItem.getParameters() != null)
-            pathDescriptor.getParameters().addAll(parseParameters(pathItem.getParameters(), store));
-
-        // Read all Operations
-        List<OperationDescriptor> pathOperations = pathDescriptor.getOperations();
-        if(pathItem.getGet() != null)
-            pathOperations.add(parseOperation(pathItem.getGet(), OperationDescriptor.HTTPMethod.GET, store));
-        if(pathItem.getPut() != null)
-            pathOperations.add(parseOperation(pathItem.getPut(), OperationDescriptor.HTTPMethod.PUT, store));
-        if(pathItem.getPost() != null)
-            pathOperations.add(parseOperation(pathItem.getPost(), OperationDescriptor.HTTPMethod.POST, store));
-        if(pathItem.getDelete() != null)
-            pathOperations.add(parseOperation(pathItem.getDelete(), OperationDescriptor.HTTPMethod.DELETE, store));
-        if(pathItem.getOptions() != null)
-            pathOperations.add(parseOperation(pathItem.getOptions(), OperationDescriptor.HTTPMethod.OPTIONS, store));
-        if(pathItem.getHead() != null)
-            pathOperations.add(parseOperation(pathItem.getHead(), OperationDescriptor.HTTPMethod.HEAD, store));
-        if(pathItem.getPatch() != null)
-            pathOperations.add(parseOperation(pathItem.getPatch(), OperationDescriptor.HTTPMethod.PATCH, store));
-        if(pathItem.getTrace() != null)
-            pathOperations.add(parseOperation(pathItem.getTrace(), OperationDescriptor.HTTPMethod.TRACE, store));
-
-        return pathDescriptor;
-    }
-
-    static void setPathProperties(PathDescriptor pathDescriptor, PathItem pathItem){
-        if(pathItem.get$ref() != null && !pathItem.get$ref().isEmpty())
-            pathDescriptor.set$ref(pathItem.get$ref());
-        if(pathItem.getSummary() != null && !pathItem.getSummary().isEmpty())
-            pathDescriptor.setSummary(pathItem.getSummary());
-        if(pathItem.getDescription() != null && !pathItem.getDescription().isEmpty())
-            pathDescriptor.setDescription(pathItem.getDescription());
-    }
-
-    /**
-     * Parses OpenApi operation object to internal object
-     *
-     * @param httpMethod http method of the operation to parse
-     * @param operation object to parse
-     * @param store store object to create internal object from
-     * @return parsed internal objects
-     */
-    static OperationDescriptor parseOperation(Operation operation, OperationDescriptor.HTTPMethod httpMethod, Store store){
-        // TODO tags
-        // TODO externalDocs
-        // TODO security
-
-        OperationDescriptor operationDescriptor = store.create(OperationDescriptor.class);
-
-        // read properties
-        operationDescriptor.setType(httpMethod);
-        if(operation.getSummary() != null && !operation.getSummary().isEmpty())
-            operationDescriptor.setSummary(operation.getSummary());
-        if(operation.getDescription() != null && !operation.getDescription().isEmpty())
-            operationDescriptor.setDescription(operation.getDescription());
-        if(operation.getOperationId() != null && !operation.getOperationId().isEmpty())
-            operationDescriptor.setOperationId(operation.getOperationId());
-        if(operation.getDeprecated() != null)
-            operationDescriptor.setIsDeprecated(operation.getDeprecated());
-        else
-            operationDescriptor.setIsDeprecated(false); // Default Value
-
-        // read responses
-        if(operation.getResponses() != null && !operation.getResponses().isEmpty())
-            operationDescriptor.getResponses().addAll(parseResponses(operation.getResponses(), store));
-
-        // read requestBody
-        if(operation.getRequestBody() != null)
-            operationDescriptor.setRequestBody(parseRequestBody(operation.getRequestBody(), store));
-
-        return operationDescriptor;
-    }
 
     /**
      * Parses list of OpenApi Response objects
