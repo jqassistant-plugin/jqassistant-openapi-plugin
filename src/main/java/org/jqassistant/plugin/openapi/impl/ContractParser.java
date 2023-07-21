@@ -36,7 +36,7 @@ public class ContractParser {
 
         LOG.info("Reading OpenAPI Paths");
         if(contract.getPaths() != null && !contract.getPaths().isEmpty())
-            contractDescriptor.getPaths().addAll(Parsers.parsePaths(contract.getPaths(), store));
+            contractDescriptor.getPaths().addAll(PathParser.parseAll(contract.getPaths(), store));
     }
 
     /**
