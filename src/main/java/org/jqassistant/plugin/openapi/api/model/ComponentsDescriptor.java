@@ -14,7 +14,7 @@ public interface ComponentsDescriptor extends OpenApiDescriptor{
     List<HeaderDescriptor> getHeaders();
 
     @Relation("INCLUDES")
-    List<SecuritySchemaDescriptor> getSecuritySchemas();
+    List<SecuritySchemeDescriptor> getSecuritySchemas();
 
     @Relation("INCLUDES")
     List<LinkDescriptor> getLinks();

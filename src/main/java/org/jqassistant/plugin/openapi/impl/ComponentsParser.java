@@ -58,11 +58,10 @@ public class ComponentsParser {
         return schemaDescriptors;
     }
 
-    // secSchema map only occurs as child of components
-    private static List<SecuritySchemaDescriptor> parseSecuritySchemes(Map<String, SecurityScheme> securitySchemesMap, Store store){
-        List<SecuritySchemaDescriptor> securitySchemaDescriptors = new ArrayList<>();
-        securitySchemesMap.forEach((s, securityScheme) -> securitySchemaDescriptors.add(Parsers.parseSecurityScheme(securityScheme, store)));
-        return securitySchemaDescriptors;
+    private static List<SecuritySchemeDescriptor> parseSecuritySchemes(Map<String, SecurityScheme> securitySchemesMap, Store store){
+        List<SecuritySchemeDescriptor> securitySchemeDescriptors = new ArrayList<>();
+        securitySchemesMap.forEach((s, securityScheme) -> securitySchemeDescriptors.add(parseSecurityScheme(securityScheme, store)));
+        return securitySchemeDescriptors;
     }
 
     // TODO make func parseHeaders reusable
