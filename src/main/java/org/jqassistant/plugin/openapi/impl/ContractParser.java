@@ -2,7 +2,9 @@ package org.jqassistant.plugin.openapi.impl;
 
 import com.buschmais.jqassistant.core.store.api.Store;
 import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
+import org.jqassistant.plugin.openapi.api.model.ContactDescriptor;
 import org.jqassistant.plugin.openapi.api.model.ContractDescriptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +30,7 @@ public class ContractParser {
 
         LOG.info("Reading OpenAPI Tags");
         if(contract.getTags() != null && !contract.getTags().isEmpty())
-            contractDescriptor.getTags().addAll(Parsers.parseTags(contract.getTags(), store));
+            contractDescriptor.getTags().addAll(TagParser.parseAllTags(contract.getTags(), store));
 
         LOG.info("Reading OpenAPI Servers");
         if(contract.getServers() != null && !contract.getServers().isEmpty())
@@ -47,6 +49,20 @@ public class ContractParser {
         if (info.getVersion() != null)
             contractDescriptor.setApiVersion(info.getVersion());
         if (info.getContact() != null)
-            contractDescriptor.setContact(Parsers.parseContact(info.getContact(), store));
+            contractDescriptor.setContact(parseContact(info.getContact(), store));
     }
+
+    private static ContactDescriptor parseContact(Contact contact, Store store){
+        ContactDescriptor contactDescriptor = store.create(ContactDescriptor.class);
+
+        if(contact.getName() != null)
+            contactDescriptor.setName(contact.getName());
+        if(contact.getEmail() != null)
+            contactDescriptor.setEmail(contact.getEmail());
+        if(contact.getUrl() != null)
+            contactDescriptor.setUrl(contact.getUrl());
+
+        return contactDescriptor;
+    }
+
 }

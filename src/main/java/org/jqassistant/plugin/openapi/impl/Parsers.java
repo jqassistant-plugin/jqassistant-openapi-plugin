@@ -21,49 +21,6 @@ public class Parsers {
     }
 
     /**
-     * Parses OpenApi Contact object to Internal Object
-     *
-     * @param contact Object to parse
-     * @param store Store object to create Internal Object from
-     * @return parsed internal Object
-     */
-    static ContactDescriptor parseContact(Contact contact, Store store){
-        ContactDescriptor contactDescriptor = store.create(ContactDescriptor.class);
-
-        if(contact.getName() != null)
-            contactDescriptor.setName(contact.getName());
-        if(contact.getEmail() != null)
-            contactDescriptor.setEmail(contact.getEmail());
-        if(contact.getUrl() != null)
-            contactDescriptor.setUrl(contact.getUrl());
-
-        return contactDescriptor;
-    }
-
-    /**
-     * Parses OpenApi Tag List to Internal Object list
-     *
-     * @param tags Object to parse
-     * @param store Store object to create Internal Object from
-     * @return parsed internal Object
-     */
-    static List<TagDescriptor> parseTags(List<Tag> tags, Store store){
-        ArrayList<TagDescriptor> retTags = new ArrayList<>();
-
-        for (Tag tag : tags){
-            TagDescriptor tagDescriptor = store.create(TagDescriptor.class);
-            if(tag.getName() != null)
-                tagDescriptor.setTag(tag.getName());
-            if(tag.getDescription() != null)
-                tagDescriptor.setDescription(tag.getDescription());
-
-            retTags.add(tagDescriptor);
-        }
-
-        return retTags;
-    }
-
-    /**
      Parses a Callback object and creates a CallbackDescriptor based on the provided Callback and Store.
      *
      @param callback The Callback object to parse.
