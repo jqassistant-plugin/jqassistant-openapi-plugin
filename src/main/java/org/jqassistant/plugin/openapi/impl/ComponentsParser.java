@@ -70,24 +70,21 @@ public class ComponentsParser {
     // schema map only occurs as child of components
     private static List<SchemaDescriptor> parseSchemas(Map<String, Schema> schemasMap, Store store){
         List<SchemaDescriptor> schemaDescriptors = new ArrayList<>();
-        for (Schema<?> schema : schemasMap.values())
-            schemaDescriptors.add(Parsers.parseSchema(schema, store));
+        schemasMap.forEach((s, schema) -> schemaDescriptors.add(Parsers.parseSchema(schema, store)));
         return schemaDescriptors;
     }
 
     // reqBody map only occurs as child of components
     private static List<RequestBodyDescriptor> parseRequestBodies(Map<String, RequestBody> requestBodiesMap, Store store){
         List<RequestBodyDescriptor> requestBodyDescriptors = new ArrayList<>();
-        for (RequestBody requestBody : requestBodiesMap.values())
-            requestBodyDescriptors.add(Parsers.parseRequestBody(requestBody, store));
+        requestBodiesMap.forEach((s, requestBody) -> requestBodyDescriptors.add(Parsers.parseRequestBody(requestBody, store)));
         return requestBodyDescriptors;
     }
 
     // secSchema map only occurs as child of components
     private static List<SecuritySchemaDescriptor> parseSecuritySchemes(Map<String, SecurityScheme> securitySchemesMap, Store store){
         List<SecuritySchemaDescriptor> securitySchemaDescriptors = new ArrayList<>();
-        for (SecurityScheme securityScheme : securitySchemesMap.values())
-            securitySchemaDescriptors.add(Parsers.parseSecuritySchemas(securityScheme, store));
+        securitySchemesMap.forEach((s, securityScheme) -> securitySchemaDescriptors.add(Parsers.parseSecuritySchemas(securityScheme, store)));
         return securitySchemaDescriptors;
     }
 
@@ -95,8 +92,7 @@ public class ComponentsParser {
     // gets used by parents components, encoding, response
     private static List<HeaderDescriptor> parseHeaders(Map<String, Header> headersMap, Store store){
         List<HeaderDescriptor> headerDescriptors = new ArrayList<>();
-        for (Header header : headersMap.values())
-            headerDescriptors.add(Parsers.parseHeader(header, store));
+        headersMap.forEach((s, header) -> headerDescriptors.add(Parsers.parseHeader(header, store)));
         return headerDescriptors;
     }
 
@@ -104,8 +100,7 @@ public class ComponentsParser {
     // gets used by parents components, response,
     private static List<LinkDescriptor> parseLinks(Map<String, Link> linksMap, Store store){
         List<LinkDescriptor> linkDescriptors = new ArrayList<>();
-        for (Link link : linksMap.values())
-            linkDescriptors.add(Parsers.parseLink(link, store));
+        linksMap.forEach((s, link) -> linkDescriptors.add(Parsers.parseLink(link, store)));
         return linkDescriptors;
     }
 
@@ -113,8 +108,7 @@ public class ComponentsParser {
     // gets used by parents components, paths, schema (as webhook)
     private static List<PathDescriptor> parsePathItems(Map<String, PathItem> pathItemsMap, Store store){
         List<PathDescriptor> pathDescriptors = new ArrayList<>();
-        for(Map.Entry<String, PathItem> pathItemEntry: pathItemsMap.entrySet())
-            pathDescriptors.add(Parsers.parsePath(pathItemEntry.getKey(), pathItemEntry.getValue(), store));
+        pathItemsMap.forEach((pathUrl, pathItem) -> pathDescriptors.add(Parsers.parsePath(pathUrl, pathItem, store)));
         return pathDescriptors;
     }
 
@@ -122,8 +116,7 @@ public class ComponentsParser {
     // gets used by parents components, operation,
     private static List<CallbackDescriptor> parseCallbacks(Map<String, Callback> callbacksMap, Store store){
         List<CallbackDescriptor> callbackDescriptors = new ArrayList<>();
-        for(Callback callback : callbacksMap.values())
-            callbackDescriptors.add(Parsers.parseCallback(callback, store));
+        callbacksMap.forEach((s, callback) -> callbackDescriptors.add(Parsers.parseCallback(callback, store)));
         return callbackDescriptors;
     }
 
@@ -131,8 +124,7 @@ public class ComponentsParser {
     // gets used by parents components, parameter, mediaType
     private static List<ExampleDescriptor> parseExamples(Map<String, Example> examplesMap, Store store){
         List<ExampleDescriptor> exampleDescriptors = new ArrayList<>();
-        for(Example example : examplesMap.values())
-            exampleDescriptors.add(Parsers.parseExample(example, store));
+        examplesMap.forEach((s, example) -> exampleDescriptors.add(Parsers.parseExample(example, store)));
         return exampleDescriptors;
     }
 
@@ -140,8 +132,7 @@ public class ComponentsParser {
     // gets used by parent components, responses object (under operation)
     private static List<ResponseDescriptor> parseResponses(Map<String, ApiResponse> apiResponsesMap, Store store){
         List<ResponseDescriptor> responseDescriptors = new ArrayList<>();
-        for(Map.Entry<String, ApiResponse> apiResponseEntry : apiResponsesMap.entrySet())
-            responseDescriptors.add(Parsers.parseResponse(apiResponseEntry.getKey(), apiResponseEntry.getValue(), store));
+        apiResponsesMap.forEach((statusCodeOrDefault, response) -> responseDescriptors.add(Parsers.parseResponse(statusCodeOrDefault, response, store)));
         return responseDescriptors;
     }
 
@@ -149,8 +140,7 @@ public class ComponentsParser {
     // gets used by parent components, pathItem, operation, parseHeaders
     private static List<ParameterDescriptor> parseParameters(Map<String, Parameter> parametersMap, Store store){
         List<ParameterDescriptor> parameterDescriptors = new ArrayList<>();
-        for (Parameter parameter : parametersMap.values())
-            parameterDescriptors.add(Parsers.parseParameter(parameter, store));
+        parametersMap.forEach((s, parameter) -> parameterDescriptors.add(Parsers.parseParameter(parameter, store)));
         return parameterDescriptors;
     }
 }
