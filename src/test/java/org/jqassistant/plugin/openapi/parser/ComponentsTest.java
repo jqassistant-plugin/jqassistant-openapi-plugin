@@ -84,11 +84,4 @@ public class ComponentsTest extends AbstractPluginIT {
         List<SchemaDescriptor> schemas = contract.getComponents().getSchemas();
         assertThat(schemas).hasSize(1);
     }
-
-    @Test
-    void testPathItems(){
-        List<PathDescriptor> pathItems = contract.getComponents().getPaths();
-        assertThat(pathItems).hasSize(1);
-    }
-
 }

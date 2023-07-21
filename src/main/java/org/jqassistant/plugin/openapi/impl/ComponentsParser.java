@@ -61,9 +61,6 @@ public class ComponentsParser {
         if (components.getCallbacks() != null)
             componentsDescriptor.getCallBacks().addAll(parseCallbacks(components.getCallbacks(), store));
 
-        if (components.getPathItems() != null)
-            componentsDescriptor.getPaths().addAll(parsePathItems(components.getPathItems(), store));
-
         return componentsDescriptor;
     }
 
@@ -102,14 +99,6 @@ public class ComponentsParser {
         List<LinkDescriptor> linkDescriptors = new ArrayList<>();
         linksMap.forEach((s, link) -> linkDescriptors.add(Parsers.parseLink(link, store)));
         return linkDescriptors;
-    }
-
-    // TODO make func parsePathItems reusable
-    // gets used by parents components, paths, schema (as webhook)
-    private static List<PathDescriptor> parsePathItems(Map<String, PathItem> pathItemsMap, Store store){
-        List<PathDescriptor> pathDescriptors = new ArrayList<>();
-        pathItemsMap.forEach((pathUrl, pathItem) -> pathDescriptors.add(Parsers.parsePath(pathUrl, pathItem, store)));
-        return pathDescriptors;
     }
 
     // TODO make func parseCallbacks reusable
