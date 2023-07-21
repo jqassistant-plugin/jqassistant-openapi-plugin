@@ -6,15 +6,8 @@ import io.swagger.v3.oas.models.examples.Example;
 import io.swagger.v3.oas.models.headers.Header;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.links.Link;
-import io.swagger.v3.oas.models.media.Content;
-import io.swagger.v3.oas.models.media.MediaType;
 import io.swagger.v3.oas.models.media.Schema;
-import io.swagger.v3.oas.models.parameters.Parameter;
-import io.swagger.v3.oas.models.parameters.RequestBody;
-import io.swagger.v3.oas.models.responses.ApiResponse;
-import io.swagger.v3.oas.models.responses.ApiResponses;
 import io.swagger.v3.oas.models.security.SecurityScheme;
-import io.swagger.v3.oas.models.servers.Server;
 import io.swagger.v3.oas.models.tags.Tag;
 import org.jqassistant.plugin.openapi.api.model.*;
 
@@ -25,145 +18,6 @@ public class Parsers {
 
     private Parsers() {
         throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
-    }
-
-    /**
-     * Parses OpenApi requestBody object to internal object
-     *
-     * @param requestBody object to parse
-     * @param store store object to create internal object from
-     * @return parsed internal objects
-     */
-    static RequestBodyDescriptor parseRequestBody(RequestBody requestBody, Store store){
-        RequestBodyDescriptor requestBodyDescriptor = store.create(RequestBodyDescriptor.class);
-
-        // read properties
-        if(requestBody.getDescription() != null && !requestBody.getDescription().isEmpty())
-            requestBodyDescriptor.setDescription(requestBody.getDescription());
-        if(requestBody.getRequired() != null)
-            requestBodyDescriptor.setIsRequired(requestBody.getRequired());
-
-        // read content
-        if(requestBody.getContent() != null && !requestBody.getContent().isEmpty())
-            requestBodyDescriptor.getMediaTypeObjects().addAll(parseContent(requestBody.getContent(), store));
-
-        return requestBodyDescriptor;
-    }
-
-    /**
-     * Parses OpenApi Content object
-     *
-     * @param content object to parse
-     * @param store store object to create internal object from
-     * @return list of parsed internal mediaType objects
-     */
-    static List<MediaTypeObjectDescriptor> parseContent(Content content, Store store){
-        List<MediaTypeObjectDescriptor> retMediaTypeObjects = new ArrayList<>();
-        content.forEach((mediaType, mediaTypeObject) -> retMediaTypeObjects.add(parseMediaTypeObject(mediaType, mediaTypeObject, store)));
-        return retMediaTypeObjects;
-    }
-
-    /**
-     * Parses OpenApi mediaTypeObject object to internal object
-     *
-     * @param mediaType media type or media type range
-     * @param mediaTypeObject object to parse
-     * @param store store object to create internal object from
-     * @return parsed internal objects
-     */
-    static MediaTypeObjectDescriptor parseMediaTypeObject(String mediaType, MediaType mediaTypeObject, Store store){
-        // TODO implement examples
-        // TODO implement encoding
-        // TODO implement schemas
-
-        MediaTypeObjectDescriptor mediaTypeObjectDescriptor = store.create(MediaTypeObjectDescriptor.class);
-
-        // read properties
-        mediaTypeObjectDescriptor.setMediaType(mediaType);
-
-        return mediaTypeObjectDescriptor;
-    }
-
-
-    /**
-     * Parses list of OpenApi Response objects
-     *
-     * @param responses list of objects to parse
-     * @param store store object to create internal object from
-     * @return list of parsed internal objects
-     */
-    static List<ResponseDescriptor> parseResponses(ApiResponses responses, Store store){
-        List<ResponseDescriptor> retResponses = new ArrayList<>();
-        responses.forEach((s, apiResponse) -> retResponses.add(parseResponse(s, apiResponse, store)));
-        return retResponses;
-    }
-
-    /**
-     * Parses OpenApi response object to internal object
-     *
-     * @param statusCodeOrDefault statusCode of response or "default"
-     * @param response object to parse
-     * @param store store object to create internal object from
-     * @return parsed internal objects
-     */
-    static ResponseDescriptor parseResponse(String statusCodeOrDefault, ApiResponse response, Store store){
-        // TODO implement mediaTypeObject parsing
-
-        ResponseDescriptor responseDescriptor = store.create(ResponseDescriptor.class);
-
-        // read statusCode and default flag
-        if(statusCodeOrDefault.equals("default"))
-            responseDescriptor.setIsDefault(true);
-        else {
-            responseDescriptor.setIsDefault(false);
-            responseDescriptor.setStatusCode(statusCodeOrDefault);
-        }
-
-        // read properties
-        if(response.getDescription() != null && !response.getDescription().isEmpty())
-            responseDescriptor.setDescription(response.getDescription());
-
-        // read content
-        if(response.getContent() != null && !response.getContent().isEmpty())
-            responseDescriptor.getMediaTypeObject().addAll(parseContent(response.getContent(), store));
-
-        return responseDescriptor;
-    }
-
-    /**
-     * Parses list of OpenApi Parameter objects
-     *
-     * @param parameters list of objects to parse
-     * @param store store object to create internal object from
-     * @return list of parsed internal objects
-     */
-    static List<ParameterDescriptor> parseParameters(List<Parameter> parameters, Store store){
-        List<ParameterDescriptor> retParameters = new ArrayList<>();
-        for(Parameter parameter: parameters)
-            retParameters.add(parseParameter(parameter, store));
-        return retParameters;
-    }
-
-    static ParameterDescriptor parseParameter(Parameter parameter, Store store){
-        // TODO implement scanning of further props (might also be still missing in param descriptor)
-        ParameterDescriptor parameterDescriptor = store.create(ParameterDescriptor.class);
-
-        // read properties
-        if(parameter.getName() != null && !parameter.getName().isEmpty())
-            parameterDescriptor.setName(parameter.getName());
-        if(parameter.getIn() != null && !parameter.getIn().isEmpty())
-            parameterDescriptor.setLocation(ParameterDescriptor.ParameterLocation
-                    .valueOf(parameter.getIn().toUpperCase()));
-        if(parameter.getDescription() != null && !parameter.getDescription().isEmpty())
-            parameterDescriptor.setDescription(parameter.getDescription());
-        if(parameter.getRequired() != null)
-            parameterDescriptor.setIsRequired(parameter.getRequired());
-        if(parameter.getDeprecated() != null)
-            parameterDescriptor.setIsDeprecated(parameter.getDeprecated());
-        if(parameter.getAllowEmptyValue() != null)
-            parameterDescriptor.setAllowsEmptyValue(parameter.getAllowEmptyValue());
-
-        return parameterDescriptor;
     }
 
     /**
@@ -210,30 +64,6 @@ public class Parsers {
     }
 
     /**
-     * Parses OpenApi Server List to Internal Object list
-     *
-     * @param servers Object to parse
-     * @param store Store object to create Internal Object from
-     * @return parsed internal Object
-     */
-    static List<ServerDescriptor> parseSevers(List<Server> servers, Store store){
-        ArrayList<ServerDescriptor> retServers = new ArrayList<>();
-
-        for (Server server : servers){
-            ServerDescriptor serverDescriptor = store.create(ServerDescriptor.class);
-
-            serverDescriptor.setUrl(server.getUrl());
-
-            if(server.getDescription() != null)
-                serverDescriptor.setDescription(server.getDescription());
-
-            retServers.add(serverDescriptor);
-        }
-
-        return retServers;
-    }
-
-    /**
      Parses a Callback object and creates a CallbackDescriptor based on the provided Callback and Store.
      *
      @param callback The Callback object to parse.
@@ -256,7 +86,7 @@ public class Parsers {
      @param store The Store object used to create the SecuritySchemaDescriptor.
      @return The parsed SecuritySchemaDescriptor object.
      */
-    static SecuritySchemaDescriptor parseSecuritySchemas(SecurityScheme securityScheme, Store store){
+    static SecuritySchemaDescriptor parseSecurityScheme(SecurityScheme securityScheme, Store store){
         SecuritySchemaDescriptor securitySchemaDescriptor = store.create(SecuritySchemaDescriptor.class);
 
         if(securityScheme.getName() != null){

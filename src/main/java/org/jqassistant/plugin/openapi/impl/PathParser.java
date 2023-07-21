@@ -26,7 +26,32 @@ public class PathParser {
         //set path properties
         setProperties(pathDescriptor, pathItem, pathUrl);
 
-        // combine all Operations
+        // parse operations
+        EnumMap<OperationDescriptor.HTTPMethod, Operation> operations = combineOperations(pathItem);
+        pathDescriptor.getOperations().addAll(parseOperations(operations, store));
+
+        // parse servers
+        if (pathItem.getServers() != null)
+            pathDescriptor.getServers().addAll(ServerParser.parseAll(pathItem.getServers(), store));
+
+        // parse parameters
+        if (pathItem.getParameters() != null)
+            pathDescriptor.getParameters().addAll(ParameterParser.parseAll(pathItem.getParameters(), store));
+
+        return pathDescriptor;
+    }
+
+    private static void setProperties(PathDescriptor pathDescriptor, PathItem pathItem, String pathUrl){
+        pathDescriptor.setPathUrl(pathUrl);
+        if(pathItem.get$ref() != null && !pathItem.get$ref().isEmpty())
+            pathDescriptor.set$ref(pathItem.get$ref());
+        if(pathItem.getSummary() != null && !pathItem.getSummary().isEmpty())
+            pathDescriptor.setSummary(pathItem.getSummary());
+        if(pathItem.getDescription() != null && !pathItem.getDescription().isEmpty())
+            pathDescriptor.setDescription(pathItem.getDescription());
+    }
+
+    private static EnumMap<OperationDescriptor.HTTPMethod, Operation> combineOperations(PathItem pathItem){
         EnumMap<OperationDescriptor.HTTPMethod, Operation> operations = new EnumMap<>(OperationDescriptor.HTTPMethod.class);
 
         if (pathItem.getGet() != null)
@@ -46,28 +71,7 @@ public class PathParser {
         if (pathItem.getTrace() != null)
             operations.put(OperationDescriptor.HTTPMethod.TRACE, pathItem.getTrace());
 
-        // parse operations
-        pathDescriptor.getOperations().addAll(parseOperations(operations, store));
-
-        // Read all Servers
-        if (pathItem.getServers() != null)
-            pathDescriptor.getServers().addAll(Parsers.parseSevers(pathItem.getServers(), store));
-
-        // Read all Parameters
-        if (pathItem.getParameters() != null)
-            pathDescriptor.getParameters().addAll(Parsers.parseParameters(pathItem.getParameters(), store));
-
-        return pathDescriptor;
-    }
-
-    private static void setProperties(PathDescriptor pathDescriptor, PathItem pathItem, String pathUrl){
-        pathDescriptor.setPathUrl(pathUrl);
-        if(pathItem.get$ref() != null && !pathItem.get$ref().isEmpty())
-            pathDescriptor.set$ref(pathItem.get$ref());
-        if(pathItem.getSummary() != null && !pathItem.getSummary().isEmpty())
-            pathDescriptor.setSummary(pathItem.getSummary());
-        if(pathItem.getDescription() != null && !pathItem.getDescription().isEmpty())
-            pathDescriptor.setDescription(pathItem.getDescription());
+        return operations;
     }
 
     private static List<OperationDescriptor> parseOperations(Map<OperationDescriptor.HTTPMethod, Operation> operationsMap, Store store){
@@ -77,10 +81,6 @@ public class PathParser {
     }
 
     private static OperationDescriptor parseOperation(OperationDescriptor.HTTPMethod httpMethod, Operation operation, Store store){
-        // TODO tags
-        // TODO externalDocs
-        // TODO security
-
         OperationDescriptor operationDescriptor = store.create(OperationDescriptor.class);
 
         // read properties
@@ -98,11 +98,11 @@ public class PathParser {
 
         // read responses
         if(operation.getResponses() != null && !operation.getResponses().isEmpty())
-            operationDescriptor.getResponses().addAll(Parsers.parseResponses(operation.getResponses(), store));
+            operationDescriptor.getResponses().addAll(ResponseParser.parseAll(operation.getResponses(), store));
 
         // read requestBody
         if(operation.getRequestBody() != null)
-            operationDescriptor.setRequestBody(Parsers.parseRequestBody(operation.getRequestBody(), store));
+            operationDescriptor.setRequestBody(RequestBodyParser.parseOne(operation.getRequestBody(), store));
 
         return operationDescriptor;
     }

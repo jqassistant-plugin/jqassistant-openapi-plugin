@@ -32,7 +32,7 @@ public class ContractParser {
 
         LOG.info("Reading OpenAPI Servers");
         if(contract.getServers() != null && !contract.getServers().isEmpty())
-            contractDescriptor.getServers().addAll(Parsers.parseSevers(contract.getServers(), store));
+            contractDescriptor.getServers().addAll(ServerParser.parseAll(contract.getServers(), store));
 
         LOG.info("Reading OpenAPI Paths");
         if(contract.getPaths() != null && !contract.getPaths().isEmpty())
