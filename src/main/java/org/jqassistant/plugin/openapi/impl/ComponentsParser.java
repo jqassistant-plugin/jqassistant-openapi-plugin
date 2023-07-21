@@ -40,7 +40,7 @@ public class ComponentsParser {
             componentsDescriptor.getSecuritySchemas().addAll(parseSecuritySchemes(components.getSecuritySchemes(), store));
 
         if (components.getLinks() != null)
-            componentsDescriptor.getLinks().addAll(parseLinks(components.getLinks(), store));
+            componentsDescriptor.getLinks().addAll(LinkParser.parseAll(components.getLinks(), store));
 
         if (components.getCallbacks() != null)
             componentsDescriptor.getCallBacks().addAll(CallbackParser.parseAll(components.getCallbacks(), store));
@@ -76,14 +76,6 @@ public class ComponentsParser {
         List<HeaderDescriptor> headerDescriptors = new ArrayList<>();
         headersMap.forEach((s, header) -> headerDescriptors.add(Parsers.parseHeader(header, store)));
         return headerDescriptors;
-    }
-
-    // TODO make func parseLinks reusable
-    // gets used by parents components, response,
-    private static List<LinkDescriptor> parseLinks(Map<String, Link> linksMap, Store store){
-        List<LinkDescriptor> linkDescriptors = new ArrayList<>();
-        linksMap.forEach((s, link) -> linkDescriptors.add(Parsers.parseLink(link, store)));
-        return linkDescriptors;
     }
 
 }

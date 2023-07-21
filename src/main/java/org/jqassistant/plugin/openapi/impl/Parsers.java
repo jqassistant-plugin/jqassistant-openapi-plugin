@@ -22,39 +22,6 @@ public class Parsers {
 
 
     /**
-     Parses a SecurityScheme object and creates a SecuritySchemaDescriptor based on the provided SecurityScheme and Store.
-     @param securityScheme The SecurityScheme object to parse.
-     @param store The Store object used to create the SecuritySchemaDescriptor.
-     @return The parsed SecuritySchemaDescriptor object.
-     */
-    static SecuritySchemaDescriptor parseSecurityScheme(SecurityScheme securityScheme, Store store){
-        SecuritySchemaDescriptor securitySchemaDescriptor = store.create(SecuritySchemaDescriptor.class);
-
-        if(securityScheme.getName() != null){
-            securitySchemaDescriptor.setName(securityScheme.getName());
-        }
-
-        return securitySchemaDescriptor;
-    }
-
-    /**
-     Parses a Link object and creates a LinkDescriptor based on the provided Link and Store.
-     @param link The Link object to parse.
-     @param store The Store object used to create the LinkDescriptor.
-     @return The parsed LinkDescriptor object.
-     */
-    static LinkDescriptor parseLink(Link link, Store store){
-        LinkDescriptor linkDescriptor = store.create(LinkDescriptor.class);
-
-        if(linkDescriptor.getOperationRef() != null){
-            linkDescriptor.setOperationRef(link.getOperationRef());
-        }
-
-        return linkDescriptor;
-    }
-
-
-    /**
      *
      Parses an OpenAPI Schema object and creates a SchemaDescriptor based on the provided Schema and Store.
      @param schema The Schema object to parse.
