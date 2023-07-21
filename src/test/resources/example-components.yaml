@@ -68,3 +68,22 @@ components:
             '200':
               description: Successful response
 
+  pathItems:
+    /getstuff:
+      get:
+        description: Returns pets based on ID
+        summary: Find pets by ID
+        operationId: getPetsById
+        responses:
+          '200':
+            description: pet response
+            content:
+              '*/*':
+                schema:
+                  type: array
+          default:
+            description: error payload
+            content:
+              'text/html':
+                schema:
+                  type: object
