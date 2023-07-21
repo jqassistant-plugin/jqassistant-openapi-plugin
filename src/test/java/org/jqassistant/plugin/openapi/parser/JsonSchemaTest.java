@@ -11,7 +11,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -149,18 +151,11 @@ class JsonSchemaTest extends AbstractPluginIT {
                 assertThat(vals).isNotNull();
                 assertThat(vals).hasSize(3);
 
-                for (int i = 0; i < 3; i++){
-                    EnumValueDescriptor valueDescriptor = vals.get(i);
-                    //assertThat(valueDescriptor.getEnumNumber()).isEqualTo(i);
+                Set<String> actual = new HashSet<>();
+                vals.forEach(val -> actual.add(val.getEnumName()));
 
-                    if (i == 0){
-                        assertThat(valueDescriptor.getEnumName()).isEqualTo("foo");
-                    } else if (i == 1) {
-                        assertThat(valueDescriptor.getEnumName()).isEqualTo("baa");
-                    } else {
-                        assertThat(valueDescriptor.getEnumName()).isEqualTo("baz");
-                    }
-                }
+                assertThat(actual).containsExactlyInAnyOrder("foo", "baa", "baz");
+
             } else {
                 Assertions.fail("unexpected property found");
             }

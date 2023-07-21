@@ -119,7 +119,6 @@ public class JsonSchemaParser {
         enums.forEach( val -> {
             EnumValueDescriptor enumValueDescriptor = store.create(EnumValueDescriptor.class);
             enumValueDescriptor.setEnumName(val.toString());
-            //enumValueDescriptor.setEnumNumber(0); todo
             ret.add(enumValueDescriptor);
         });
 

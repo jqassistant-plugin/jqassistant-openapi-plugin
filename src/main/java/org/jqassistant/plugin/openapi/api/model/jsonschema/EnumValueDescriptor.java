@@ -6,7 +6,4 @@ import com.buschmais.xo.neo4j.api.annotation.Label;
 public interface EnumValueDescriptor extends JsonSchemaDescriptor {
     String getEnumName();
     void setEnumName(String enumName);
-
-    int getEnumNumber();
-    void setEnumNumber(int enumNumber);
 }
