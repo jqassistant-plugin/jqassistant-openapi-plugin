@@ -16,6 +16,8 @@ public class ContractParser {
     }
 
     public static void parse(OpenAPI contract, ContractDescriptor contractDescriptor, Store store){
+        // TODO extend contract parsing to full coverage
+
         LOG.info("Reading Info object");
         if(contract.getInfo() != null)
             parseInfo(contract.getInfo(), contractDescriptor, store);
