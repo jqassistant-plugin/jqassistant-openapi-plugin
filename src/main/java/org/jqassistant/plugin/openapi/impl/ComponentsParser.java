@@ -46,7 +46,7 @@ public class ComponentsParser {
             componentsDescriptor.getLinks().addAll(parseLinks(components.getLinks(), store));
 
         if (components.getCallbacks() != null)
-            componentsDescriptor.getCallBacks().addAll(parseCallbacks(components.getCallbacks(), store));
+            componentsDescriptor.getCallBacks().addAll(CallbackParser.parseAll(components.getCallbacks(), store));
 
         return componentsDescriptor;
     }
@@ -79,14 +79,6 @@ public class ComponentsParser {
         List<LinkDescriptor> linkDescriptors = new ArrayList<>();
         linksMap.forEach((s, link) -> linkDescriptors.add(Parsers.parseLink(link, store)));
         return linkDescriptors;
-    }
-
-    // TODO make func parseCallbacks reusable
-    // gets used by parents components, operation,
-    private static List<CallbackDescriptor> parseCallbacks(Map<String, Callback> callbacksMap, Store store){
-        List<CallbackDescriptor> callbackDescriptors = new ArrayList<>();
-        callbacksMap.forEach((s, callback) -> callbackDescriptors.add(Parsers.parseCallback(callback, store)));
-        return callbackDescriptors;
     }
 
 }

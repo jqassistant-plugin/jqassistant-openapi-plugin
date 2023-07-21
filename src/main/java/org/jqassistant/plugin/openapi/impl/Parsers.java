@@ -20,22 +20,6 @@ public class Parsers {
         throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
     }
 
-    /**
-     Parses a Callback object and creates a CallbackDescriptor based on the provided Callback and Store.
-     *
-     @param callback The Callback object to parse.
-     @param store The Store object used to create the CallbackDescriptor.
-     @return The parsed CallbackDescriptor object.
-     */
-    static CallbackDescriptor parseCallback(Callback callback, Store store){
-        CallbackDescriptor callbackDescriptor = store.create(CallbackDescriptor.class);
-
-        if(callback.get$ref() != null){
-            callbackDescriptor.setRef(callback.get$ref());
-        }
-
-        return callbackDescriptor;
-    }
 
     /**
      Parses a SecurityScheme object and creates a SecuritySchemaDescriptor based on the provided SecurityScheme and Store.
