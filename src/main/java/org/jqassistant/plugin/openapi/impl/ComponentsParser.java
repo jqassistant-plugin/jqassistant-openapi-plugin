@@ -37,6 +37,15 @@ public class ComponentsParser {
         if (components.getSchemas() != null)
             componentsDescriptor.getSchemas().addAll(parseSchemas(components.getSchemas(), store));
 
+        if (components.getResponses() != null)
+            componentsDescriptor.getResponses().addAll(parseResponses(components.getResponses(), store));
+
+        if (components.getParameters() != null)
+            componentsDescriptor.getParameters().addAll(parseParameters(components.getParameters(), store));
+
+        if (components.getExamples() != null)
+            componentsDescriptor.getExamples().addAll(parseExamples(components.getExamples(), store));
+
         if (components.getRequestBodies() != null)
             componentsDescriptor.getRequestBodies().addAll(parseRequestBodies(components.getRequestBodies(), store));
 
@@ -49,20 +58,11 @@ public class ComponentsParser {
         if (components.getLinks() != null)
             componentsDescriptor.getLinks().addAll(parseLinks(components.getLinks(), store));
 
-        if (components.getPathItems() != null)
-            componentsDescriptor.getPaths().addAll(parsePathItems(components.getPathItems(), store));
-
         if (components.getCallbacks() != null)
             componentsDescriptor.getCallBacks().addAll(parseCallbacks(components.getCallbacks(), store));
 
-        if (components.getExamples() != null)
-            componentsDescriptor.getExamples().addAll(parseExamples(components.getExamples(), store));
-
-        if (components.getResponses() != null)
-            componentsDescriptor.getResponses().addAll(parseResponses(components.getResponses(), store));
-
-        if (components.getParameters() != null)
-            componentsDescriptor.getParameters().addAll(parseParameters(components.getParameters(), store));
+        if (components.getPathItems() != null)
+            componentsDescriptor.getPaths().addAll(parsePathItems(components.getPathItems(), store));
 
         return componentsDescriptor;
     }
