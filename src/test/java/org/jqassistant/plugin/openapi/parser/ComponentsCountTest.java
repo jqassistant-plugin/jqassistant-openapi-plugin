@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ComponentsCountTest extends AbstractPluginIT {
+class ComponentsCountTest extends AbstractPluginIT {
 
     ContractDescriptor contract;
 
