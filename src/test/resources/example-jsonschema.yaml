@@ -14,7 +14,8 @@ components:
       properties:
         ArrayType:
           type: array
-          items: integer
+          items:
+            type: integer
         BoolType:
           type: boolean
         StringType:
@@ -30,7 +31,8 @@ components:
       properties:
         ArrayWithSimpleType:
           type: array
-          items: integer
+          items:
+            type: integer
         ArrayWithReference:
           type: array
           items:

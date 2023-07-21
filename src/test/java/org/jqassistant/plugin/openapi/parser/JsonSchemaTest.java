@@ -99,6 +99,7 @@ class JsonSchemaTest extends AbstractPluginIT {
                     break;
                 case "NumberType":
                     assertThat(propertyDescriptor).isInstanceOf(NumberPropertyDescriptor.class);
+                    break;
                 default:
                     Assertions.fail("unexpected Type");
             }
