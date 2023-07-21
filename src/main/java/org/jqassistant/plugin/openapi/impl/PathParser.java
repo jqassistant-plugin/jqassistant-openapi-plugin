@@ -6,10 +6,7 @@ import io.swagger.v3.oas.models.PathItem;
 import org.jqassistant.plugin.openapi.api.model.OperationDescriptor;
 import org.jqassistant.plugin.openapi.api.model.PathDescriptor;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class PathParser {
 
@@ -30,7 +27,7 @@ public class PathParser {
         setProperties(pathDescriptor, pathItem, pathUrl);
 
         // combine all Operations
-        Map<OperationDescriptor.HTTPMethod, Operation> operations = new HashMap<>();
+        EnumMap<OperationDescriptor.HTTPMethod, Operation> operations = new EnumMap<>(OperationDescriptor.HTTPMethod.class);
 
         if (pathItem.getGet() != null)
             operations.put(OperationDescriptor.HTTPMethod.GET, pathItem.getGet());

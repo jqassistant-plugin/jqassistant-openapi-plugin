@@ -39,12 +39,6 @@ public class ContractParser {
             contractDescriptor.getPaths().addAll(PathParser.parseAll(contract.getPaths(), store));
     }
 
-    /**
-     * Parses OpenAPI info object to internal properties
-     * @param info object to parse
-     * @param contractDescriptor object on which properties get set
-     * @param store store object to create internal object from
-     */
     private static void parseInfo(Info info, ContractDescriptor contractDescriptor, Store store){
         if(info.getTitle() != null)
             contractDescriptor.setTitle(info.getTitle());

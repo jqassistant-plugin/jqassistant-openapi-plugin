@@ -2,7 +2,6 @@ package org.jqassistant.plugin.openapi.impl;
 
 import com.buschmais.jqassistant.core.store.api.Store;
 import io.swagger.v3.oas.models.Components;
-import io.swagger.v3.oas.models.PathItem;
 import io.swagger.v3.oas.models.callbacks.Callback;
 import io.swagger.v3.oas.models.examples.Example;
 import io.swagger.v3.oas.models.headers.Header;

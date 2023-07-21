@@ -34,13 +34,13 @@ public class ComponentsCountTest extends AbstractPluginIT {
     @Test
     void testRequestBodies() {
         List<RequestBodyDescriptor> requestBodies = contract.getComponents().getRequestBodies();
-        assertThat(requestBodies).hasSize(0);
+        assertThat(requestBodies).isEmpty();
     }
 
     @Test
     void testHeaders() {
         List<HeaderDescriptor> headers = contract.getComponents().getHeaders();
-        assertThat(headers).hasSize(0);
+        assertThat(headers).isEmpty();
     }
 
     @Test
@@ -52,7 +52,7 @@ public class ComponentsCountTest extends AbstractPluginIT {
     @Test
     void testSchemas() {
         List<SchemaDescriptor> schemas = contract.getComponents().getSchemas();
-        assertThat(schemas).hasSize(0);
+        assertThat(schemas).isEmpty();
     }
 
 }
