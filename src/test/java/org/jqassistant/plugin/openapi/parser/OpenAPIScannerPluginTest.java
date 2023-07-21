@@ -59,5 +59,15 @@ import static org.assertj.core.api.Assertions.*;
         store.commitTransaction();
     }
 
+     @Test
+     void scanWholeContract(){
+         File file = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example.yaml");
+         try {
+             ContractDescriptor contract = getScanner().scan(file, "example.yaml", DefaultScope.NONE);
+             assertThat(contract).isNotNull();
+         } catch (Exception e){
+             fail("Reading whole example contract failed", e);
+         }
+     }
 
 }
