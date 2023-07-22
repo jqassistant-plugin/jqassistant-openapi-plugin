@@ -18,7 +18,7 @@ public class ComponentsParser {
         ComponentsDescriptor componentsDescriptor = store.create(ComponentsDescriptor.class);
 
         if (components.getSchemas() != null)
-            componentsDescriptor.getSchemas().addAll(parseSchemas(components.getSchemas(), store));
+            componentsDescriptor.getSchemas().addAll(SchemaParser.parseAll(components.getSchemas(), store));
 
         if (components.getResponses() != null)
             componentsDescriptor.getResponses().addAll(ResponseParser.parseAll(components.getResponses(), store));
@@ -45,13 +45,6 @@ public class ComponentsParser {
             componentsDescriptor.getCallBacks().addAll(CallbackParser.parseAll(components.getCallbacks(), store));
 
         return componentsDescriptor;
-    }
-
-    // schema map only occurs as child of components
-    private static List<SchemaDescriptor> parseSchemas(Map<String, Schema> schemasMap, Store store){
-        List<SchemaDescriptor> schemaDescriptors = new ArrayList<>();
-        schemasMap.forEach((s, schema) -> schemaDescriptors.add(Parsers.parseSchema(schema, store)));
-        return schemaDescriptors;
     }
 
     private static List<SecuritySchemeDescriptor> parseSecuritySchemes(Map<String, SecurityScheme> securitySchemesMap, Store store){
