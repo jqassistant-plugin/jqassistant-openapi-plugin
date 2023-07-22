@@ -1,18 +1,8 @@
 package org.jqassistant.plugin.openapi.impl;
 
 import com.buschmais.jqassistant.core.store.api.Store;
-import io.swagger.v3.oas.models.callbacks.Callback;
-import io.swagger.v3.oas.models.examples.Example;
-import io.swagger.v3.oas.models.headers.Header;
-import io.swagger.v3.oas.models.info.Contact;
-import io.swagger.v3.oas.models.links.Link;
 import io.swagger.v3.oas.models.media.Schema;
-import io.swagger.v3.oas.models.security.SecurityScheme;
-import io.swagger.v3.oas.models.tags.Tag;
 import org.jqassistant.plugin.openapi.api.model.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Parsers {
 
