@@ -1,4 +1,4 @@
-package org.jqassistant.plugin.openapi.impl;
+package org.jqassistant.plugin.openapi.impl.parsers;
 
 import com.buschmais.jqassistant.core.store.api.Store;
 import io.swagger.v3.oas.models.links.Link;
