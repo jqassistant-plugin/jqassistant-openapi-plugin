@@ -44,7 +44,7 @@ public class PathParser {
     private static void setProperties(PathDescriptor pathDescriptor, PathItem pathItem, String pathUrl){
         pathDescriptor.setPathUrl(pathUrl);
         if(pathItem.get$ref() != null && !pathItem.get$ref().isEmpty())
-            pathDescriptor.set$ref(pathItem.get$ref());
+            pathDescriptor.setReferenceString(pathItem.get$ref());
         if(pathItem.getSummary() != null && !pathItem.getSummary().isEmpty())
             pathDescriptor.setSummary(pathItem.getSummary());
         if(pathItem.getDescription() != null && !pathItem.getDescription().isEmpty())

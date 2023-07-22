@@ -7,9 +7,6 @@ import java.util.List;
 
 @Label("Response")
 public interface ResponseDescriptor extends OpenApiDescriptor{
-    // TODO (TBD) implement Headers object
-    // TODO (TBD) implement Links object
-
     Boolean getIsDefault();
     void setIsDefault(Boolean isDefault);
     String getStatusCode();

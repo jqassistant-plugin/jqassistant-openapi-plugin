@@ -7,9 +7,6 @@ import java.util.List;
 
 @Label("RequestBody")
 public interface RequestBodyDescriptor extends OpenApiDescriptor{
-    // TODO implement $ref
-    // TODO implement extensions
-
     String getDescription();
     void setDescription(String description);
     Boolean getIsRequired();

@@ -7,10 +7,6 @@ import java.util.List;
 
 @Label("Operation")
 public interface OperationDescriptor extends OpenApiDescriptor, DescriptionTemplate {
-    // TODO (TBD) implement tags
-    // TODO (TBD) implement Security object
-    // TODO (TBD) implement ExternalDocs object
-
     enum HTTPMethod {
         GET, PUT, POST, DELETE, OPTIONS, HEAD, PATCH, TRACE
     }
