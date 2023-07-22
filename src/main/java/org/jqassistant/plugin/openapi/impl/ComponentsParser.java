@@ -34,7 +34,7 @@ public class ComponentsParser {
             componentsDescriptor.getRequestBodies().addAll(RequestBodyParser.parseAll(components.getRequestBodies(), store));
 
         if (components.getHeaders() != null)
-            componentsDescriptor.getHeaders().addAll(parseHeaders(components.getHeaders(), store));
+            componentsDescriptor.getHeaders().addAll(HeaderParser.parseAll(components.getHeaders(), store));
 
         if (components.getSecuritySchemes() != null)
             componentsDescriptor.getSecuritySchemas().addAll(parseSecuritySchemes(components.getSecuritySchemes(), store));
@@ -69,13 +69,4 @@ public class ComponentsParser {
 
         return securitySchemeDescriptor;
     }
-
-    // TODO make func parseHeaders reusable
-    // gets used by parents components, encoding, response
-    private static List<HeaderDescriptor> parseHeaders(Map<String, Header> headersMap, Store store){
-        List<HeaderDescriptor> headerDescriptors = new ArrayList<>();
-        headersMap.forEach((s, header) -> headerDescriptors.add(Parsers.parseHeader(header, store)));
-        return headerDescriptors;
-    }
-
 }

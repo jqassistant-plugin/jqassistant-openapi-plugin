@@ -37,18 +37,4 @@ public class Parsers {
 
         return schemaDescriptor;
     }
-
-    /**
-     *
-     Parses an OpenAPI Header object and creates a HeaderDescriptor based on the provided Header and Store.
-     @param header The openAPI Header object to parse.
-     @param store The Store object used to create the HeaderDescriptor.
-     @return The parsed HeaderDescriptor object.
-     */
-    static HeaderDescriptor parseHeader(Header header, Store store){
-        HeaderDescriptor headerDescriptor = store.create(HeaderDescriptor.class);
-        if(header.getDescription() != null)
-            headerDescriptor.setDescription((header.getDescription()));
-        return headerDescriptor;
-    }
 }
