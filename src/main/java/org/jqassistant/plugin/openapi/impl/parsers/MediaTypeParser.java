@@ -4,9 +4,9 @@ import com.buschmais.jqassistant.core.store.api.Store;
 import io.swagger.v3.oas.models.media.MediaType;
 import org.jqassistant.plugin.openapi.api.model.MediaTypeObjectDescriptor;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class MediaTypeParser {
 
@@ -15,9 +15,7 @@ public class MediaTypeParser {
     }
 
     public static List<MediaTypeObjectDescriptor> parseAll(Map<String, MediaType> mediaTypesMap, Store store){
-        List<MediaTypeObjectDescriptor> mediaTypeDescriptors = new ArrayList<>();
-        mediaTypesMap.forEach((mediaTypeType, mediaType) -> mediaTypeDescriptors.add(parseOne(mediaTypeType, mediaType, store)));
-        return mediaTypeDescriptors;
+        return mediaTypesMap.entrySet().stream().map(mediaTypeEntry -> parseOne(mediaTypeEntry.getKey(), mediaTypeEntry.getValue(), store)).collect(Collectors.toList());
     }
 
     public static MediaTypeObjectDescriptor parseOne(String mediaTypeType, MediaType mediaType, Store store){

@@ -5,9 +5,9 @@ import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.jqassistant.plugin.openapi.api.model.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ComponentsParser {
 
@@ -47,9 +47,7 @@ public class ComponentsParser {
     }
 
     private static List<SecuritySchemeDescriptor> parseSecuritySchemes(Map<String, SecurityScheme> securitySchemesMap, Store store){
-        List<SecuritySchemeDescriptor> securitySchemeDescriptors = new ArrayList<>();
-        securitySchemesMap.forEach((s, securityScheme) -> securitySchemeDescriptors.add(parseSecurityScheme(securityScheme, store)));
-        return securitySchemeDescriptors;
+        return securitySchemesMap.values().stream().map(securityScheme -> parseSecurityScheme(securityScheme, store)).collect(Collectors.toList());
     }
 
     private static SecuritySchemeDescriptor parseSecurityScheme(SecurityScheme securityScheme, Store store){

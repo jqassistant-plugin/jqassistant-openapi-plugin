@@ -12,7 +12,6 @@ public class ServerParser {
     private ServerParser() {throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");}
 
     public static List<ServerDescriptor> parseAll(List<Server> servers, Store store){
-        // TODO evaluate with team
         return servers.stream().map(server -> parseOne(server, store)).collect(Collectors.toList());
     }
 

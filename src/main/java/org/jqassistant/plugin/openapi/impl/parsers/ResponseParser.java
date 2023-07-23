@@ -4,9 +4,9 @@ import com.buschmais.jqassistant.core.store.api.Store;
 import io.swagger.v3.oas.models.responses.ApiResponse;
 import org.jqassistant.plugin.openapi.api.model.ResponseDescriptor;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ResponseParser {
 
@@ -17,9 +17,7 @@ public class ResponseParser {
     }
 
     public static List<ResponseDescriptor> parseAll(Map<String, ApiResponse> responsesMap, Store store){
-        List<ResponseDescriptor> responseDescriptors = new ArrayList<>();
-        responsesMap.forEach((statusCodeOrDefault, response) -> responseDescriptors.add(parseOne(statusCodeOrDefault, response, store)));
-        return responseDescriptors;
+        return responsesMap.entrySet().stream().map(responseEntry -> parseOne(responseEntry.getKey(), responseEntry.getValue(), store)).collect(Collectors.toList());
     }
 
     public static ResponseDescriptor parseOne(String statusCodeOrDefault, ApiResponse response, Store store){

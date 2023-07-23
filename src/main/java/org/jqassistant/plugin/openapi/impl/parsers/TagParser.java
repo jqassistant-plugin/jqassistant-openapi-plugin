@@ -4,8 +4,8 @@ import com.buschmais.jqassistant.core.store.api.Store;
 import io.swagger.v3.oas.models.tags.Tag;
 import org.jqassistant.plugin.openapi.api.model.TagDescriptor;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TagParser {
 
@@ -14,15 +14,11 @@ public class TagParser {
     // TODO: figure out how to name both parseAll functions equally
 
     public static List<TagDescriptor> parseAllTags(List<Tag> tags, Store store){
-        List<TagDescriptor> tagDescriptors = new ArrayList<>();
-        tags.forEach(tag -> tagDescriptors.add(parseOne(tag, store)));
-        return tagDescriptors;
+        return tags.stream().map(tag -> parseOne(tag, store)).collect(Collectors.toList());
     }
 
     public static List<TagDescriptor> parseAllStrings(List<String> tags, Store store) {
-        List<TagDescriptor> tagDescriptors = new ArrayList<>();
-        tags.forEach(tag -> tagDescriptors.add(parseOne(tag, store)));
-        return tagDescriptors;
+        return tags.stream().map(tag -> parseOne(tag, store)).collect(Collectors.toList());
     }
 
     public static TagDescriptor parseOne(Tag tag, Store store){

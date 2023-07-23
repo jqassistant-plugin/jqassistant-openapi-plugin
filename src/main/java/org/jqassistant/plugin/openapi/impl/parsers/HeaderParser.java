@@ -4,9 +4,9 @@ import com.buschmais.jqassistant.core.store.api.Store;
 import io.swagger.v3.oas.models.headers.Header;
 import org.jqassistant.plugin.openapi.api.model.HeaderDescriptor;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class HeaderParser {
 
@@ -15,9 +15,7 @@ public class HeaderParser {
     }
 
     public static List<HeaderDescriptor> parseAll(Map<String, Header> headersMap, Store store){
-        List<HeaderDescriptor> headerDescriptors = new ArrayList<>();
-        headersMap.forEach((s, header) -> headerDescriptors.add(parseOne(header, store)));
-        return headerDescriptors;
+        return headersMap.values().stream().map(header -> parseOne(header, store)).collect(Collectors.toList());
     }
 
     public static HeaderDescriptor parseOne(Header header, Store store){

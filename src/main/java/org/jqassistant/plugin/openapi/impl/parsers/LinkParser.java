@@ -4,9 +4,9 @@ import com.buschmais.jqassistant.core.store.api.Store;
 import io.swagger.v3.oas.models.links.Link;
 import org.jqassistant.plugin.openapi.api.model.LinkDescriptor;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class LinkParser {
 
@@ -15,9 +15,7 @@ public class LinkParser {
     }
 
     public static List<LinkDescriptor> parseAll(Map<String, Link> linksMap, Store store){
-        List<LinkDescriptor> linkDescriptors = new ArrayList<>();
-        linksMap.forEach((s, link) -> linkDescriptors.add(parseOne(link, store)));
-        return linkDescriptors;
+        return linksMap.values().stream().map(link -> parseOne(link, store)).collect(Collectors.toList());
     }
 
     public static LinkDescriptor parseOne(Link link, Store store){

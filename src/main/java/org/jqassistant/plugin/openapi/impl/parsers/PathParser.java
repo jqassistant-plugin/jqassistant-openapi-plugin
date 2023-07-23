@@ -7,6 +7,7 @@ import org.jqassistant.plugin.openapi.api.model.OperationDescriptor;
 import org.jqassistant.plugin.openapi.api.model.PathDescriptor;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class PathParser {
 
@@ -15,9 +16,7 @@ public class PathParser {
     }
 
     public static List<PathDescriptor> parseAll(Map<String, PathItem> pathsMap, Store store){
-        List<PathDescriptor> pathDescriptors = new ArrayList<>();
-        pathsMap.forEach((pathUrl, pathItem) -> pathDescriptors.add(parseOne(pathUrl, pathItem, store)));
-        return pathDescriptors;
+        return pathsMap.entrySet().stream().map(pathItemEntry -> parseOne(pathItemEntry.getKey(), pathItemEntry.getValue(), store)).collect(Collectors.toList());
     }
 
     public static PathDescriptor parseOne(String pathUrl, PathItem pathItem, Store store) {
@@ -75,9 +74,7 @@ public class PathParser {
     }
 
     private static List<OperationDescriptor> parseOperations(Map<OperationDescriptor.HTTPMethod, Operation> operationsMap, Store store){
-        List<OperationDescriptor> operationDescriptors = new ArrayList<>();
-        operationsMap.forEach((httpMethod, operation) -> operationDescriptors.add(parseOperation(httpMethod, operation, store)));
-        return operationDescriptors;
+        return operationsMap.entrySet().stream().map(operationEntry -> parseOperation(operationEntry.getKey(), operationEntry.getValue(), store)).collect(Collectors.toList());
     }
 
     private static OperationDescriptor parseOperation(OperationDescriptor.HTTPMethod httpMethod, Operation operation, Store store){

@@ -4,25 +4,22 @@ import com.buschmais.jqassistant.core.store.api.Store;
 import io.swagger.v3.oas.models.parameters.Parameter;
 import org.jqassistant.plugin.openapi.api.model.ParameterDescriptor;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ParameterParser {
 
     private ParameterParser() {throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");}
 
     public static List<ParameterDescriptor> parseAll(Map<String, Parameter> parametersMap, Store store){
-        List<ParameterDescriptor> parameterDescriptors = new ArrayList<>();
-        parametersMap.forEach((s, parameter) -> parameterDescriptors.add(parseOne(parameter, store)));
-        return parameterDescriptors;
+        return parametersMap.values().stream().map(parameter -> parseOne(parameter, store)).collect(Collectors.toList());
     }
 
     public static List<ParameterDescriptor> parseAll(List<Parameter> parameters, Store store){
-        List<ParameterDescriptor> parameterDescriptors = new ArrayList<>();
-        parameters.forEach(parameter -> parameterDescriptors.add(parseOne(parameter, store)));
-        return parameterDescriptors;
+        return parameters.stream().map(parameter -> parseOne(parameter, store)).collect(Collectors.toList());
     }
+
     public static ParameterDescriptor parseOne(Parameter parameter, Store store){
         ParameterDescriptor parameterDescriptor = store.create(ParameterDescriptor.class);
 
@@ -41,5 +38,4 @@ public class ParameterParser {
 
         return parameterDescriptor;
     }
-
 }

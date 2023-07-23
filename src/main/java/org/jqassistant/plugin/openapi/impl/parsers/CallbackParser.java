@@ -4,9 +4,9 @@ import com.buschmais.jqassistant.core.store.api.Store;
 import io.swagger.v3.oas.models.callbacks.Callback;
 import org.jqassistant.plugin.openapi.api.model.CallbackDescriptor;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class CallbackParser {
 
@@ -15,9 +15,7 @@ public class CallbackParser {
     }
 
     public static List<CallbackDescriptor> parseAll(Map<String, Callback> callbacksMap, Store store){
-        List<CallbackDescriptor> callbackDescriptors = new ArrayList<>();
-        callbacksMap.forEach((s, callback) -> callbackDescriptors.add(parseOne(callback, store)));
-        return callbackDescriptors;
+        return callbacksMap.values().stream().map(callback -> parseOne(callback, store)).collect(Collectors.toList());
     }
 
     public static CallbackDescriptor parseOne(Callback callback, Store store){
