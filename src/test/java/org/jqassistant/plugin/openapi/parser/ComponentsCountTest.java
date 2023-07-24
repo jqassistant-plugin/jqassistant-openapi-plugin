@@ -3,6 +3,7 @@ package org.jqassistant.plugin.openapi.parser;
 import com.buschmais.jqassistant.core.scanner.api.DefaultScope;
 import com.buschmais.jqassistant.core.test.plugin.AbstractPluginIT;
 import org.jqassistant.plugin.openapi.api.model.*;
+import org.jqassistant.plugin.openapi.api.model.jsonschema.SchemaDescriptor;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
