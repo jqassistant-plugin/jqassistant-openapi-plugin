@@ -8,6 +8,8 @@ import org.jqassistant.plugin.openapi.impl.util.UnknownTypeException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class JsonSchemaParser {
 
@@ -18,6 +20,10 @@ public class JsonSchemaParser {
     public JsonSchemaParser(Resolver resolver, Store store) {
         this.resolver = resolver;
         this.store = store;
+    }
+
+    public List<SchemaDescriptor> parseAllSchemas(Map<String, Schema> schemasMap){
+        return schemasMap.entrySet().stream().map(schemaEntry -> parseSchema(schemaEntry.getValue(), schemaEntry.getKey())).collect(Collectors.toList());
     }
 
     public SchemaDescriptor parseSchema(Schema<?> schema, String name){

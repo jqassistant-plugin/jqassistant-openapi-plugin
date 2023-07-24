@@ -13,7 +13,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PathTest extends AbstractPluginIT {
+class PathTest extends AbstractPluginIT {
 
     ContractDescriptor contract;
 

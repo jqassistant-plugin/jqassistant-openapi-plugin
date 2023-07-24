@@ -6,13 +6,29 @@ info:
 paths: {}
 
 components:
-
   schemas:
     Category:
       type: object
       properties:
         name:
           type: string
+
+  responses:
+    Success:
+      description: "Successful operation"
+
+  parameters:
+    userId:
+      name: id
+      in: path
+      description: "User ID"
+      required: true
+      schema:
+        type: object
+
+  examples:
+    UserData:
+      summary: "Example user data"
 
   requestBodies:
     UserBody:
@@ -51,20 +67,3 @@ components:
           responses:
             '200':
               description: Successful response
-
-  examples:
-    UserData:
-      summary: "Example user data"
-
-  responses:
-    Success:
-      description: "Successful operation"
-
-  parameters:
-    userId:
-      name: id
-      in: path
-      description: "User ID"
-      required: true
-      schema:
-        type: string

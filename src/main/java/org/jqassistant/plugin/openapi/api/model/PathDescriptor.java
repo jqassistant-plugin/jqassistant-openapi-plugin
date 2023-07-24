@@ -9,8 +9,8 @@ import java.util.List;
 public interface PathDescriptor extends OpenApiDescriptor, DescriptionTemplate {
     String getPathUrl();
     void setPathUrl(String pathUrl);
-    String get$ref();
-    void set$ref(String $ref);
+    String getReferenceString();
+    void setReferenceString(String referenceString);
     String getSummary();
     void setSummary(String summary);
 

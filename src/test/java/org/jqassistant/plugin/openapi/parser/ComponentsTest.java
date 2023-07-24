@@ -13,7 +13,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ComponentsTest extends AbstractPluginIT {
+class ComponentsTest extends AbstractPluginIT {
 
     ContractDescriptor contract;
 
@@ -46,7 +46,7 @@ public class ComponentsTest extends AbstractPluginIT {
 
     @Test
     void testSecuritySchemes() {
-        List<SecuritySchemaDescriptor> securitySchemes = contract.getComponents().getSecuritySchemas();
+        List<SecuritySchemeDescriptor> securitySchemes = contract.getComponents().getSecuritySchemas();
         assertThat(securitySchemes).hasSize(1);
     }
 
@@ -85,5 +85,4 @@ public class ComponentsTest extends AbstractPluginIT {
         List<SchemaDescriptor> schemas = contract.getComponents().getSchemas();
         assertThat(schemas).hasSize(1);
     }
-
 }

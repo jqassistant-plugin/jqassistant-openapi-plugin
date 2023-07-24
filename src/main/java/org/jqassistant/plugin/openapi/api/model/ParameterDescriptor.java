@@ -5,8 +5,6 @@ import com.buschmais.xo.neo4j.api.annotation.Label;
 
 @Label("Parameter")
 public interface ParameterDescriptor extends OpenApiDescriptor{
-    // TODO (TBD) implement further properties from docs (https://spec.openapis.org/oas/v3.1.0#fixed-fields-9)
-
     enum ParameterLocation {
         QUERY, HEADER, PATH, COOKIE
     }

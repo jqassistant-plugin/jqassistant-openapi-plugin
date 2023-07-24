@@ -9,7 +9,7 @@
         <class>org.jqassistant.plugin.openapi.api.model.ParameterDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.PathDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.ComponentsDescriptor</class>
-        <class>org.jqassistant.plugin.openapi.api.model.SecuritySchemaDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.SecuritySchemeDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.CallbackDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.ExampleDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.HeaderDescriptor</class>
