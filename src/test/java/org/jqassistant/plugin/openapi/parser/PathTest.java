@@ -3,7 +3,7 @@ package org.jqassistant.plugin.openapi.parser;
 import com.buschmais.jqassistant.core.scanner.api.DefaultScope;
 import com.buschmais.jqassistant.core.test.plugin.AbstractPluginIT;
 import org.jqassistant.plugin.openapi.api.model.ContractDescriptor;
-import org.jqassistant.plugin.openapi.api.model.PathDescriptor;
+import org.jqassistant.plugin.openapi.api.model.PathItemDescriptor;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -68,12 +68,12 @@ class PathTest extends AbstractPluginIT {
         assertThat(getPathWithUrl("path_with_nothing")).isNull();
     }
 
-    private PathDescriptor getPathWithUrl(String url){
-        List<PathDescriptor> paths = contract.getPaths();
-        assertThat(paths).hasSize(6);      //check if all valid paths are present
+    private PathItemDescriptor getPathWithUrl(String url){
+        List<PathItemDescriptor> pathItems = contract.getPaths().getPathItems();
+        assertThat(pathItems).hasSize(6);      //check if all valid paths are present
 
 
-        for (PathDescriptor path : paths){
+        for (PathItemDescriptor path : pathItems){
             assertThat(path).isNotNull();
             if (path.getPathUrl().equals(url))
                 return path;
