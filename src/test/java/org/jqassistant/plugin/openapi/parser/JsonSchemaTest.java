@@ -37,7 +37,7 @@ class JsonSchemaTest extends AbstractPluginIT {
     }
 
     @Test
-    void BasicTest(){
+    void readyAnySchemaTest(){
         ComponentsDescriptor componentsDescriptor = contract.getComponents();
         assertThat(componentsDescriptor).isNotNull();
 
@@ -46,7 +46,7 @@ class JsonSchemaTest extends AbstractPluginIT {
     }
 
     @Test
-    void integerSchemaBasicTest(){
+    void schemaWithNativeTypeTest(){
         SchemaDescriptor schemaDescriptor = getSchemaWithName("IntegerSchema");
 
         assertThat(schemaDescriptor).isNotNull();
@@ -74,7 +74,7 @@ class JsonSchemaTest extends AbstractPluginIT {
     }
 
     @Test
-    void SchemaWithObjectAndAllTypesTest(){
+    void schemaWithObjectAndAllTypesTest(){
         List<PropertyDescriptor> properties = getPropertyListFromSchemaWithName("SchemaWithObjectAndAllTypes");
 
         for (PropertyDescriptor propertyDescriptor : properties){
@@ -107,7 +107,7 @@ class JsonSchemaTest extends AbstractPluginIT {
     }
 
     @Test
-    void SchemaWithArraysTest(){
+    void schemaWithArraysTest(){
         List<PropertyDescriptor> properties = getPropertyListFromSchemaWithName("SchemaWithArrays");
 
         assertThat(properties)
@@ -134,7 +134,7 @@ class JsonSchemaTest extends AbstractPluginIT {
     }
 
     @Test
-    void SchemaWithStringTypesTest(){
+    void schemaWithStringTypesTest(){
         List<PropertyDescriptor> properties = getPropertyListFromSchemaWithName("SchemaWithStringTypes");
 
         assertThat(properties)
@@ -164,7 +164,7 @@ class JsonSchemaTest extends AbstractPluginIT {
     }
 
     @Test
-    void SchemaWithIntegerTypesTest(){
+    void schemaWithIntegerTypesTest(){
         List<PropertyDescriptor> properties = getPropertyListFromSchemaWithName("SchemaWithIntegerTypes");
 
         assertThat(properties)
@@ -187,7 +187,7 @@ class JsonSchemaTest extends AbstractPluginIT {
     }
 
     @Test
-    void SchemaWithNumberTypesTest(){
+    void schemaWithNumberTypesTest(){
         List<PropertyDescriptor> properties = getPropertyListFromSchemaWithName("SchemaWithNumberTypes");
 
         assertThat(properties)
@@ -210,7 +210,7 @@ class JsonSchemaTest extends AbstractPluginIT {
     }
 
     @Test
-    void SchemaWithReferenceTypeTest(){
+    void schemaWithReferenceTypeTest(){
         List<PropertyDescriptor> properties = getPropertyListFromSchemaWithName("SchemaWithReferenceType");
 
         assertThat(properties)
