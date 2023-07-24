@@ -1,6 +1,7 @@
 package org.jqassistant.plugin.openapi.impl.parsers;
 
 import com.buschmais.jqassistant.core.store.api.Store;
+import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.tags.Tag;
 import org.jqassistant.plugin.openapi.api.model.TagDescriptor;
 
@@ -22,21 +23,20 @@ public class TagParser {
     }
 
     public static TagDescriptor parseOne(Tag tag, Store store){
-        TagDescriptor tagDescriptor = store.create(TagDescriptor.class);
-
-        if(tag.getName() != null && !tag.getName().isEmpty())
-            tagDescriptor.setTag(tag.getName());
-        if(tag.getDescription() != null && !tag.getDescription().isEmpty())
-            tagDescriptor.setDescription(tag.getDescription());
-
-        return tagDescriptor;
+        return createTagDescriptor(tag.getName(), tag.getDescription(), tag.getExternalDocs(), store);
     }
 
     public static TagDescriptor parseOne(String tagName, Store store){
+        return createTagDescriptor(tagName, null, null, store);
+    }
+
+    private static TagDescriptor createTagDescriptor(String tagName, String tagDescription, ExternalDocumentation externalDocs, Store store){
         TagDescriptor tagDescriptor = store.create(TagDescriptor.class);
 
         if(tagName != null && !tagName.isEmpty())
             tagDescriptor.setTag(tagName);
+        if(tagDescription != null && !tagDescription.isEmpty())
+            tagDescriptor.setDescription(tagDescription);
 
         return tagDescriptor;
     }
