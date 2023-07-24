@@ -1,7 +1,7 @@
 package org.jqassistant.plugin.openapi.impl.util;
 
 import com.buschmais.jqassistant.core.store.api.Store;
-import org.jqassistant.plugin.openapi.api.model.SchemaDescriptor;
+import org.jqassistant.plugin.openapi.api.model.jsonschema.SchemaDescriptor;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,20 +20,15 @@ public class Resolver {
         this.schemaMap = new HashMap<>();
     }
 
-    public SchemaDescriptor createIfAbsent(String ref){
+    public SchemaDescriptor resolve(String ref){
 
         String name = refToName(ref);
 
-        if (schemaMap.containsKey(name)){
-            return schemaMap.get(name);
-        } else {
+        return schemaMap.computeIfAbsent(name, key -> {
             SchemaDescriptor schemaDescriptor = store.create(SchemaDescriptor.class);
-            schemaDescriptor.setName(name);
-
-            schemaMap.put(name, schemaDescriptor);
-
+            schemaDescriptor.setName(key);
             return schemaDescriptor;
-        }
+        });
     }
 
     /**
