@@ -6,11 +6,15 @@ import io.swagger.v3.oas.models.PathItem;
 import org.jqassistant.plugin.openapi.api.model.OperationDescriptor;
 import org.jqassistant.plugin.openapi.api.model.PathItemDescriptor;
 import org.jqassistant.plugin.openapi.api.model.PathsDescriptor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class PathsParser {
+
+    private static final Logger LOG = LoggerFactory.getLogger(PathsParser.class);
 
     private PathsParser() {
         throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
@@ -23,7 +27,15 @@ public class PathsParser {
     }
 
     public static List<PathItemDescriptor> parsePathItems(Map<String, PathItem> pathsMap, Store store){
-        return pathsMap.entrySet().stream().map(pathItemEntry -> parsePathItem(pathItemEntry.getKey(), pathItemEntry.getValue(), store)).collect(Collectors.toList());
+        List<PathItemDescriptor> pathItemDescriptors = new ArrayList<>();
+        for(Map.Entry<String, PathItem> pathItemEntry: pathsMap.entrySet()) {
+            if (pathItemEntry.getValue() == null){ // happens if empty $ref property is defined in path
+                LOG.error("pathItem <{}> does not contain any data -> ignoring it", pathItemEntry.getKey());
+                continue;
+            }
+            pathItemDescriptors.add(parsePathItem(pathItemEntry.getKey(), pathItemEntry.getValue(), store));
+        }
+        return pathItemDescriptors;
     }
 
     public static PathItemDescriptor parsePathItem(String pathUrl, PathItem pathItem, Store store) {

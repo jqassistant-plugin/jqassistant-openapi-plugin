@@ -67,6 +67,37 @@ paths:
         schema:
           type: integer
           format: int64
+  /path_with_ref_string:
+    $ref: '#/components/pathItems/path_with_ref_string'
+  /path_with_empty_ref_string:
+    summary: This is a simple path with empty ref string --> should not be parsed properly
+    description: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+    $ref:
+  /path_with_empty_description:
+    description:
+    options:
+      summary: This is a sample path with empty description
+  /path_with_no_description:
+    head:
+      summary: This is a sample path with no description
+  /path_with_a_description:
+    description: This is a sample path with a description
+    patch:
+      summary: This is a sample path with a description
+  /path_with_empty_summary:
+    description: This is a sample path with an empty summary
+    summary:
+    trace:
+      summary: This is a sample path with empty description
+  /path_with_no_summary:
+    description: This is a sample path no summary
+    put:
+      summary: This is a sample path with no description
+  /path_with_a_summary:
+    description: This is a sample path with a summary
+    summary: This is a extremely short summary.
+    put:
+      summary: This is a sample path with a description
 
   /example_from_sawgger_io:
     put:
@@ -108,3 +139,9 @@ paths:
         - petstore_auth:
             - write:pets
             - read:pets
+components:
+  pathItems:
+    path_with_ref_string:
+      put:
+          summary: This is a sample path component which can be referenced
+          description: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.

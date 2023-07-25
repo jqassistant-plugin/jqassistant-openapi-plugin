@@ -72,9 +72,27 @@ class PathTest extends AbstractPluginIT {
         assertThat(getPathWithUrl("/path_with_servers").getServers()).hasSize(2);
     }
 
+    @Test
+    void propertiesTest(){
+        // test reference string
+        assertThat(getPathWithUrl("/path_with_ref_string").getReferenceString()).isEqualTo("#/components/pathItems/path_with_ref_string");
+        assertThat(getPathWithUrl("/path_with_empty_ref_string")).isNull();
+
+        // test description
+        assertThat(getPathWithUrl("/path_with_no_description").getDescription()).isNull();
+        assertThat(getPathWithUrl("/path_with_empty_description").getDescription()).isNull();
+        assertThat(getPathWithUrl("/path_with_a_description").getDescription()).isEqualTo("This is a sample path with a description");
+
+        // test summary
+        assertThat(getPathWithUrl("/path_with_empty_summary").getSummary()).isNull();
+        assertThat(getPathWithUrl("/path_with_no_summary").getSummary()).isNull();
+        assertThat(getPathWithUrl("/path_with_a_summary").getSummary()).isEqualTo("This is a extremely short summary.");
+
+    }
+
     private PathItemDescriptor getPathWithUrl(String url){
         List<PathItemDescriptor> pathItems = contract.getPaths().getPathItems();
-        assertThat(pathItems).hasSize(10);      //check if all valid paths are present
+        assertThat(pathItems).hasSize(17);      //check if all valid paths are present
 
 
         for (PathItemDescriptor path : pathItems){
