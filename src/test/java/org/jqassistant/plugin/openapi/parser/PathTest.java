@@ -68,9 +68,16 @@ class PathTest extends AbstractPluginIT {
         assertThat(getPathWithUrl("path_with_nothing")).isNull();
     }
 
+    @Test
+    void serversTest(){
+        assertThat(getPathWithUrl("/path_with_no_server").getServers()).isEmpty();
+        assertThat(getPathWithUrl("/path_with_a_server").getServers()).hasSize(1);
+        assertThat(getPathWithUrl("/path_with_servers").getServers()).hasSize(2);
+    }
+
     private PathItemDescriptor getPathWithUrl(String url){
         List<PathItemDescriptor> pathItems = contract.getPaths().getPathItems();
-        assertThat(pathItems).hasSize(6);      //check if all valid paths are present
+        assertThat(pathItems).hasSize(9);      //check if all valid paths are present
 
 
         for (PathItemDescriptor path : pathItems){

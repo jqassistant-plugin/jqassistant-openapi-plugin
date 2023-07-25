@@ -14,6 +14,25 @@ paths:
     put:
       summary: puts something
   /path_with_nothing:
+  /path_with_no_server:
+    get:
+      summary: path with a server
+    servers:
+  /path_with_a_server:
+    get:
+      summary: path with a server
+    servers:
+      - url: https://www.1.example.com
+        description: beschreibung server 1
+  /path_with_servers:
+    get:
+      summary: path with servers
+    servers:
+      - url: https://www.1.example.com
+        description: beschreibung server 1
+      - url: https://www.2.example.com
+        description: beschreibung server 2
+
   /path_with_a_/{single}/parameter:
     put:
       summary: This is a sample path
