@@ -49,13 +49,10 @@ class PathTest extends AbstractPluginIT {
     }
 
     @Test
-    void oneParameterTest(){
-        assertThat(getPathWithUrl("/path_with_a_/{single}/parameter").getOperations()).hasSize(1);
-    }
-
-    @Test
-    void multibleParameterTest(){
-        assertThat(getPathWithUrl("/path_with_/{t}/w/{o}/parameters").getOperations()).hasSize(1);
+    void parameterTest(){
+        assertThat(getPathWithUrl("/path_with_no/parameter").getParameters()).isEmpty();
+        assertThat(getPathWithUrl("/path_with_a_/{single}/parameter").getParameters()).hasSize(1);
+        assertThat(getPathWithUrl("/path_with_/{t}/w/{o}/parameters").getParameters()).hasSize(2);
     }
 
     @Test
@@ -77,7 +74,7 @@ class PathTest extends AbstractPluginIT {
 
     private PathItemDescriptor getPathWithUrl(String url){
         List<PathItemDescriptor> pathItems = contract.getPaths().getPathItems();
-        assertThat(pathItems).hasSize(9);      //check if all valid paths are present
+        assertThat(pathItems).hasSize(10);      //check if all valid paths are present
 
 
         for (PathItemDescriptor path : pathItems){

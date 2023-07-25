@@ -1,4 +1,4 @@
-openapi: 3.0.2
+openapi: 3.1.0
 paths:
   /path_sample:
     put:
@@ -32,15 +32,42 @@ paths:
         description: beschreibung server 1
       - url: https://www.2.example.com
         description: beschreibung server 2
-
+  /path_with_no/parameter:
+    put:
+      summary: This is a sample path with no parameter
+      description: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+    parameters:
   /path_with_a_/{single}/parameter:
     put:
-      summary: This is a sample path
+      summary: This is a sample path with one parameter
       description: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+    parameters:
+      - name: single
+        in: path
+        description: ID of pet to use
+        required: true
+        schema:
+          type: string
+        style: simple
   /path_with_/{t}/w/{o}/parameters:
     put:
-      summary: This is a sample path
+      summary: This is a sample path with two parameters
       description: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+    parameters:
+      - name: t
+        in: path
+        description: ''
+        required: false
+        schema:
+          type: string
+      - name: o
+        in: path
+        description: Pet id to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+
   /example_from_sawgger_io:
     put:
       tags:
