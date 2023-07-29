@@ -92,7 +92,7 @@ class PathTest extends AbstractPluginIT {
 
     private PathItemDescriptor getPathWithUrl(String url){
         List<PathItemDescriptor> pathItems = contract.getPaths().getPathItems();
-        assertThat(pathItems).hasSize(17);      //check if all valid paths are present
+        assertThat(pathItems).hasSize(18);      //check if all valid paths are present
 
 
         for (PathItemDescriptor path : pathItems){

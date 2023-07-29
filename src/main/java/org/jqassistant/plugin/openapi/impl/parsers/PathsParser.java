@@ -27,19 +27,17 @@ public class PathsParser {
     }
 
     public static List<PathItemDescriptor> parsePathItems(Map<String, PathItem> pathsMap, Store store){
-        List<PathItemDescriptor> pathItemDescriptors = new ArrayList<>();
-        for(Map.Entry<String, PathItem> pathItemEntry: pathsMap.entrySet()) {
-            if (pathItemEntry.getValue() == null){ // happens if empty $ref property is defined in path
-                LOG.error("pathItem <{}> does not contain any data -> ignoring it", pathItemEntry.getKey());
-                continue;
-            }
-            pathItemDescriptors.add(parsePathItem(pathItemEntry.getKey(), pathItemEntry.getValue(), store));
-        }
-        return pathItemDescriptors;
+        return pathsMap.entrySet().stream().map(pathItemEntry -> parsePathItem(pathItemEntry.getKey(), pathItemEntry.getValue(), store)).collect(Collectors.toList());
     }
 
     public static PathItemDescriptor parsePathItem(String pathUrl, PathItem pathItem, Store store) {
         PathItemDescriptor pathItemDescriptor = store.create(PathItemDescriptor.class);
+
+        if(pathItem == null){
+            LOG.warn("pathItem <{}> does not contain any data -> ignoring it", pathUrl);
+            pathItemDescriptor.setPathUrl(pathUrl);
+            return pathItemDescriptor;
+        }
 
         //set path properties
         setProperties(pathItemDescriptor, pathItem, pathUrl);
