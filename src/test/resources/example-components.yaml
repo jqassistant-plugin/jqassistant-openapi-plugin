@@ -43,6 +43,18 @@ components:
       description: "Request ID header"
       schema:
         type: string
+    fancyHeader:
+      description: ID of pet to use
+      required: true
+      schema:
+        type: array
+        items:
+          type: string
+      style: simple
+      examples:
+        ex1:
+          summary: sdfsdf
+
 
   securitySchemes:
     ApiKeyAuth:

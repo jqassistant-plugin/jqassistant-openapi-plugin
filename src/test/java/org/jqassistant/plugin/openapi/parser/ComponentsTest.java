@@ -41,7 +41,7 @@ class ComponentsTest extends AbstractPluginIT {
     @Test
     void testHeaders() {
         List<HeaderDescriptor> headers = contract.getComponents().getHeaders();
-        assertThat(headers).hasSize(1);
+        assertThat(headers).hasSize(2);
     }
 
     @Test
