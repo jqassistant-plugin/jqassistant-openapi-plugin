@@ -40,7 +40,7 @@ public class ContractParser {
 
         if(contract.getExternalDocs() != null)
             contractDescriptor.setExternalDocs(ExternalDocsParser.parseOne(contract.getExternalDocs(), store));
-    }
+}
 
     private static void parseInfo(Info info, ContractDescriptor contractDescriptor, Store store){
         if(info.getTitle() != null)

@@ -4,50 +4,67 @@ import com.buschmais.jqassistant.core.store.api.Store;
 import io.swagger.v3.oas.models.Operation;
 import io.swagger.v3.oas.models.PathItem;
 import org.jqassistant.plugin.openapi.api.model.OperationDescriptor;
-import org.jqassistant.plugin.openapi.api.model.PathDescriptor;
+import org.jqassistant.plugin.openapi.api.model.PathItemDescriptor;
+import org.jqassistant.plugin.openapi.api.model.PathsDescriptor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class PathParser {
+public class PathsParser {
 
-    private PathParser() {
+    private static final Logger LOG = LoggerFactory.getLogger(PathsParser.class);
+
+    private PathsParser() {
         throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
     }
 
-    public static List<PathDescriptor> parseAll(Map<String, PathItem> pathsMap, Store store){
-        return pathsMap.entrySet().stream().map(pathItemEntry -> parseOne(pathItemEntry.getKey(), pathItemEntry.getValue(), store)).collect(Collectors.toList());
+    public static PathsDescriptor parse(Map<String, PathItem> pathsMap, Store store){
+        PathsDescriptor pathsDescriptor = store.create(PathsDescriptor.class);
+        pathsDescriptor.getPathItems().addAll(parsePathItems(pathsMap, store));
+        return pathsDescriptor;
     }
 
-    public static PathDescriptor parseOne(String pathUrl, PathItem pathItem, Store store) {
-        PathDescriptor pathDescriptor = store.create(PathDescriptor.class);
+    public static List<PathItemDescriptor> parsePathItems(Map<String, PathItem> pathsMap, Store store){
+        return pathsMap.entrySet().stream().map(pathItemEntry -> parsePathItem(pathItemEntry.getKey(), pathItemEntry.getValue(), store)).collect(Collectors.toList());
+    }
+
+    public static PathItemDescriptor parsePathItem(String pathUrl, PathItem pathItem, Store store) {
+        PathItemDescriptor pathItemDescriptor = store.create(PathItemDescriptor.class);
+
+        pathItemDescriptor.setPathUrl(pathUrl);
+
+        if(pathItem == null){
+            LOG.warn("pathItem <{}> does not contain any data -> ignoring it", pathUrl);
+            return pathItemDescriptor;
+        }
 
         //set path properties
-        setProperties(pathDescriptor, pathItem, pathUrl);
+        setProperties(pathItemDescriptor, pathItem);
 
         // parse operations
         EnumMap<OperationDescriptor.HTTPMethod, Operation> operations = combineOperations(pathItem);
-        pathDescriptor.getOperations().addAll(parseOperations(operations, store));
+        pathItemDescriptor.getOperations().addAll(parseOperations(operations, store));
 
         // parse servers
         if (pathItem.getServers() != null)
-            pathDescriptor.getServers().addAll(ServerParser.parseAll(pathItem.getServers(), store));
+            pathItemDescriptor.getServers().addAll(ServerParser.parseAll(pathItem.getServers(), store));
 
         // parse parameters
         if (pathItem.getParameters() != null)
-            pathDescriptor.getParameters().addAll(ParameterParser.parseAll(pathItem.getParameters(), store));
+            pathItemDescriptor.getParameters().addAll(ParameterParser.parseAll(pathItem.getParameters(), store));
 
-        return pathDescriptor;
+        return pathItemDescriptor;
     }
 
-    private static void setProperties(PathDescriptor pathDescriptor, PathItem pathItem, String pathUrl){
-        pathDescriptor.setPathUrl(pathUrl);
+    private static void setProperties(PathItemDescriptor pathItemDescriptor, PathItem pathItem){
         if(pathItem.get$ref() != null && !pathItem.get$ref().isEmpty())
-            pathDescriptor.setReferenceString(pathItem.get$ref());
+            pathItemDescriptor.setReferenceString(pathItem.get$ref());
         if(pathItem.getSummary() != null && !pathItem.getSummary().isEmpty())
-            pathDescriptor.setSummary(pathItem.getSummary());
+            pathItemDescriptor.setSummary(pathItem.getSummary());
         if(pathItem.getDescription() != null && !pathItem.getDescription().isEmpty())
-            pathDescriptor.setDescription(pathItem.getDescription());
+            pathItemDescriptor.setDescription(pathItem.getDescription());
     }
 
     private static EnumMap<OperationDescriptor.HTTPMethod, Operation> combineOperations(PathItem pathItem){
