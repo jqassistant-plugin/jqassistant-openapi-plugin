@@ -57,6 +57,8 @@ class JsonSchemaTest extends AbstractPluginIT {
         assertThat(propertyDescriptor).isNotNull();
         assertThat(propertyDescriptor.getName()).isEqualTo("IntegerSchema");
         assertThat(propertyDescriptor).isInstanceOf(IntegerPropertyDescriptor.class);
+
+        assertThat(schemaDescriptor.getExternalDocs()).isNotNull();
     }
 
     @Test

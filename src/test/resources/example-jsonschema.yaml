@@ -4,6 +4,9 @@ components:
     EmptySchema:
     IntegerSchema:
       type: integer
+      externalDocs:
+        description: "external docs for integerschema"
+        url: "https://www.example.com"
     SchemaWithObject:
       type: object
       properties:
