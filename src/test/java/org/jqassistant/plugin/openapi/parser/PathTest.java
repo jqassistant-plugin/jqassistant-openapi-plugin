@@ -34,7 +34,7 @@ class PathTest extends AbstractPluginIT {
 
     @Test
     void basicTest(){
-        PathDescriptor pathSample = getPathWithUrl("/path_sample");
+        PathItemDescriptor pathSample = getPathWithUrl("/path_sample");
         assertThat(pathSample.getOperations()).hasSize(1);
         assertThat(pathSample.getOperations().get(0).getExternalDocs()).isNotNull();
     }
