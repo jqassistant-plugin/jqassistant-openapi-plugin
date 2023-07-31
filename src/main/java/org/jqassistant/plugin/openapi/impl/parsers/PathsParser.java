@@ -33,14 +33,15 @@ public class PathsParser {
     public static PathItemDescriptor parsePathItem(String pathUrl, PathItem pathItem, Store store) {
         PathItemDescriptor pathItemDescriptor = store.create(PathItemDescriptor.class);
 
+        pathItemDescriptor.setPathUrl(pathUrl);
+
         if(pathItem == null){
             LOG.warn("pathItem <{}> does not contain any data -> ignoring it", pathUrl);
-            pathItemDescriptor.setPathUrl(pathUrl);
             return pathItemDescriptor;
         }
 
         //set path properties
-        setProperties(pathItemDescriptor, pathItem, pathUrl);
+        setProperties(pathItemDescriptor, pathItem);
 
         // parse operations
         EnumMap<OperationDescriptor.HTTPMethod, Operation> operations = combineOperations(pathItem);
@@ -57,8 +58,7 @@ public class PathsParser {
         return pathItemDescriptor;
     }
 
-    private static void setProperties(PathItemDescriptor pathItemDescriptor, PathItem pathItem, String pathUrl){
-        pathItemDescriptor.setPathUrl(pathUrl);
+    private static void setProperties(PathItemDescriptor pathItemDescriptor, PathItem pathItem){
         if(pathItem.get$ref() != null && !pathItem.get$ref().isEmpty())
             pathItemDescriptor.setReferenceString(pathItem.get$ref());
         if(pathItem.getSummary() != null && !pathItem.getSummary().isEmpty())
