@@ -2,7 +2,7 @@ package org.jqassistant.plugin.openapi.api.model;
 
 import com.buschmais.xo.neo4j.api.annotation.Label;
 
-@Label("External Documentation")
+@Label("ExternalDocumentation")
 public interface ExternalDocsDescriptor extends OpenApiDescriptor{
 
     String getDescription();
