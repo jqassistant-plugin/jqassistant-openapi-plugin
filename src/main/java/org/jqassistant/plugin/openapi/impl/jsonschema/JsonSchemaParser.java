@@ -3,6 +3,7 @@ package org.jqassistant.plugin.openapi.impl.jsonschema;
 import com.buschmais.jqassistant.core.store.api.Store;
 import io.swagger.v3.oas.models.media.Schema;
 import org.jqassistant.plugin.openapi.api.model.jsonschema.*;
+import org.jqassistant.plugin.openapi.impl.parsers.ExternalDocsParser;
 import org.jqassistant.plugin.openapi.impl.util.Resolver;
 import org.jqassistant.plugin.openapi.impl.util.UnknownTypeException;
 
@@ -29,6 +30,9 @@ public class JsonSchemaParser {
     public SchemaDescriptor parseSchema(Schema<?> schema, String name){
 
         SchemaDescriptor schemaDescriptor = resolver.resolve(SCHEMA_REFSTRING + name);
+
+        if(schema.getExternalDocs() != null)
+            schemaDescriptor.setExternalDocs(ExternalDocsParser.parseOne(schema.getExternalDocs(), store));
 
         schemaDescriptor.setObject(parseProperty(schema, name));
 

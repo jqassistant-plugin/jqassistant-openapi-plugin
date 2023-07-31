@@ -20,6 +20,10 @@ public interface OperationDescriptor extends OpenApiDescriptor, DescriptionTempl
     Boolean getIsDeprecated();
     void setIsDeprecated(Boolean isDeprecated);
 
+    @Relation("REFERENCES")
+    ExternalDocsDescriptor getExternalDocs();
+    void setExternalDocs(ExternalDocsDescriptor externalDocs);
+
     @Relation("SERVED_BY")
     List<ServerDescriptor> getServers();
 
