@@ -40,7 +40,7 @@ import static org.assertj.core.api.Assertions.*;
     void scanMetaData(){
 
         File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-metadata.yaml");
-        ContractDescriptor contract = getScanner().scan(testFile, "/example-metadata.yaml", DefaultScope.NONE);
+        contract = getScanner().scan(testFile, "/example-metadata.yaml", DefaultScope.NONE);
 
         store.beginTransaction();
         assertThat(contract).isNotNull();
@@ -55,7 +55,7 @@ import static org.assertj.core.api.Assertions.*;
         assertThat(server.getUrl()).isEqualTo("/rest/v1/users");
 
         assertThat(contract.getTags()).hasSize(4);
-        TagDescriptor tag = contract.getTags().get(0);
+        TagDescriptor tag = getTagByName("issues");
         assertThat(tag.getTag()).isEqualTo("issues");
         assertThat(tag.getDescription()).isEqualTo("Issues API");
 
