@@ -76,7 +76,7 @@ class PathTest extends AbstractPluginIT {
     void propertiesTest(){
         // test reference string
         assertThat(getPathWithUrl("/path_with_ref_string").getReferenceString()).isEqualTo("#/components/pathItems/path_with_ref_string");
-        assertThat(getPathWithUrl("/path_with_empty_ref_string")).isNull();
+        assertThat(getPathWithUrl("/path_with_empty_ref_string")).isNotNull();
 
         // test description
         assertThat(getPathWithUrl("/path_with_no_description").getDescription()).isNull();
