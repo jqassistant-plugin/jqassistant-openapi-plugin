@@ -6,15 +6,18 @@ import org.jqassistant.plugin.openapi.api.model.*;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
  class OpenAPIScannerPluginTest extends AbstractPluginIT {
+
+     ContractDescriptor contract;
 
      @Test
      void scanNullContract(){
          File file = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-nulltest.yaml");
          try {
-             ContractDescriptor contract = getScanner().scan(file, "example-nulltest.yaml", DefaultScope.NONE);
+             contract = getScanner().scan(file, "example-nulltest.yaml", DefaultScope.NONE);
              assertThat(contract).isNotNull();
          } catch (Exception e){
             fail("Reading contract not containing any data failed", e);
@@ -25,7 +28,7 @@ import static org.assertj.core.api.Assertions.*;
      void scanEmptyContract(){  
          File file = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-emptytest.yaml");
          try {
-             ContractDescriptor contract = getScanner().scan(file, "example-emptytest.yaml", DefaultScope.NONE);
+             contract = getScanner().scan(file, "example-emptytest.yaml", DefaultScope.NONE);
              assertThat(contract).isNotNull();
          } catch (Exception e){
              fail("Reading contract only containing container data failed", e);
@@ -51,10 +54,14 @@ import static org.assertj.core.api.Assertions.*;
         ServerDescriptor server = contract.getServers().get(0);
         assertThat(server.getUrl()).isEqualTo("/rest/v1/users");
 
-        assertThat(contract.getTags()).hasSize(1);
+        assertThat(contract.getTags()).hasSize(4);
         TagDescriptor tag = contract.getTags().get(0);
         assertThat(tag.getTag()).isEqualTo("issues");
         assertThat(tag.getDescription()).isEqualTo("Issues API");
+
+        assertThat(contract.getExternalDocs()).isNotNull();
+        assertThat(contract.getExternalDocs().getDescription()).isNotNull();
+        assertThat(contract.getExternalDocs().getUrl()).isNotNull();
 
         store.commitTransaction();
     }
@@ -68,6 +75,42 @@ import static org.assertj.core.api.Assertions.*;
          } catch (Exception e){
              fail("Reading whole example contract failed", e);
          }
+     }
+
+     @Test
+     void testExternalDocs(){
+
+         File file = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-emptytest.yaml");
+         try {
+             contract = getScanner().scan(file, "example-metadata.yaml", DefaultScope.NONE);
+             assertThat(contract).isNotNull();
+         } catch (Exception e){
+             fail("Reading contract only containing container data failed", e);
+         }
+
+         ExternalDocsDescriptor externalDocsWithProperties = getTagByName("issues").getExternalDocs();
+         assertThat(externalDocsWithProperties.getDescription()).isEqualTo("issues - external docs description");
+         assertThat(externalDocsWithProperties.getUrl()).isEqualTo("https://www.1.example.com");
+
+         ExternalDocsDescriptor externalDocsWithoutDescription = getTagByName("externalDocs_without_description").getExternalDocs();
+         assertThat(externalDocsWithoutDescription.getDescription()).isNull();
+         assertThat(externalDocsWithoutDescription.getUrl()).isEqualTo("https://www.2.example.com");
+
+         ExternalDocsDescriptor externalDocsWithoutUrl = getTagByName("externalDocs_without_url").getExternalDocs();
+         assertThat(externalDocsWithoutUrl.getDescription()).isEqualTo("external docs without url");
+         assertThat(externalDocsWithoutUrl.getUrl()).isNull();
+
+         ExternalDocsDescriptor externalDocsWithEmptyProps = getTagByName("externalDocs_with_empty_props").getExternalDocs();
+         assertThat(externalDocsWithEmptyProps.getDescription()).isNull();
+         assertThat(externalDocsWithEmptyProps.getUrl()).isNull();
+     }
+
+     private TagDescriptor getTagByName(String name){
+         List<TagDescriptor> tags = contract.getTags();
+         for(TagDescriptor tag: tags)
+             if(tag.getTag().equals(name))
+                 return tag;
+         return null;
      }
 
 }
