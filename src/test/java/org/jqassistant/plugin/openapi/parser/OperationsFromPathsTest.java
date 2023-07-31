@@ -4,7 +4,7 @@ import com.buschmais.jqassistant.core.scanner.api.DefaultScope;
 import com.buschmais.jqassistant.core.test.plugin.AbstractPluginIT;
 import org.jqassistant.plugin.openapi.api.model.ContractDescriptor;
 import org.jqassistant.plugin.openapi.api.model.OperationDescriptor;
-import org.jqassistant.plugin.openapi.api.model.PathDescriptor;
+import org.jqassistant.plugin.openapi.api.model.PathItemDescriptor;
 import org.junit.jupiter.api.*;
 
 import java.io.File;
@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 class OperationsFromPathsTest extends AbstractPluginIT {
 
     ContractDescriptor contract;
-    List<PathDescriptor> paths;
+    List<PathItemDescriptor> paths;
 
     @BeforeEach
     void init(){
@@ -26,7 +26,7 @@ class OperationsFromPathsTest extends AbstractPluginIT {
         store.beginTransaction();
         assertThat(contract).isNotNull();
 
-        paths = contract.getPaths();
+        paths = contract.getPaths().getPathItems();
     }
 
     @AfterEach
@@ -108,7 +108,7 @@ class OperationsFromPathsTest extends AbstractPluginIT {
     }
     
     private List<OperationDescriptor> getPathOpsWithUrl(String url) {
-        for (PathDescriptor path : paths) {
+        for (PathItemDescriptor path : paths) {
             assertThat(path).isNotNull();
             if (path.getPathUrl().equals(url))
                 return path.getOperations();
