@@ -88,6 +88,7 @@ import static org.assertj.core.api.Assertions.*;
              fail("Reading contract only containing container data failed", e);
          }
 
+         store.beginTransaction();
          ExternalDocsDescriptor externalDocsWithProperties = getTagByName("issues").getExternalDocs();
          assertThat(externalDocsWithProperties.getDescription()).isEqualTo("issues - external docs description");
          assertThat(externalDocsWithProperties.getUrl()).isEqualTo("https://www.1.example.com");
@@ -103,7 +104,9 @@ import static org.assertj.core.api.Assertions.*;
          ExternalDocsDescriptor externalDocsWithEmptyProps = getTagByName("externalDocs_with_empty_props").getExternalDocs();
          assertThat(externalDocsWithEmptyProps.getDescription()).isNull();
          assertThat(externalDocsWithEmptyProps.getUrl()).isNull();
-     }
+
+         store.commitTransaction();
+        }
 
      private TagDescriptor getTagByName(String name){
          List<TagDescriptor> tags = contract.getTags();
