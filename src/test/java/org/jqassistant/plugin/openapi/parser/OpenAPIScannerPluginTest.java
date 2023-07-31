@@ -80,7 +80,7 @@ import static org.assertj.core.api.Assertions.*;
      @Test
      void testExternalDocs(){
 
-         File file = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-emptytest.yaml");
+         File file = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-metadata.yaml");
          try {
              contract = getScanner().scan(file, "example-metadata.yaml", DefaultScope.NONE);
              assertThat(contract).isNotNull();
