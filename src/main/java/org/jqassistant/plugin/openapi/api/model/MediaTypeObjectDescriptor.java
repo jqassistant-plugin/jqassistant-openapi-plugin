@@ -2,7 +2,8 @@ package org.jqassistant.plugin.openapi.api.model;
 
 import com.buschmais.xo.neo4j.api.annotation.Label;
 import com.buschmais.xo.neo4j.api.annotation.Relation;
-import org.jqassistant.plugin.openapi.api.model.jsonschema.JsonSchemaDescriptor;
+import org.jqassistant.plugin.openapi.api.model.jsonschema.SchemaDescriptor;
+
 import java.util.List;
 
 @Label("MediaTypeObject")
@@ -11,8 +12,8 @@ public interface MediaTypeObjectDescriptor extends OpenApiDescriptor{
     void setMediaType(String mediaType);
 
     @Relation("DEFINED_BY")
-    JsonSchemaDescriptor getSchema();
-    void setSchema(JsonSchemaDescriptor schema);
+    SchemaDescriptor getSchema();
+    void setSchema(SchemaDescriptor schema);
 
     Object getExample();
     void setExample(Object example);
