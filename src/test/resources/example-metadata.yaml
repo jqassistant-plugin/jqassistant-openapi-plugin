@@ -1,4 +1,4 @@
-openapi: 3.0.2
+openapi: 3.1.0
 servers:
   - url: /rest/v1/users
 info:
@@ -8,3 +8,19 @@ info:
 tags:
   - name: issues
     description: Issues API
+    externalDocs:
+      description: "issues - external docs description"
+      url: "https://www.1.example.com"
+  - name: externalDocs_without_description
+    externalDocs:
+      url: "https://www.2.example.com"
+  - name: externalDocs_without_url
+    externalDocs:
+      description: "external docs without url"
+  - name: externalDocs_with_empty_props
+    externalDocs:
+      description:
+      url:
+externalDocs:
+  description: "external docs on contract level"
+  url: "https://www.contract.example.com"

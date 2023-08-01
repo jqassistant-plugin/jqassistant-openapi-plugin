@@ -103,6 +103,8 @@ public class PathsParser {
             operationDescriptor.setSummary(operation.getSummary());
         if(operation.getDescription() != null && !operation.getDescription().isEmpty())
             operationDescriptor.setDescription(operation.getDescription());
+        if(operation.getExternalDocs() != null)
+            operationDescriptor.setExternalDocs(ExternalDocsParser.parseOne(operation.getExternalDocs(), store));
         if(operation.getOperationId() != null && !operation.getOperationId().isEmpty())
             operationDescriptor.setOperationId(operation.getOperationId());
         if(operation.getDeprecated() != null)

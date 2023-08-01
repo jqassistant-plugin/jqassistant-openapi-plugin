@@ -37,6 +37,8 @@ public class TagParser {
             tagDescriptor.setTag(tagName);
         if(tagDescription != null && !tagDescription.isEmpty())
             tagDescriptor.setDescription(tagDescription);
+        if(externalDocs != null)
+            tagDescriptor.setExternalDocs(ExternalDocsParser.parseOne(externalDocs, store));
 
         return tagDescriptor;
     }

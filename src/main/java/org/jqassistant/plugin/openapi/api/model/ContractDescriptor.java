@@ -38,4 +38,7 @@ public interface ContractDescriptor extends OpenApiDescriptor, FileDescriptor {
     ComponentsDescriptor getComponents();
     void setComponents(ComponentsDescriptor components);
 
+    @Relation("REFERENCES")
+    ExternalDocsDescriptor getExternalDocs();
+    void setExternalDocs(ExternalDocsDescriptor externalDocs);
 }
