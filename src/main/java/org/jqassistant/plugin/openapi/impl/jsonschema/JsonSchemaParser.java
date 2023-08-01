@@ -91,6 +91,8 @@ public class JsonSchemaParser {
         ObjectPropertyDescriptor objectPropertyDescriptor = store.create(ObjectPropertyDescriptor.class);
         objectPropertyDescriptor.setName(name);
 
+        if(schema.getProperties() == null) return objectPropertyDescriptor;
+
         for (String key : schema.getProperties().keySet()) {
             PropertyDescriptor prop = parseProperty(schema.getProperties().get(key), key);
             if (prop == null)
