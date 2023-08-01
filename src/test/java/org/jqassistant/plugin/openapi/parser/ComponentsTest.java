@@ -71,7 +71,34 @@ class ComponentsTest extends AbstractPluginIT {
     @Test
     void testResponses() {
         List<ResponseDescriptor> responses = contract.getComponents().getResponses();
-        assertThat(responses).hasSize(1);
+        assertThat(responses).hasSize(2);
+    }
+
+    @Test
+    void testMediaTypeObjects(){
+        ResponseDescriptor response404 = getResponseByName("418");
+        assertThat(response404.getMediaTypeObjects()).hasSize(3);
+
+        MediaTypeObjectDescriptor mtoExample = getMediaTypeObjectByName("multipart/form-data_example");
+        assertThat(mtoExample.getMediaType()).isEqualTo("multipart/form-data_example");
+        assertThat(mtoExample.getSchema()).isNotNull();
+        assertThat(mtoExample.getExample()).isNotNull();
+        assertThat(mtoExample.getExamples()).isEmpty();
+        assertThat(mtoExample.getEncodings()).hasSize(2);
+
+        MediaTypeObjectDescriptor mtoExamples = getMediaTypeObjectByName("multipart/form-data_examples");
+        assertThat(mtoExamples.getMediaType()).isEqualTo("multipart/form-data_examples");
+        assertThat(mtoExamples.getSchema()).isNotNull();
+        assertThat(mtoExamples.getExample()).isNull();
+        assertThat(mtoExamples.getExamples()).hasSize(2);
+        assertThat(mtoExamples.getEncodings()).isEmpty();
+
+        MediaTypeObjectDescriptor mtoEmpty = getMediaTypeObjectByName("multipart/form-data_empty");
+        assertThat(mtoEmpty.getMediaType()).isEqualTo("multipart/form-data_empty");
+        assertThat(mtoEmpty.getSchema()).isNull();
+        assertThat(mtoEmpty.getExample()).isNull();
+        assertThat(mtoEmpty.getExamples()).isEmpty();
+        assertThat(mtoEmpty.getEncodings()).isEmpty();
     }
 
     @Test
@@ -84,5 +111,22 @@ class ComponentsTest extends AbstractPluginIT {
     void testSchemas() {
         List<SchemaDescriptor> schemas = contract.getComponents().getSchemas();
         assertThat(schemas).hasSize(1);
+    }
+
+    private ResponseDescriptor getResponseByName(String name){
+        List<ResponseDescriptor> responses = contract.getComponents().getResponses();
+        for(ResponseDescriptor response: responses)
+            if(response.getStatusCode().equals(name))
+                return response;
+        return null;
+    }
+
+    private MediaTypeObjectDescriptor getMediaTypeObjectByName(String name){
+        List<ResponseDescriptor> responses = contract.getComponents().getResponses();
+        for(ResponseDescriptor response: responses)
+            for(MediaTypeObjectDescriptor mediaType: response.getMediaTypeObjects())
+                if(mediaType.getMediaType().equals(name))
+                    return mediaType;
+        return null;
     }
 }
