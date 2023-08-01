@@ -36,6 +36,8 @@ class ComponentsTest extends AbstractPluginIT {
     void testRequestBodies() {
         List<RequestBodyDescriptor> requestBodies = contract.getComponents().getRequestBodies();
         assertThat(requestBodies).hasSize(1);
+
+        assertThat(requestBodies.get(0).getMediaTypeObjects()).hasSize(1);
     }
 
     @Test
