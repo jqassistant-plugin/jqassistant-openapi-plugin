@@ -41,7 +41,7 @@ public interface ParameterDescriptor extends OpenApiDescriptor{
     boolean getAllowsReserved();
     void setAllowsReserved(boolean allowsReserved);
 
-    @Relation("PROVIDES")
+    @Relation("DEFINED_BY")
     SchemaDescriptor getSchema();
     void setSchema(SchemaDescriptor schema);
 
