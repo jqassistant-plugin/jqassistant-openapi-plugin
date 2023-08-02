@@ -78,25 +78,28 @@ class ComponentsTest extends AbstractPluginIT {
     @Test
     void testParameterRelation(){
         List<ParameterDescriptor> parameters = contract.getComponents().getParameters();
-        assertThat(parameters).hasSize(4);
+        assertThat(parameters).hasSize(5);
     }
 
     @Test
-    void testRichParameters() {
-        ParameterDescriptor paramAllFieldsExample = getParamByName("param_all_fields_example");
-        assertThat(paramAllFieldsExample.getLocation()).isEqualTo(ParameterDescriptor.ParameterLocation.HEADER);
-        assertThat(paramAllFieldsExample.getDescription()).isEqualTo("token to be passed as a header");
-        assertThat(paramAllFieldsExample.getIsRequired()).isTrue();
-        assertThat(paramAllFieldsExample.getIsDeprecated()).isTrue();
-        assertThat(paramAllFieldsExample.getAllowsEmptyValue()).isNull(); // null when location is HEADER
-        assertThat(paramAllFieldsExample.getStyle()).isNull(); // null when content is defined
-        assertThat(paramAllFieldsExample.getExplode()).isFalse(); // false when content is defined
-        assertThat(paramAllFieldsExample.getAllowsReserved()).isFalse(); // false when content is defined
-        assertThat(paramAllFieldsExample.getSchema()).isNull(); // null when content is defined
-        assertThat(paramAllFieldsExample.getExample()).isNull(); // null when content is defined
-        assertThat(paramAllFieldsExample.getExamples()).isEmpty(); // empty when content is defined
-        assertThat(paramAllFieldsExample.getContent()).hasSize(1);
+    void testRichParametersWithContent() {
+        ParameterDescriptor paramAllFieldsContent = getParamByName("param_all_fields_content");
+        assertThat(paramAllFieldsContent.getLocation()).isEqualTo(ParameterDescriptor.ParameterLocation.HEADER);
+        assertThat(paramAllFieldsContent.getDescription()).isEqualTo("token to be passed as a header");
+        assertThat(paramAllFieldsContent.getIsRequired()).isTrue();
+        assertThat(paramAllFieldsContent.getIsDeprecated()).isTrue();
+        assertThat(paramAllFieldsContent.getAllowsEmptyValue()).isNull(); // null when location is HEADER
+        assertThat(paramAllFieldsContent.getStyle()).isNull(); // null when content is defined
+        assertThat(paramAllFieldsContent.getExplode()).isFalse(); // false when content is defined
+        assertThat(paramAllFieldsContent.getAllowsReserved()).isFalse(); // false when content is defined
+        assertThat(paramAllFieldsContent.getSchema()).isNull(); // null when content is defined
+        assertThat(paramAllFieldsContent.getExample()).isNull(); // null when content is defined
+        assertThat(paramAllFieldsContent.getExamples()).isEmpty(); // empty when content is defined
+        assertThat(paramAllFieldsContent.getContent()).hasSize(1);
+    }
 
+    @Test
+    void testRichParametersWithSchema(){
         ParameterDescriptor paramAllFieldsExamples = getParamByName("param_all_fields_examples");
         assertThat(paramAllFieldsExamples.getLocation()).isEqualTo(ParameterDescriptor.ParameterLocation.QUERY);
         assertThat(paramAllFieldsExamples.getDescription()).isEqualTo("token to be passed as a header");
@@ -110,6 +113,20 @@ class ComponentsTest extends AbstractPluginIT {
         assertThat(paramAllFieldsExamples.getExample()).isNull();
         assertThat(paramAllFieldsExamples.getExamples()).hasSize(2);
         assertThat(paramAllFieldsExamples.getContent()).isEmpty();
+
+        ParameterDescriptor paramAllFieldsExample = getParamByName("param_all_fields_example");
+        assertThat(paramAllFieldsExample.getLocation()).isEqualTo(ParameterDescriptor.ParameterLocation.QUERY);
+        assertThat(paramAllFieldsExample.getDescription()).isEqualTo("token to be passed as a header");
+        assertThat(paramAllFieldsExample.getIsRequired()).isFalse();
+        assertThat(paramAllFieldsExample.getIsDeprecated()).isFalse();
+        assertThat(paramAllFieldsExample.getAllowsEmptyValue()).isTrue(); // null when location is HEADER
+        assertThat(paramAllFieldsExample.getStyle()).isEqualTo(Parameter.StyleEnum.PIPEDELIMITED);
+        assertThat(paramAllFieldsExample.getExplode()).isTrue();
+        assertThat(paramAllFieldsExample.getAllowsReserved()).isTrue();
+        assertThat(paramAllFieldsExample.getSchema()).isNotNull();
+        assertThat(paramAllFieldsExample.getExample()).isNotNull();
+        assertThat(paramAllFieldsExample.getExamples()).isEmpty();
+        assertThat(paramAllFieldsExample.getContent()).isEmpty();
     }
 
     @Test
@@ -129,7 +146,7 @@ class ComponentsTest extends AbstractPluginIT {
         assertThat(paramEmptyFieldsExamples.getContent()).isEmpty();
 
         ParameterDescriptor paramNoFieldsExamples = getParamByName("param_no_fields");
-        assertThat(paramNoFieldsExamples.getLocation()).isEqualTo(ParameterDescriptor.ParameterLocation.HEADER);
+        assertThat(paramNoFieldsExamples.getLocation()).isEqualTo(ParameterDescriptor.ParameterLocation.PATH);
         assertThat(paramNoFieldsExamples.getDescription()).isNull();
         assertThat(paramNoFieldsExamples.getIsRequired()).isFalse();
         assertThat(paramNoFieldsExamples.getIsDeprecated()).isNull();

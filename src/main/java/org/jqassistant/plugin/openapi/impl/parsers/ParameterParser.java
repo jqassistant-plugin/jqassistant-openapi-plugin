@@ -27,9 +27,8 @@ public class ParameterParser {
         JsonSchemaParser schemaParser = new JsonSchemaParser(new Resolver(store), store);
 
         parameterDescriptor.setName(parameter.getName());
+        parameterDescriptor.setLocation(ParameterDescriptor.ParameterLocation.valueOf(parameter.getIn().toUpperCase()));
 
-        if(parameter.getIn() != null)
-            parameterDescriptor.setLocation(ParameterDescriptor.ParameterLocation.valueOf(parameter.getIn().toUpperCase()));
         if(parameter.getDescription() != null)
             parameterDescriptor.setDescription(parameter.getDescription());
         if(parameter.getRequired() != null)

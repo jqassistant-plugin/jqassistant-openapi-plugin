@@ -18,8 +18,8 @@ components:
       description: "Successful operation"
 
   parameters:
-    param_all_fields_example:
-      name: param_all_fields_example
+    param_all_fields_content:
+      name: param_all_fields_content
       in: header
       description: token to be passed as a header
       required: true
@@ -57,6 +57,23 @@ components:
         example2:
           value: "example value2"
 
+    param_all_fields_example:
+      name: param_all_fields_example
+      in: query
+      description: token to be passed as a header
+      required: false
+      deprecated: false
+      allowEmptyValue: true
+      style: pipeDelimited
+      explode: true
+      allowReserved: true
+      schema:
+        type: array
+        items:
+          type: integer
+          format: int64
+      example: "[1,2]"
+
     param_empty_fields:
       name: param_empty_fields
       in: header
@@ -68,11 +85,11 @@ components:
       explode:
       allowReserved:
       schema:
-      examples:
+      example:
       content:
     param_no_fields:
       name: param_no_fields
-      in: header
+      in: path
 
   examples:
     UserData:
