@@ -122,7 +122,7 @@ public class PathsParser {
 
         // read tags
         if(operation.getTags() != null)
-            operationDescriptor.getTags().addAll(TagParser.parseAllStrings(operation.getTags(), store));
+            operationDescriptor.getTags().addAll(TagParser.parseAll(operation.getTags(), store));
 
         return operationDescriptor;
     }

@@ -5,6 +5,7 @@ import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.tags.Tag;
 import org.jqassistant.plugin.openapi.api.model.TagDescriptor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,12 +13,13 @@ public class TagParser {
 
     private TagParser() {throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");}
 
-    public static List<TagDescriptor> parseAllTags(List<Tag> tags, Store store){
-        return tags.stream().map(tag -> parseOne(tag.getName(), tag.getDescription(), tag.getExternalDocs(), store)).collect(Collectors.toList());
-    }
-
-    public static List<TagDescriptor> parseAllStrings(List<String> tags, Store store) {
-        return tags.stream().map(tagName -> parseOne(tagName, null, null, store)).collect(Collectors.toList());
+    public static List<TagDescriptor> parseAll(List<?> tags, Store store) {
+        if(tags.get(0) instanceof String)
+            return tags.stream().map(tagName -> parseOne((String) tagName, null, null, store)).collect(Collectors.toList());
+        else if(tags.get(0) instanceof Tag)
+            return tags.stream().map(Tag.class::cast).map(tag -> parseOne(tag.getName(), tag.getDescription(), tag.getExternalDocs(), store)).collect(Collectors.toList());
+        else
+            return new ArrayList<>();
     }
 
     private static TagDescriptor parseOne(String tagName, String tagDescription, ExternalDocumentation externalDocs, Store store){
