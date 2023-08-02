@@ -1,4 +1,4 @@
-openapi: 3.0.2
+openapi: 3.1.0
 info:
   title: Sample API
   description: API description in Markdown.
@@ -18,13 +18,57 @@ components:
       description: "Successful operation"
 
   parameters:
-    userId:
-      name: id
-      in: path
-      description: "User ID"
+    param_all_fields_example:
+      name: param_all_fields_example
+      in: header
+      description: token to be passed as a header
       required: true
+      deprecated: true
+      allowEmptyValue: true
+      style: simple
+      explode: true
+      allowReserved: true
       schema:
-        type: object
+        type: array
+        items:
+          type: integer
+          format: int64
+      example: "[1,2]"
+    param_all_fields_examples:
+      name: param_all_fields_examples
+      in: query
+      description: token to be passed as a header
+      required: false
+      deprecated: false
+      allowEmptyValue: false
+      style: simple
+      explode: false
+      allowReserved: false
+      schema:
+        type: array
+        items:
+          type: integer
+          format: int64
+      examples:
+        example1:
+          value: "example value1"
+        example2:
+          value: "example value2"
+    param_empty_fields:
+      name: param_empty_fields
+      in: header
+      description:
+      required:
+      deprecated:
+      allowEmptyValue:
+      style:
+      explode:
+      allowReserved:
+      schema:
+      examples:
+    param_no_fields:
+      name: param_no_fields
+      in: header
 
   examples:
     UserData:
