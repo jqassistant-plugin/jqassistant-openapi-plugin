@@ -24,26 +24,28 @@ components:
       description: token to be passed as a header
       required: true
       deprecated: true
-      allowEmptyValue: true
-      style: simple
-      explode: true
-      allowReserved: true
-      schema:
-        type: array
-        items:
-          type: integer
-          format: int64
-      example: "[1,2]"
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - lat
+              - long
+            properties:
+              lat:
+                type: number
+              long:
+                type: number
     param_all_fields_examples:
       name: param_all_fields_examples
       in: query
       description: token to be passed as a header
       required: false
       deprecated: false
-      allowEmptyValue: false
-      style: simple
-      explode: false
-      allowReserved: false
+      allowEmptyValue: true
+      style: pipeDelimited
+      explode: true
+      allowReserved: true
       schema:
         type: array
         items:
@@ -54,6 +56,7 @@ components:
           value: "example value1"
         example2:
           value: "example value2"
+
     param_empty_fields:
       name: param_empty_fields
       in: header
@@ -66,6 +69,7 @@ components:
       allowReserved:
       schema:
       examples:
+      content:
     param_no_fields:
       name: param_no_fields
       in: header
