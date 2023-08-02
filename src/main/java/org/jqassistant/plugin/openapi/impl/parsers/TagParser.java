@@ -25,9 +25,9 @@ public class TagParser {
     private static TagDescriptor parseOne(String tagName, String tagDescription, ExternalDocumentation externalDocs, Store store){
         TagDescriptor tagDescriptor = store.create(TagDescriptor.class);
 
-        if(tagName != null && !tagName.isEmpty())
-            tagDescriptor.setTag(tagName);
-        if(tagDescription != null && !tagDescription.isEmpty())
+        tagDescriptor.setTag(tagName);
+
+        if(tagDescription != null)
             tagDescriptor.setDescription(tagDescription);
         if(externalDocs != null)
             tagDescriptor.setExternalDocs(ExternalDocsParser.parseOne(externalDocs, store));
