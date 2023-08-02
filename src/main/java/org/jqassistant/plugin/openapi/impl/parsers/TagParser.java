@@ -14,9 +14,9 @@ public class TagParser {
     private TagParser() {throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");}
 
     public static List<TagDescriptor> parseAll(List<?> tags, Store store) {
-        if(tags.get(0) instanceof String)
-            return tags.stream().map(tagName -> parseOne((String) tagName, null, null, store)).collect(Collectors.toList());
-        else if(tags.get(0) instanceof Tag)
+        if(!tags.isEmpty() && tags.get(0) instanceof String)
+            return tags.stream().map(String.class::cast).map(tagName -> parseOne(tagName, null, null, store)).collect(Collectors.toList());
+        else if(!tags.isEmpty() && tags.get(0) instanceof Tag)
             return tags.stream().map(Tag.class::cast).map(tag -> parseOne(tag.getName(), tag.getDescription(), tag.getExternalDocs(), store)).collect(Collectors.toList());
         else
             return new ArrayList<>();
