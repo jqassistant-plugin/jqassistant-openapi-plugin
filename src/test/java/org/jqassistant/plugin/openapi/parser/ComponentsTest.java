@@ -89,10 +89,10 @@ class ComponentsTest extends AbstractPluginIT {
         assertThat(resEmpty.getMediaTypeObjects()).isEmpty();
         assertThat(resEmpty.getLinks()).isEmpty();
 
-        ResponseDescriptor resNoFields = getResponse("433");
+        ResponseDescriptor resNoFields = getResponse("434");
         assertThat(resNoFields.getIsDefault()).isFalse();
-        assertThat(resNoFields.getStatusCode()).isEqualTo("433");
-        assertThat(resNoFields.getDescription()).isNull();
+        assertThat(resNoFields.getStatusCode()).isEqualTo("434");
+        assertThat(resNoFields.getDescription()).isEqualTo("no fields");
         assertThat(resNoFields.getHeaders()).isEmpty();
         assertThat(resNoFields.getMediaTypeObjects()).isEmpty();
         assertThat(resNoFields.getLinks()).isEmpty();

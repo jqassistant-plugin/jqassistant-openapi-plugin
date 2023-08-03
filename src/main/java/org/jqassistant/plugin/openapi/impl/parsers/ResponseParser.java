@@ -29,7 +29,7 @@ public class ResponseParser {
         else
             responseDescriptor.setStatusCode(statusCodeOrDefault);
 
-        if(response.getDescription() != null && !response.getDescription().isEmpty())
+        if(response.getDescription() != null)
             responseDescriptor.setDescription(response.getDescription());
         if(response.getHeaders() != null)
             responseDescriptor.getHeaders().addAll(HeaderParser.parseAll(response.getHeaders(), store));
@@ -39,6 +39,5 @@ public class ResponseParser {
             responseDescriptor.getLinks().addAll(LinkParser.parseAll(response.getLinks(), store));
 
         return responseDescriptor;
-
     }
 }
