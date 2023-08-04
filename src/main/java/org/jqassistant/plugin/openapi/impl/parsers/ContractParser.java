@@ -27,8 +27,8 @@ public class ContractParser {
             contractDescriptor.setComponents(ComponentsParser.parse(contract.getComponents(), store));
 
         LOG.info("Reading OpenAPI Tags");
-        if(contract.getTags() != null && !contract.getTags().isEmpty())
-            contractDescriptor.getTags().addAll(TagParser.parseAllTags(contract.getTags(), store));
+        if(contract.getTags() != null)
+            contractDescriptor.getTags().addAll(TagParser.parseAll(contract.getTags(), store));
 
         LOG.info("Reading OpenAPI Servers");
         if(contract.getServers() != null && !contract.getServers().isEmpty())
