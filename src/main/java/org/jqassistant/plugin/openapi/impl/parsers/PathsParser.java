@@ -98,7 +98,7 @@ public class PathsParser {
         OperationDescriptor operationDescriptor = store.create(OperationDescriptor.class);
 
         // read properties
-        operationDescriptor.setType(httpMethod);
+        operationDescriptor.setHttpMethod(httpMethod);
         if(operation.getSummary() != null && !operation.getSummary().isEmpty())
             operationDescriptor.setSummary(operation.getSummary());
         if(operation.getDescription() != null && !operation.getDescription().isEmpty())

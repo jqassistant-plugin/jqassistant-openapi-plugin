@@ -45,7 +45,7 @@ class OperationsFromPathsTest extends AbstractPluginIT {
 
         assertThat(ops).hasSize(1);
         OperationDescriptor op = ops.get(0);
-        assertThat(op.getType()).isEqualTo(OperationDescriptor.HTTPMethod.GET);
+        assertThat(op.getHttpMethod()).isEqualTo(OperationDescriptor.HTTPMethod.GET);
         assertThat(op.getSummary()).isEqualTo("i am a summary!");
         assertThat(op.getDescription()).isEqualTo("i am a description!");
     }
