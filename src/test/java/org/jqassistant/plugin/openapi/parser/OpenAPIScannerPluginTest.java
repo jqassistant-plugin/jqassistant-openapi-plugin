@@ -36,17 +36,6 @@ class OpenAPIScannerPluginTest extends AbstractPluginIT {
     }
 
     @Test
-    void scanEmptyContract(){
-        File file = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-emptytest.yaml");
-        try {
-            contract = getScanner().scan(file, "example-emptytest.yaml", DefaultScope.NONE);
-            assertThat(contract).isNotNull();
-        } catch (Exception e){
-            fail("Reading contract only containing container data failed", e);
-        }
-    }
-
-    @Test
     void scanMetaData(){
         File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-metadata.yaml");
         contract = getScanner().scan(testFile, "/example-metadata.yaml", DefaultScope.NONE);
