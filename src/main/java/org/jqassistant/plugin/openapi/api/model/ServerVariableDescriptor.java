@@ -12,8 +12,8 @@ public interface ServerVariableDescriptor extends OpenApiDescriptor{
     void setPossibleValues(String[] possibleValues);
 
     String getDefault();
-    void setDefault();
+    void setDefault(String defaultValue);
 
     String getDescription();
-    void setDescription();
+    void setDescription(String description);
 }
