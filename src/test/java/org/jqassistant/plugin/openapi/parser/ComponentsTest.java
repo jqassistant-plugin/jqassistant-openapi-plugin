@@ -115,7 +115,7 @@ class ComponentsTest extends AbstractPluginIT {
         for(ResponseDescriptor response: responses) {
             if (response.getIsDefault() && statusCodeOrDefault.equals("default"))
                 return response;
-            if (!statusCodeOrDefault.equals("default") && response.getStatusCode() != null && response.getStatusCode().equals(statusCodeOrDefault))
+            if (!statusCodeOrDefault.equals("default") && statusCodeOrDefault.equals(response.getStatusCode()))
                 return response;
         }
         return null;
