@@ -36,8 +36,11 @@ public class ContractParser {
 
         LOG.info("Reading OpenAPI Paths");
         if(contract.getPaths() != null && !contract.getPaths().isEmpty())
-            contractDescriptor.getPaths().addAll(PathParser.parseAll(contract.getPaths(), store));
-    }
+            contractDescriptor.setPaths(PathsParser.parse(contract.getPaths(), store));
+
+        if(contract.getExternalDocs() != null)
+            contractDescriptor.setExternalDocs(ExternalDocsParser.parseOne(contract.getExternalDocs(), store));
+}
 
     private static void parseInfo(Info info, ContractDescriptor contractDescriptor, Store store){
         if(info.getTitle() != null)

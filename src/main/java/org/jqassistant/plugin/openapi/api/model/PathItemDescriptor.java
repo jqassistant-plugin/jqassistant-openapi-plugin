@@ -5,8 +5,8 @@ import com.buschmais.xo.neo4j.api.annotation.Relation;
 
 import java.util.List;
 
-@Label("Path")
-public interface PathDescriptor extends OpenApiDescriptor, DescriptionTemplate {
+@Label("PathItem")
+public interface PathItemDescriptor extends OpenApiDescriptor, DescriptionTemplate {
     String getPathUrl();
     void setPathUrl(String pathUrl);
     String getReferenceString();

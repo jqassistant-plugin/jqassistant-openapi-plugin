@@ -7,7 +7,7 @@
         <class>org.jqassistant.plugin.openapi.api.model.MediaTypeObjectDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.OperationDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.ParameterDescriptor</class>
-        <class>org.jqassistant.plugin.openapi.api.model.PathDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.PathItemDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.ComponentsDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.SecuritySchemeDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.CallbackDescriptor</class>
@@ -18,6 +18,9 @@
         <class>org.jqassistant.plugin.openapi.api.model.ResponseDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.ServerDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.TagDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.PathsDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.ExternalDocsDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.EncodingDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.jsonschema.ArrayPropertyDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.jsonschema.BoolPropertyDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.jsonschema.DiscriminatorDescriptor</class>

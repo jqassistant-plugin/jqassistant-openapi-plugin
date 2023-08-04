@@ -24,7 +24,7 @@ public interface ComponentsDescriptor extends OpenApiDescriptor{
     List<CallbackDescriptor> getCallBacks();
 
     @Relation("INCLUDES")
-    List<PathDescriptor> getPaths();
+    List<PathItemDescriptor> getPaths();
 
     @Relation("INCLUDES")
     List<ExampleDescriptor> getExamples();

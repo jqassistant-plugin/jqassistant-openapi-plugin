@@ -14,8 +14,58 @@ components:
           type: string
 
   responses:
-    Success:
+    200:
       description: "Successful operation"
+    418:
+      content:
+        multipart/form-data_example:
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+              address:
+                type: object
+              historyMetadata:
+                description: metadata in XML format
+                type: object
+              profileImage:
+                type: object
+          example: "{ id: \"idString\", address: { }, historyMetadata: { }, profileImage: { } }"
+          encoding:
+            historyMetadata:
+              contentType: application/xml; charset=utf-8
+            profileImage:
+              contentType: image/png, image/jpeg
+              headers:
+                X-Rate-Limit-Limit:
+                  description: The number of allowed requests in the current period
+                  schema:
+                    type: integer
+        multipart/form-data_examples:
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+              address:
+                type: object
+              historyMetadata:
+                description: metadata in XML format
+                type: object
+              profileImage:
+                type: object
+          examples:
+            example1:
+              value: "{ id: \"idString1\", address: { }, historyMetadata: { }, profileImage: { } }"
+            example2:
+              value: "{ id: \"idString2\", address: { }, historyMetadata: { }, profileImage: { } }"
+          encoding:
+        multipart/form-data_empty:
+          schema:
+          examples:
+          encoding:
+
 
   parameters:
     userId:
@@ -37,6 +87,24 @@ components:
         application/json:
           schema:
             type: object
+          encoding:
+            property1:
+              contentType: application/xml; charset=utf-8
+              headers:
+                X-Rate-Limit-Limit:
+                  description: The number of allowed requests in the current period
+                  schema:
+                    type: integer
+              explode: true
+              allowReserved: true
+              style: spaceDelimited
+            property2:
+              contentType:
+              headers:
+              explode:
+              allowReserved:
+              style:
+
 
   headers:
     header_all_props:
