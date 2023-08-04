@@ -16,7 +16,30 @@ components:
   responses:
     200:
       description: "Successful operation"
-    418:
+    "default":
+      description: a default response with all fields
+      headers:
+        X-Request-Id:
+          description: "Request ID header"
+          schema:
+            type: string
+      links:
+        address:
+          operationId: getUserAddress
+          parameters:
+            userId: $request.path.id
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Pet'
+    "433":
+      description:
+      headers:
+      content:
+      links:
+    "434":
+      description: no fields
+    "418":
       content:
         multipart/form-data_example:
           schema:

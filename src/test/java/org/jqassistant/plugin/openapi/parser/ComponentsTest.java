@@ -117,7 +117,31 @@ class ComponentsTest extends AbstractPluginIT {
     @Test
     void testResponses() {
         List<ResponseDescriptor> responses = contract.getComponents().getResponses();
-        assertThat(responses).hasSize(2);
+        assertThat(responses).hasSize(5);
+
+        ResponseDescriptor resDefault = getResponse("default");
+        assertThat(resDefault.getIsDefault()).isTrue();
+        assertThat(resDefault.getStatusCode()).isNull();
+        assertThat(resDefault.getDescription()).isEqualTo("a default response with all fields");
+        assertThat(resDefault.getHeaders()).hasSize(1);
+        assertThat(resDefault.getMediaTypeObjects()).hasSize(1);
+        assertThat(resDefault.getLinks()).hasSize(1);
+
+        ResponseDescriptor resEmpty = getResponse("433");
+        assertThat(resEmpty.getIsDefault()).isFalse();
+        assertThat(resEmpty.getStatusCode()).isEqualTo("433");
+        assertThat(resEmpty.getDescription()).isNull();
+        assertThat(resEmpty.getHeaders()).isEmpty();
+        assertThat(resEmpty.getMediaTypeObjects()).isEmpty();
+        assertThat(resEmpty.getLinks()).isEmpty();
+
+        ResponseDescriptor resNoFields = getResponse("434");
+        assertThat(resNoFields.getIsDefault()).isFalse();
+        assertThat(resNoFields.getStatusCode()).isEqualTo("434");
+        assertThat(resNoFields.getDescription()).isEqualTo("no fields");
+        assertThat(resNoFields.getHeaders()).isEmpty();
+        assertThat(resNoFields.getMediaTypeObjects()).isEmpty();
+        assertThat(resNoFields.getLinks()).isEmpty();
     }
 
     @Test
@@ -179,6 +203,17 @@ class ComponentsTest extends AbstractPluginIT {
     void testSchemas() {
         List<SchemaDescriptor> schemas = contract.getComponents().getSchemas();
         assertThat(schemas).hasSize(1);
+    }
+
+    private ResponseDescriptor getResponse(String statusCodeOrDefault){
+        List<ResponseDescriptor> responses = contract.getComponents().getResponses();
+        for(ResponseDescriptor response: responses) {
+            if (response.getIsDefault() && statusCodeOrDefault.equals("default"))
+                return response;
+            if (!statusCodeOrDefault.equals("default") && statusCodeOrDefault.equals(response.getStatusCode()))
+                return response;
+        }
+        return null;
     }
 
     private ResponseDescriptor getResponseByName(String name){
