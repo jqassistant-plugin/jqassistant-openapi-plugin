@@ -15,5 +15,5 @@ public interface ResponseDescriptor extends OpenApiDescriptor{
     void setDescription(String description);
 
     @Relation("CONTAINS")
-    List<MediaTypeObjectDescriptor> getMediaTypeObject();
+    List<MediaTypeObjectDescriptor> getMediaTypeObjects();
 }
