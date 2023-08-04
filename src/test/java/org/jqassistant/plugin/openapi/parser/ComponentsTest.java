@@ -74,7 +74,7 @@ class ComponentsTest extends AbstractPluginIT {
     @Test
     void testResponses() {
         List<ResponseDescriptor> responses = contract.getComponents().getResponses();
-        assertThat(responses).hasSize(4);
+        assertThat(responses).hasSize(5);
 
         ResponseDescriptor resDefault = getResponse("default");
         assertThat(resDefault.getIsDefault()).isTrue();
