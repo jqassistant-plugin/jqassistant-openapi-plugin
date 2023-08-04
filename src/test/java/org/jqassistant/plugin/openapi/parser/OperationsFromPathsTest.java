@@ -71,14 +71,10 @@ class OperationsFromPathsTest extends AbstractPluginIT {
 
     @Test
     void depricatedFlag(){
-        List<OperationDescriptor> ops = getPathOpsWithUrl("/with_depricated");
-        assertThat(ops.get(0).getIsDeprecated()).isTrue();
-    }
-
-    @Test
-    void depricatedFlagDefaultValue(){
-        List<OperationDescriptor> ops = getPathOpsWithUrl("/without_depricated");
-        assertThat(ops.get(0).getIsDeprecated()).isFalse();
+        List<OperationDescriptor> opsWith = getPathOpsWithUrl("/with_depricated");
+        assertThat(opsWith.get(0).getIsDeprecated()).isTrue();
+        List<OperationDescriptor> opsWithout = getPathOpsWithUrl("/without_depricated");
+        assertThat(opsWithout.get(0).getIsDeprecated()).isNull();
     }
 
     @Test
