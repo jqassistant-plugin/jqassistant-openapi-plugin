@@ -97,28 +97,31 @@ public class PathsParser {
     private static OperationDescriptor parseOperation(OperationDescriptor.HTTPMethod httpMethod, Operation operation, Store store){
         OperationDescriptor operationDescriptor = store.create(OperationDescriptor.class);
 
-        // read properties
-        operationDescriptor.setHttpMethod(httpMethod);
-        if(operation.getSummary() != null && !operation.getSummary().isEmpty())
+        operationDescriptor.setHttpMethod(httpMethod); // operationsMap key has to be present in entry
+        if(operation.getTags() != null)
+            operationDescriptor.getTags().addAll(TagParser.parseAllStrings(operation.getTags(), store));
+        if(operation.getSummary() != null)
             operationDescriptor.setSummary(operation.getSummary());
-        if(operation.getDescription() != null && !operation.getDescription().isEmpty())
+        if(operation.getDescription() != null)
             operationDescriptor.setDescription(operation.getDescription());
         if(operation.getExternalDocs() != null)
             operationDescriptor.setExternalDocs(ExternalDocsParser.parseOne(operation.getExternalDocs(), store));
-        if(operation.getOperationId() != null && !operation.getOperationId().isEmpty())
+        if(operation.getOperationId() != null)
             operationDescriptor.setOperationId(operation.getOperationId());
-        if(operation.getDeprecated() != null)
-            operationDescriptor.setIsDeprecated(operation.getDeprecated());
-        else
-            operationDescriptor.setIsDeprecated(false); // Default Value
-
-        // read responses
-        if(operation.getResponses() != null && !operation.getResponses().isEmpty())
-            operationDescriptor.getResponses().addAll(ResponseParser.parseAll(operation.getResponses(), store));
-
-        // read requestBody
+        if(operation.getParameters() != null)
+            operationDescriptor.getParameters().addAll(ParameterParser.parseAll(operation.getParameters(), store));
         if(operation.getRequestBody() != null)
             operationDescriptor.setRequestBody(RequestBodyParser.parseOne(operation.getRequestBody(), store));
+        if(operation.getResponses() != null)
+            operationDescriptor.getResponses().addAll(ResponseParser.parseAll(operation.getResponses(), store));
+        if(operation.getCallbacks() != null)
+            operationDescriptor.getCallbacks().addAll(CallbackParser.parseAll(operation.getCallbacks(), store));
+        if(operation.getDeprecated() != null)
+            operationDescriptor.setIsDeprecated(operation.getDeprecated());
+        if(operation.getSecurity() != null)
+            operationDescriptor.getSecurityRequirements().addAll(SecurityRequirementParser.parseAll(operation.getSecurity()));
+        if(operation.getServers() != null)
+            operationDescriptor.getServers().addAll(ServerParser.parseAll(operation.getServers(), store));
 
         return operationDescriptor;
     }
