@@ -3,14 +3,13 @@ package org.jqassistant.plugin.openapi.parser;
 import com.buschmais.jqassistant.core.scanner.api.DefaultScope;
 import com.buschmais.jqassistant.core.test.plugin.AbstractPluginIT;
 import org.jqassistant.plugin.openapi.api.model.*;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
-class OpenAPIScannerPluginTest extends AbstractPluginIT {
+ class OpenAPIScannerPluginTest extends AbstractPluginIT {
 
     ContractDescriptor contract;
 
@@ -77,7 +76,6 @@ class OpenAPIScannerPluginTest extends AbstractPluginIT {
 
     @Test
     void testExternalDocs(){
-
         File file = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-metadata.yaml");
         try {
             contract = getScanner().scan(file, "example-metadata.yaml", DefaultScope.NONE);
