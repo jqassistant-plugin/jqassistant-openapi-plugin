@@ -37,7 +37,7 @@ public class ResponseParser {
 
         // read content
         if(response.getContent() != null)
-            responseDescriptor.getMediaTypeObject().addAll(MediaTypeParser.parseAll(response.getContent(), store));
+            responseDescriptor.getMediaTypeObjects().addAll(MediaTypeParser.parseAll(response.getContent(), store));
 
         return responseDescriptor;
 
