@@ -119,7 +119,7 @@ public class PathsParser {
         if(operation.getDeprecated() != null)
             operationDescriptor.setIsDeprecated(operation.getDeprecated());
         if(operation.getSecurity() != null)
-            operationDescriptor.getSecurityRequirements().addAll(SecurityRequirementParser.parseAll(operation.getSecurity()));
+            operationDescriptor.getSecurityRequirements().addAll(SecurityRequirementParser.parseAll(operation.getSecurity(), store));
         if(operation.getServers() != null)
             operationDescriptor.getServers().addAll(ServerParser.parseAll(operation.getServers(), store));
 
