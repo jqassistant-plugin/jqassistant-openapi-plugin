@@ -46,8 +46,7 @@ public interface OperationDescriptor extends OpenApiDescriptor {
     void setIsDeprecated(Boolean isDeprecated);
 
     @Relation("DECLARES")
-    SecurityRequirementDescriptor getSecurityRequirement();
-    void setSecurityRequirement(SecurityRequirementDescriptor securityRequirement);
+    List<SecurityRequirementDescriptor> getSecurityRequirements();
 
     @Relation("SERVED_BY")
     List<ServerDescriptor> getServers();
