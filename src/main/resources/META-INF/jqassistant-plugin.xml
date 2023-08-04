@@ -20,6 +20,7 @@
         <class>org.jqassistant.plugin.openapi.api.model.TagDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.PathsDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.ExternalDocsDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.ServerVariableDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.jsonschema.ArrayPropertyDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.jsonschema.BoolPropertyDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.jsonschema.DiscriminatorDescriptor</class>
