@@ -17,33 +17,10 @@ class PropertyResolver {
     }
 
     PropertyDescriptor resolve(String name){
-        return resolve(name, PropertyDescriptor.class);
-    }
-
-    PropertyDescriptor resolve(String name, boolean doNotCache){
-        return resolve(name, PropertyDescriptor.class, doNotCache);
-    }
-
-    <T extends PropertyDescriptor> T resolve(String name, Class<T> clazz) {
-        return resolve(name, clazz, false);
-    }
-
-    <T extends PropertyDescriptor> T resolve(String name, Class<T> clazz, boolean doNotCache){
-
-        T returnvalue;
-
-        if (doNotCache){
-            returnvalue = store.create(clazz);
-        } else {
-           returnvalue  = (T) propertyMap.computeIfAbsent(name, (key) -> {
-                T propertyDescriptor = store.create(clazz);
-                return propertyDescriptor;
-            });
-        }
-
-        if (name != null)
-            returnvalue.setName(name);
-
-        return returnvalue;
+        return propertyMap.computeIfAbsent(name, (key) -> {
+            PropertyDescriptor propertyDescriptor = store.create(PropertyDescriptor.class);
+            propertyDescriptor.setName(key);
+            return propertyDescriptor;
+        });
     }
 }

@@ -16,19 +16,19 @@ public interface SchemaDescriptor extends JsonSchemaDescriptor {
     void setExternalDocs(ExternalDocsDescriptor externalDoc);
 
     @Relation("IS")
-    PropertyDescriptor getObject();
-    void setObject(PropertyDescriptor propertyDescriptor);
+    TypeDescriptor getIsType();
+    void setIsType(TypeDescriptor typeDescriptor);
 
     @Relation("DISCRIMINATOR")
     DiscriminatorDescriptor getDiscriminator();
     void setDiscriminator(DiscriminatorDescriptor discriminator);
 
     @Relation("ALL_OF")
-    List<PropertyDescriptor> getAllOfSchemas();
+    List<TypeDescriptor> getAllOfSchemas();
 
     @Relation("ONE_OF")
-    List<PropertyDescriptor> getOneOfSchemas();
+    List<TypeDescriptor> getOneOfSchemas();
 
     @Relation("ANY_OF")
-    List<PropertyDescriptor> getAnyOfSchemas();
+    List<TypeDescriptor> getAnyOfSchemas();
 }
