@@ -1,6 +1,20 @@
 openapi: 3.1.0
 servers:
   - url: /rest/v1/users
+  - url: /url/with/{first_variable}/and/{second_variable}/{no_fields_variable}
+    variables:
+      first_variable:
+        enum:
+          - "value1"
+          - "value2"
+        default: "value3"
+        description: variable description
+      second_variable:
+        enum:
+        default:
+        description:
+      no_fields_variable:
+        default: no fields default
 info:
   title: Issues
   description: "Issues API"
