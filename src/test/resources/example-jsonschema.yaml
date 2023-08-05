@@ -2,6 +2,11 @@ openapi: 3.0.2
 components:
   schemas:
     EmptySchema:
+    SchemaWithEmptyProperty:
+      type: object
+      properties:
+    SchemaWithOtherTypeThenObject:
+      type: integer
     IntegerSchema:
       type: integer
       externalDocs:

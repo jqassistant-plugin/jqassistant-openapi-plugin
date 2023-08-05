@@ -47,19 +47,46 @@ class JsonSchemaTest extends AbstractPluginIT {
     }
 
     @Test
+    void schemaWithEmptyPropertyTest(){
+        SchemaDescriptor schemaDescriptor = getSchemaWithName("SchemaWithEmptyProperty");
+
+        TypeDescriptor typeDescriptor = schemaDescriptor.getIsType();
+
+        assertThat(typeDescriptor).isNotNull();
+        assertThat(typeDescriptor).isInstanceOf(ObjectTypeDescriptor.class);
+
+        ObjectTypeDescriptor obj = (ObjectTypeDescriptor) typeDescriptor;
+
+        assertThat(obj.getProperties())
+                .isEmpty();
+    }
+
+    @Test
+    void schemaWithOtherTypeThenObjectTest(){
+        SchemaDescriptor schemaDescriptor = getSchemaWithName("SchemaWithOtherTypeThenObject");
+
+        assertThat(schemaDescriptor).isNotNull();
+
+        TypeDescriptor typeDescriptor = schemaDescriptor.getIsType();
+
+        assertThat(typeDescriptor)
+                .isNotNull()
+                .isInstanceOf(IntegerTypeDescriptor.class);
+
+    }
+    @Test
     void schemaWithNativeTypeTest(){
         SchemaDescriptor schemaDescriptor = getSchemaWithName("IntegerSchema");
 
         assertThat(schemaDescriptor).isNotNull();
         assertThat(schemaDescriptor.getName()).isEqualTo("IntegerSchema");
 
-        PropertyDescriptor propertyDescriptor = schemaDescriptor.getObject();
+        TypeDescriptor typeDescriptor = schemaDescriptor.getIsType();
 
-        assertThat(propertyDescriptor).isNotNull();
-        assertThat(propertyDescriptor.getName()).isEqualTo("IntegerSchema");
-        assertThat(propertyDescriptor).isInstanceOf(IntegerPropertyDescriptor.class);
+        assertThat(typeDescriptor).isNotNull();
+        assertThat(typeDescriptor).isInstanceOf(IntegerTypeDescriptor.class);
 
-        assertThat(schemaDescriptor.getExternalDocs()).isNotNull();
+        assertThat(schemaDescriptor.getExternalDocs()).isNotNull(); // TODO WRONG TEST?
     }
 
     @Test
@@ -69,11 +96,11 @@ class JsonSchemaTest extends AbstractPluginIT {
                 .isNotNull()
                 .hasSize(1);
 
-        PropertyDescriptor propertyDescriptor1 = properties.get(0);
+        PropertyDescriptor propertyDescriptor = properties.get(0);
 
-        assertThat(propertyDescriptor1).isNotNull();
-        assertThat(propertyDescriptor1.getName()).isEqualTo("test");
-        assertThat(propertyDescriptor1).isInstanceOf(IntegerPropertyDescriptor.class);
+        assertThat(propertyDescriptor).isNotNull();
+        assertThat(propertyDescriptor.getName()).isEqualTo("test");
+        assertThat(propertyDescriptor.getType()).isInstanceOf(IntegerTypeDescriptor.class);
     }
 
     @Test
@@ -83,25 +110,25 @@ class JsonSchemaTest extends AbstractPluginIT {
         for (PropertyDescriptor propertyDescriptor : properties){
             switch (propertyDescriptor.getName()){
                 case "ArrayType":
-                    assertThat(propertyDescriptor).isInstanceOf(ArrayPropertyDescriptor.class);
-                    ArrayPropertyDescriptor prop = (ArrayPropertyDescriptor) propertyDescriptor;
+                    assertThat(propertyDescriptor.getType()).isInstanceOf(ArrayTypeDescriptor.class);
+                    ArrayTypeDescriptor prop = (ArrayTypeDescriptor) propertyDescriptor.getType();
                     assertThat(prop.getItem()).isNotNull();
-                    assertThat(prop.getItem()).isInstanceOf(IntegerPropertyDescriptor.class);
+                    assertThat(prop.getItem()).isInstanceOf(IntegerTypeDescriptor.class);
                     break;
                 case "BoolType":
-                    assertThat(propertyDescriptor).isInstanceOf(BoolPropertyDescriptor.class);
+                    assertThat(propertyDescriptor.getType()).isInstanceOf(BoolTypeDescriptor.class);
                     break;
                 case "StringType":
-                    assertThat(propertyDescriptor).isInstanceOf(StringPropertyDescriptor.class);
+                    assertThat(propertyDescriptor.getType()).isInstanceOf(StringTypeDescriptor.class);
                     break;
                 case "IntegerType":
-                    assertThat(propertyDescriptor).isInstanceOf(IntegerPropertyDescriptor.class);
+                    assertThat(propertyDescriptor.getType()).isInstanceOf(IntegerTypeDescriptor.class);
                     break;
                 case "NullType":
-                    assertThat(propertyDescriptor).isInstanceOf(NullPropertyDescriptor.class);
+                    assertThat(propertyDescriptor.getType()).isInstanceOf(NullTypeDescriptor.class);
                     break;
                 case "NumberType":
-                    assertThat(propertyDescriptor).isInstanceOf(NumberPropertyDescriptor.class);
+                    assertThat(propertyDescriptor.getType()).isInstanceOf(NumberTypeDescriptor.class);
                     break;
                 default:
                     Assertions.fail("unexpected Type");
@@ -118,18 +145,23 @@ class JsonSchemaTest extends AbstractPluginIT {
                 .hasSize(2);
 
         for (PropertyDescriptor propertyDescriptor : properties){
-            assertThat(propertyDescriptor).isInstanceOf(ArrayPropertyDescriptor.class);
-            ArrayPropertyDescriptor arrayPropertyDescriptor = (ArrayPropertyDescriptor) propertyDescriptor;
 
-            if (arrayPropertyDescriptor.getName().equals("ArrayWithSimpleType")){
-                assertThat(arrayPropertyDescriptor.getItem()).isInstanceOf(IntegerPropertyDescriptor.class);
-            } else if (arrayPropertyDescriptor.getName().equals("ArrayWithReference")){
-                assertThat(arrayPropertyDescriptor.getItem()).isInstanceOf(ReferencePropertyDescriptor.class);
-                SchemaDescriptor refSchema = ((ReferencePropertyDescriptor) arrayPropertyDescriptor.getItem()).getReference();
+            TypeDescriptor type = propertyDescriptor.getType();
+            assertThat(type)
+                    .isNotNull()
+                    .isInstanceOf(ArrayTypeDescriptor.class);
+
+            ArrayTypeDescriptor arrayTypeDescriptor = (ArrayTypeDescriptor) type;
+
+            if (propertyDescriptor.getName().equals("ArrayWithSimpleType")){
+                assertThat(arrayTypeDescriptor.getItem()).isInstanceOf(IntegerTypeDescriptor.class);
+            } else if (propertyDescriptor.getName().equals("ArrayWithReference")){
+                assertThat(arrayTypeDescriptor.getItem()).isInstanceOf(ReferenceTypeDescriptor.class);
+                SchemaDescriptor refSchema = ((ReferenceTypeDescriptor) arrayTypeDescriptor.getItem()).getReference();
 
                 assertThat(refSchema).isNotNull();
                 assertThat(refSchema.getName()).isEqualTo("SchemaWithObject");
-                assertThat(refSchema.getObject()).isInstanceOf(ObjectPropertyDescriptor.class);
+                assertThat(refSchema.getIsType()).isInstanceOf(ObjectTypeDescriptor.class);
             } else {
                 Assertions.fail("unexpected property found");
             }
@@ -145,11 +177,13 @@ class JsonSchemaTest extends AbstractPluginIT {
                 .hasSize(2);
 
         for (PropertyDescriptor propertyDescriptor : properties){
+
             if (propertyDescriptor.getName().equals("StringType")){
-                assertThat(propertyDescriptor).isInstanceOf(StringPropertyDescriptor.class);
+                assertThat(propertyDescriptor.getType()).isInstanceOf(StringTypeDescriptor.class);
             } else if (propertyDescriptor.getName().equals("EnumType")){
-                assertThat(propertyDescriptor).isInstanceOf(EnumStringPropertyDescriptor.class);
-                EnumStringPropertyDescriptor enumProp = (EnumStringPropertyDescriptor) propertyDescriptor;
+                TypeDescriptor type = propertyDescriptor.getType();
+                assertThat(type).isInstanceOf(EnumStringTypeDescriptor.class);
+                EnumStringTypeDescriptor enumProp = (EnumStringTypeDescriptor) type;
 
                 List<EnumValueDescriptor> vals = enumProp.getValues();
                 assertThat(vals).isNotNull();
@@ -175,9 +209,13 @@ class JsonSchemaTest extends AbstractPluginIT {
                 .hasSize(2);
 
         for (PropertyDescriptor propertyDescriptor : properties){
-            assertThat(propertyDescriptor).isInstanceOf(IntegerPropertyDescriptor.class);
 
-            IntegerPropertyDescriptor intProperty = (IntegerPropertyDescriptor) propertyDescriptor;
+            TypeDescriptor type = propertyDescriptor.getType();
+            assertThat(type)
+                    .isNotNull()
+                    .isInstanceOf(IntegerTypeDescriptor.class);
+
+            IntegerTypeDescriptor intProperty = (IntegerTypeDescriptor) type;
 
             if (propertyDescriptor.getName().equals("Integer32")){
                 assertThat(intProperty.getFormat()).isEqualTo("int32");
@@ -198,14 +236,18 @@ class JsonSchemaTest extends AbstractPluginIT {
                 .hasSize(2);
 
         for (PropertyDescriptor propertyDescriptor : properties){
-            assertThat(propertyDescriptor).isInstanceOf(NumberPropertyDescriptor.class);
 
-            NumberPropertyDescriptor intProperty = (NumberPropertyDescriptor) propertyDescriptor;
+            TypeDescriptor type = propertyDescriptor.getType();
+            assertThat(type)
+                    .isNotNull()
+                    .isInstanceOf(NumberTypeDescriptor.class);
+
+            NumberTypeDescriptor numProperty = (NumberTypeDescriptor) type;
 
             if (propertyDescriptor.getName().equals("DoubleValue")){
-                assertThat(intProperty.getFormat()).isEqualTo("double");
+                assertThat(numProperty.getFormat()).isEqualTo("double");
             } else if (propertyDescriptor.getName().equals("FloatValue")){
-                assertThat(intProperty.getFormat()).isEqualTo("float");
+                assertThat(numProperty.getFormat()).isEqualTo("float");
             } else {
                 Assertions.fail("unexpected property found");
             }
@@ -220,11 +262,17 @@ class JsonSchemaTest extends AbstractPluginIT {
                 .isNotNull()
                 .hasSize(1);
 
-        SchemaDescriptor refSchema = ((ReferencePropertyDescriptor) properties.get(0)).getReference();
+        TypeDescriptor type = properties.get(0).getType();
+
+        assertThat(type)
+                .isNotNull()
+                .isInstanceOf(ReferenceTypeDescriptor.class);
+
+        SchemaDescriptor refSchema = ((ReferenceTypeDescriptor) type).getReference();
 
         assertThat(refSchema).isNotNull();
         assertThat(refSchema.getName()).isEqualTo("SchemaWithObject");
-        assertThat(refSchema.getObject()).isInstanceOf(ObjectPropertyDescriptor.class);
+        assertThat(refSchema.getIsType()).isInstanceOf(ObjectTypeDescriptor.class);
     }
 
     private SchemaDescriptor getSchemaWithName(String schemaName){
@@ -242,13 +290,12 @@ class JsonSchemaTest extends AbstractPluginIT {
         assertThat(schemaDescriptor).isNotNull();
         assertThat(schemaDescriptor.getName()).isEqualTo(schemaName);
 
-        PropertyDescriptor propertyDescriptor = schemaDescriptor.getObject();
+        TypeDescriptor typeDescriptor = schemaDescriptor.getIsType();
 
-        assertThat(propertyDescriptor).isNotNull();
-        assertThat(propertyDescriptor.getName()).isEqualTo(schemaName);
-        assertThat(propertyDescriptor).isInstanceOf(ObjectPropertyDescriptor.class);
+        assertThat(typeDescriptor).isNotNull();
+        assertThat(typeDescriptor).isInstanceOf(ObjectTypeDescriptor.class);
 
-        return  ((ObjectPropertyDescriptor) propertyDescriptor).getProperties();
+        return  ((ObjectTypeDescriptor) typeDescriptor).getProperties();
     }
 
 }
