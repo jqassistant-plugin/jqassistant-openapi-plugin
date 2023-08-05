@@ -37,6 +37,7 @@ class JsonSchemaTest extends AbstractPluginIT {
     }
 
     @Test
+    @TestStore(type = TestStore.Type.REMOTE)
     void readyAnySchemaTest(){
         ComponentsDescriptor componentsDescriptor = contract.getComponents();
         assertThat(componentsDescriptor).isNotNull();

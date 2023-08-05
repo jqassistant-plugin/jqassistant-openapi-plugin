@@ -74,3 +74,19 @@ components:
       properties:
         TheReference:
           $ref: '#/components/schemas/SchemaWithObject'
+    SchemaWithInherent:
+      allOf:
+        - $ref: '#/components/schemas/SchemaWithObject'
+        - type: object
+          properties:
+            name123:
+              type: string
+    SchemaWithDiscriminator:
+      type: object
+      properties:
+        theDiscriminator:
+          type: string
+        randomField:
+          type: integer
+      discriminator:
+        propertyName: theDiscriminator
