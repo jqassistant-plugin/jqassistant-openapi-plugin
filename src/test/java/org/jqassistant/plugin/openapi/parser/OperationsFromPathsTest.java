@@ -5,6 +5,7 @@ import com.buschmais.jqassistant.core.test.plugin.AbstractPluginIT;
 import org.jqassistant.plugin.openapi.api.model.ContractDescriptor;
 import org.jqassistant.plugin.openapi.api.model.OperationDescriptor;
 import org.jqassistant.plugin.openapi.api.model.PathItemDescriptor;
+import org.jqassistant.plugin.openapi.api.model.TagDescriptor;
 import org.junit.jupiter.api.*;
 
 import java.io.File;
@@ -36,7 +37,7 @@ class OperationsFromPathsTest extends AbstractPluginIT {
 
     @Test
     void allPathsPresent(){
-        assertThat(paths).hasSize(11);
+        assertThat(paths).hasSize(13);
     }
     
     @Test
@@ -64,9 +65,29 @@ class OperationsFromPathsTest extends AbstractPluginIT {
 
     @Test
     void hasTags(){
-        List<OperationDescriptor> ops = getPathOpsWithUrl("/with_tags");
+        List<OperationDescriptor> opsWithTags = getPathOpsWithUrl("/with_tags");
+        assertThat(opsWithTags).hasSize(1);
 
-        // TBD
+        OperationDescriptor opWithTags = opsWithTags.get(0);
+        assertThat(opWithTags.getTags()).hasSize(2);
+
+        TagDescriptor tag1 = opWithTags.getTags().get(0);
+        assertThat(tag1.getTag()).isEqualTo("tag1");
+        assertThat(tag1.getDescription()).isNull();
+        assertThat(tag1.getExternalDocs()).isNull();
+
+        TagDescriptor tag2 = opWithTags.getTags().get(1);
+        assertThat(tag2.getTag()).isEqualTo("tag2");
+        assertThat(tag2.getDescription()).isNull();
+        assertThat(tag2.getExternalDocs()).isNull();
+
+        List<OperationDescriptor> opsEmptyTags = getPathOpsWithUrl("/with_empty_tags");
+        assertThat(opsEmptyTags).hasSize(1);
+        assertThat(opsEmptyTags.get(0).getTags()).isEmpty();
+
+        List<OperationDescriptor> opsNoTags = getPathOpsWithUrl("/with_no_tags");
+        assertThat(opsNoTags).hasSize(1);
+        assertThat(opsNoTags.get(0).getTags()).isEmpty();
     }
 
     @Test
