@@ -123,6 +123,10 @@ public class PathsParser {
         if(operation.getServers() != null)
             operationDescriptor.getServers().addAll(ServerParser.parseAll(operation.getServers(), store));
 
+        // read tags
+        if(operation.getTags() != null)
+            operationDescriptor.getTags().addAll(TagParser.parseAll(operation.getTags(), store));
+
         return operationDescriptor;
     }
 }

@@ -12,6 +12,7 @@ import static org.assertj.core.api.Assertions.*;
 class OpenAPIScannerPluginTest extends AbstractPluginIT {
 
     ContractDescriptor contract;
+
     @Test
     void scanNullContract(){
         File file = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-nulltest.yaml");
@@ -22,7 +23,7 @@ class OpenAPIScannerPluginTest extends AbstractPluginIT {
             fail("Reading contract not containing any data failed", e);
         }
     }
-
+  
     @Test
     void scanEmptyContract(){
         File file = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-emptytest.yaml");
@@ -36,7 +37,6 @@ class OpenAPIScannerPluginTest extends AbstractPluginIT {
 
     @Test
     void scanMetaData(){
-
         File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-metadata.yaml");
         contract = getScanner().scan(testFile, "/example-metadata.yaml", DefaultScope.NONE);
 
@@ -52,7 +52,7 @@ class OpenAPIScannerPluginTest extends AbstractPluginIT {
         ServerDescriptor server = contract.getServers().get(0);
         assertThat(server.getUrl()).isEqualTo("/rest/v1/users");
 
-        assertThat(contract.getTags()).hasSize(4);
+        assertThat(contract.getTags()).hasSize(7);
         TagDescriptor tag = getTagByName("issues");
         assertThat(tag.getTag()).isEqualTo("issues");
         assertThat(tag.getDescription()).isEqualTo("Issues API");
@@ -60,6 +60,33 @@ class OpenAPIScannerPluginTest extends AbstractPluginIT {
         assertThat(contract.getExternalDocs()).isNotNull();
         assertThat(contract.getExternalDocs().getDescription()).isNotNull();
         assertThat(contract.getExternalDocs().getUrl()).isNotNull();
+
+        store.commitTransaction();
+    }
+
+    @Test
+    void scanTags(){
+        File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-metadata.yaml");
+        contract = getScanner().scan(testFile, "/example-metadata.yaml", DefaultScope.NONE);
+
+        store.beginTransaction();
+        assertThat(contract).isNotNull();
+        assertThat(contract.getTags()).hasSize(7);
+
+        TagDescriptor tagAllFields = getTagByName("tag_with_all_fields");
+        assertThat(tagAllFields.getTag()).isEqualTo("tag_with_all_fields");
+        assertThat(tagAllFields.getDescription()).isEqualTo("This is a tag with all fields set");
+        assertThat(tagAllFields.getExternalDocs()).isNotNull();
+
+        TagDescriptor tagEmptyFields = getTagByName("tag_with_empty_fields");
+        assertThat(tagEmptyFields.getTag()).isEqualTo("tag_with_empty_fields");
+        assertThat(tagEmptyFields.getDescription()).isNull();
+        assertThat(tagEmptyFields.getExternalDocs()).isNull();
+
+        TagDescriptor tagNoFields = getTagByName("tag_with_no_fields");
+        assertThat(tagNoFields.getTag()).isEqualTo("tag_with_no_fields");
+        assertThat(tagNoFields.getDescription()).isNull();
+        assertThat(tagNoFields.getExternalDocs()).isNull();
 
         store.commitTransaction();
     }
@@ -104,6 +131,7 @@ class OpenAPIScannerPluginTest extends AbstractPluginIT {
 
         store.commitTransaction();
     }
+
     private TagDescriptor getTagByName(String name){
         List<TagDescriptor> tags = contract.getTags();
         for(TagDescriptor tag: tags)
