@@ -24,6 +24,7 @@
         <class>org.jqassistant.plugin.openapi.api.model.jsonschema.ArrayTypeDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.jsonschema.BoolTypeDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.jsonschema.DiscriminatorDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.jsonschema.DiscriminatorMappingDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.jsonschema.EnumStringTypeDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.jsonschema.EnumValueDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.jsonschema.IntegerTypeDescriptor</class>

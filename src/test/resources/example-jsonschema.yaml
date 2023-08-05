@@ -95,3 +95,13 @@ components:
           type: integer
       discriminator:
         propertyName: theDiscriminator
+    SchemaWithMappingDiscriminator:
+      type: object
+      properties:
+        aDiscriminator:
+          type: string
+      discriminator:
+        propertyName: aDiscriminator
+        mapping:
+          foo: BAA
+          baz: '#/components/schemas/SchemaWithObject'

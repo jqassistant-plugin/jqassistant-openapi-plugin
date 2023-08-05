@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -273,6 +274,30 @@ class JsonSchemaTest extends AbstractPluginIT {
         assertThat(refSchema).isNotNull();
         assertThat(refSchema.getName()).isEqualTo("SchemaWithObject");
         assertThat(refSchema.getIsType()).isInstanceOf(ObjectTypeDescriptor.class);
+    }
+
+    @Test
+    void schemaWithMappingDiscriminatorTest() {
+        SchemaDescriptor schemaDescriptor = getSchemaWithName("SchemaWithMappingDiscriminator");
+
+        assertThat(schemaDescriptor).isNotNull();
+
+        DiscriminatorDescriptor discriminatorDescriptor = schemaDescriptor.getDiscriminator();
+
+        assertThat(discriminatorDescriptor).isNotNull();
+
+        List<DiscriminatorMappingDescriptor> mapping = discriminatorDescriptor.getMapping();
+
+        assertThat(mapping).hasSize(2);
+
+        for (int i = 0; i <2; i++) {
+            assertThat(mapping.get(i).getKey())
+                    .isNotNull()
+                    .isIn(Arrays.asList("foo", "baz"));
+            assertThat(mapping.get(i).getValue())
+                    .isNotNull()
+                    .isIn(Arrays.asList("BAA", "#/components/schemas/SchemaWithObject"));
+        }
     }
 
     private SchemaDescriptor getSchemaWithName(String schemaName){

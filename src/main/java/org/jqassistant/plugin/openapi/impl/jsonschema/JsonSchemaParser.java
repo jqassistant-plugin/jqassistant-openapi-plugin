@@ -82,7 +82,14 @@ public class JsonSchemaParser {
             if (schema.getDiscriminator().getPropertyName() != null)
                 discriminatorDescriptor.setProperty(propertyResolver.resolve(schema.getDiscriminator().getPropertyName()));
 
-            // TODO: MAPPING
+            if (schema.getDiscriminator().getMapping() != null && !schema.getDiscriminator().getMapping().isEmpty()){
+                for (Map.Entry<String, String> entry : schema.getDiscriminator().getMapping().entrySet()){
+                    DiscriminatorMappingDescriptor mappingDescriptor = store.create(DiscriminatorMappingDescriptor.class);
+                    mappingDescriptor.setKey(entry.getKey());
+                    mappingDescriptor.setValue(entry.getValue());
+                    discriminatorDescriptor.getMapping().add(mappingDescriptor);
+                }
+            }
 
             schemaDescriptor.setDiscriminator(discriminatorDescriptor);
         }
