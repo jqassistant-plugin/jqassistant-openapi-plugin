@@ -21,6 +21,7 @@
         <class>org.jqassistant.plugin.openapi.api.model.PathsDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.ExternalDocsDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.SecurityRequirementDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.ServerVariableDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.EncodingDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.jsonschema.ArrayPropertyDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.jsonschema.BoolPropertyDescriptor</class>
