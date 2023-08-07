@@ -4,8 +4,10 @@ import com.buschmais.jqassistant.core.store.api.Store;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
 import org.jqassistant.plugin.openapi.api.model.ContactDescriptor;
 import org.jqassistant.plugin.openapi.api.model.ContractDescriptor;
+import org.jqassistant.plugin.openapi.api.model.LicenseDescriptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,6 +66,18 @@ public class ContractParser {
             contactDescriptor.setUrl(contact.getUrl());
 
         return contactDescriptor;
+    }
+
+    private static LicenseDescriptor parseLicense(License license, Store store){
+        LicenseDescriptor licenseDescriptor = store.create(LicenseDescriptor.class);
+
+        licenseDescriptor.setName(license.getName());
+        if(license.getIdentifier() != null)
+            licenseDescriptor.setIdentifier(license.getIdentifier());
+        if(license.getUrl() != null)
+            licenseDescriptor.setUrl(license.getUrl());
+
+        return licenseDescriptor;
     }
 
 }
