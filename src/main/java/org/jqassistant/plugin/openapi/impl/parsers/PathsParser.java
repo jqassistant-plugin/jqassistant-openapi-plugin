@@ -99,7 +99,7 @@ public class PathsParser {
 
         operationDescriptor.setHttpMethod(httpMethod); // operationsMap key has to be present in entry
         if(operation.getTags() != null)
-            operationDescriptor.getTags().addAll(TagParser.parseAllStrings(operation.getTags(), store));
+            operationDescriptor.getTags().addAll(TagParser.parseAll(operation.getTags(), store));
         if(operation.getSummary() != null)
             operationDescriptor.setSummary(operation.getSummary());
         if(operation.getDescription() != null)
@@ -122,10 +122,6 @@ public class PathsParser {
             operationDescriptor.getSecurityRequirements().addAll(SecurityRequirementParser.parseAll(operation.getSecurity(), store));
         if(operation.getServers() != null)
             operationDescriptor.getServers().addAll(ServerParser.parseAll(operation.getServers(), store));
-
-        // read tags
-        if(operation.getTags() != null)
-            operationDescriptor.getTags().addAll(TagParser.parseAll(operation.getTags(), store));
 
         return operationDescriptor;
     }
