@@ -1,7 +1,5 @@
 package org.jqassistant.plugin.openapi.parser;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.io.File;
 import java.util.List;
 
@@ -14,6 +12,8 @@ import org.jqassistant.plugin.openapi.api.model.jsonschema.SchemaDescriptor;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.*;
 
 class ComponentsTest extends AbstractPluginIT {
 
@@ -99,7 +99,51 @@ class ComponentsTest extends AbstractPluginIT {
     @Test
     void testLinks() {
         List<LinkDescriptor> links = contract.getComponents().getLinks();
-        assertThat(links).hasSize(1);
+        assertThat(links).hasSize(4);
+    }
+
+    @Test
+    void testRichLinks(){
+        LinkDescriptor richLinkOperationId = getLinkByName("rich_link_with_operationId");
+        assertThat(richLinkOperationId.getOperationId()).isEqualTo("getUserAddress");
+        assertThat(richLinkOperationId.getOperationRef()).isNull();
+        assertThat(richLinkOperationId.getParameters()).hasSize(1);
+        assertThat(richLinkOperationId.getParameters().get(0).getName()).isEqualTo("userId");
+        assertThat(richLinkOperationId.getParameters().get(0).getValue()).isEqualTo("$request.path.id");
+        assertThat(richLinkOperationId.getRequestBody()).isEqualTo("$request.body#/user/uuid");
+        assertThat(richLinkOperationId.getDescription()).isEqualTo("description");
+        assertThat(richLinkOperationId.getServer()).isNotNull();
+
+        LinkDescriptor richLinkOperationRef = getLinkByName("rich_link_with_operationRef");
+        assertThat(richLinkOperationRef.getOperationId()).isNull();
+        assertThat(richLinkOperationRef.getOperationRef()).isEqualTo("#/paths/~12.0~1repositories~1{username}/get");
+        assertThat(richLinkOperationRef.getParameters()).hasSize(2);
+        assertThat(richLinkOperationRef.getRequestBody()).isEqualTo("$request.body#/user/uuid");
+        assertThat(richLinkOperationRef.getDescription()).isEqualTo("description");
+        assertThat(richLinkOperationRef.getServer()).isNotNull();
+    }
+
+    @Test
+    void testEmptyLink(){
+        LinkDescriptor emptyLink = getLinkByName("empty_link");
+        assertThat(emptyLink.getOperationId()).isNull();
+        assertThat(emptyLink.getOperationRef()).isNull();
+        assertThat(emptyLink.getParameters()).isEmpty();
+        assertThat(emptyLink.getRequestBody()).isNull();
+        assertThat(emptyLink.getDescription()).isNull();
+        assertThat(emptyLink.getServer()).isNull();
+    }
+
+    @Test
+    void testEmptyLinkParameters(){
+        LinkDescriptor emptyParamsLink = getLinkByName("link_with_empty_parameters");
+        assertThat(emptyParamsLink.getParameters()).hasSize(3);
+        assertThat(emptyParamsLink.getParameters().get(0).getName()).isNotNull();
+        assertThat(emptyParamsLink.getParameters().get(0).getValue()).isNull();
+        assertThat(emptyParamsLink.getParameters().get(1).getName()).isNotNull();
+        assertThat(emptyParamsLink.getParameters().get(1).getValue()).isNull();
+        assertThat(emptyParamsLink.getParameters().get(2).getName()).isNotNull();
+        assertThat(emptyParamsLink.getParameters().get(2).getValue()).isNull();
     }
 
     @Test
@@ -230,6 +274,15 @@ class ComponentsTest extends AbstractPluginIT {
             for(MediaTypeObjectDescriptor mediaType: response.getMediaTypeObjects())
                 if(mediaType.getMediaType().equals(name))
                     return mediaType;
+        return null;
+    }
+
+    private LinkDescriptor getLinkByName(String name){
+        List<LinkDescriptor> links = contract.getComponents().getLinks();
+        for(LinkDescriptor link: links)
+            if(link.getName().equals(name))
+                return link;
+        fail("no link with name <%s> found", name);
         return null;
     }
 }
