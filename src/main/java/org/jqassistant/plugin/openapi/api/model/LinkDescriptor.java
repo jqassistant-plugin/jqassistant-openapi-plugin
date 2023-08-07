@@ -2,7 +2,6 @@ package org.jqassistant.plugin.openapi.api.model;
 
 import com.buschmais.xo.neo4j.api.annotation.Label;
 import com.buschmais.xo.neo4j.api.annotation.Relation;
-import io.swagger.v3.oas.models.servers.Server;
 
 import java.util.List;
 
