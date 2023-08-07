@@ -124,6 +124,10 @@ public class PathsParser {
         if(operation.getParameters() != null)
             operationDescriptor.getParameters().addAll(ParameterParser.parseAll(operation.getParameters(), store));
 
+        // read tags
+        if(operation.getTags() != null)
+            operationDescriptor.getTags().addAll(TagParser.parseAll(operation.getTags(), store));
+
         return operationDescriptor;
     }
 }

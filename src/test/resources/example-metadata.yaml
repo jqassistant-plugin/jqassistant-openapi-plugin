@@ -1,6 +1,20 @@
 openapi: 3.1.0
 servers:
   - url: /rest/v1/users
+  - url: /url/with/{first_variable}/and/{second_variable}/{no_fields_variable}
+    variables:
+      first_variable:
+        enum:
+          - "value1"
+          - "value2"
+        default: "value3"
+        description: variable description
+      second_variable:
+        enum:
+        default:
+        description:
+      no_fields_variable:
+        default: no fields default
 info:
   title: Issues
   description: "Issues API"
@@ -21,6 +35,14 @@ tags:
     externalDocs:
       description:
       url:
+  - name: tag_with_all_fields
+    description: "This is a tag with all fields set"
+    externalDocs:
+      url: "https://www.example.com"
+  - name: tag_with_empty_fields
+    description:
+    externalDocs:
+  - name: tag_with_no_fields
 externalDocs:
   description: "external docs on contract level"
   url: "https://www.contract.example.com"

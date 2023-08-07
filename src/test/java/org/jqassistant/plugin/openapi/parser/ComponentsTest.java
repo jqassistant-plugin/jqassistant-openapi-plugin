@@ -8,6 +8,7 @@ import java.util.List;
 import com.buschmais.jqassistant.core.scanner.api.DefaultScope;
 import com.buschmais.jqassistant.core.test.plugin.AbstractPluginIT;
 import io.swagger.v3.oas.models.parameters.Parameter;
+import io.swagger.v3.oas.models.headers.Header;
 import io.swagger.v3.oas.models.media.Encoding;
 import org.jqassistant.plugin.openapi.api.model.*;
 import org.jqassistant.plugin.openapi.api.model.jsonschema.SchemaDescriptor;
@@ -45,7 +46,49 @@ class ComponentsTest extends AbstractPluginIT {
     @Test
     void testHeaders() {
         List<HeaderDescriptor> headers = contract.getComponents().getHeaders();
-        assertThat(headers).hasSize(1);
+        assertThat(headers).hasSize(3);
+    }
+
+    @Test
+    void testHeaderProperties() {
+        // header all props set and examples field
+        HeaderDescriptor headerAllPropsExamples = getHeaderByName("header_all_props");
+        assertThat(headerAllPropsExamples).isNotNull();
+        assertThat(headerAllPropsExamples.getDescription()).isEqualTo("This is an header with all possible props set");
+        assertThat(headerAllPropsExamples.getIsRequired()).isTrue();
+        assertThat(headerAllPropsExamples.getIsDeprecated()).isTrue();
+        assertThat(headerAllPropsExamples.getStyle()).isEqualTo(Header.StyleEnum.valueOf("SIMPLE"));
+        assertThat(headerAllPropsExamples.getExplode()).isTrue();
+        assertThat(headerAllPropsExamples.getSchema()).isNotNull();
+        assertThat(headerAllPropsExamples.getExamples()).hasSize(2);
+        assertThat(headerAllPropsExamples.getContent()).hasSize(1);
+
+        // header example props set
+        HeaderDescriptor headerAllPropsExample = getHeaderByName("header_example_prop");
+        assertThat(headerAllPropsExample.getDescription()).isEqualTo("This is an header with the example prop set");
+        assertThat(headerAllPropsExample.getSchema()).isNotNull();
+
+        // header all props empty
+        HeaderDescriptor headerEmptyProps = getHeaderByName("header_empty_props");
+        assertThat(headerEmptyProps).isNotNull();
+        assertThat(headerEmptyProps.getDescription()).isNull();
+        assertThat(headerEmptyProps.getIsRequired()).isFalse();
+        assertThat(headerEmptyProps.getIsDeprecated()).isFalse();
+        assertThat(headerEmptyProps.getStyle()).isEqualTo(Header.StyleEnum.valueOf("SIMPLE"));
+        assertThat(headerEmptyProps.getExplode()).isFalse();
+        assertThat(headerEmptyProps.getExample()).isNull();
+        assertThat(headerEmptyProps.getSchema()).isNull();
+        assertThat(headerEmptyProps.getExamples()).isEmpty();
+        assertThat(headerEmptyProps.getContent()).isEmpty();
+    }
+
+    private HeaderDescriptor getHeaderByName(String name){
+        List<HeaderDescriptor> headers = contract.getComponents().getHeaders();
+        for (HeaderDescriptor header : headers){
+            if (header.getName().equals(name))
+                return header;
+        }
+        return null;
     }
 
     @Test
@@ -75,7 +118,31 @@ class ComponentsTest extends AbstractPluginIT {
     @Test
     void testResponses() {
         List<ResponseDescriptor> responses = contract.getComponents().getResponses();
-        assertThat(responses).hasSize(2);
+        assertThat(responses).hasSize(5);
+
+        ResponseDescriptor resDefault = getResponse("default");
+        assertThat(resDefault.getIsDefault()).isTrue();
+        assertThat(resDefault.getStatusCode()).isNull();
+        assertThat(resDefault.getDescription()).isEqualTo("a default response with all fields");
+        assertThat(resDefault.getHeaders()).hasSize(1);
+        assertThat(resDefault.getMediaTypeObjects()).hasSize(1);
+        assertThat(resDefault.getLinks()).hasSize(1);
+
+        ResponseDescriptor resEmpty = getResponse("433");
+        assertThat(resEmpty.getIsDefault()).isFalse();
+        assertThat(resEmpty.getStatusCode()).isEqualTo("433");
+        assertThat(resEmpty.getDescription()).isNull();
+        assertThat(resEmpty.getHeaders()).isEmpty();
+        assertThat(resEmpty.getMediaTypeObjects()).isEmpty();
+        assertThat(resEmpty.getLinks()).isEmpty();
+
+        ResponseDescriptor resNoFields = getResponse("434");
+        assertThat(resNoFields.getIsDefault()).isFalse();
+        assertThat(resNoFields.getStatusCode()).isEqualTo("434");
+        assertThat(resNoFields.getDescription()).isEqualTo("no fields");
+        assertThat(resNoFields.getHeaders()).isEmpty();
+        assertThat(resNoFields.getMediaTypeObjects()).isEmpty();
+        assertThat(resNoFields.getLinks()).isEmpty();
     }
 
     @Test
@@ -217,12 +284,23 @@ class ComponentsTest extends AbstractPluginIT {
         List<SchemaDescriptor> schemas = contract.getComponents().getSchemas();
         assertThat(schemas).hasSize(1);
     }
-  
+
     private ParameterDescriptor getParamByName(String name) {
         List<ParameterDescriptor> params = contract.getComponents().getParameters();
         for (ParameterDescriptor param : params)
             if (param.getName().equals(name))
                 return param;
+        return null;
+    }
+
+    private ResponseDescriptor getResponse(String statusCodeOrDefault){
+        List<ResponseDescriptor> responses = contract.getComponents().getResponses();
+        for(ResponseDescriptor response: responses) {
+            if (response.getIsDefault() && statusCodeOrDefault.equals("default"))
+                return response;
+            if (!statusCodeOrDefault.equals("default") && statusCodeOrDefault.equals(response.getStatusCode()))
+                return response;
+        }
         return null;
     }
 

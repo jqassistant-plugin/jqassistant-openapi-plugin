@@ -11,6 +11,9 @@ public interface OperationDescriptor extends OpenApiDescriptor, DescriptionTempl
         GET, PUT, POST, DELETE, OPTIONS, HEAD, PATCH, TRACE
     }
 
+    @Relation("HAS")
+    List<TagDescriptor> getTags();
+
     HTTPMethod getType();
     void setType(HTTPMethod type);
     String getSummary();

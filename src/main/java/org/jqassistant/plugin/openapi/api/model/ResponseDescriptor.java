@@ -9,11 +9,19 @@ import java.util.List;
 public interface ResponseDescriptor extends OpenApiDescriptor{
     Boolean getIsDefault();
     void setIsDefault(Boolean isDefault);
+
     String getStatusCode();
     void setStatusCode(String statusCode);
+
     String getDescription();
     void setDescription(String description);
 
+    @Relation("ACCEPTS")
+    List<HeaderDescriptor> getHeaders();
+
     @Relation("CONTAINS")
     List<MediaTypeObjectDescriptor> getMediaTypeObjects();
+
+    @Relation("PROVIDES")
+    List<LinkDescriptor> getLinks();
 }

@@ -16,7 +16,30 @@ components:
   responses:
     200:
       description: "Successful operation"
-    418:
+    "default":
+      description: a default response with all fields
+      headers:
+        X-Request-Id:
+          description: "Request ID header"
+          schema:
+            type: string
+      links:
+        address:
+          operationId: getUserAddress
+          parameters:
+            userId: $request.path.id
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Pet'
+    "433":
+      description:
+      headers:
+      content:
+      links:
+    "434":
+      description: no fields
+    "418":
       content:
         multipart/form-data_example:
           schema:
@@ -172,10 +195,43 @@ components:
 
 
   headers:
-    X-Request-Id:
-      description: "Request ID header"
+    header_all_props:
+      description: "This is an header with all possible props set"
+      required: true
+      deprecated: true
+      style: simple
+      explode: true
       schema:
-        type: string
+        type: array
+        items:
+          type: string
+      examples:
+        example1:
+          summary: "Summary of example 1"
+          value: ["one", "two"]
+        example2:
+          summary: "Summary of example 2"
+          value: [ "three", "four"]
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: string
+    header_example_prop:
+      description: "This is an header with the example prop set"
+      example: 20
+      schema:
+        type: integer
+    header_empty_props:
+      description:
+      required:
+      deprecated:
+      style:
+      explode:
+      schema:
+      examples:
+      content:
 
   securitySchemes:
     ApiKeyAuth:
