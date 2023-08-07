@@ -23,7 +23,7 @@ public class ContractParser {
     public static void parse(OpenAPI contract, ContractDescriptor contractDescriptor, Store store){
         LOG.info("Reading Info object");
         if(contract.getInfo() != null)
-            parseInfo(contract.getInfo(), contractDescriptor, store);
+            contractDescriptor.setInfo(parseInfo(contract.getInfo(), store));
 
         LOG.info("Reading OpenAPI Components");
         if (contract.getComponents() != null)

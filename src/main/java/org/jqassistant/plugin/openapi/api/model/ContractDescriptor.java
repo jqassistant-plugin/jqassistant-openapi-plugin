@@ -13,12 +13,10 @@ import java.util.List;
 public interface ContractDescriptor extends OpenApiDescriptor, FileDescriptor {
     String getOpenApiVersion();
     void setOpenApiVersion(String openApiVersion);
-    String getTitle();
-    void setTitle(String title);
-    String getDescription();
-    void setDescription(String description);
-    String getApiVersion();
-    void setApiVersion(String apiVersion);
+
+    @Relation("HOLDS_INFORMATION")
+    InfoDescriptor getInfo();
+    void setInfo(InfoDescriptor info);
 
     @Relation("HAS_CONTACT")
     ContactDescriptor getContact();
