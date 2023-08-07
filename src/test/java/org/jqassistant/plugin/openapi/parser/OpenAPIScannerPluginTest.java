@@ -76,12 +76,39 @@ import static org.assertj.core.api.Assertions.*;
         assertThat(info.getContact().getName()).isEqualTo("Example Name");
         assertThat(info.getContact().getUrl()).isEqualTo("contact.example.com");
         assertThat(info.getLicense()).isNotNull();
-        assertThat(info.getLicense().getUrl()).isEqualTo("licenseUrl");
-        assertThat(info.getLicense().getName()).isEqualTo("License Name");
-        assertThat(info.getLicense().getIdentifier()).isNull(); // mutually exclusive to license.url
         assertThat(info.getVersion()).isEqualTo("1.0.0");
         store.commitTransaction();
     }
+
+    @Test
+    void scanLicenseWithUrl(){
+        File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-metadata.yaml");
+        contract = getScanner().scan(testFile, "/example-metadata.yaml", DefaultScope.NONE);
+
+        store.beginTransaction();
+        assertThat(contract.getInfo()).isNotNull();
+        InfoDescriptor info = contract.getInfo();
+        assertThat(info.getLicense()).isNotNull();
+        assertThat(info.getLicense().getUrl()).isEqualTo("licenseUrl");
+        assertThat(info.getLicense().getName()).isEqualTo("License Name");
+        assertThat(info.getLicense().getIdentifier()).isNull(); // mutually exclusive to license.url
+        store.commitTransaction();
+    }
+
+     @Test
+     void scanLicenseWithIdentifier(){
+         File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-components.yaml");
+         contract = getScanner().scan(testFile, "/example-components.yaml", DefaultScope.NONE);
+
+         store.beginTransaction();
+         assertThat(contract.getInfo()).isNotNull();
+         InfoDescriptor info = contract.getInfo();
+         assertThat(info.getLicense()).isNotNull();
+         assertThat(info.getLicense().getUrl()).isNull(); // mutually exclusive to license.identifier
+         assertThat(info.getLicense().getName()).isEqualTo("License Name");
+         assertThat(info.getLicense().getIdentifier()).isEqualTo("id123");
+         store.commitTransaction();
+     }
 
      @Test
      void scanEmptyInfo(){
@@ -98,6 +125,34 @@ import static org.assertj.core.api.Assertions.*;
          assertThat(info.getContact()).isNull();
          assertThat(info.getLicense()).isNull();
          assertThat(info.getVersion()).isEqualTo("1.0.0");
+         store.commitTransaction();
+     }
+
+     @Test
+     void scanEmptyLicense(){
+         File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-emptyinfo.yaml");
+         contract = getScanner().scan(testFile, "example-emptyinfo.yaml", DefaultScope.NONE);
+
+         store.beginTransaction();
+         assertThat(contract.getInfo()).isNotNull();
+         LicenseDescriptor license = contract.getInfo().getLicense();
+         assertThat(license.getIdentifier()).isNull();
+         assertThat(license.getName()).isEqualTo("required name");
+         assertThat(license.getUrl()).isNull();
+         store.commitTransaction();
+     }
+
+     @Test
+     void scanEmptyContact(){
+         File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-emptyinfo.yaml");
+         contract = getScanner().scan(testFile, "example-emptyinfo.yaml", DefaultScope.NONE);
+
+         store.beginTransaction();
+         assertThat(contract.getInfo()).isNotNull();
+         ContactDescriptor contactDescriptor = contract.getInfo().getContact();
+         assertThat(contactDescriptor.getEmail()).isNull();
+         assertThat(contactDescriptor.getName()).isNull();
+         assertThat(contactDescriptor.getUrl()).isNull();
          store.commitTransaction();
      }
 

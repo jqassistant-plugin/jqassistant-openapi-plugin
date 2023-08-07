@@ -1,0 +1,14 @@
+openapi: 3.1.0
+servers:
+info:
+  license:
+    identifier:
+    url:
+    name: required name
+  contact:
+    name:
+    url:
+    email:
+  title: title
+  version: 1.0.0
+tags:
