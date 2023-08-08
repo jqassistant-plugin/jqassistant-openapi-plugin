@@ -115,7 +115,7 @@ class ComponentsTest extends AbstractPluginIT {
 
         CallbackDescriptor richCallbackPathRef = getCallbackByName("RichCallbackRef");
         assertThat(richCallbackPathRef.getRef()).isEqualTo("#/components/callbacks/refString");
-        assertThat(richCallbackPathRef.getPathItems()).hasSize(0);
+        assertThat(richCallbackPathRef.getPathItems()).isEmpty();
     }
 
     @Test
