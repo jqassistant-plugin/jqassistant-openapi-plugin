@@ -1,13 +1,11 @@
 package org.jqassistant.plugin.openapi.impl.parsers;
 
 import com.buschmais.jqassistant.core.store.api.Store;
-import io.swagger.v3.oas.models.PathItem;
 import io.swagger.v3.oas.models.callbacks.Callback;
 import org.jqassistant.plugin.openapi.api.model.CallbackDescriptor;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class CallbackParser {
