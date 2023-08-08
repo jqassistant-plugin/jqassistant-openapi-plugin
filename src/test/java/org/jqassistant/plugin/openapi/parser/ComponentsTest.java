@@ -104,7 +104,6 @@ class ComponentsTest extends AbstractPluginIT {
     }
 
     @Test
-    @TestStore(type = TestStore.Type.REMOTE)
     void testCallbacks() {
         List<CallbackDescriptor> callbacks = contract.getComponents().getCallBacks();
         assertThat(callbacks).hasSize(2);
