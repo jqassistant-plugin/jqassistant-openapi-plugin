@@ -161,13 +161,15 @@ public class JsonSchemaParser {
         PropertyDescriptor propertyDescriptor = propertyResolver.resolve(name);
         propertyDescriptor.setType(parseType(schema));
 
+        if (schema.getDescription() != null)
+            propertyDescriptor.setDescription(schema.getDescription());
+
         return propertyDescriptor;
     }
 
     private ArrayTypeDescriptor parseArray(final Schema<?> schema){
 
-        ArrayTypeDescriptor arrayTypeDescriptor = parseDescription(schema, store.create(
-                ArrayTypeDescriptor.class));
+        ArrayTypeDescriptor arrayTypeDescriptor = store.create(ArrayTypeDescriptor.class);
         arrayTypeDescriptor.setItem(parseType(schema.getItems()));
 
         return arrayTypeDescriptor;
@@ -175,8 +177,7 @@ public class JsonSchemaParser {
 
     private BoolTypeDescriptor parseBoolean(final Schema<?> schema){
 
-        return parseDescription(schema, store.create(
-                BoolTypeDescriptor.class));
+        return store.create(BoolTypeDescriptor.class);
     }
 
     private EnumStringTypeDescriptor parseEnum(final Schema<?> schema){
@@ -202,18 +203,18 @@ public class JsonSchemaParser {
 
     private IntegerTypeDescriptor parseInteger(final Schema<?> schema){
 
-        return parseDescriptionAndFormat(schema, store.create(
+        return parseFormat(schema, store.create(
                 IntegerTypeDescriptor.class));
     }
 
     private NullTypeDescriptor parseNull(final Schema<?> schema){
 
-        return parseDescription(schema, store.create(NullTypeDescriptor.class));
+        return store.create(NullTypeDescriptor.class);
     }
 
     private NumberTypeDescriptor parseNumber(final Schema<?> schema){
 
-        return parseDescriptionAndFormat(schema, store.create(
+        return parseFormat(schema, store.create(
                 NumberTypeDescriptor.class));
     }
 
@@ -230,11 +231,11 @@ public class JsonSchemaParser {
     private StringTypeDescriptor parseString(final Schema<?> schema) {
 
         if (schema.getEnum() == null || schema.getEnum().isEmpty()) {
-            return parseDescriptionAndFormat(schema, store.create(
+            return parseFormat(schema, store.create(
                     StringTypeDescriptor.class));
         } else {
             EnumStringTypeDescriptor enumStringTypeDescriptor = parseEnum(schema);
-            return parseDescription(schema, enumStringTypeDescriptor);
+            return enumStringTypeDescriptor;
         }
     }
 
@@ -246,20 +247,12 @@ public class JsonSchemaParser {
         }
     }
 
-    private <D extends TypeDescriptor> D parseDescription(Schema<?> schema, D propertyDescriptor){
-
-        if (schema.getDescription() != null)
-            propertyDescriptor.setDescription(schema.getDescription());
-
-        return propertyDescriptor;
-    }
-
-    private <D extends TypeDescriptor> D parseDescriptionAndFormat(Schema<?> schema, D propertyDescriptor) {
+    private <D extends TypeDescriptor> D parseFormat(Schema<?> schema, D typeDescriptor) {
 
         if (schema.getFormat() != null)
-            propertyDescriptor.setFormat(schema.getFormat());
+            typeDescriptor.setFormat(schema.getFormat());
 
-        return propertyDescriptor;
+        return typeDescriptor;
     }
 
 }

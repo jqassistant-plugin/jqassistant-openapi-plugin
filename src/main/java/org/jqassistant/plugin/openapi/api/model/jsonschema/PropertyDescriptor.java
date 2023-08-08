@@ -9,6 +9,9 @@ public interface PropertyDescriptor extends JsonSchemaDescriptor {
     String getName();
     void setName(String name);
 
+    String getDescription();
+    void setDescription(String description);
+
     @Relation("IS_TYPE")
     TypeDescriptor getType();
     void setType(TypeDescriptor type);

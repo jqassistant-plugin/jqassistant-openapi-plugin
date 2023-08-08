@@ -6,8 +6,6 @@ import com.buschmais.xo.neo4j.api.annotation.Label;
 @Abstract
 @Label("Type")
 public interface TypeDescriptor extends JsonSchemaDescriptor {
-    String getDescription();
-    void setDescription(String description);
 
     String getFormat();
     void setFormat(String format);
