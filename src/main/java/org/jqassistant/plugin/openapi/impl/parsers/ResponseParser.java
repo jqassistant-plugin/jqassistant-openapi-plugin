@@ -23,23 +23,21 @@ public class ResponseParser {
     public static ResponseDescriptor parseOne(String statusCodeOrDefault, ApiResponse response, Store store){
         ResponseDescriptor responseDescriptor = store.create(ResponseDescriptor.class);
 
-        // read statusCode and default flag
+        responseDescriptor.setIsDefault(false);
         if(statusCodeOrDefault.equals(DEFAULT_STR))
             responseDescriptor.setIsDefault(true);
-        else {
-            responseDescriptor.setIsDefault(false);
+        else
             responseDescriptor.setStatusCode(statusCodeOrDefault);
-        }
 
-        // read properties
-        if(response.getDescription() != null && !response.getDescription().isEmpty())
+        if(response.getDescription() != null)
             responseDescriptor.setDescription(response.getDescription());
-
-        // read content
+        if(response.getHeaders() != null)
+            responseDescriptor.getHeaders().addAll(HeaderParser.parseAll(response.getHeaders(), store));
         if(response.getContent() != null)
-            responseDescriptor.getMediaTypeObject().addAll(MediaTypeParser.parseAll(response.getContent(), store));
+            responseDescriptor.getMediaTypeObjects().addAll(MediaTypeParser.parseAll(response.getContent(), store));
+        if(response.getLinks() != null)
+            responseDescriptor.getLinks().addAll(LinkParser.parseAll(response.getLinks(), store));
 
         return responseDescriptor;
-
     }
 }

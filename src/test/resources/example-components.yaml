@@ -1,4 +1,4 @@
-openapi: 3.0.2
+openapi: 3.1.0
 info:
   title: Sample API
   description: API description in Markdown.
@@ -14,8 +14,81 @@ components:
           type: string
 
   responses:
-    Success:
+    200:
       description: "Successful operation"
+    "default":
+      description: a default response with all fields
+      headers:
+        X-Request-Id:
+          description: "Request ID header"
+          schema:
+            type: string
+      links:
+        address:
+          operationId: getUserAddress
+          parameters:
+            userId: $request.path.id
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Pet'
+    "433":
+      description:
+      headers:
+      content:
+      links:
+    "434":
+      description: no fields
+    "418":
+      content:
+        multipart/form-data_example:
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+              address:
+                type: object
+              historyMetadata:
+                description: metadata in XML format
+                type: object
+              profileImage:
+                type: object
+          example: "{ id: \"idString\", address: { }, historyMetadata: { }, profileImage: { } }"
+          encoding:
+            historyMetadata:
+              contentType: application/xml; charset=utf-8
+            profileImage:
+              contentType: image/png, image/jpeg
+              headers:
+                X-Rate-Limit-Limit:
+                  description: The number of allowed requests in the current period
+                  schema:
+                    type: integer
+        multipart/form-data_examples:
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+              address:
+                type: object
+              historyMetadata:
+                description: metadata in XML format
+                type: object
+              profileImage:
+                type: object
+          examples:
+            example1:
+              value: "{ id: \"idString1\", address: { }, historyMetadata: { }, profileImage: { } }"
+            example2:
+              value: "{ id: \"idString2\", address: { }, historyMetadata: { }, profileImage: { } }"
+          encoding:
+        multipart/form-data_empty:
+          schema:
+          examples:
+          encoding:
+
 
   parameters:
     userId:
@@ -37,12 +110,63 @@ components:
         application/json:
           schema:
             type: object
+          encoding:
+            property1:
+              contentType: application/xml; charset=utf-8
+              headers:
+                X-Rate-Limit-Limit:
+                  description: The number of allowed requests in the current period
+                  schema:
+                    type: integer
+              explode: true
+              allowReserved: true
+              style: spaceDelimited
+            property2:
+              contentType:
+              headers:
+              explode:
+              allowReserved:
+              style:
+
 
   headers:
-    X-Request-Id:
-      description: "Request ID header"
+    header_all_props:
+      description: "This is an header with all possible props set"
+      required: true
+      deprecated: true
+      style: simple
+      explode: true
       schema:
-        type: string
+        type: array
+        items:
+          type: string
+      examples:
+        example1:
+          summary: "Summary of example 1"
+          value: ["one", "two"]
+        example2:
+          summary: "Summary of example 2"
+          value: [ "three", "four"]
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: string
+    header_example_prop:
+      description: "This is an header with the example prop set"
+      example: 20
+      schema:
+        type: integer
+    header_empty_props:
+      description:
+      required:
+      deprecated:
+      style:
+      explode:
+      schema:
+      examples:
+      content:
 
   securitySchemes:
     ApiKeyAuth:

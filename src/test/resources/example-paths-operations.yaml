@@ -20,6 +20,13 @@ paths:
       tags:
         - tag1
         - tag2
+  /with_empty_tags:
+    get:
+      summary: i am a summary!
+      tags:
+  /with_no_tags:
+    get:
+      summary: i am a summary!
   /with_op_id:
     get:
       summary: i am a summary!

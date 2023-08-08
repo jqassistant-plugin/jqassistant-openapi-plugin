@@ -120,6 +120,10 @@ public class PathsParser {
         if(operation.getRequestBody() != null)
             operationDescriptor.setRequestBody(RequestBodyParser.parseOne(operation.getRequestBody(), store));
 
+        // read tags
+        if(operation.getTags() != null)
+            operationDescriptor.getTags().addAll(TagParser.parseAll(operation.getTags(), store));
+
         return operationDescriptor;
     }
 }
