@@ -52,8 +52,9 @@ class JsonSchemaTest extends AbstractPluginIT {
 
         TypeDescriptor typeDescriptor = schemaDescriptor.getIsType();
 
-        assertThat(typeDescriptor).isNotNull();
-        assertThat(typeDescriptor).isInstanceOf(ObjectTypeDescriptor.class);
+        assertThat(typeDescriptor)
+                .isNotNull()
+                .isInstanceOf(ObjectTypeDescriptor.class);
 
         ObjectTypeDescriptor obj = (ObjectTypeDescriptor) typeDescriptor;
 
@@ -83,8 +84,9 @@ class JsonSchemaTest extends AbstractPluginIT {
 
         TypeDescriptor typeDescriptor = schemaDescriptor.getIsType();
 
-        assertThat(typeDescriptor).isNotNull();
-        assertThat(typeDescriptor).isInstanceOf(IntegerTypeDescriptor.class);
+        assertThat(typeDescriptor)
+                .isNotNull()
+                .isInstanceOf(IntegerTypeDescriptor.class);
 
         assertThat(schemaDescriptor.getExternalDocs()).isNotNull(); // TODO WRONG TEST?
     }

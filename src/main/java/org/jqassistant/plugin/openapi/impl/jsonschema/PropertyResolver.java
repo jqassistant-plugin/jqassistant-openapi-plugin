@@ -17,7 +17,7 @@ class PropertyResolver {
     }
 
     PropertyDescriptor resolve(String name){
-        return propertyMap.computeIfAbsent(name, (key) -> {
+        return propertyMap.computeIfAbsent(name, key -> {
             PropertyDescriptor propertyDescriptor = store.create(PropertyDescriptor.class);
             propertyDescriptor.setName(key);
             return propertyDescriptor;

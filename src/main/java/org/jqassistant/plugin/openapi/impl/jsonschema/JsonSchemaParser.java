@@ -46,7 +46,7 @@ public class JsonSchemaParser {
 
 
     public List<SchemaDescriptor> parseAllSchemas(Map<String, Schema> schemasMap){
-        return schemasMap.entrySet().stream().map((schemaEntry) -> {
+        return schemasMap.entrySet().stream().map(schemaEntry -> {
             // Create new Parser instance with new PropertyResolver for scope of this schema only
             JsonSchemaParser jsonSchemaParser = new JsonSchemaParser(resolver, store, new PropertyResolver(store));
             return jsonSchemaParser.parseSchema(schemaEntry.getValue(), schemaEntry.getKey()); // Parse with new Parser instance
@@ -77,24 +77,29 @@ public class JsonSchemaParser {
         }
 
         if (schema.getDiscriminator() != null){
-            DiscriminatorDescriptor discriminatorDescriptor = store.create(DiscriminatorDescriptor.class);
-
-            if (schema.getDiscriminator().getPropertyName() != null)
-                discriminatorDescriptor.setProperty(propertyResolver.resolve(schema.getDiscriminator().getPropertyName()));
-
-            if (schema.getDiscriminator().getMapping() != null && !schema.getDiscriminator().getMapping().isEmpty()){
-                for (Map.Entry<String, String> entry : schema.getDiscriminator().getMapping().entrySet()){
-                    DiscriminatorMappingDescriptor mappingDescriptor = store.create(DiscriminatorMappingDescriptor.class);
-                    mappingDescriptor.setKey(entry.getKey());
-                    mappingDescriptor.setValue(entry.getValue());
-                    discriminatorDescriptor.getMapping().add(mappingDescriptor);
-                }
-            }
-
-            schemaDescriptor.setDiscriminator(discriminatorDescriptor);
+            schemaDescriptor.setDiscriminator(parseDiscriminator(schema));
         }
 
         return schemaDescriptor;
+
+    }
+
+    private DiscriminatorDescriptor parseDiscriminator(Schema<?> schema) {
+        DiscriminatorDescriptor discriminatorDescriptor = store.create(DiscriminatorDescriptor.class);
+
+        if (schema.getDiscriminator().getPropertyName() != null)
+            discriminatorDescriptor.setProperty(propertyResolver.resolve(schema.getDiscriminator().getPropertyName()));
+
+        if (schema.getDiscriminator().getMapping() != null && !schema.getDiscriminator().getMapping().isEmpty()) {
+            for (Map.Entry<String, String> entry : schema.getDiscriminator().getMapping().entrySet()) {
+                DiscriminatorMappingDescriptor mappingDescriptor = store.create(DiscriminatorMappingDescriptor.class);
+                mappingDescriptor.setKey(entry.getKey());
+                mappingDescriptor.setValue(entry.getValue());
+                discriminatorDescriptor.getMapping().add(mappingDescriptor);
+            }
+        }
+
+        return discriminatorDescriptor;
 
     }
 
@@ -234,8 +239,7 @@ public class JsonSchemaParser {
             return parseFormat(schema, store.create(
                     StringTypeDescriptor.class));
         } else {
-            EnumStringTypeDescriptor enumStringTypeDescriptor = parseEnum(schema);
-            return enumStringTypeDescriptor;
+            return parseEnum(schema);
         }
     }
 
