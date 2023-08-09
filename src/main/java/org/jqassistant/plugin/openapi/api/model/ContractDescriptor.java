@@ -13,30 +13,35 @@ import java.util.List;
 public interface ContractDescriptor extends OpenApiDescriptor, FileDescriptor {
     String getOpenApiVersion();
     void setOpenApiVersion(String openApiVersion);
-    String getTitle();
-    void setTitle(String title);
-    String getDescription();
-    void setDescription(String description);
-    String getApiVersion();
-    void setApiVersion(String apiVersion);
 
-    @Relation("HAS_CONTACT")
-    ContactDescriptor getContact();
-    void setContact(ContactDescriptor contact);
+    /*
+    @Relation("HOLDS_INFORMATION)
+    InfoDescriptor getInfo();
+    void setInfo(InfoDescriptor info);
+    */
+
+    String getJsonSchemaDialect();
+    void setJsonSchemaDialect(String jsonSchemaDialect);
 
     @Relation("SERVED_BY")
     List<ServerDescriptor> getServers();
-
-    @Relation("HAS_TAG")
-    List<TagDescriptor> getTags();
 
     @Relation("DEFINES_PATHS")
     PathsDescriptor getPaths();
     void setPaths(PathsDescriptor pathsDescriptor);
 
+    @Relation("DEFINES_WEBHOOK")
+    List<PathItemDescriptor> getWebhooks();
+
     @Relation("DEFINES_COMPONENTS")
     ComponentsDescriptor getComponents();
     void setComponents(ComponentsDescriptor components);
+
+    @Relation("DEFINES_SECURITY_REQUIREMENT")
+    List<SecurityRequirementDescriptor> getSecurity();
+
+    @Relation("HAS_TAG")
+    List<TagDescriptor> getTags();
 
     @Relation("REFERENCES")
     ExternalDocsDescriptor getExternalDocs();
