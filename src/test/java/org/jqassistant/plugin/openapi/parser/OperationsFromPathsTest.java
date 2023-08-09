@@ -5,7 +5,6 @@ import com.buschmais.jqassistant.core.test.plugin.AbstractPluginIT;
 import org.jqassistant.plugin.openapi.api.model.ContractDescriptor;
 import org.jqassistant.plugin.openapi.api.model.OperationDescriptor;
 import org.jqassistant.plugin.openapi.api.model.PathItemDescriptor;
-import org.jqassistant.plugin.openapi.api.model.TagDescriptor;
 import org.junit.jupiter.api.*;
 
 import java.io.File;
@@ -37,95 +36,61 @@ class OperationsFromPathsTest extends AbstractPluginIT {
 
     @Test
     void allPathsPresent(){
-        assertThat(paths).hasSize(13);
-    }
-    
-    @Test
-    void basicTest(){
-        List<OperationDescriptor> ops = getPathOpsWithUrl("/sample");
-
-        assertThat(ops).hasSize(1);
-        OperationDescriptor op = ops.get(0);
-        assertThat(op.getType()).isEqualTo(OperationDescriptor.HTTPMethod.GET);
-        assertThat(op.getSummary()).isEqualTo("i am a summary!");
-        assertThat(op.getDescription()).isEqualTo("i am a description!");
+        assertThat(paths).hasSize(3);
     }
 
     @Test
-    void moreThanOneOperation(){
-        List<OperationDescriptor> ops = getPathOpsWithUrl("/more_than_one_operaton");
-        assertThat(ops).hasSize(2);
+    void richOperation(){
+        OperationDescriptor richOp = getPathOpsWithUrl("/richOperation").get(0);
+        assertThat(richOp.getHttpMethod()).isEqualTo(OperationDescriptor.HTTPMethod.GET);
+        assertThat(richOp.getTags()).hasSize(2);
+        assertThat(richOp.getSummary()).isEqualTo("operation with all fields populated");
+        assertThat(richOp.getDescription()).isEqualTo("same as summary");
+        assertThat(richOp.getExternalDocs()).isNotNull();
+        assertThat(richOp.getOperationId()).isEqualTo("operationId");
+        assertThat(richOp.getParameters()).hasSize(2);
+        assertThat(richOp.getRequestBody()).isNotNull();
+        assertThat(richOp.getResponses()).hasSize(2);
+        assertThat(richOp.getCallbacks()).hasSize(1);
+        assertThat(richOp.getIsDeprecated()).isTrue();
+        assertThat(richOp.getSecurityRequirements()).hasSize(1);
+        assertThat(richOp.getServers()).hasSize(3);
     }
 
     @Test
-    void wrongTypesGetFiltered(){
-        List<OperationDescriptor> ops = getPathOpsWithUrl("/wrong_type");
-        assertThat(ops).isEmpty();
+    void emptyOperation(){
+        OperationDescriptor emptyOp = getPathOpsWithUrl("/emptyOperation").get(0);
+        assertThat(emptyOp.getHttpMethod()).isEqualTo(OperationDescriptor.HTTPMethod.GET);
+        assertThat(emptyOp.getTags()).isEmpty();
+        assertThat(emptyOp.getSummary()).isNull();
+        assertThat(emptyOp.getDescription()).isNull();
+        assertThat(emptyOp.getExternalDocs()).isNull();
+        assertThat(emptyOp.getOperationId()).isNull();
+        assertThat(emptyOp.getParameters()).isEmpty();
+        assertThat(emptyOp.getRequestBody()).isNull();
+        assertThat(emptyOp.getResponses()).isEmpty();
+        assertThat(emptyOp.getCallbacks()).isEmpty();
+        assertThat(emptyOp.getIsDeprecated()).isNull();
+        assertThat(emptyOp.getSecurityRequirements()).isEmpty();
+        assertThat(emptyOp.getServers()).isEmpty();
     }
 
     @Test
-    void hasTags(){
-        List<OperationDescriptor> opsWithTags = getPathOpsWithUrl("/with_tags");
-        assertThat(opsWithTags).hasSize(1);
-
-        OperationDescriptor opWithTags = opsWithTags.get(0);
-        assertThat(opWithTags.getTags()).hasSize(2);
-
-        TagDescriptor tag1 = opWithTags.getTags().get(0);
-        assertThat(tag1.getTag()).isEqualTo("tag1");
-        assertThat(tag1.getDescription()).isNull();
-        assertThat(tag1.getExternalDocs()).isNull();
-
-        TagDescriptor tag2 = opWithTags.getTags().get(1);
-        assertThat(tag2.getTag()).isEqualTo("tag2");
-        assertThat(tag2.getDescription()).isNull();
-        assertThat(tag2.getExternalDocs()).isNull();
-
-        List<OperationDescriptor> opsEmptyTags = getPathOpsWithUrl("/with_empty_tags");
-        assertThat(opsEmptyTags).hasSize(1);
-        assertThat(opsEmptyTags.get(0).getTags()).isEmpty();
-
-        List<OperationDescriptor> opsNoTags = getPathOpsWithUrl("/with_no_tags");
-        assertThat(opsNoTags).hasSize(1);
-        assertThat(opsNoTags.get(0).getTags()).isEmpty();
-    }
-
-    @Test
-    void depricatedFlag(){
-        List<OperationDescriptor> ops = getPathOpsWithUrl("/with_depricated");
-        assertThat(ops.get(0).getIsDeprecated()).isTrue();
-    }
-
-    @Test
-    void depricatedFlagDefaultValue(){
-        List<OperationDescriptor> ops = getPathOpsWithUrl("/without_depricated");
-        assertThat(ops.get(0).getIsDeprecated()).isFalse();
-    }
-
-    @Test
-    void oneParameter(){
-        List<OperationDescriptor> ops = getPathOpsWithUrl("/with_parameter");
-
-        // TBD
-    }
-
-    @Test
-    void multibeParameter(){
-        List<OperationDescriptor> ops = getPathOpsWithUrl("/with_parameters");
-
-        // TBD
-    }
-
-    @Test
-    void oneResponse(){
-        List<OperationDescriptor> ops = getPathOpsWithUrl("/with_response");
-        assertThat(ops.get(0).getResponses()).hasSize(1);
-    }
-
-    @Test
-    void multibleResponses(){
-        List<OperationDescriptor> ops = getPathOpsWithUrl("/with_responses");
-        assertThat(ops.get(0).getResponses()).hasSize(2);
+    void noFieldsOperation(){
+        OperationDescriptor noFieldsOp = getPathOpsWithUrl("/noFieldsOperation").get(0);
+        assertThat(noFieldsOp.getHttpMethod()).isEqualTo(OperationDescriptor.HTTPMethod.GET);
+        assertThat(noFieldsOp.getTags()).isEmpty();
+        assertThat(noFieldsOp.getSummary()).isNull();
+        assertThat(noFieldsOp.getDescription()).isNull();
+        assertThat(noFieldsOp.getExternalDocs()).isNull();
+        assertThat(noFieldsOp.getOperationId()).isEqualTo("no fields operation");
+        assertThat(noFieldsOp.getParameters()).isEmpty();
+        assertThat(noFieldsOp.getRequestBody()).isNull();
+        assertThat(noFieldsOp.getResponses()).isEmpty();
+        assertThat(noFieldsOp.getCallbacks()).isEmpty();
+        assertThat(noFieldsOp.getIsDeprecated()).isNull();
+        assertThat(noFieldsOp.getSecurityRequirements()).isEmpty();
+        assertThat(noFieldsOp.getServers()).isEmpty();
     }
     
     private List<OperationDescriptor> getPathOpsWithUrl(String url) {
