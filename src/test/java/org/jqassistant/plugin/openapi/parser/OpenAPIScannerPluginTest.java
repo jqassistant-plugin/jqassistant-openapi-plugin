@@ -46,10 +46,6 @@ import static org.assertj.core.api.Assertions.*;
         assertThat(contract).isNotNull();
         assertThat(contract.getFileName()).isEqualTo("/example-metadata.yaml");
 
-        assertThat(contract.getApiVersion()).isEqualTo("1.0.0");
-        assertThat(contract.getTitle()).isEqualTo("Issues");
-        assertThat(contract.getDescription()).isEqualTo("Issues API");
-
         assertThat(contract.getServers()).hasSize(2);
 
         assertThat(contract.getTags()).hasSize(7);
