@@ -66,15 +66,15 @@ public class JsonSchemaParser {
         if(schema.getExternalDocs() != null)
             schemaDescriptor.setExternalDocs(ExternalDocsParser.parseOne(schema.getExternalDocs(), store));
 
-        if (schema.getAllOf() != null && !schema.getAllOf().isEmpty()){
+        if (schema.getAllOf() != null){
             for (Schema<?> x : schema.getAllOf()){
                 schemaDescriptor.getAllOfSchemas().add(parseObjectOrReference(x));
             }
-        } else if (schema.getOneOf() != null && !schema.getOneOf().isEmpty()){
+        } else if (schema.getOneOf() != null){
             for (Schema<?> x : schema.getOneOf()){
                 schemaDescriptor.getOneOfSchemas().add(parseObjectOrReference(x));
             }
-        } else if (schema.getAnyOf() != null && !schema.getAnyOf().isEmpty()){
+        } else if (schema.getAnyOf() != null){
             for (Schema<?> x : schema.getAnyOf()){
                 schemaDescriptor.getAnyOfSchemas().add(parseObjectOrReference(x));
             }

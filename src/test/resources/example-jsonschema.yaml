@@ -94,7 +94,7 @@ components:
             name123:
               type: string
     SchemaWithInherentAnyOf:
-      oneOf:
+      anyOf:
         - $ref: '#/components/schemas/SchemaWithDiscriminator'
         - type: object
           properties:
