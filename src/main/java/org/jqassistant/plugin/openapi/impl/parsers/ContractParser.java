@@ -17,42 +17,43 @@ public class ContractParser {
         throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
     }
 
-    public static void parse(OpenAPI contract, ContractDescriptor contractDescriptor, Store store){
-        LOG.info("Reading Info object");
-        if(contract.getInfo() != null)
-            parseInfo(contract.getInfo(), contractDescriptor, store);
+    public static void parse(OpenAPI contract, ContractDescriptor contractDescriptor, Store store) {
 
-        LOG.info("Reading OpenAPI Components");
+        LOG.info("Parsing Contract Metadata");
+        contractDescriptor.setOpenApiVersion(contract.getOpenapi()); // required
+        /*
+        contract.setInfo(parseInfo, store); // info object required
+        */
+        if (contract.getJsonSchemaDialect() != null)
+            contractDescriptor.setJsonSchemaDialect(contract.getJsonSchemaDialect());
+        LOG.info("Parsing Servers");
+        if (contract.getServers() != null && !contract.getServers().isEmpty())
+            contractDescriptor.getServers().addAll(ServerParser.parseAll(contract.getServers(), store));
+        LOG.info("Parsing Paths");
+        if (contract.getPaths() != null && !contract.getPaths().isEmpty())
+            contractDescriptor.setPaths(PathsParser.parse(contract.getPaths(), store));
+        LOG.info("Parsing Webhooks");
+        if (contract.getWebhooks() != null)
+            contractDescriptor.getWebhooks().addAll(PathsParser.parsePathItems(contract.getWebhooks(), store));
+        LOG.info("Parsing Components");
         if (contract.getComponents() != null)
             contractDescriptor.setComponents(ComponentsParser.parse(contract.getComponents(), store));
-
-        LOG.info("Reading OpenAPI Tags");
-        if(contract.getTags() != null)
+        LOG.info("Parsing Security");
+        if (contract.getSecurity() != null)
+            contractDescriptor.getSecurity().addAll(SecurityRequirementParser.parseAll(contract.getSecurity(), store));
+        LOG.info("Parsing Tags");
+        if (contract.getTags() != null)
             contractDescriptor.getTags().addAll(TagParser.parseAll(contract.getTags(), store));
-
-        LOG.info("Reading OpenAPI Servers");
-        if(contract.getServers() != null && !contract.getServers().isEmpty())
-            contractDescriptor.getServers().addAll(ServerParser.parseAll(contract.getServers(), store));
-
-        LOG.info("Reading OpenAPI Paths");
-        if(contract.getPaths() != null && !contract.getPaths().isEmpty())
-            contractDescriptor.setPaths(PathsParser.parse(contract.getPaths(), store));
-
-        if(contract.getExternalDocs() != null)
+        LOG.info("Parsing External Documentation");
+        if (contract.getExternalDocs() != null)
             contractDescriptor.setExternalDocs(ExternalDocsParser.parseOne(contract.getExternalDocs(), store));
-}
-
-    private static void parseInfo(Info info, ContractDescriptor contractDescriptor, Store store){
-        if(info.getTitle() != null)
-            contractDescriptor.setTitle(info.getTitle());
-        if (info.getDescription() != null)
-            contractDescriptor.setDescription(info.getDescription());
-        if (info.getVersion() != null)
-            contractDescriptor.setApiVersion(info.getVersion());
-        if (info.getContact() != null)
-            contractDescriptor.setContact(parseContact(info.getContact(), store));
     }
 
+    /*
+    private static InfoDescriptor parseInfo(Info info, Store store){
+       //TODO implement
+    }
+    */
     private static ContactDescriptor parseContact(Contact contact, Store store){
         ContactDescriptor contactDescriptor = store.create(ContactDescriptor.class);
 
