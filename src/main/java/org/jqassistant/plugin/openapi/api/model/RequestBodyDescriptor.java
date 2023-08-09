@@ -9,9 +9,10 @@ import java.util.List;
 public interface RequestBodyDescriptor extends OpenApiDescriptor{
     String getDescription();
     void setDescription(String description);
-    Boolean getIsRequired();
-    void setIsRequired(Boolean isRequired);
 
     @Relation("CONTAINS")
     List<MediaTypeObjectDescriptor> getMediaTypeObjects();
+
+    Boolean getIsRequired();
+    void setIsRequired(Boolean isRequired);
 }
