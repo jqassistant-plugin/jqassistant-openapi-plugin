@@ -55,6 +55,8 @@ class PathTest extends AbstractPluginIT {
         assertThat(getPathWithUrl("/path_with_no/parameter").getParameters()).isEmpty();
         assertThat(getPathWithUrl("/path_with_a_/{single}/parameter").getParameters()).hasSize(1);
         assertThat(getPathWithUrl("/path_with_/{t}/w/{o}/parameters").getParameters()).hasSize(2);
+
+        assertThat(getPathWithUrl("/path_with_/{t}/w/{o}/parameters").getOperations().get(0).getParameters()).hasSize(1);
     }
 
     @Test
