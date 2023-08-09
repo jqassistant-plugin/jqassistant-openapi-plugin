@@ -18,8 +18,6 @@ public class ComponentsParser {
     public static ComponentsDescriptor parse(Components components, Store store){
         ComponentsDescriptor componentsDescriptor = store.create(ComponentsDescriptor.class);
 
-        // INSTANZ
-
         if (components.getSchemas() != null) {
             JsonSchemaParser jsonSchemaParser = new JsonSchemaParser(new Resolver(store), store);
             componentsDescriptor.getSchemas().addAll(jsonSchemaParser.parseAllSchemas(components.getSchemas()));
