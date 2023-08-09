@@ -41,7 +41,7 @@ public class HeaderParser {
         if(header.getExample() != null)
             headerDescriptor.setExample(header.getExample());
         if(header.getSchema() != null)
-            headerDescriptor.setSchema(schemaParser.parseSchema(header.getSchema(), header.getSchema().getName()));
+            headerDescriptor.setSchema(schemaParser.parseOneSchema(header.getSchema(), header.getSchema().getName()));
         if(header.getExamples() != null)
             headerDescriptor.getExamples().addAll(ExampleParser.parseAll(header.getExamples(), store));
         if(header.getContent() != null)

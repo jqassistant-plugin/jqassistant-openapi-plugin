@@ -278,6 +278,51 @@ class JsonSchemaTest extends AbstractPluginIT {
     }
 
     @Test
+    void SchemaWithInherentAllOf(){
+        SchemaDescriptor schemaDescriptor = getSchemaWithName("SchemaWithInherentAllOf");
+
+        List<TypeDescriptor> allOffs = schemaDescriptor.getAllOfSchemas();
+
+        assertThat(allOffs)
+                .isNotNull()
+                .hasSize(2);
+
+        for (TypeDescriptor type : allOffs){
+            assertThat(type).isInstanceOfAny(ReferenceTypeDescriptor.class, ObjectTypeDescriptor.class);
+        }
+    }
+
+    @Test
+    void SchemaWithInherentOneOf(){
+        SchemaDescriptor schemaDescriptor = getSchemaWithName("SchemaWithInherentOneOf");
+
+        List<TypeDescriptor> allOffs = schemaDescriptor.getOneOfSchemas();
+
+        assertThat(allOffs)
+                .isNotNull()
+                .hasSize(2);
+
+        for (TypeDescriptor type : allOffs){
+            assertThat(type).isInstanceOfAny(ReferenceTypeDescriptor.class, ObjectTypeDescriptor.class);
+        }
+    }
+
+    @Test
+    void SchemaWithInherentAnyOf(){
+        SchemaDescriptor schemaDescriptor = getSchemaWithName("SchemaWithInherentAnyOf");
+
+        List<TypeDescriptor> allOffs = schemaDescriptor.getOneOfSchemas();
+
+        assertThat(allOffs)
+                .isNotNull()
+                .hasSize(2);
+
+        for (TypeDescriptor type : allOffs){
+            assertThat(type).isInstanceOfAny(ReferenceTypeDescriptor.class, ObjectTypeDescriptor.class);
+        }
+    }
+
+    @Test
     void schemaWithMappingDiscriminatorTest() {
         SchemaDescriptor schemaDescriptor = getSchemaWithName("SchemaWithMappingDiscriminator");
 

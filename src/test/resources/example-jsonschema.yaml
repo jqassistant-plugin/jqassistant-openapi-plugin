@@ -79,9 +79,23 @@ components:
       properties:
         TheReference:
           $ref: '#/components/schemas/SchemaWithObject'
-    SchemaWithInherent:
+    SchemaWithInherentAllOf:
       allOf:
         - $ref: '#/components/schemas/SchemaWithObject'
+        - type: object
+          properties:
+            name123:
+              type: string
+    SchemaWithInherentOneOf:
+      oneOf:
+        - $ref: '#/components/schemas/SchemaWithObject'
+        - type: object
+          properties:
+            name123:
+              type: string
+    SchemaWithInherentAnyOf:
+      oneOf:
+        - $ref: '#/components/schemas/SchemaWithDiscriminator'
         - type: object
           properties:
             name123:

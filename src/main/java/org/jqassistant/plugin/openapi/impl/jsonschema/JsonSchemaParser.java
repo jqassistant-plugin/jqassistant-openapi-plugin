@@ -1,6 +1,7 @@
 package org.jqassistant.plugin.openapi.impl.jsonschema;
 
 import com.buschmais.jqassistant.core.store.api.Store;
+import io.swagger.v3.oas.models.media.Discriminator;
 import io.swagger.v3.oas.models.media.Schema;
 import org.jqassistant.plugin.openapi.api.model.jsonschema.*;
 import org.jqassistant.plugin.openapi.impl.parsers.ExternalDocsParser;
@@ -53,6 +54,11 @@ public class JsonSchemaParser {
         }).collect(Collectors.toList());
     }
 
+    public SchemaDescriptor parseOneSchema(Schema<?> schema, final String name){
+        JsonSchemaParser jsonSchemaParser = new JsonSchemaParser(resolver, store, new PropertyResolver(store));
+        return jsonSchemaParser.parseSchema(schema, name);
+    }
+
     private SchemaDescriptor parseSchema(Schema<?> schema, String name){
 
         SchemaDescriptor schemaDescriptor = resolver.resolve(SCHEMA_REFSTRING + name);
@@ -61,37 +67,37 @@ public class JsonSchemaParser {
             schemaDescriptor.setExternalDocs(ExternalDocsParser.parseOne(schema.getExternalDocs(), store));
 
         if (schema.getAllOf() != null && !schema.getAllOf().isEmpty()){
-            for (Schema x : schema.getAllOf()){
-                schemaDescriptor.getAllOfSchemas().add(parseXof(x));
+            for (Schema<?> x : schema.getAllOf()){
+                schemaDescriptor.getAllOfSchemas().add(parseObjectOrReference(x));
             }
         } else if (schema.getOneOf() != null && !schema.getOneOf().isEmpty()){
-            for (Schema x : schema.getAllOf()){
-                schemaDescriptor.getOneOfSchemas().add(parseXof(x));
+            for (Schema<?> x : schema.getOneOf()){
+                schemaDescriptor.getOneOfSchemas().add(parseObjectOrReference(x));
             }
         } else if (schema.getAnyOf() != null && !schema.getAnyOf().isEmpty()){
-            for (Schema x : schema.getAllOf()){
-                schemaDescriptor.getAnyOfSchemas().add(parseXof(x));
+            for (Schema<?> x : schema.getAnyOf()){
+                schemaDescriptor.getAnyOfSchemas().add(parseObjectOrReference(x));
             }
         } else {
             schemaDescriptor.setIsType(parseType(schema)); // The main parsing of the schema
         }
 
         if (schema.getDiscriminator() != null){
-            schemaDescriptor.setDiscriminator(parseDiscriminator(schema));
+            schemaDescriptor.setDiscriminator(parseDiscriminator(schema.getDiscriminator()));
         }
 
         return schemaDescriptor;
 
     }
 
-    private DiscriminatorDescriptor parseDiscriminator(Schema<?> schema) {
+    private DiscriminatorDescriptor parseDiscriminator(Discriminator discriminator) {
         DiscriminatorDescriptor discriminatorDescriptor = store.create(DiscriminatorDescriptor.class);
 
-        if (schema.getDiscriminator().getPropertyName() != null)
-            discriminatorDescriptor.setProperty(propertyResolver.resolve(schema.getDiscriminator().getPropertyName()));
+        if (discriminator.getPropertyName() != null)
+            discriminatorDescriptor.setProperty(propertyResolver.resolve(discriminator.getPropertyName()));
 
-        if (schema.getDiscriminator().getMapping() != null && !schema.getDiscriminator().getMapping().isEmpty()) {
-            for (Map.Entry<String, String> entry : schema.getDiscriminator().getMapping().entrySet()) {
+        if (discriminator.getMapping() != null) {
+            for (Map.Entry<String, String> entry : discriminator.getMapping().entrySet()) {
                 DiscriminatorMappingDescriptor mappingDescriptor = store.create(DiscriminatorMappingDescriptor.class);
                 mappingDescriptor.setKey(entry.getKey());
                 mappingDescriptor.setValue(entry.getValue());
@@ -243,12 +249,11 @@ public class JsonSchemaParser {
         }
     }
 
-    private TypeDescriptor parseXof(Schema x){
-        if (x.get$ref() != null) {
+    private TypeDescriptor parseObjectOrReference(Schema<?> x){
+        if (x.get$ref() != null)
             return parseReference(x.get$ref());
-        } else {
+        else
             return parseType(x);
-        }
     }
 
     private <D extends TypeDescriptor> D parseFormat(Schema<?> schema, D typeDescriptor) {
