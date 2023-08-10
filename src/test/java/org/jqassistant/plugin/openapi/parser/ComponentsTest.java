@@ -286,6 +286,41 @@ class ComponentsTest extends AbstractPluginIT {
         assertThat(schemas).hasSize(1);
     }
 
+    @Test
+    void testEmptyRequestBodies() {
+        ContractDescriptor contract = loadContract("example-components-counttest.yaml");
+        List<RequestBodyDescriptor> requestBodies = contract.getComponents().getRequestBodies();
+        assertThat(requestBodies).isEmpty();
+    }
+
+    @Test
+    void testEmptyHeaders() {
+        ContractDescriptor contract = loadContract("example-components-counttest.yaml");
+        List<HeaderDescriptor> headers = contract.getComponents().getHeaders();
+        assertThat(headers).isEmpty();
+    }
+
+    @Test
+    void testEmptyCallbacks() {
+        ContractDescriptor contract = loadContract("example-components-counttest.yaml");
+        List<CallbackDescriptor> callbacks = contract.getComponents().getCallBacks();
+        assertThat(callbacks).isEmpty();
+    }
+
+    @Test
+    void testEmptyLinks() {
+        ContractDescriptor contract = loadContract("example-components-counttest.yaml");
+        List<LinkDescriptor> links = contract.getComponents().getLinks();
+        assertThat(links).isEmpty();
+    }
+
+    @Test
+    void testEmptySchemas() {
+        ContractDescriptor contract = loadContract("example-components-counttest.yaml");
+        List<SchemaDescriptor> schemas = contract.getComponents().getSchemas();
+        assertThat(schemas).isEmpty();
+    }
+
 
 
     private ParameterDescriptor getParamByName(String name) {
