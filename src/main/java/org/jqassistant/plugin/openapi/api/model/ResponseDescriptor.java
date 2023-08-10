@@ -20,7 +20,7 @@ public interface ResponseDescriptor extends OpenApiDescriptor{
     List<HeaderDescriptor> getHeaders();
 
     @Relation("CONTAINS")
-    List<MediaTypeObjectDescriptor> getMediaTypeObjects();
+    List<MediaTypeDescriptor> getMediaType();
 
     @Relation("PROVIDES")
     List<LinkDescriptor> getLinks();
