@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
 
 public class LinkParser {
 
+    private static final String NULL_STR = "null";
+
     private LinkParser() {
         throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
     }
@@ -46,7 +48,7 @@ public class LinkParser {
         for(Map.Entry<String, String> parameter: parameters.entrySet()){
             LinkParameterDescriptor parameterDescriptor = store.create(LinkParameterDescriptor.class);
             parameterDescriptor.setName(parameter.getKey());
-            if(parameter.getValue() != null && !parameter.getValue().equals("null"))
+            if(parameter.getValue() != null && !parameter.getValue().equals(NULL_STR))
                 parameterDescriptor.setValue(parameter.getValue());
             parameterDescriptors.add(parameterDescriptor);
         }
