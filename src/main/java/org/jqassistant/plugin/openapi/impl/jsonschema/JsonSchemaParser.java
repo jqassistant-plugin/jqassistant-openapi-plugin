@@ -119,7 +119,7 @@ public class JsonSchemaParser {
             if (property.get$ref() != null)
                 return parseReference(property.get$ref());
             else
-                return parseNull(property); // No Type present
+                return parseNull(); // No Type present
         }
 
         switch (property.getType()) {
@@ -127,13 +127,13 @@ public class JsonSchemaParser {
                 typeDescriptor = parseArray(property);
                 break;
             case BoolTypeDescriptor.TYPE_NAME:
-                typeDescriptor = parseBoolean(property);
+                typeDescriptor = parseBoolean();
                 break;
             case IntegerTypeDescriptor.TYPE_NAME:
                 typeDescriptor = parseInteger(property);
                 break;
             case NullTypeDescriptor.TYPE_NAME: // Fallback to old version if nulltype is declared
-                typeDescriptor = parseNull(property);
+                typeDescriptor = parseNull();
                 break;
             case NumberTypeDescriptor.TYPE_NAME:
                 typeDescriptor = parseNumber(property);
@@ -186,7 +186,7 @@ public class JsonSchemaParser {
         return arrayTypeDescriptor;
     }
 
-    private BoolTypeDescriptor parseBoolean(final Schema<?> schema){
+    private BoolTypeDescriptor parseBoolean(){
 
         return store.create(BoolTypeDescriptor.class);
     }
@@ -218,7 +218,7 @@ public class JsonSchemaParser {
                 IntegerTypeDescriptor.class));
     }
 
-    private NullTypeDescriptor parseNull(final Schema<?> schema){
+    private NullTypeDescriptor parseNull(){
 
         return store.create(NullTypeDescriptor.class);
     }
