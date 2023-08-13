@@ -111,7 +111,7 @@ public class PathsParser {
         if(operation.getParameters() != null)
             operationDescriptor.getParameters().addAll(ParameterParser.parseAll(operation.getParameters(), store));
         if(operation.getRequestBody() != null)
-            operationDescriptor.setRequestBody(RequestBodyParser.parseOne(operation.getRequestBody(), store));
+            operationDescriptor.setRequestBody(RequestBodyParser.parseOne(null, operation.getRequestBody(), store));
         if(operation.getResponses() != null)
             operationDescriptor.getResponses().addAll(ResponseParser.parseAll(operation.getResponses(), store));
         if(operation.getCallbacks() != null)
