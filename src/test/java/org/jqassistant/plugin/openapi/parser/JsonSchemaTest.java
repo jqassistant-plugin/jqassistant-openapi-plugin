@@ -296,13 +296,13 @@ class JsonSchemaTest extends AbstractPluginIT {
     void SchemaWithInherentOneOf(){
         SchemaDescriptor schemaDescriptor = getSchemaWithName("SchemaWithInherentOneOf");
 
-        List<TypeDescriptor> allOffs = schemaDescriptor.getOneOfSchemas();
+        List<TypeDescriptor> oneOffs = schemaDescriptor.getOneOfSchemas();
 
-        assertThat(allOffs)
+        assertThat(oneOffs)
                 .isNotNull()
                 .hasSize(2);
 
-        for (TypeDescriptor type : allOffs){
+        for (TypeDescriptor type : oneOffs){
             assertThat(type).isInstanceOfAny(ReferenceTypeDescriptor.class, ObjectTypeDescriptor.class);
         }
     }
@@ -311,13 +311,13 @@ class JsonSchemaTest extends AbstractPluginIT {
     void SchemaWithInherentAnyOf(){
         SchemaDescriptor schemaDescriptor = getSchemaWithName("SchemaWithInherentAnyOf");
 
-        List<TypeDescriptor> allOffs = schemaDescriptor.getOneOfSchemas();
+        List<TypeDescriptor> anyOffs = schemaDescriptor.getAnyOfSchemas();
 
-        assertThat(allOffs)
+        assertThat(anyOffs)
                 .isNotNull()
                 .hasSize(2);
 
-        for (TypeDescriptor type : allOffs){
+        for (TypeDescriptor type : anyOffs){
             assertThat(type).isInstanceOfAny(ReferenceTypeDescriptor.class, ObjectTypeDescriptor.class);
         }
     }
