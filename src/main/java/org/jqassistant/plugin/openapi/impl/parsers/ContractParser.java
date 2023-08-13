@@ -48,20 +48,19 @@ public class ContractParser {
     private static InfoDescriptor parseInfo(Info info, Store store){
         InfoDescriptor infoDescriptor = store.create(InfoDescriptor.class);
 
-        infoDescriptor.setTitle(info.getTitle()); //required by openAPI
+        // null check only needed for non-string properties as null strings are filtered out by xo
 
-        if(info.getSummary() != null)
-            infoDescriptor.setSummary(info.getSummary());
-        if(info.getDescription() != null)
-            infoDescriptor.setDescription(info.getDescription());
-        if(info.getTermsOfService() != null)
-            infoDescriptor.setTermsOfService(info.getTermsOfService());
+        infoDescriptor.setTitle(info.getTitle());
+        infoDescriptor.setSummary(info.getSummary());
+        infoDescriptor.setDescription(info.getDescription());
+        infoDescriptor.setTermsOfService(info.getTermsOfService());
+
         if(info.getContact() != null)
             infoDescriptor.setContact(parseContact(info.getContact(), store));
         if(info.getLicense() != null)
             infoDescriptor.setLicense(parseLicense(info.getLicense(), store));
 
-        infoDescriptor.setVersion(info.getVersion()); //required by openAPI
+        infoDescriptor.setVersion(info.getVersion());
 
         return infoDescriptor;
     }
@@ -83,10 +82,8 @@ public class ContractParser {
         LicenseDescriptor licenseDescriptor = store.create(LicenseDescriptor.class);
 
         licenseDescriptor.setName(license.getName());
-        if(license.getIdentifier() != null)
-            licenseDescriptor.setIdentifier(license.getIdentifier());
-        if(license.getUrl() != null)
-            licenseDescriptor.setUrl(license.getUrl());
+        licenseDescriptor.setIdentifier(license.getIdentifier());
+        licenseDescriptor.setUrl(license.getUrl());
 
         return licenseDescriptor;
     }
