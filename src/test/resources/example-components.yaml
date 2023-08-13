@@ -192,6 +192,17 @@ components:
               explode:
               allowReserved:
               style:
+    RichRequestBody:
+      description: rich requestBody
+      content:
+        application/json:
+          schema:
+            type: string
+      required: true
+    EmptyRequestBody:
+      description:
+      content:
+      required:
 
 
   headers:

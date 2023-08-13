@@ -1,6 +1,7 @@
 package org.jqassistant.plugin.openapi.parser;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 import java.io.File;
 import java.util.List;
@@ -38,9 +39,23 @@ class ComponentsTest extends AbstractPluginIT {
     @Test
     void testRequestBodies() {
         List<RequestBodyDescriptor> requestBodies = contract.getComponents().getRequestBodies();
-        assertThat(requestBodies).hasSize(1);
+        assertThat(requestBodies).hasSize(3);
+    }
 
-        assertThat(requestBodies.get(0).getMediaTypeObjects()).hasSize(1);
+    @Test
+    void testRichRequestBody(){
+        RequestBodyDescriptor requestBody = getRequestBodyByName("RichRequestBody");
+        assertThat(requestBody.getDescription()).isEqualTo("rich requestBody");
+        assertThat(requestBody.getMediaTypeObjects()).hasSize(1);
+        assertThat(requestBody.getIsRequired()).isTrue();
+    }
+
+    @Test
+    void testEmptyRequestBody(){
+        RequestBodyDescriptor requestBody = getRequestBodyByName("EmptyRequestBody");
+        assertThat(requestBody.getDescription()).isNull();
+        assertThat(requestBody.getMediaTypeObjects()).isEmpty();
+        assertThat(requestBody.getIsRequired()).isNull();
     }
 
     @Test
@@ -318,6 +333,15 @@ class ComponentsTest extends AbstractPluginIT {
             for(MediaTypeObjectDescriptor mediaType: response.getMediaTypeObjects())
                 if(mediaType.getMediaType().equals(name))
                     return mediaType;
+        return null;
+    }
+
+    private RequestBodyDescriptor getRequestBodyByName(String name){
+        List<RequestBodyDescriptor> requestBodies = contract.getComponents().getRequestBodies();
+        for(RequestBodyDescriptor requestBody: requestBodies)
+            if(name.equals(requestBody.getName()))
+                return requestBody;
+        fail("no requestBody found with name %s", name);
         return null;
     }
 }
