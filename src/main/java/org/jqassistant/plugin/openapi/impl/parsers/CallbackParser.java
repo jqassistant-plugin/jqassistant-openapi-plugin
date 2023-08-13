@@ -26,7 +26,7 @@ public class CallbackParser {
         if(callback.get$ref() != null)
             callbackDescriptor.setRef(callback.get$ref());
 
-        callbackDescriptor.getPathItems().addAll(PathsParser.parsePathItems(callback, store));
+        callbackDescriptor.getPathItems().addAll(PathsParser.parsePathItems(callback, store)); // TODO implement resolver
 
         return callbackDescriptor;
     }
