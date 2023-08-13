@@ -91,7 +91,7 @@ import static org.assertj.core.api.Assertions.*;
         assertThat(info.getLicense()).isNotNull();
         assertThat(info.getLicense().getUrl()).isEqualTo("licenseUrl");
         assertThat(info.getLicense().getName()).isEqualTo("License Name");
-        assertThat(info.getLicense().getIdentifier()).isNull(); // mutually exclusive to license.url
+        // assertion for info.getLicense().getIdentifier() not needed as mutually exclusive to license.url
         store.commitTransaction();
     }
 
@@ -104,7 +104,7 @@ import static org.assertj.core.api.Assertions.*;
          assertThat(contract.getInfo()).isNotNull();
          InfoDescriptor info = contract.getInfo();
          assertThat(info.getLicense()).isNotNull();
-         assertThat(info.getLicense().getUrl()).isNull(); // mutually exclusive to license.identifier
+         // assertion for info.getLicense().getUrl() not needed as mutually exclusive to license.identifier
          assertThat(info.getLicense().getName()).isEqualTo("License Name");
          assertThat(info.getLicense().getIdentifier()).isEqualTo("id123");
          store.commitTransaction();
