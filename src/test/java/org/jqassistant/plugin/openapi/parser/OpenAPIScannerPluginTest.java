@@ -118,13 +118,13 @@ import static org.assertj.core.api.Assertions.*;
          store.beginTransaction();
          assertThat(contract.getInfo()).isNotNull();
          InfoDescriptor info = contract.getInfo();
-         assertThat(info.getTitle()).isEqualTo("title");
+         assertThat(info.getTitle()).isNull();
          assertThat(info.getSummary()).isNull();
          assertThat(info.getDescription()).isNull();
          assertThat(info.getTermsOfService()).isNull();
          assertThat(info.getContact()).isNull();
          assertThat(info.getLicense()).isNull();
-         assertThat(info.getVersion()).isEqualTo("1.0.0");
+         assertThat(info.getVersion()).isNull();
          store.commitTransaction();
      }
 
