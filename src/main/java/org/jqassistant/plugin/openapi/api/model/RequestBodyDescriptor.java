@@ -7,6 +7,10 @@ import java.util.List;
 
 @Label("RequestBody")
 public interface RequestBodyDescriptor extends OpenApiDescriptor{
+
+    String getName();
+    void setName(String name);
+
     String getDescription();
     void setDescription(String description);
 
