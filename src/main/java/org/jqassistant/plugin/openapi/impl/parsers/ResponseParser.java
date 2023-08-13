@@ -34,7 +34,7 @@ public class ResponseParser {
         if(response.getHeaders() != null)
             responseDescriptor.getHeaders().addAll(HeaderParser.parseAll(response.getHeaders(), store));
         if(response.getContent() != null)
-            responseDescriptor.getMediaType().addAll(MediaTypeParser.parseAll(response.getContent(), store));
+            responseDescriptor.getMediaTypes().addAll(MediaTypeParser.parseAll(response.getContent(), store));
         if(response.getLinks() != null)
             responseDescriptor.getLinks().addAll(LinkParser.parseAll(response.getLinks(), store));
 

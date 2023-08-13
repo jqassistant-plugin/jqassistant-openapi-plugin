@@ -27,7 +27,7 @@ public class RequestBodyParser {
 
         // read content
         if(requestBody.getContent() != null && !requestBody.getContent().isEmpty())
-            requestBodyDescriptor.getMediaType().addAll(MediaTypeParser.parseAll(requestBody.getContent(), store));
+            requestBodyDescriptor.getMediaTypes().addAll(MediaTypeParser.parseAll(requestBody.getContent(), store));
 
         return requestBodyDescriptor;
     }

@@ -13,5 +13,5 @@ public interface RequestBodyDescriptor extends OpenApiDescriptor{
     void setIsRequired(Boolean isRequired);
 
     @Relation("CONTAINS")
-    List<MediaTypeDescriptor> getMediaType();
+    List<MediaTypeDescriptor> getMediaTypes();
 }

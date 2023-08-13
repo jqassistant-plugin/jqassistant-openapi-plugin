@@ -40,7 +40,7 @@ class ComponentsTest extends AbstractPluginIT {
         List<RequestBodyDescriptor> requestBodies = contract.getComponents().getRequestBodies();
         assertThat(requestBodies).hasSize(1);
 
-        assertThat(requestBodies.get(0).getMediaType()).hasSize(1);
+        assertThat(requestBodies.get(0).getMediaTypes()).hasSize(1);
     }
 
     @Test
@@ -125,7 +125,7 @@ class ComponentsTest extends AbstractPluginIT {
         assertThat(resDefault.getStatusCode()).isNull();
         assertThat(resDefault.getDescription()).isEqualTo("a default response with all fields");
         assertThat(resDefault.getHeaders()).hasSize(1);
-        assertThat(resDefault.getMediaType()).hasSize(1);
+        assertThat(resDefault.getMediaTypes()).hasSize(1);
         assertThat(resDefault.getLinks()).hasSize(1);
 
         ResponseDescriptor resEmpty = getResponse("433");
@@ -133,7 +133,7 @@ class ComponentsTest extends AbstractPluginIT {
         assertThat(resEmpty.getStatusCode()).isEqualTo("433");
         assertThat(resEmpty.getDescription()).isNull();
         assertThat(resEmpty.getHeaders()).isEmpty();
-        assertThat(resEmpty.getMediaType()).isEmpty();
+        assertThat(resEmpty.getMediaTypes()).isEmpty();
         assertThat(resEmpty.getLinks()).isEmpty();
 
         ResponseDescriptor resNoFields = getResponse("434");
@@ -141,14 +141,14 @@ class ComponentsTest extends AbstractPluginIT {
         assertThat(resNoFields.getStatusCode()).isEqualTo("434");
         assertThat(resNoFields.getDescription()).isEqualTo("no fields");
         assertThat(resNoFields.getHeaders()).isEmpty();
-        assertThat(resNoFields.getMediaType()).isEmpty();
+        assertThat(resNoFields.getMediaTypes()).isEmpty();
         assertThat(resNoFields.getLinks()).isEmpty();
     }
 
     @Test
     void testMediaType(){
         ResponseDescriptor response404 = getResponseByName("418");
-        assertThat(response404.getMediaType()).hasSize(3);
+        assertThat(response404.getMediaTypes()).hasSize(3);
 
         MediaTypeDescriptor mtoExample = getMediaTypeByName("multipart/form-data_example");
         assertThat(mtoExample.getMediaType()).isEqualTo("multipart/form-data_example");
@@ -174,7 +174,7 @@ class ComponentsTest extends AbstractPluginIT {
 
     @Test
     void testEncodings(){
-        MediaTypeDescriptor mto = contract.getComponents().getRequestBodies().get(0).getMediaType().get(0);
+        MediaTypeDescriptor mto = contract.getComponents().getRequestBodies().get(0).getMediaTypes().get(0);
         assertThat(mto.getEncodings()).hasSize(2);
 
         EncodingDescriptor encoding1 = mto.getEncodings().get(1);
@@ -315,7 +315,7 @@ class ComponentsTest extends AbstractPluginIT {
     private MediaTypeDescriptor getMediaTypeByName(String name){
         List<ResponseDescriptor> responses = contract.getComponents().getResponses();
         for(ResponseDescriptor response: responses)
-            for(MediaTypeDescriptor mediaType: response.getMediaType())
+            for(MediaTypeDescriptor mediaType: response.getMediaTypes())
                 if(mediaType.getMediaType().equals(name))
                     return mediaType;
         return null;
