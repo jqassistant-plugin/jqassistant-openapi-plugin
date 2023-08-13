@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 
 class ComponentsTest extends AbstractPluginIT {
 
+    ContractDescriptor contract;
     @AfterEach
     void closeTransaction(){
         store.commitTransaction();
@@ -25,7 +26,7 @@ class ComponentsTest extends AbstractPluginIT {
 
     @Test
     void testRequestBodies() {
-        ContractDescriptor contract = loadContract("example-components.yaml");
+        contract = loadContract("example-components.yaml");
         List<RequestBodyDescriptor> requestBodies = contract.getComponents().getRequestBodies();
         assertThat(requestBodies).hasSize(1);
 
@@ -34,14 +35,14 @@ class ComponentsTest extends AbstractPluginIT {
 
     @Test
     void testHeaders() {
-        ContractDescriptor contract = loadContract("example-components.yaml");
+        contract = loadContract("example-components.yaml");
         List<HeaderDescriptor> headers = contract.getComponents().getHeaders();
         assertThat(headers).hasSize(3);
     }
 
     @Test
     void testHeaderProperties() {
-        ContractDescriptor contract = loadContract("example-components.yaml");
+        contract = loadContract("example-components.yaml");
 
         // header all props set and examples field
         HeaderDescriptor headerAllPropsExamples = getHeaderByName("header_all_props");
@@ -75,7 +76,9 @@ class ComponentsTest extends AbstractPluginIT {
     }
 
     private HeaderDescriptor getHeaderByName(String name){
-        ContractDescriptor contract = loadContract("example-components.yaml");
+        if(!store.hasActiveTransaction()){
+            contract = loadContract("example-components.yaml");
+        }
         List<HeaderDescriptor> headers = contract.getComponents().getHeaders();
         for (HeaderDescriptor header : headers){
             if (header.getName().equals(name))
@@ -86,35 +89,35 @@ class ComponentsTest extends AbstractPluginIT {
 
     @Test
     void testSecuritySchemes() {
-        ContractDescriptor contract = loadContract("example-components.yaml");
+        contract = loadContract("example-components.yaml");
         List<SecuritySchemeDescriptor> securitySchemes = contract.getComponents().getSecuritySchemas();
         assertThat(securitySchemes).hasSize(1);
     }
 
     @Test
     void testLinks() {
-        ContractDescriptor contract = loadContract("example-components.yaml");
+        contract = loadContract("example-components.yaml");
         List<LinkDescriptor> links = contract.getComponents().getLinks();
         assertThat(links).hasSize(1);
     }
 
     @Test
     void testCallbacks() {
-        ContractDescriptor contract = loadContract("example-components.yaml");
+        contract = loadContract("example-components.yaml");
         List<CallbackDescriptor> callbacks = contract.getComponents().getCallBacks();
         assertThat(callbacks).hasSize(1);
     }
 
     @Test
     void testExamples() {
-        ContractDescriptor contract = loadContract("example-components.yaml");
+        contract = loadContract("example-components.yaml");
         List<ExampleDescriptor> examples = contract.getComponents().getExamples();
         assertThat(examples).hasSize(1);
     }
 
     @Test
     void testResponses() {
-        ContractDescriptor contract = loadContract("example-components.yaml");
+        contract = loadContract("example-components.yaml");
         List<ResponseDescriptor> responses = contract.getComponents().getResponses();
         assertThat(responses).hasSize(5);
 
@@ -172,7 +175,7 @@ class ComponentsTest extends AbstractPluginIT {
 
     @Test
     void testEncodings(){
-        ContractDescriptor contract = loadContract("example-components.yaml");
+        contract = loadContract("example-components.yaml");
         MediaTypeObjectDescriptor mto = contract.getComponents().getRequestBodies().get(0).getMediaTypeObjects().get(0);
         assertThat(mto.getEncodings()).hasSize(2);
 
@@ -195,7 +198,7 @@ class ComponentsTest extends AbstractPluginIT {
 
     @Test
     void testParameterRelation(){
-        ContractDescriptor contract = loadContract("example-components.yaml");
+        contract = loadContract("example-components.yaml");
         List<ParameterDescriptor> parameters = contract.getComponents().getParameters();
         assertThat(parameters).hasSize(5);
     }
@@ -281,42 +284,42 @@ class ComponentsTest extends AbstractPluginIT {
 
     @Test
     void testSchemas() {
-        ContractDescriptor contract = loadContract("example-components.yaml");
+        contract = loadContract("example-components.yaml");
         List<SchemaDescriptor> schemas = contract.getComponents().getSchemas();
-        assertThat(schemas).hasSize(1);
+        assertThat(schemas).hasSize(2);
     }
 
     @Test
     void testEmptyRequestBodies() {
-        ContractDescriptor contract = loadContract("example-components-counttest.yaml");
+        contract = loadContract("example-components-counttest.yaml");
         List<RequestBodyDescriptor> requestBodies = contract.getComponents().getRequestBodies();
         assertThat(requestBodies).isEmpty();
     }
 
     @Test
     void testEmptyHeaders() {
-        ContractDescriptor contract = loadContract("example-components-counttest.yaml");
+        contract = loadContract("example-components-counttest.yaml");
         List<HeaderDescriptor> headers = contract.getComponents().getHeaders();
         assertThat(headers).isEmpty();
     }
 
     @Test
     void testEmptyCallbacks() {
-        ContractDescriptor contract = loadContract("example-components-counttest.yaml");
+        contract = loadContract("example-components-counttest.yaml");
         List<CallbackDescriptor> callbacks = contract.getComponents().getCallBacks();
         assertThat(callbacks).isEmpty();
     }
 
     @Test
     void testEmptyLinks() {
-        ContractDescriptor contract = loadContract("example-components-counttest.yaml");
+        contract = loadContract("example-components-counttest.yaml");
         List<LinkDescriptor> links = contract.getComponents().getLinks();
         assertThat(links).isEmpty();
     }
 
     @Test
     void testEmptySchemas() {
-        ContractDescriptor contract = loadContract("example-components-counttest.yaml");
+        contract = loadContract("example-components-counttest.yaml");
         List<SchemaDescriptor> schemas = contract.getComponents().getSchemas();
         assertThat(schemas).isEmpty();
     }
@@ -324,7 +327,9 @@ class ComponentsTest extends AbstractPluginIT {
 
 
     private ParameterDescriptor getParamByName(String name) {
-        ContractDescriptor contract = loadContract("example-components.yaml");
+        if(!store.hasActiveTransaction()){
+            contract = loadContract("example-components.yaml");
+        }
         List<ParameterDescriptor> params = contract.getComponents().getParameters();
         for (ParameterDescriptor param : params)
             if (param.getName().equals(name))
@@ -333,7 +338,9 @@ class ComponentsTest extends AbstractPluginIT {
     }
 
     private ResponseDescriptor getResponse(String statusCodeOrDefault){
-        ContractDescriptor contract = loadContract("example-components.yaml");
+        if(!store.hasActiveTransaction()){
+            contract = loadContract("example-components.yaml");
+        }
         List<ResponseDescriptor> responses = contract.getComponents().getResponses();
         for(ResponseDescriptor response: responses) {
             if (response.getIsDefault() && statusCodeOrDefault.equals("default"))
@@ -345,7 +352,9 @@ class ComponentsTest extends AbstractPluginIT {
     }
 
     private ResponseDescriptor getResponseByName(String name){
-        ContractDescriptor contract = loadContract("example-components.yaml");
+        if(!store.hasActiveTransaction()){
+            contract = loadContract("example-components.yaml");
+        }
         List<ResponseDescriptor> responses = contract.getComponents().getResponses();
         for(ResponseDescriptor response: responses)
             if(response.getStatusCode().equals(name))
@@ -354,7 +363,9 @@ class ComponentsTest extends AbstractPluginIT {
     }
 
     private MediaTypeObjectDescriptor getMediaTypeObjectByName(String name){
-        ContractDescriptor contract = loadContract("example-components.yaml");
+        if(!store.hasActiveTransaction()){
+             contract = loadContract("example-components.yaml");
+        }
         List<ResponseDescriptor> responses = contract.getComponents().getResponses();
         for(ResponseDescriptor response: responses)
             for(MediaTypeObjectDescriptor mediaType: response.getMediaTypeObjects())
@@ -365,7 +376,7 @@ class ComponentsTest extends AbstractPluginIT {
 
     private ContractDescriptor loadContract(final String filename) {
         File file = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), filename);
-        ContractDescriptor contract = getScanner().scan(file, "/" + filename, DefaultScope.NONE);
+        contract = getScanner().scan(file, "/" + filename, DefaultScope.NONE);
 
         store.beginTransaction();
 

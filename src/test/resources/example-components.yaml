@@ -12,6 +12,11 @@ components:
       properties:
         name:
           type: string
+    Pet:
+      type: object
+      required:
+        - id
+        - name
 
   responses:
     200:
