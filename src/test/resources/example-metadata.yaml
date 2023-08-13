@@ -17,7 +17,16 @@ servers:
         default: no fields default
 info:
   title: Issues
+  summary: "summary"
   description: "Issues API"
+  termsOfService: "TOS"
+  contact:
+    email: "email@example.com"
+    name: "Example Name"
+    url: "contact.example.com"
+  license:
+    url: "licenseUrl"
+    name: "License Name"
   version: 1.0.0
 tags:
   - name: issues
