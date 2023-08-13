@@ -184,7 +184,6 @@ import static org.assertj.core.api.Assertions.*;
     }
 
     @Test
-    @TestStore(type = TestStore.Type.REMOTE)
     void scanWholeContract(){
         File file = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example.yaml");
         try {
