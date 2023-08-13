@@ -137,7 +137,7 @@ import static org.assertj.core.api.Assertions.*;
          assertThat(contract.getInfo()).isNotNull();
          LicenseDescriptor license = contract.getInfo().getLicense();
          assertThat(license.getIdentifier()).isNull();
-         assertThat(license.getName()).isEqualTo("required name");
+         assertThat(license.getName()).isNull();
          assertThat(license.getUrl()).isNull();
          store.commitTransaction();
      }
