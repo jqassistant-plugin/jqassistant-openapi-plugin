@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.buschmais.jqassistant.core.scanner.api.DefaultScope;
 import com.buschmais.jqassistant.core.test.plugin.AbstractPluginIT;
+import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.headers.Header;
 import io.swagger.v3.oas.models.media.Encoding;
 import org.jqassistant.plugin.openapi.api.model.*;
@@ -39,7 +40,7 @@ class ComponentsTest extends AbstractPluginIT {
         List<RequestBodyDescriptor> requestBodies = contract.getComponents().getRequestBodies();
         assertThat(requestBodies).hasSize(1);
 
-        assertThat(requestBodies.get(0).getMediaTypeObjects()).hasSize(1);
+        assertThat(requestBodies.get(0).getMediaTypes()).hasSize(1);
     }
 
     @Test
@@ -168,7 +169,7 @@ class ComponentsTest extends AbstractPluginIT {
         assertThat(resDefault.getStatusCode()).isNull();
         assertThat(resDefault.getDescription()).isEqualTo("a default response with all fields");
         assertThat(resDefault.getHeaders()).hasSize(1);
-        assertThat(resDefault.getMediaTypeObjects()).hasSize(1);
+        assertThat(resDefault.getMediaTypes()).hasSize(1);
         assertThat(resDefault.getLinks()).hasSize(1);
 
         ResponseDescriptor resEmpty = getResponse("433");
@@ -176,7 +177,7 @@ class ComponentsTest extends AbstractPluginIT {
         assertThat(resEmpty.getStatusCode()).isEqualTo("433");
         assertThat(resEmpty.getDescription()).isNull();
         assertThat(resEmpty.getHeaders()).isEmpty();
-        assertThat(resEmpty.getMediaTypeObjects()).isEmpty();
+        assertThat(resEmpty.getMediaTypes()).isEmpty();
         assertThat(resEmpty.getLinks()).isEmpty();
 
         ResponseDescriptor resNoFields = getResponse("434");
@@ -184,30 +185,30 @@ class ComponentsTest extends AbstractPluginIT {
         assertThat(resNoFields.getStatusCode()).isEqualTo("434");
         assertThat(resNoFields.getDescription()).isEqualTo("no fields");
         assertThat(resNoFields.getHeaders()).isEmpty();
-        assertThat(resNoFields.getMediaTypeObjects()).isEmpty();
+        assertThat(resNoFields.getMediaTypes()).isEmpty();
         assertThat(resNoFields.getLinks()).isEmpty();
     }
 
     @Test
-    void testMediaTypeObjects(){
+    void testMediaType(){
         ResponseDescriptor response404 = getResponseByName("418");
-        assertThat(response404.getMediaTypeObjects()).hasSize(3);
+        assertThat(response404.getMediaTypes()).hasSize(3);
 
-        MediaTypeObjectDescriptor mtoExample = getMediaTypeObjectByName("multipart/form-data_example");
+        MediaTypeDescriptor mtoExample = getMediaTypeByName("multipart/form-data_example");
         assertThat(mtoExample.getMediaType()).isEqualTo("multipart/form-data_example");
         assertThat(mtoExample.getSchema()).isNotNull();
         assertThat(mtoExample.getExample()).isNotNull();
         assertThat(mtoExample.getExamples()).isEmpty();
         assertThat(mtoExample.getEncodings()).hasSize(2);
 
-        MediaTypeObjectDescriptor mtoExamples = getMediaTypeObjectByName("multipart/form-data_examples");
+        MediaTypeDescriptor mtoExamples = getMediaTypeByName("multipart/form-data_examples");
         assertThat(mtoExamples.getMediaType()).isEqualTo("multipart/form-data_examples");
         assertThat(mtoExamples.getSchema()).isNotNull();
         assertThat(mtoExamples.getExample()).isNull();
         assertThat(mtoExamples.getExamples()).hasSize(2);
         assertThat(mtoExamples.getEncodings()).isEmpty();
 
-        MediaTypeObjectDescriptor mtoEmpty = getMediaTypeObjectByName("multipart/form-data_empty");
+        MediaTypeDescriptor mtoEmpty = getMediaTypeByName("multipart/form-data_empty");
         assertThat(mtoEmpty.getMediaType()).isEqualTo("multipart/form-data_empty");
         assertThat(mtoEmpty.getSchema()).isNull();
         assertThat(mtoEmpty.getExample()).isNull();
@@ -217,10 +218,10 @@ class ComponentsTest extends AbstractPluginIT {
 
     @Test
     void testEncodings(){
-        MediaTypeObjectDescriptor mto = contract.getComponents().getRequestBodies().get(0).getMediaTypeObjects().get(0);
+        MediaTypeDescriptor mto = contract.getComponents().getRequestBodies().get(0).getMediaTypes().get(0);
         assertThat(mto.getEncodings()).hasSize(2);
 
-        EncodingDescriptor encoding1 = mto.getEncodings().get(0);
+        EncodingDescriptor encoding1 = mto.getEncodings().get(1);
         assertThat(encoding1.getPropertyName()).isEqualTo("property1");
         assertThat(encoding1.getContentType()).isEqualTo("application/xml; charset=utf-8");
         assertThat(encoding1.getHeaders()).hasSize(1);
@@ -228,7 +229,7 @@ class ComponentsTest extends AbstractPluginIT {
         assertThat(encoding1.getAllowsReserved()).isTrue();
         assertThat(encoding1.getStyle()).isEqualTo(Encoding.StyleEnum.valueOf("SPACE_DELIMITED"));
 
-        EncodingDescriptor encoding2 = mto.getEncodings().get(1);
+        EncodingDescriptor encoding2 = mto.getEncodings().get(0);
         assertThat(encoding2.getPropertyName()).isEqualTo("property2");
         assertThat(encoding2.getContentType()).isNull();
         assertThat(encoding2.getHeaders()).isEmpty();
@@ -238,15 +239,102 @@ class ComponentsTest extends AbstractPluginIT {
     }
 
     @Test
-    void testParameters() {
+    void testParameterRelation(){
         List<ParameterDescriptor> parameters = contract.getComponents().getParameters();
-        assertThat(parameters).hasSize(1);
+        assertThat(parameters).hasSize(5);
+    }
+
+    @Test
+    void testRichParametersWithContent() {
+        ParameterDescriptor paramAllFieldsContent = getParamByName("param_all_fields_content");
+        assertThat(paramAllFieldsContent.getLocation()).isEqualTo(ParameterDescriptor.ParameterLocation.HEADER);
+        assertThat(paramAllFieldsContent.getDescription()).isEqualTo("token to be passed as a header");
+        assertThat(paramAllFieldsContent.getIsRequired()).isTrue();
+        assertThat(paramAllFieldsContent.getIsDeprecated()).isTrue();
+        assertThat(paramAllFieldsContent.getAllowsEmptyValue()).isNull(); // null when location is HEADER
+        assertThat(paramAllFieldsContent.getStyle()).isNull(); // null when content is defined
+        assertThat(paramAllFieldsContent.getExplode()).isFalse(); // false when content is defined
+        assertThat(paramAllFieldsContent.getAllowsReserved()).isFalse(); // false when content is defined
+        assertThat(paramAllFieldsContent.getSchema()).isNull(); // null when content is defined
+        assertThat(paramAllFieldsContent.getExample()).isNull(); // null when content is defined
+        assertThat(paramAllFieldsContent.getExamples()).isEmpty(); // empty when content is defined
+        assertThat(paramAllFieldsContent.getContent()).hasSize(1);
+    }
+
+    @Test
+    void testRichParametersWithSchema(){
+        ParameterDescriptor paramAllFieldsExamples = getParamByName("param_all_fields_examples");
+        assertThat(paramAllFieldsExamples.getLocation()).isEqualTo(ParameterDescriptor.ParameterLocation.QUERY);
+        assertThat(paramAllFieldsExamples.getDescription()).isEqualTo("token to be passed as a header");
+        assertThat(paramAllFieldsExamples.getIsRequired()).isFalse();
+        assertThat(paramAllFieldsExamples.getIsDeprecated()).isFalse();
+        assertThat(paramAllFieldsExamples.getAllowsEmptyValue()).isTrue(); // null when location is HEADER
+        assertThat(paramAllFieldsExamples.getStyle()).isEqualTo(Parameter.StyleEnum.PIPEDELIMITED);
+        assertThat(paramAllFieldsExamples.getExplode()).isTrue();
+        assertThat(paramAllFieldsExamples.getAllowsReserved()).isTrue();
+        assertThat(paramAllFieldsExamples.getSchema()).isNotNull();
+        assertThat(paramAllFieldsExamples.getExample()).isNull();
+        assertThat(paramAllFieldsExamples.getExamples()).hasSize(2);
+        assertThat(paramAllFieldsExamples.getContent()).isEmpty();
+
+        ParameterDescriptor paramAllFieldsExample = getParamByName("param_all_fields_example");
+        assertThat(paramAllFieldsExample.getLocation()).isEqualTo(ParameterDescriptor.ParameterLocation.QUERY);
+        assertThat(paramAllFieldsExample.getDescription()).isEqualTo("token to be passed as a header");
+        assertThat(paramAllFieldsExample.getIsRequired()).isFalse();
+        assertThat(paramAllFieldsExample.getIsDeprecated()).isFalse();
+        assertThat(paramAllFieldsExample.getAllowsEmptyValue()).isTrue(); // null when location is HEADER
+        assertThat(paramAllFieldsExample.getStyle()).isEqualTo(Parameter.StyleEnum.PIPEDELIMITED);
+        assertThat(paramAllFieldsExample.getExplode()).isTrue();
+        assertThat(paramAllFieldsExample.getAllowsReserved()).isTrue();
+        assertThat(paramAllFieldsExample.getSchema()).isNotNull();
+        assertThat(paramAllFieldsExample.getExample()).isNotNull();
+        assertThat(paramAllFieldsExample.getExamples()).isEmpty();
+        assertThat(paramAllFieldsExample.getContent()).isEmpty();
+    }
+
+    @Test
+    void testEmptyParameters(){
+        ParameterDescriptor paramEmptyFieldsExamples = getParamByName("param_empty_fields");
+        assertThat(paramEmptyFieldsExamples.getLocation()).isEqualTo(ParameterDescriptor.ParameterLocation.HEADER);
+        assertThat(paramEmptyFieldsExamples.getDescription()).isNull();
+        assertThat(paramEmptyFieldsExamples.getIsRequired()).isFalse();
+        assertThat(paramEmptyFieldsExamples.getIsDeprecated()).isNull();
+        assertThat(paramEmptyFieldsExamples.getAllowsEmptyValue()).isNull(); // null when location is HEADER
+        assertThat(paramEmptyFieldsExamples.getStyle()).isEqualTo(Parameter.StyleEnum.SIMPLE);
+        assertThat(paramEmptyFieldsExamples.getExplode()).isFalse();
+        assertThat(paramEmptyFieldsExamples.getAllowsReserved()).isFalse();
+        assertThat(paramEmptyFieldsExamples.getSchema()).isNull();
+        assertThat(paramEmptyFieldsExamples.getExample()).isNull();
+        assertThat(paramEmptyFieldsExamples.getExamples()).isEmpty();
+        assertThat(paramEmptyFieldsExamples.getContent()).isEmpty();
+
+        ParameterDescriptor paramNoFieldsExamples = getParamByName("param_no_fields");
+        assertThat(paramNoFieldsExamples.getLocation()).isEqualTo(ParameterDescriptor.ParameterLocation.PATH);
+        assertThat(paramNoFieldsExamples.getDescription()).isNull();
+        assertThat(paramNoFieldsExamples.getIsRequired()).isFalse();
+        assertThat(paramNoFieldsExamples.getIsDeprecated()).isNull();
+        assertThat(paramNoFieldsExamples.getAllowsEmptyValue()).isNull(); // null when location is HEADER
+        assertThat(paramNoFieldsExamples.getStyle()).isEqualTo(Parameter.StyleEnum.SIMPLE);
+        assertThat(paramNoFieldsExamples.getExplode()).isFalse();
+        assertThat(paramNoFieldsExamples.getAllowsReserved()).isFalse();
+        assertThat(paramNoFieldsExamples.getSchema()).isNull();
+        assertThat(paramNoFieldsExamples.getExample()).isNull();
+        assertThat(paramNoFieldsExamples.getExamples()).isEmpty();
+        assertThat(paramNoFieldsExamples.getContent()).isEmpty();
     }
 
     @Test
     void testSchemas() {
         List<SchemaDescriptor> schemas = contract.getComponents().getSchemas();
         assertThat(schemas).hasSize(1);
+    }
+
+    private ParameterDescriptor getParamByName(String name) {
+        List<ParameterDescriptor> params = contract.getComponents().getParameters();
+        for (ParameterDescriptor param : params)
+            if (param.getName().equals(name))
+                return param;
+        return null;
     }
 
     private ResponseDescriptor getResponse(String statusCodeOrDefault){
@@ -268,10 +356,10 @@ class ComponentsTest extends AbstractPluginIT {
         return null;
     }
 
-    private MediaTypeObjectDescriptor getMediaTypeObjectByName(String name){
+    private MediaTypeDescriptor getMediaTypeByName(String name){
         List<ResponseDescriptor> responses = contract.getComponents().getResponses();
         for(ResponseDescriptor response: responses)
-            for(MediaTypeObjectDescriptor mediaType: response.getMediaTypeObjects())
+            for(MediaTypeDescriptor mediaType: response.getMediaTypes())
                 if(mediaType.getMediaType().equals(name))
                     return mediaType;
         return null;

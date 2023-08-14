@@ -1,68 +1,74 @@
-openapi: 3.0.3
+openapi: 3.1.0
+info:
 paths:
-  /sample:
-    summary: i am a summary!
-    description: i am a description!
+  /richOperation:
     get:
-      summary: i am a summary!
-      description: i am a description!
-  /more_than_one_operaton:
-    get:
-      summary: i am a summary!
-    put:
-      summary: i am a summary!
-  /wrong_type:
-    foo:
-      summary: i am a summary!
-  /with_tags:
-    get:
-      summary: i am a summary!
       tags:
         - tag1
         - tag2
-  /with_empty_tags:
-    get:
-      summary: i am a summary!
-      tags:
-  /with_no_tags:
-    get:
-      summary: i am a summary!
-  /with_op_id:
-    get:
-      summary: i am a summary!
-      operationId: with_op_id
-  /with_depricated:
-    get:
-      summary: i am a summary!
-      deprecated: true
-  /without_depricated:
-    get:
-      summary: i am a summary!
-  /with_parameter:
-    get:
-      summary: i am a summary!
-      parameters:
-        - name: param
-          in: query
-  /with_parameters:
-    get:
-      summary: i am a summary!
+      summary: operation with all fields populated
+      description: same as summary
+      externalDocs:
+        description: external docs
+        url: "https://www.example.com"
+      operationId: operationId
       parameters:
         - name: param1
-          in: query
+          in: path
         - name: param2
-          in: query
-  /with_response:
-    get:
-      summary: i am a summary!
+          in: path
+      requestBody:
+        description: example request body
+        content:
+          application/json:
+            schema:
+              type: object
       responses:
         '200':
-          description: successful operation
-  /with_responses:
+          description: success response
+          content:
+            'application/json': { }
+            'application/xml': { }
+        '405':
+          description: not allowed response
+          content:
+            'application/json': { }
+            'application/xml': { }
+      callbacks:
+        exampleCallback:
+          "https://www.example.com":
+            post:
+              requestBody:
+                description: Callback payload
+              responses:
+                '200':
+                  description: callback successfully processed
+      deprecated: true
+      security:
+        - example_auth:
+            - write:pets
+            - read:pets
+      servers:
+        - url: https://development.gigantic-server.example.com/v1
+          description: Development server
+        - url: https://staging.gigantic-server.example.com/v1
+          description: Staging server
+        - url: https://api.gigantic-server.example.com/v1
+          description: Production server
+  /emptyOperation:
     get:
-      summary: i am a summary!
+      tags:
+      summary:
+      description:
+      externalDocs:
+      operationId:
+      parameters:
+      requestBody:
       responses:
-        '200':
-          description: successful operation
-        '202':
-          description: accepted operation
+      callbacks:
+      deprecated:
+      security:
+      servers:
+  /noFieldsOperation:
+      get:
+        operationId: no fields operation

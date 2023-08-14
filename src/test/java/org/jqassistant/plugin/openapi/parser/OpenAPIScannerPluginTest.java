@@ -45,11 +45,6 @@ import static org.assertj.core.api.Assertions.*;
         store.beginTransaction();
         assertThat(contract).isNotNull();
         assertThat(contract.getFileName()).isEqualTo("/example-metadata.yaml");
-
-        assertThat(contract.getApiVersion()).isEqualTo("1.0.0");
-        assertThat(contract.getTitle()).isEqualTo("Issues");
-        assertThat(contract.getDescription()).isEqualTo("Issues API");
-
         assertThat(contract.getServers()).hasSize(2);
 
         assertThat(contract.getTags()).hasSize(7);
@@ -63,6 +58,103 @@ import static org.assertj.core.api.Assertions.*;
 
         store.commitTransaction();
     }
+
+    @Test
+    void scanRichInfo(){
+        File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-metadata.yaml");
+        contract = getScanner().scan(testFile, "/example-metadata.yaml", DefaultScope.NONE);
+
+        store.beginTransaction();
+        assertThat(contract.getInfo()).isNotNull();
+        InfoDescriptor info = contract.getInfo();
+        assertThat(info.getTitle()).isEqualTo("Issues");
+        assertThat(info.getSummary()).isEqualTo("summary");
+        assertThat(info.getDescription()).isEqualTo("Issues API");
+        assertThat(info.getTermsOfService()).isEqualTo("TOS");
+        assertThat(info.getContact()).isNotNull();
+        assertThat(info.getContact().getEmail()).isEqualTo("email@example.com");
+        assertThat(info.getContact().getName()).isEqualTo("Example Name");
+        assertThat(info.getContact().getUrl()).isEqualTo("contact.example.com");
+        assertThat(info.getLicense()).isNotNull();
+        assertThat(info.getVersion()).isEqualTo("1.0.0");
+        store.commitTransaction();
+    }
+
+    @Test
+    void scanLicenseWithUrl(){
+        File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-metadata.yaml");
+        contract = getScanner().scan(testFile, "/example-metadata.yaml", DefaultScope.NONE);
+
+        store.beginTransaction();
+        assertThat(contract.getInfo()).isNotNull();
+        InfoDescriptor info = contract.getInfo();
+        assertThat(info.getLicense()).isNotNull();
+        assertThat(info.getLicense().getUrl()).isEqualTo("licenseUrl");
+        assertThat(info.getLicense().getName()).isEqualTo("License Name");
+        // assertion for info.getLicense().getIdentifier() not needed as mutually exclusive to license.url
+        store.commitTransaction();
+    }
+
+     @Test
+     void scanLicenseWithIdentifier(){
+         File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-components.yaml");
+         contract = getScanner().scan(testFile, "/example-components.yaml", DefaultScope.NONE);
+
+         store.beginTransaction();
+         assertThat(contract.getInfo()).isNotNull();
+         InfoDescriptor info = contract.getInfo();
+         assertThat(info.getLicense()).isNotNull();
+         // assertion for info.getLicense().getUrl() not needed as mutually exclusive to license.identifier
+         assertThat(info.getLicense().getName()).isEqualTo("License Name");
+         assertThat(info.getLicense().getIdentifier()).isEqualTo("id123");
+         store.commitTransaction();
+     }
+
+     @Test
+     void scanEmptyInfo(){
+         File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-emptytest.yaml");
+         contract = getScanner().scan(testFile, "example-emptytest.yaml", DefaultScope.NONE);
+
+         store.beginTransaction();
+         assertThat(contract.getInfo()).isNotNull();
+         InfoDescriptor info = contract.getInfo();
+         assertThat(info.getTitle()).isNull();
+         assertThat(info.getSummary()).isNull();
+         assertThat(info.getDescription()).isNull();
+         assertThat(info.getTermsOfService()).isNull();
+         assertThat(info.getContact()).isNull();
+         assertThat(info.getLicense()).isNull();
+         assertThat(info.getVersion()).isNull();
+         store.commitTransaction();
+     }
+
+     @Test
+     void scanEmptyLicense(){
+         File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-emptyinfo.yaml");
+         contract = getScanner().scan(testFile, "example-emptyinfo.yaml", DefaultScope.NONE);
+
+         store.beginTransaction();
+         assertThat(contract.getInfo()).isNotNull();
+         LicenseDescriptor license = contract.getInfo().getLicense();
+         assertThat(license.getIdentifier()).isNull();
+         assertThat(license.getName()).isNull();
+         assertThat(license.getUrl()).isNull();
+         store.commitTransaction();
+     }
+
+     @Test
+     void scanEmptyContact(){
+         File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-emptyinfo.yaml");
+         contract = getScanner().scan(testFile, "example-emptyinfo.yaml", DefaultScope.NONE);
+
+         store.beginTransaction();
+         assertThat(contract.getInfo()).isNotNull();
+         ContactDescriptor contactDescriptor = contract.getInfo().getContact();
+         assertThat(contactDescriptor.getEmail()).isNull();
+         assertThat(contactDescriptor.getName()).isNull();
+         assertThat(contactDescriptor.getUrl()).isNull();
+         store.commitTransaction();
+     }
 
     @Test
     void scanTags(){
