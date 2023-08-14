@@ -20,21 +20,14 @@ public class ContractParser {
         throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
     }
 
-    public static void parse(OpenAPI contract, ContractDescriptor contractDescriptor, Store store) {
     public static void parse(OpenAPI contract, ContractDescriptor contractDescriptor, Store store){
+        LOG.info("Reading OpenAPI Version");
+        if(contract.getOpenapi() != null)
+            contractDescriptor.setOpenApiVersion(contract.getOpenapi());
         LOG.info("Reading Info object");
         if(contract.getInfo() != null)
             contractDescriptor.setInfo(parseInfo(contract.getInfo(), store));
-
-        LOG.info("Reading OpenAPI Components");
-        if (contract.getComponents() != null)
-            contractDescriptor.setComponents(ComponentsParser.parse(contract.getComponents(), store));
-
-        LOG.info("Parsing Contract Metadata");
-        contractDescriptor.setOpenApiVersion(contract.getOpenapi()); // required
-        /*
-        contract.setInfo(parseInfo, store); // info object required
-        */
+        LOG.info("Reading jsonSchema dialect");
         if (contract.getJsonSchemaDialect() != null)
             contractDescriptor.setJsonSchemaDialect(contract.getJsonSchemaDialect());
         LOG.info("Parsing Servers");
