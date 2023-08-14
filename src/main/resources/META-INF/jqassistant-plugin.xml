@@ -37,6 +37,8 @@
         <class>org.jqassistant.plugin.openapi.api.model.jsonschema.ReferencePropertyDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.jsonschema.SchemaDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.jsonschema.StringPropertyDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.OauthFlowDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.OauthFlowsDescriptor</class>
     </model>
     <scanner>
         <class>org.jqassistant.plugin.openapi.impl.OpenAPIScannerPlugin</class>
