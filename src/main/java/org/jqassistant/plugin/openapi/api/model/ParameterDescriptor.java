@@ -52,5 +52,5 @@ public interface ParameterDescriptor extends OpenApiDescriptor{
     List<ExampleDescriptor> getExamples();
 
     @Relation("CONTAINS")
-    List<MediaTypeObjectDescriptor> getContent();
+    List<MediaTypeDescriptor> getContent();
 }
