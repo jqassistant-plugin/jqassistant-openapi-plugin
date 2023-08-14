@@ -46,7 +46,7 @@ class ComponentsTest extends AbstractPluginIT {
     void testRichRequestBody(){
         RequestBodyDescriptor requestBody = getRequestBodyByName("RichRequestBody");
         assertThat(requestBody.getDescription()).isEqualTo("rich requestBody");
-        assertThat(requestBody.getMediaTypeObjects()).hasSize(1);
+        assertThat(requestBody.getMediaTypes()).hasSize(1);
         assertThat(requestBody.getIsRequired()).isTrue();
     }
 
@@ -54,7 +54,7 @@ class ComponentsTest extends AbstractPluginIT {
     void testEmptyRequestBody(){
         RequestBodyDescriptor requestBody = getRequestBodyByName("EmptyRequestBody");
         assertThat(requestBody.getDescription()).isNull();
-        assertThat(requestBody.getMediaTypeObjects()).isEmpty();
+        assertThat(requestBody.getMediaTypes()).isEmpty();
         assertThat(requestBody.getIsRequired()).isNull();
     }
 
