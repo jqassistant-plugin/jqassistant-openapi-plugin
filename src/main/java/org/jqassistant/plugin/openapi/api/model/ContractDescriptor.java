@@ -14,11 +14,9 @@ public interface ContractDescriptor extends OpenApiDescriptor, FileDescriptor {
     String getOpenApiVersion();
     void setOpenApiVersion(String openApiVersion);
 
-    /*
-    @Relation("HOLDS_INFO)
+    @Relation("HOLDS_INFO")
     InfoDescriptor getInfo();
     void setInfo(InfoDescriptor info);
-    */
 
     String getJsonSchemaDialect();
     void setJsonSchemaDialect(String jsonSchemaDialect);
