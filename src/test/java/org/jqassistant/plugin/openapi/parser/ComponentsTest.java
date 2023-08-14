@@ -191,7 +191,7 @@ class ComponentsTest extends AbstractPluginIT {
 
     @Test
     void testMediaType(){
-        ResponseDescriptor response404 = getResponseByName("418");
+        ResponseDescriptor response404 = getResponse("418");
         assertThat(response404.getMediaTypes()).hasSize(3);
 
         MediaTypeDescriptor mtoExample = getMediaTypeByName("multipart/form-data_example");
