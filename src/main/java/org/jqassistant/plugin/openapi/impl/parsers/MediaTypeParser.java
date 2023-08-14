@@ -4,7 +4,7 @@ import com.buschmais.jqassistant.core.store.api.Store;
 import io.swagger.v3.oas.models.media.Encoding;
 import io.swagger.v3.oas.models.media.MediaType;
 import org.jqassistant.plugin.openapi.api.model.EncodingDescriptor;
-import org.jqassistant.plugin.openapi.api.model.MediaTypeObjectDescriptor;
+import org.jqassistant.plugin.openapi.api.model.MediaTypeDescriptor;
 import org.jqassistant.plugin.openapi.impl.jsonschema.JsonSchemaParser;
 import org.jqassistant.plugin.openapi.impl.util.Resolver;
 
@@ -18,26 +18,26 @@ public class MediaTypeParser {
         throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
     }
 
-    public static List<MediaTypeObjectDescriptor> parseAll(Map<String, MediaType> mediaTypesMap, Store store){
+    public static List<MediaTypeDescriptor> parseAll(Map<String, MediaType> mediaTypesMap, Store store){
         return mediaTypesMap.entrySet().stream().map(mediaTypeEntry -> parseOne(mediaTypeEntry.getKey(), mediaTypeEntry.getValue(), store)).collect(Collectors.toList());
     }
 
-    public static MediaTypeObjectDescriptor parseOne(String mediaTypeType, MediaType mediaType, Store store){
-        MediaTypeObjectDescriptor mediaTypeObjectDescriptor = store.create(MediaTypeObjectDescriptor.class);
+    public static MediaTypeDescriptor parseOne(String mediaTypeType, MediaType mediaType, Store store){
+        MediaTypeDescriptor mediaTypeDescriptor = store.create(MediaTypeDescriptor.class);
         JsonSchemaParser schemaParser = new JsonSchemaParser(new Resolver(store), store);
 
-        mediaTypeObjectDescriptor.setMediaType(mediaTypeType);
+        mediaTypeDescriptor.setMediaType(mediaTypeType);
 
         if(mediaType.getSchema() != null)
-            mediaTypeObjectDescriptor.setSchema(schemaParser.parseSchema(mediaType.getSchema(), null));
+            mediaTypeDescriptor.setSchema(schemaParser.parseSchema(mediaType.getSchema(), null));
         if(mediaType.getExampleSetFlag())
-            mediaTypeObjectDescriptor.setExample(mediaType.getExample());
+            mediaTypeDescriptor.setExample(mediaType.getExample());
         if(mediaType.getExamples() != null)
-            mediaTypeObjectDescriptor.getExamples().addAll(ExampleParser.parseAll(mediaType.getExamples(), store));
+            mediaTypeDescriptor.getExamples().addAll(ExampleParser.parseAll(mediaType.getExamples(), store));
         if(mediaType.getEncoding() != null)
-            mediaTypeObjectDescriptor.getEncodings().addAll(parseEncodings(mediaType.getEncoding(), store));
+            mediaTypeDescriptor.getEncodings().addAll(parseEncodings(mediaType.getEncoding(), store));
 
-        return mediaTypeObjectDescriptor;
+        return mediaTypeDescriptor;
     }
 
     private static List<EncodingDescriptor> parseEncodings(Map<String, Encoding> encodingsMap, Store store){

@@ -4,7 +4,7 @@
     <model>
         <class>org.jqassistant.plugin.openapi.api.model.ContactDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.ContractDescriptor</class>
-        <class>org.jqassistant.plugin.openapi.api.model.MediaTypeObjectDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.MediaTypeDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.OperationDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.ParameterDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.PathItemDescriptor</class>
