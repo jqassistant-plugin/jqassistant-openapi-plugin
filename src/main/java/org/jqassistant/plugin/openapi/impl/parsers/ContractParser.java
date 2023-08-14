@@ -4,8 +4,11 @@ import com.buschmais.jqassistant.core.store.api.Store;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
 import org.jqassistant.plugin.openapi.api.model.ContactDescriptor;
 import org.jqassistant.plugin.openapi.api.model.ContractDescriptor;
+import org.jqassistant.plugin.openapi.api.model.InfoDescriptor;
+import org.jqassistant.plugin.openapi.api.model.LicenseDescriptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,7 +23,7 @@ public class ContractParser {
     public static void parse(OpenAPI contract, ContractDescriptor contractDescriptor, Store store){
         LOG.info("Reading Info object");
         if(contract.getInfo() != null)
-            parseInfo(contract.getInfo(), contractDescriptor, store);
+            contractDescriptor.setInfo(parseInfo(contract.getInfo(), store));
 
         LOG.info("Reading OpenAPI Components");
         if (contract.getComponents() != null)
@@ -42,15 +45,24 @@ public class ContractParser {
             contractDescriptor.setExternalDocs(ExternalDocsParser.parseOne(contract.getExternalDocs(), store));
 }
 
-    private static void parseInfo(Info info, ContractDescriptor contractDescriptor, Store store){
-        if(info.getTitle() != null)
-            contractDescriptor.setTitle(info.getTitle());
-        if (info.getDescription() != null)
-            contractDescriptor.setDescription(info.getDescription());
-        if (info.getVersion() != null)
-            contractDescriptor.setApiVersion(info.getVersion());
-        if (info.getContact() != null)
-            contractDescriptor.setContact(parseContact(info.getContact(), store));
+    private static InfoDescriptor parseInfo(Info info, Store store){
+        InfoDescriptor infoDescriptor = store.create(InfoDescriptor.class);
+
+        // null check only needed for non-string properties as null strings are filtered out by xo
+
+        infoDescriptor.setTitle(info.getTitle());
+        infoDescriptor.setSummary(info.getSummary());
+        infoDescriptor.setDescription(info.getDescription());
+        infoDescriptor.setTermsOfService(info.getTermsOfService());
+
+        if(info.getContact() != null)
+            infoDescriptor.setContact(parseContact(info.getContact(), store));
+        if(info.getLicense() != null)
+            infoDescriptor.setLicense(parseLicense(info.getLicense(), store));
+
+        infoDescriptor.setVersion(info.getVersion());
+
+        return infoDescriptor;
     }
 
     private static ContactDescriptor parseContact(Contact contact, Store store){
@@ -64,6 +76,16 @@ public class ContractParser {
             contactDescriptor.setUrl(contact.getUrl());
 
         return contactDescriptor;
+    }
+
+    private static LicenseDescriptor parseLicense(License license, Store store){
+        LicenseDescriptor licenseDescriptor = store.create(LicenseDescriptor.class);
+
+        licenseDescriptor.setName(license.getName());
+        licenseDescriptor.setIdentifier(license.getIdentifier());
+        licenseDescriptor.setUrl(license.getUrl());
+
+        return licenseDescriptor;
     }
 
 }

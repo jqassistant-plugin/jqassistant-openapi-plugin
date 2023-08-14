@@ -24,7 +24,7 @@ public class RequestBodyParser {
         if(requestBody.getDescription() != null)
             requestBodyDescriptor.setDescription(requestBody.getDescription());
         if(requestBody.getContent() != null)
-            requestBodyDescriptor.getMediaTypeObjects().addAll(MediaTypeParser.parseAll(requestBody.getContent(), store));
+            requestBodyDescriptor.getMediaTypes().addAll(MediaTypeParser.parseAll(requestBody.getContent(), store));
         if(requestBody.getRequired() != null)
             requestBodyDescriptor.setIsRequired(requestBody.getRequired());
 
