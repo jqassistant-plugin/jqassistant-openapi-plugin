@@ -19,8 +19,9 @@ import org.junit.jupiter.api.Test;
 class ComponentsTest extends AbstractPluginIT {
 
     ContractDescriptor contract;
+
     @AfterEach
-    void closeTransaction(){
+    void closeTransaction() {
         store.commitTransaction();
     }
 
@@ -75,12 +76,10 @@ class ComponentsTest extends AbstractPluginIT {
         assertThat(headerEmptyProps.getContent()).isEmpty();
     }
 
-    private HeaderDescriptor getHeaderByName(String name){
-        if(!store.hasActiveTransaction()){
-            contract = loadContract("example-components.yaml");
-        }
+    private HeaderDescriptor getHeaderByName(String name) {
+        contract = loadContract("example-components.yaml");
         List<HeaderDescriptor> headers = contract.getComponents().getHeaders();
-        for (HeaderDescriptor header : headers){
+        for (HeaderDescriptor header : headers) {
             if (header.getName().equals(name))
                 return header;
         }
@@ -147,7 +146,7 @@ class ComponentsTest extends AbstractPluginIT {
     }
 
     @Test
-    void testMediaTypeObjects(){
+    void testMediaTypeObjects() {
         ResponseDescriptor response404 = getResponseByName("418");
         assertThat(response404.getMediaTypeObjects()).hasSize(3);
 
@@ -174,7 +173,7 @@ class ComponentsTest extends AbstractPluginIT {
     }
 
     @Test
-    void testEncodings(){
+    void testEncodings() {
         contract = loadContract("example-components.yaml");
         MediaTypeObjectDescriptor mto = contract.getComponents().getRequestBodies().get(0).getMediaTypeObjects().get(0);
         assertThat(mto.getEncodings()).hasSize(2);
@@ -197,7 +196,7 @@ class ComponentsTest extends AbstractPluginIT {
     }
 
     @Test
-    void testParameterRelation(){
+    void testParameterRelation() {
         contract = loadContract("example-components.yaml");
         List<ParameterDescriptor> parameters = contract.getComponents().getParameters();
         assertThat(parameters).hasSize(5);
@@ -221,7 +220,7 @@ class ComponentsTest extends AbstractPluginIT {
     }
 
     @Test
-    void testRichParametersWithSchema(){
+    void testRichParametersWithSchema() {
         ParameterDescriptor paramAllFieldsExamples = getParamByName("param_all_fields_examples");
         assertThat(paramAllFieldsExamples.getLocation()).isEqualTo(ParameterDescriptor.ParameterLocation.QUERY);
         assertThat(paramAllFieldsExamples.getDescription()).isEqualTo("token to be passed as a header");
@@ -252,7 +251,7 @@ class ComponentsTest extends AbstractPluginIT {
     }
 
     @Test
-    void testEmptyParameters(){
+    void testEmptyParameters() {
         ParameterDescriptor paramEmptyFieldsExamples = getParamByName("param_empty_fields");
         assertThat(paramEmptyFieldsExamples.getLocation()).isEqualTo(ParameterDescriptor.ParameterLocation.HEADER);
         assertThat(paramEmptyFieldsExamples.getDescription()).isNull();
@@ -325,11 +324,8 @@ class ComponentsTest extends AbstractPluginIT {
     }
 
 
-
     private ParameterDescriptor getParamByName(String name) {
-        if(!store.hasActiveTransaction()){
-            contract = loadContract("example-components.yaml");
-        }
+        contract = loadContract("example-components.yaml");
         List<ParameterDescriptor> params = contract.getComponents().getParameters();
         for (ParameterDescriptor param : params)
             if (param.getName().equals(name))
@@ -337,12 +333,10 @@ class ComponentsTest extends AbstractPluginIT {
         return null;
     }
 
-    private ResponseDescriptor getResponse(String statusCodeOrDefault){
-        if(!store.hasActiveTransaction()){
-            contract = loadContract("example-components.yaml");
-        }
+    private ResponseDescriptor getResponse(String statusCodeOrDefault) {
+        contract = loadContract("example-components.yaml");
         List<ResponseDescriptor> responses = contract.getComponents().getResponses();
-        for(ResponseDescriptor response: responses) {
+        for (ResponseDescriptor response : responses) {
             if (response.getIsDefault() && statusCodeOrDefault.equals("default"))
                 return response;
             if (!statusCodeOrDefault.equals("default") && statusCodeOrDefault.equals(response.getStatusCode()))
@@ -351,25 +345,21 @@ class ComponentsTest extends AbstractPluginIT {
         return null;
     }
 
-    private ResponseDescriptor getResponseByName(String name){
-        if(!store.hasActiveTransaction()){
-            contract = loadContract("example-components.yaml");
-        }
+    private ResponseDescriptor getResponseByName(String name) {
+        contract = loadContract("example-components.yaml");
         List<ResponseDescriptor> responses = contract.getComponents().getResponses();
-        for(ResponseDescriptor response: responses)
-            if(response.getStatusCode().equals(name))
+        for (ResponseDescriptor response : responses)
+            if (response.getStatusCode().equals(name))
                 return response;
         return null;
     }
 
-    private MediaTypeObjectDescriptor getMediaTypeObjectByName(String name){
-        if(!store.hasActiveTransaction()){
-             contract = loadContract("example-components.yaml");
-        }
+    private MediaTypeObjectDescriptor getMediaTypeObjectByName(String name) {
+        contract = loadContract("example-components.yaml");
         List<ResponseDescriptor> responses = contract.getComponents().getResponses();
-        for(ResponseDescriptor response: responses)
-            for(MediaTypeObjectDescriptor mediaType: response.getMediaTypeObjects())
-                if(mediaType.getMediaType().equals(name))
+        for (ResponseDescriptor response : responses)
+            for (MediaTypeObjectDescriptor mediaType : response.getMediaTypeObjects())
+                if (mediaType.getMediaType().equals(name))
                     return mediaType;
         return null;
     }
@@ -378,7 +368,10 @@ class ComponentsTest extends AbstractPluginIT {
         File file = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), filename);
         contract = getScanner().scan(file, "/" + filename, DefaultScope.NONE);
 
-        store.beginTransaction();
+
+        if (!store.hasActiveTransaction()) {
+            store.beginTransaction();
+        }
 
         assertThat(contract).isNotNull();
 
