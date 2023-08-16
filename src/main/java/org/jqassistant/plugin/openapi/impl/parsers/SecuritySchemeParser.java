@@ -8,10 +8,18 @@ import org.jqassistant.plugin.openapi.api.model.OauthFlowDescriptor;
 import org.jqassistant.plugin.openapi.api.model.OauthFlowsDescriptor;
 import org.jqassistant.plugin.openapi.api.model.SecuritySchemeDescriptor;
 
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 public class SecuritySchemeParser {
 
     private SecuritySchemeParser() {
         throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
+    }
+
+    public static List<SecuritySchemeDescriptor> parseAll(Map<String, SecurityScheme> securitySchemesMap, Store store){
+        return securitySchemesMap.values().stream().map(securityScheme -> parseOne(securityScheme, store)).collect(Collectors.toList());
     }
 
     public static SecuritySchemeDescriptor parseOne(SecurityScheme securityScheme, Store store){
@@ -46,7 +54,7 @@ public class SecuritySchemeParser {
 
 
 
-    public static OauthFlowsDescriptor parseOauthFlows(OAuthFlows oAuthFlows, Store store) {
+    private static OauthFlowsDescriptor parseOauthFlows(OAuthFlows oAuthFlows, Store store) {
         OauthFlowsDescriptor oauthFlowsDescriptor = store.create(OauthFlowsDescriptor.class);
 
         if (oAuthFlows.getImplicit() != null) {
@@ -69,7 +77,7 @@ public class SecuritySchemeParser {
         return oauthFlowsDescriptor;
     }
 
-    public static OauthFlowDescriptor parseOauthFlow(OAuthFlow oauthFlow, Store store) {
+    private static OauthFlowDescriptor parseOauthFlow(OAuthFlow oauthFlow, Store store) {
         OauthFlowDescriptor oauthFlowDescriptor = store.create(OauthFlowDescriptor.class);
 
         if(oauthFlow.getAuthorizationUrl() != null)

@@ -39,7 +39,7 @@ public class ComponentsParser {
             componentsDescriptor.getHeaders().addAll(HeaderParser.parseAll(components.getHeaders(), store));
 
         if (components.getSecuritySchemes() != null)
-            componentsDescriptor.getSecuritySchemas().addAll(parseSecuritySchemes(components.getSecuritySchemes(), store));
+            componentsDescriptor.getSecuritySchemas().addAll(SecuritySchemeParser.parseAll(components.getSecuritySchemes(), store));
 
         if (components.getLinks() != null)
             componentsDescriptor.getLinks().addAll(LinkParser.parseAll(components.getLinks(), store));
@@ -50,16 +50,4 @@ public class ComponentsParser {
         return componentsDescriptor;
     }
 
-    private static List<SecuritySchemeDescriptor> parseSecuritySchemes(Map<String, SecurityScheme> securitySchemesMap, Store store){
-        return securitySchemesMap.values().stream().map(securityScheme -> parseSecurityScheme(securityScheme, store)).collect(Collectors.toList());
-    }
-
-    private static SecuritySchemeDescriptor parseSecurityScheme(SecurityScheme securityScheme, Store store){
-        SecuritySchemeDescriptor securitySchemeDescriptor = store.create(SecuritySchemeDescriptor.class);
-
-        if(securityScheme.getName() != null)
-            securitySchemeDescriptor.setName(securityScheme.getName());
-
-        return securitySchemeDescriptor;
-    }
 }
