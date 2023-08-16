@@ -5,6 +5,7 @@ import io.swagger.v3.oas.models.security.OAuthFlow;
 import io.swagger.v3.oas.models.security.OAuthFlows;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.jqassistant.plugin.openapi.api.model.OauthFlowDescriptor;
+import org.jqassistant.plugin.openapi.api.model.OauthFlowsDescriptor;
 import org.jqassistant.plugin.openapi.api.model.SecuritySchemeDescriptor;
 
 public class SecuritySchemeParser {
@@ -35,7 +36,7 @@ public class SecuritySchemeParser {
             securitySchemeDescriptor.setBearerFormat(securityScheme.getBearerFormat());
 
         if(securityScheme.getFlows() != null)
-   //      securitySchemeDescriptor.setFlows(parseOauthFlows(securityScheme.getFlows(), store));
+         securitySchemeDescriptor.setFlows(parseOauthFlows(securityScheme.getFlows(), store));
 
         if(securityScheme.getOpenIdConnectUrl() != null)
             securitySchemeDescriptor.setOpenIdConnectUrl(securityScheme.getOpenIdConnectUrl());
@@ -45,37 +46,43 @@ public class SecuritySchemeParser {
 
 
 
-    public static void parseOauthFlows(OAuthFlows oauthFlowsDescriptor, OAuthFlows oAuthFlows) {
+    public static OauthFlowsDescriptor parseOauthFlows(OAuthFlows oAuthFlows, Store store) {
+        OauthFlowsDescriptor oauthFlowsDescriptor = store.create(OauthFlowsDescriptor.class);
+
         if (oAuthFlows.getImplicit() != null) {
-            OAuthFlow implicit = parseOauthFlow(oAuthFlows.getImplicit());
+            OauthFlowDescriptor implicit = parseOauthFlow(oAuthFlows.getImplicit(), store);
             oauthFlowsDescriptor.setImplicit(implicit);
         }
         if (oAuthFlows.getPassword() != null) {
-            OAuthFlow password = parseOauthFlow(oAuthFlows.getPassword());
+            OauthFlowDescriptor password = parseOauthFlow(oAuthFlows.getPassword(), store);
             oauthFlowsDescriptor.setPassword(password);
         }
         if (oAuthFlows.getClientCredentials() != null) {
-            OAuthFlow clientCredentials = parseOauthFlow(oAuthFlows.getClientCredentials());
+            OauthFlowDescriptor clientCredentials = parseOauthFlow(oAuthFlows.getClientCredentials(), store);
             oauthFlowsDescriptor.setClientCredentials(clientCredentials);
         }
         if (oAuthFlows.getAuthorizationCode() != null) {
-            OAuthFlow authorizationCode = parseOauthFlow(oAuthFlows.getAuthorizationCode());
+            OauthFlowDescriptor authorizationCode = parseOauthFlow(oAuthFlows.getAuthorizationCode(), store);
             oauthFlowsDescriptor.setAuthorizationCode(authorizationCode);
         }
+
+        return oauthFlowsDescriptor;
     }
 
-    public static OAuthFlow parseOauthFlow(OAuthFlow oauthFlow){
+    public static OauthFlowDescriptor parseOauthFlow(OAuthFlow oauthFlow, Store store) {
+        OauthFlowDescriptor oauthFlowDescriptor = store.create(OauthFlowDescriptor.class);
+
         if(oauthFlow.getAuthorizationUrl() != null)
-            oauthFlow.setAuthorizationUrl(oauthFlow.getAuthorizationUrl());
+            oauthFlowDescriptor.setAuthorizationUrl(oauthFlow.getAuthorizationUrl());
         if(oauthFlow.getTokenUrl() != null)
-            oauthFlow.setTokenUrl(oauthFlow.getTokenUrl());
+            oauthFlowDescriptor.setTokenUrl(oauthFlow.getTokenUrl());
         if(oauthFlow.getRefreshUrl() != null)
-            oauthFlow.setRefreshUrl(oauthFlow.getRefreshUrl());
+            oauthFlowDescriptor.setRefreshUrl(oauthFlow.getRefreshUrl());
         if(oauthFlow.getScopes() != null)
-            oauthFlow.setScopes(oauthFlow.getScopes());
+            oauthFlowDescriptor.setScopes(oauthFlow.getScopes());
 
 
-        return oauthFlow;
+        return oauthFlowDescriptor;
     }
 
 

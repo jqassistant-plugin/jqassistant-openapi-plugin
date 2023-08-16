@@ -1,5 +1,7 @@
 package org.jqassistant.plugin.openapi.api.model;
 
+import io.swagger.v3.oas.models.security.Scopes;
+
 import java.util.List;
 
 public interface OauthFlowDescriptor extends OpenApiDescriptor{
@@ -18,5 +20,5 @@ public interface OauthFlowDescriptor extends OpenApiDescriptor{
 
     List<String> getScopes();
 
-    void setScopes(List<String> scopes);
+    void setScopes(Scopes scopes);
 }
