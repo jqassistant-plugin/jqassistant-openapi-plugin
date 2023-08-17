@@ -6,8 +6,8 @@ import org.jqassistant.plugin.openapi.api.model.jsonschema.SchemaDescriptor;
 
 import java.util.List;
 
-@Label("MediaTypeObject")
-public interface MediaTypeObjectDescriptor extends OpenApiDescriptor{
+@Label("MediaType")
+public interface MediaTypeDescriptor extends OpenApiDescriptor{
     String getMediaType();
     void setMediaType(String mediaType);
 
