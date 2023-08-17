@@ -16,9 +16,9 @@ import static org.assertj.core.api.Assertions.*;
   
     @Test
     void scanEmptyContract(){
-        File file = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-emptytest.yaml");
+        File file = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-emptyInfo.yaml");
         try {
-            contract = getScanner().scan(file, "example-emptytest.yaml", DefaultScope.NONE);
+            contract = getScanner().scan(file, "example-emptyInfo.yaml", DefaultScope.NONE);
             assertThat(contract).isNotNull();
         } catch (Exception e){
             fail("Reading contract only containing container data failed", e);
@@ -102,8 +102,8 @@ import static org.assertj.core.api.Assertions.*;
 
      @Test
      void scanEmptyInfo(){
-         File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-emptytest.yaml");
-         contract = getScanner().scan(testFile, "example-emptytest.yaml", DefaultScope.NONE);
+         File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-emptyInfo.yaml");
+         contract = getScanner().scan(testFile, "example-emptyInfo.yaml", DefaultScope.NONE);
 
          store.beginTransaction();
          assertThat(contract.getInfo()).isNotNull();
