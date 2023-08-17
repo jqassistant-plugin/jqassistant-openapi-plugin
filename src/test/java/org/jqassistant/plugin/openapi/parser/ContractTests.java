@@ -42,4 +42,36 @@ class ContractTests extends AbstractPluginIT {
         assertThat(contract.getTags()).isEmpty();
         assertThat(contract.getExternalDocs()).isNull();
     }
+
+    @Test
+    void contractWithEmptyProperties(){
+        ContractDescriptor contract = parseContract("contractWithEmptyProperties.yaml");
+
+        assertThat(contract.getOpenApiVersion()).isEqualTo("3.1.0");
+        assertThat(contract.getInfo()).isNull();
+        assertThat(contract.getJsonSchemaDialect()).isNull();
+        assertThat(contract.getServers()).hasSize(1); // default server (see https://spec.openapis.org/oas/latest.html#oasServers)
+        assertThat(contract.getPaths()).isNull();
+        assertThat(contract.getWebhooks()).isEmpty();
+        assertThat(contract.getComponents()).isNull();
+        assertThat(contract.getSecurity()).isEmpty();
+        assertThat(contract.getTags()).isEmpty();
+        assertThat(contract.getExternalDocs()).isNull();
+    }
+
+    @Test
+    void richContract(){
+        ContractDescriptor contract = parseContract("richContract.yaml");
+
+        assertThat(contract.getOpenApiVersion()).isEqualTo("3.1.0");
+        assertThat(contract.getInfo()).isNotNull();
+        assertThat(contract.getJsonSchemaDialect()).isEqualTo("https://spec.openapis.org/oas/3.1/dialect/base");
+        assertThat(contract.getServers()).hasSize(2); // default server (see https://spec.openapis.org/oas/latest.html#oasServers)
+        assertThat(contract.getPaths()).isNotNull();
+        assertThat(contract.getWebhooks()).hasSize(2);
+        assertThat(contract.getComponents()).isNotNull();
+        assertThat(contract.getSecurity()).hasSize(2);
+        assertThat(contract.getTags()).hasSize(2);
+        assertThat(contract.getExternalDocs()).isNotNull();
+    }
 }
