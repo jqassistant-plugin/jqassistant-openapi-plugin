@@ -131,8 +131,8 @@ import static org.assertj.core.api.Assertions.*;
 
      @Test
      void scanEmptyLicense(){
-         File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-emptyinfo.yaml");
-         contract = getScanner().scan(testFile, "example-emptyinfo.yaml", DefaultScope.NONE);
+         File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-emptyLicense-emptyContact.yaml");
+         contract = getScanner().scan(testFile, "example-emptyLicense-emptyContact.yaml", DefaultScope.NONE);
 
          store.beginTransaction();
          assertThat(contract.getInfo()).isNotNull();
@@ -145,8 +145,8 @@ import static org.assertj.core.api.Assertions.*;
 
      @Test
      void scanEmptyContact(){
-         File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-emptyinfo.yaml");
-         contract = getScanner().scan(testFile, "example-emptyinfo.yaml", DefaultScope.NONE);
+         File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-emptyLicense-emptyContact.yaml");
+         contract = getScanner().scan(testFile, "example-emptyLicense-emptyContact.yaml", DefaultScope.NONE);
 
          store.beginTransaction();
          assertThat(contract.getInfo()).isNotNull();
