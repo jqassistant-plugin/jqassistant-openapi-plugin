@@ -4,6 +4,7 @@ import com.buschmais.jqassistant.core.scanner.api.DefaultScope;
 import com.buschmais.jqassistant.core.test.plugin.AbstractPluginIT;
 import org.jqassistant.plugin.openapi.api.model.ContractDescriptor;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
@@ -25,4 +26,20 @@ class ContractTests extends AbstractPluginIT {
 
     @AfterEach
     public void commitTransaction(){store.commitTransaction();}
+
+    @Test
+    void contractWithOnlyOpenApiVersion(){
+        ContractDescriptor contract = parseContract("onlyOpenAPIVersion.yaml");
+
+        assertThat(contract.getOpenApiVersion()).isEqualTo("3.1.0");
+        assertThat(contract.getInfo()).isNull();
+        assertThat(contract.getJsonSchemaDialect()).isNull();
+        assertThat(contract.getServers()).hasSize(1); // default server (see https://spec.openapis.org/oas/latest.html#oasServers)
+        assertThat(contract.getPaths()).isNull();
+        assertThat(contract.getWebhooks()).isEmpty();
+        assertThat(contract.getComponents()).isNull();
+        assertThat(contract.getSecurity()).isEmpty();
+        assertThat(contract.getTags()).isEmpty();
+        assertThat(contract.getExternalDocs()).isNull();
+    }
 }

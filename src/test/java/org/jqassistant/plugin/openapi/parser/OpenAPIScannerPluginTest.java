@@ -13,17 +13,6 @@ import static org.assertj.core.api.Assertions.*;
  class OpenAPIScannerPluginTest extends AbstractPluginIT {
 
     ContractDescriptor contract;
-
-    @Test
-    void scanNullContract(){
-        File file = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-nulltest.yaml");
-        try {
-            contract = getScanner().scan(file, "example-nulltest.yaml", DefaultScope.NONE);
-            assertThat(contract).isNotNull();
-        } catch (Exception e){
-            fail("Reading contract not containing any data failed", e);
-        }
-    }
   
     @Test
     void scanEmptyContract(){
