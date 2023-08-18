@@ -31,7 +31,7 @@ class ContractIT extends AbstractPluginIT {
 
     @Test
     void contractWithOnlyOpenApiVersion() {
-        ContractDescriptor contract = parseContract("onlyOpenAPIVersion.yaml");
+        ContractDescriptor contract = parseContract("contractWithOnlyOpenApiVersion.yaml");
 
         assertThat(contract.getOpenApiVersion()).isEqualTo("3.1.0");
         assertThat(contract.getInfo()).isNull();
