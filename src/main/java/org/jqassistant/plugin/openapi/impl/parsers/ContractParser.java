@@ -22,19 +22,17 @@ public class ContractParser {
 
     public static void parse(OpenAPI contract, ContractDescriptor contractDescriptor, Store store){
         LOG.info("Reading OpenAPI Version");
-        if(contract.getOpenapi() != null)
-            contractDescriptor.setOpenApiVersion(contract.getOpenapi());
+        contractDescriptor.setOpenApiVersion(contract.getOpenapi());
         LOG.info("Reading Info object");
         if(contract.getInfo() != null)
             contractDescriptor.setInfo(parseInfo(contract.getInfo(), store));
         LOG.info("Reading jsonSchema dialect");
-        if (contract.getJsonSchemaDialect() != null)
-            contractDescriptor.setJsonSchemaDialect(contract.getJsonSchemaDialect());
+        contractDescriptor.setJsonSchemaDialect(contract.getJsonSchemaDialect());
         LOG.info("Parsing Servers");
-        if (contract.getServers() != null && !contract.getServers().isEmpty())
+        if (contract.getServers() != null)
             contractDescriptor.getServers().addAll(ServerParser.parseAll(contract.getServers(), store));
         LOG.info("Parsing Paths");
-        if (contract.getPaths() != null && !contract.getPaths().isEmpty())
+        if (contract.getPaths() != null)
             contractDescriptor.setPaths(PathsParser.parse(contract.getPaths(), store));
         LOG.info("Parsing Webhooks");
         if (contract.getWebhooks() != null)
