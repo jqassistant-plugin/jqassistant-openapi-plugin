@@ -6,7 +6,7 @@ import com.buschmais.xo.neo4j.api.annotation.Relation;
 import java.util.List;
 
 @Label("Enum")
-public interface EnumStringPropertyDescriptor extends StringPropertyDescriptor {
+public interface EnumStringTypeDescriptor extends StringTypeDescriptor {
     @Relation("HAS_VALUES")
     List<EnumValueDescriptor> getValues();
 

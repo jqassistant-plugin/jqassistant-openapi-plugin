@@ -7,9 +7,10 @@ import java.util.List;
 
 @Label("Discriminator")
 public interface DiscriminatorDescriptor extends JsonSchemaDescriptor {
-    String getPropertyName();
-    void setPropertyName(String propertyName);
+    PropertyDescriptor getProperty();
+    void setProperty(PropertyDescriptor property);
 
-    @Relation("REF")
-    List<SchemaDescriptor> getSchemas();
+    @Relation("mapping")
+    List<DiscriminatorMappingDescriptor> getMapping();
+
 }

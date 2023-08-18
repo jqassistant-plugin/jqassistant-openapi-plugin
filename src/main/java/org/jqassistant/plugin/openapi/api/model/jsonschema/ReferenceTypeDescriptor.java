@@ -4,7 +4,7 @@ import com.buschmais.xo.neo4j.api.annotation.Label;
 import com.buschmais.xo.neo4j.api.annotation.Relation;
 
 @Label("Reference")
-public interface ReferencePropertyDescriptor extends PropertyDescriptor {
+public interface ReferenceTypeDescriptor extends TypeDescriptor {
 
     @Relation("REF")
     SchemaDescriptor getReference();
