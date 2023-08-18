@@ -52,7 +52,7 @@ class ContractIT extends AbstractPluginIT {
         assertThat(contract.getOpenApiVersion()).isEqualTo("3.1.0");
         assertThat(contract.getInfo()).isNull();
         assertThat(contract.getJsonSchemaDialect()).isNull();
-        assertThat(contract.getServers()).hasSize(0);
+        assertThat(contract.getServers()).isEmpty();
         assertThat(contract.getPaths()).isNull();
         assertThat(contract.getWebhooks()).isEmpty();
         assertThat(contract.getComponents()).isNull();
