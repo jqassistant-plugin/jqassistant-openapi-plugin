@@ -66,7 +66,7 @@ class ContractTests extends AbstractPluginIT {
         assertThat(contract.getOpenApiVersion()).isEqualTo("3.1.0");
         assertThat(contract.getInfo()).isNotNull();
         assertThat(contract.getJsonSchemaDialect()).isEqualTo("https://spec.openapis.org/oas/3.1/dialect/base");
-        assertThat(contract.getServers()).hasSize(2); // default server (see https://spec.openapis.org/oas/latest.html#oasServers)
+        assertThat(contract.getServers()).hasSize(2);
         assertThat(contract.getPaths()).isNotNull();
         assertThat(contract.getWebhooks()).hasSize(2);
         assertThat(contract.getComponents()).isNotNull();
