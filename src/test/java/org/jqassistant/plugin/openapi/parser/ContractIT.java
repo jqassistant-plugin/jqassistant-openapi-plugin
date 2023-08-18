@@ -10,7 +10,7 @@ import java.io.File;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ContractTests extends AbstractPluginIT {
+class ContractIT extends AbstractPluginIT {
 
     private final String RESOURCE_DIRECTORY = "/contractTests/";
 
