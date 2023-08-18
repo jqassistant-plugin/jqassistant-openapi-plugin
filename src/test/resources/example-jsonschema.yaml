@@ -2,6 +2,11 @@ openapi: 3.0.2
 components:
   schemas:
     EmptySchema:
+    SchemaWithEmptyProperty:
+      type: object
+      properties:
+    SchemaWithOtherTypeThenObject:
+      type: integer
     IntegerSchema:
       type: integer
       externalDocs:
@@ -74,3 +79,43 @@ components:
       properties:
         TheReference:
           $ref: '#/components/schemas/SchemaWithObject'
+    SchemaWithInherentAllOf:
+      allOf:
+        - $ref: '#/components/schemas/SchemaWithObject'
+        - type: object
+          properties:
+            name123:
+              type: string
+    SchemaWithInherentOneOf:
+      oneOf:
+        - $ref: '#/components/schemas/SchemaWithObject'
+        - type: object
+          properties:
+            name123:
+              type: string
+    SchemaWithInherentAnyOf:
+      anyOf:
+        - $ref: '#/components/schemas/SchemaWithDiscriminator'
+        - type: object
+          properties:
+            name123:
+              type: string
+    SchemaWithDiscriminator:
+      type: object
+      properties:
+        theDiscriminator:
+          type: string
+        randomField:
+          type: integer
+      discriminator:
+        propertyName: theDiscriminator
+    SchemaWithMappingDiscriminator:
+      type: object
+      properties:
+        aDiscriminator:
+          type: string
+      discriminator:
+        propertyName: aDiscriminator
+        mapping:
+          foo: BAA
+          baz: '#/components/schemas/SchemaWithObject'

@@ -1,18 +1,18 @@
 package org.jqassistant.plugin.openapi.api.model.jsonschema;
 
-import com.buschmais.xo.api.annotation.Abstract;
 import com.buschmais.xo.neo4j.api.annotation.Label;
+import com.buschmais.xo.neo4j.api.annotation.Relation;
 
-@Abstract
 @Label("Property")
 public interface PropertyDescriptor extends JsonSchemaDescriptor {
+
     String getName();
     void setName(String name);
 
     String getDescription();
     void setDescription(String description);
 
-    String getFormat();
-    void setFormat(String format);
-
+    @Relation("IS_TYPE")
+    TypeDescriptor getType();
+    void setType(TypeDescriptor type);
 }
