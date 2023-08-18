@@ -14,21 +14,23 @@ class ContractTests extends AbstractPluginIT {
 
     private final String RESOURCE_DIRECTORY = "/contractTests/";
 
-    private ContractDescriptor parseContract(String filename){
+    private ContractDescriptor parseContract(String filename) {
         String filepath = RESOURCE_DIRECTORY + filename;
         File file = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), filepath);
         ContractDescriptor contract = getScanner().scan(file, filepath, DefaultScope.NONE);
 
-        if(!store.hasActiveTransaction()) store.beginTransaction();
+        if (!store.hasActiveTransaction()) store.beginTransaction();
         assertThat(contract).isNotNull();
         return contract;
     }
 
     @AfterEach
-    public void commitTransaction(){store.commitTransaction();}
+    public void commitTransaction() {
+        store.commitTransaction();
+    }
 
     @Test
-    void contractWithOnlyOpenApiVersion(){
+    void contractWithOnlyOpenApiVersion() {
         ContractDescriptor contract = parseContract("onlyOpenAPIVersion.yaml");
 
         assertThat(contract.getOpenApiVersion()).isEqualTo("3.1.0");
@@ -44,7 +46,7 @@ class ContractTests extends AbstractPluginIT {
     }
 
     @Test
-    void contractWithEmptyProperties(){
+    void contractWithEmptyProperties() {
         ContractDescriptor contract = parseContract("contractWithEmptyProperties.yaml");
 
         assertThat(contract.getOpenApiVersion()).isEqualTo("3.1.0");
@@ -60,7 +62,7 @@ class ContractTests extends AbstractPluginIT {
     }
 
     @Test
-    void richContract(){
+    void richContract() {
         ContractDescriptor contract = parseContract("richContract.yaml");
 
         assertThat(contract.getOpenApiVersion()).isEqualTo("3.1.0");
