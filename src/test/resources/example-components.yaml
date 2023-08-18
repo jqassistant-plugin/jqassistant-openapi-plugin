@@ -3,6 +3,9 @@ info:
   title: Sample API
   description: API description in Markdown.
   version: 1.0.0
+  license:
+    name: "License Name"
+    identifier: "id123"
 paths: {}
 
 components:
@@ -91,13 +94,78 @@ components:
 
 
   parameters:
-    userId:
-      name: id
-      in: path
-      description: "User ID"
+    param_all_fields_content:
+      name: param_all_fields_content
+      in: header
+      description: token to be passed as a header
       required: true
+      deprecated: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - lat
+              - long
+            properties:
+              lat:
+                type: number
+              long:
+                type: number
+    param_all_fields_examples:
+      name: param_all_fields_examples
+      in: query
+      description: token to be passed as a header
+      required: false
+      deprecated: false
+      allowEmptyValue: true
+      style: pipeDelimited
+      explode: true
+      allowReserved: true
       schema:
-        type: object
+        type: array
+        items:
+          type: integer
+          format: int64
+      examples:
+        example1:
+          value: "example value1"
+        example2:
+          value: "example value2"
+
+    param_all_fields_example:
+      name: param_all_fields_example
+      in: query
+      description: token to be passed as a header
+      required: false
+      deprecated: false
+      allowEmptyValue: true
+      style: pipeDelimited
+      explode: true
+      allowReserved: true
+      schema:
+        type: array
+        items:
+          type: integer
+          format: int64
+      example: "[1,2]"
+
+    param_empty_fields:
+      name: param_empty_fields
+      in: header
+      description:
+      required:
+      deprecated:
+      allowEmptyValue:
+      style:
+      explode:
+      allowReserved:
+      schema:
+      example:
+      content:
+    param_no_fields:
+      name: param_no_fields
+      in: path
 
   examples:
     UserData:
