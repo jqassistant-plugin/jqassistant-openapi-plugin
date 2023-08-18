@@ -28,9 +28,6 @@ ifdef::backend-html5[]
 ++++
 endif::backend-html5[]
 
-
-include::src/about-arc42.adoc[]
-
 // horizontal line
 ***
 
@@ -63,10 +60,6 @@ include::src/05_building_block_view.adoc[]
 <<<<
 // 6. Runtime View
 include::src/06_runtime_view.adoc[]
-
-<<<<
-// 7. Deployment View
-include::src/07_deployment_view.adoc[]
 
 <<<<
 // 8. Concepts
