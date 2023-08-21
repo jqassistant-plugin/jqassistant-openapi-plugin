@@ -1,0 +1,15 @@
+ifndef::imagesdir[:imagesdir: ../images]
+
+[[section-design-decisions]]
+== Architecture Decisions
+
+* The data model is kept as close to the structure of an OpenAPI Contract as possible.
+
+=== Parser
+
+=== JSON Schema
+
+* The attribute `name` of a Type is *stored* in the types corresponding Descriptor (the name matches JSON-Schema name to the data model name).
+*
+
+

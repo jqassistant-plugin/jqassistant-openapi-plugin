@@ -63,22 +63,22 @@ include::src/06_runtime_view.adoc[]
 
 <<<<
 // 8. Concepts
-include::src/08_concepts.adoc[]
+include::src/07_concepts.adoc[]
 
 <<<<
 // 9. Architecture Decisions
-include::src/09_architecture_decisions.adoc[]
+include::src/08_architecture_decisions.adoc[]
 
 <<<<
 // 10. Quality Requirements
-include::src/10_quality_requirements.adoc[]
+include::src/9_quality_requirements.adoc[]
 
 <<<<
 // 11. Technical Risks
-include::src/11_technical_risks.adoc[]
+include::src/10_technical_risks.adoc[]
 
 <<<<
 // 12. Glossary
-include::src/12_glossary.adoc[]
+include::src/11_glossary.adoc[]
 
 
