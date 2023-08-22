@@ -189,7 +189,7 @@ class ComponentsTest extends AbstractPluginIT {
 
     @Test
     void testEncodings(){
-        MediaTypeDescriptor mto = contract.getComponents().getRequestBodies().get(0).getMediaTypes().get(0);
+        MediaTypeDescriptor mto = getRequestBodyByName("UserBody").getMediaTypes().get(0);
         assertThat(mto.getEncodings()).hasSize(2);
 
         EncodingDescriptor encoding1 = getEncodingByPropertyName(mto.getEncodings(), "property1");
