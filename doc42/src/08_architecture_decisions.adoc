@@ -4,12 +4,15 @@ ifndef::imagesdir[:imagesdir: ../images]
 == Architecture Decisions
 
 * The data model is kept as close to the structure of an OpenAPI Contract as possible.
+** because of that grouping nodes like `Components` got introduced, instead of just using edges to describe this dependency.
 
 === Parser
+
+=== Resolver
 
 === JSON Schema
 
 * The attribute `name` of a Type is *stored* in the types corresponding Descriptor (the name matches JSON-Schema name to the data model name).
-*
+* Types are represented as Labels, not as attribute.
 
 

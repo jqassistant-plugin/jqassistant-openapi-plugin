@@ -3,5 +3,16 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-technical-risks]]
 == Risks and Technical Debts
 
+=== Parser
 
+* Most Parsers directly interact with the XO/Store interface. At least important data (e.g. Properties/Schemas/...) should be wrapped by a resolver to be referenced later on
 
+=== Testing
+
+* Test cases use the same contract for most of the time. This eases the risk of cross-reference and not independent Tests.
+* Some test contracts have references to other parts of the contract which are not independent.
+
+=== JSON-Schema
+
+* The `Resolver` Class holds a collection von String attributes describing how a reference String of ja OpenAPI contract looks like. The `JsonSchemaParser` as well as some test cases also hold similar attributes. Those attributes should be generalized and stored in one location.
+* The Type determination is a switch case statement and defaults to a runtime exception. This should needs to be exchanged to an "unknown" node.
