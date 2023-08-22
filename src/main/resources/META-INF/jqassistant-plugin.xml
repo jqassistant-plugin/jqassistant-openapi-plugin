@@ -26,20 +26,22 @@
         <class>org.jqassistant.plugin.openapi.api.model.LinkParameterDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.InfoDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.LicenseDescriptor</class>
-        <class>org.jqassistant.plugin.openapi.api.model.jsonschema.ArrayPropertyDescriptor</class>
-        <class>org.jqassistant.plugin.openapi.api.model.jsonschema.BoolPropertyDescriptor</class>
-        <class>org.jqassistant.plugin.openapi.api.model.jsonschema.DiscriminatorDescriptor</class>
-        <class>org.jqassistant.plugin.openapi.api.model.jsonschema.EnumStringPropertyDescriptor</class>
-        <class>org.jqassistant.plugin.openapi.api.model.jsonschema.EnumValueDescriptor</class>
-        <class>org.jqassistant.plugin.openapi.api.model.jsonschema.IntegerPropertyDescriptor</class>
-        <class>org.jqassistant.plugin.openapi.api.model.jsonschema.JsonSchemaDescriptor</class>
-        <class>org.jqassistant.plugin.openapi.api.model.jsonschema.NullPropertyDescriptor</class>
-        <class>org.jqassistant.plugin.openapi.api.model.jsonschema.NumberPropertyDescriptor</class>
-        <class>org.jqassistant.plugin.openapi.api.model.jsonschema.ObjectPropertyDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.jsonschema.PropertyDescriptor</class>
-        <class>org.jqassistant.plugin.openapi.api.model.jsonschema.ReferencePropertyDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.jsonschema.ArrayTypeDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.jsonschema.BoolTypeDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.jsonschema.DiscriminatorDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.jsonschema.DiscriminatorMappingDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.jsonschema.EnumStringTypeDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.jsonschema.EnumValueDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.jsonschema.IntegerTypeDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.jsonschema.JsonSchemaDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.jsonschema.NullTypeDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.jsonschema.NumberTypeDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.jsonschema.ObjectTypeDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.jsonschema.TypeDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.jsonschema.ReferenceTypeDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.jsonschema.SchemaDescriptor</class>
-        <class>org.jqassistant.plugin.openapi.api.model.jsonschema.StringPropertyDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.jsonschema.StringTypeDescriptor</class>
     </model>
     <scanner>
         <class>org.jqassistant.plugin.openapi.impl.OpenAPIScannerPlugin</class>

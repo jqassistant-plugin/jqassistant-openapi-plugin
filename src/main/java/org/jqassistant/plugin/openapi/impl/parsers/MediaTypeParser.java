@@ -29,7 +29,7 @@ public class MediaTypeParser {
         mediaTypeDescriptor.setMediaType(mediaTypeType);
 
         if(mediaType.getSchema() != null)
-            mediaTypeDescriptor.setSchema(schemaParser.parseSchema(mediaType.getSchema(), null));
+            mediaTypeDescriptor.setSchema(schemaParser.parseOneSchema(mediaType.getSchema(), null));
         if(mediaType.getExampleSetFlag())
             mediaTypeDescriptor.setExample(mediaType.getExample());
         if(mediaType.getExamples() != null)
