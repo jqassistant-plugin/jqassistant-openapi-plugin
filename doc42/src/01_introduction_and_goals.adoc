@@ -10,3 +10,8 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 
 === Quality Goals
+
+High priority:
+
+* error resilience ( The scanner must not crash and should be able to handle OpenAPI contracts with any kind of error )
+* maintainability ( The scanner should be easily adaptable to new OpenAPI changes and also easily extendable for new details )
