@@ -83,15 +83,6 @@ class ComponentsTest extends AbstractPluginIT {
         assertThat(headerEmptyProps.getContent()).isEmpty();
     }
 
-    private HeaderDescriptor getHeaderByName(String name){
-        List<HeaderDescriptor> headers = contract.getComponents().getHeaders();
-        for (HeaderDescriptor header : headers){
-            if (header.getName().equals(name))
-                return header;
-        }
-        return null;
-    }
-
     @Test
     void testSecuritySchemes() {
         List<SecuritySchemeDescriptor> securitySchemes = contract.getComponents().getSecuritySchemas();
@@ -372,6 +363,15 @@ class ComponentsTest extends AbstractPluginIT {
             if(propertyName.equals(encoding.getPropertyName()))
                 return encoding;
         fail("No encoding with propertyName <%s> found.", propertyName);
+        return null;
+    }
+
+    private HeaderDescriptor getHeaderByName(String name){
+        List<HeaderDescriptor> headers = contract.getComponents().getHeaders();
+        for (HeaderDescriptor header : headers){
+            if (header.getName().equals(name))
+                return header;
+        }
         return null;
     }
 }
