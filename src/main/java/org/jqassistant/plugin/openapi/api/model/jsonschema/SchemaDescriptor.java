@@ -4,6 +4,8 @@ import com.buschmais.xo.neo4j.api.annotation.Label;
 import com.buschmais.xo.neo4j.api.annotation.Relation;
 import org.jqassistant.plugin.openapi.api.model.ExternalDocsDescriptor;
 
+import java.util.List;
+
 @Label("Schema")
 public interface SchemaDescriptor extends JsonSchemaDescriptor {
     String getName();
@@ -14,18 +16,19 @@ public interface SchemaDescriptor extends JsonSchemaDescriptor {
     void setExternalDocs(ExternalDocsDescriptor externalDoc);
 
     @Relation("IS")
-    PropertyDescriptor getObject();
-    void setObject(PropertyDescriptor propertyDescriptor);
+    TypeDescriptor getIsType();
+    void setIsType(TypeDescriptor typeDescriptor);
+
+    @Relation("DISCRIMINATOR")
+    DiscriminatorDescriptor getDiscriminator();
+    void setDiscriminator(DiscriminatorDescriptor discriminator);
 
     @Relation("ALL_OF")
-    DiscriminatorDescriptor getDiscriminatorAllOf();
-    void setDiscriminatorAllOf(DiscriminatorDescriptor discriminator);
+    List<TypeDescriptor> getAllOfSchemas();
 
     @Relation("ONE_OF")
-    DiscriminatorDescriptor getDiscriminatorOneOf();
-    void setDiscriminatorOneOf(DiscriminatorDescriptor discriminator);
+    List<TypeDescriptor> getOneOfSchemas();
 
     @Relation("ANY_OF")
-    DiscriminatorDescriptor getDiscriminatorAnyOf();
-    void setDiscriminatorAnyOf(DiscriminatorDescriptor discriminator);
+    List<TypeDescriptor> getAnyOfSchemas();
 }

@@ -40,7 +40,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
         OpenAPI openAPIContract = new OpenAPIV3Parser().read(path); // TODO: Exception handling
 
         LOG.info("Reading contract meta data");
-        contractDescriptor.setApiVersion(openAPIContract.getOpenapi());
+        contractDescriptor.setOpenApiVersion(openAPIContract.getOpenapi());
 
         LOG.info("Parsing contract children");
         ContractParser.parse(openAPIContract, contractDescriptor,store);

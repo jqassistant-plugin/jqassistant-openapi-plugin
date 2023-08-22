@@ -1,6 +1,7 @@
 package org.jqassistant.plugin.openapi.impl.jsonschema;
 
 import com.buschmais.jqassistant.core.store.api.Store;
+import io.swagger.v3.oas.models.media.Discriminator;
 import io.swagger.v3.oas.models.media.Schema;
 import org.jqassistant.plugin.openapi.api.model.jsonschema.*;
 import org.jqassistant.plugin.openapi.impl.parsers.ExternalDocsParser;
@@ -15,115 +16,191 @@ import java.util.stream.Collectors;
 public class JsonSchemaParser {
 
     private final Resolver resolver;
+    private PropertyResolver propertyResolver;
+
     private final Store store;
     private static final String SCHEMA_REFSTRING = "#/components/schemas/";
 
+    /**
+     * Instantiate Parser to parse a Map of schemas
+     *
+     * @param resolver Resolves Schemas
+     * @param store Creates new DB Objects
+     */
     public JsonSchemaParser(Resolver resolver, Store store) {
         this.resolver = resolver;
         this.store = store;
     }
 
-    public List<SchemaDescriptor> parseAllSchemas(Map<String, Schema> schemasMap){
-        return schemasMap.entrySet().stream().map(schemaEntry -> parseSchema(schemaEntry.getValue(), schemaEntry.getKey())).collect(Collectors.toList());
+    /**
+     * Additionally Instantiate a PropertyResolver with scope of only one Schema
+     *
+     * @param resolver Resolves Schemas
+     * @param store Creates new DB Objects
+     * @param propertyResolver Resolves Properties
+     */
+    private JsonSchemaParser(Resolver resolver, Store store, PropertyResolver propertyResolver) {
+        this.resolver = resolver;
+        this.store = store;
+        this.propertyResolver = propertyResolver;
     }
 
-    public SchemaDescriptor parseSchema(Schema<?> schema, String name){
+
+    public List<SchemaDescriptor> parseAllSchemas(Map<String, Schema> schemasMap){
+        return schemasMap.entrySet().stream().map(schemaEntry -> {
+            // Create new Parser instance with new PropertyResolver for scope of this schema only
+            JsonSchemaParser jsonSchemaParser = new JsonSchemaParser(resolver, store, new PropertyResolver(store));
+            return jsonSchemaParser.parseSchema(schemaEntry.getValue(), schemaEntry.getKey()); // Parse with new Parser instance
+        }).collect(Collectors.toList());
+    }
+
+    public SchemaDescriptor parseOneSchema(Schema<?> schema, final String name){
+        JsonSchemaParser jsonSchemaParser = new JsonSchemaParser(resolver, store, new PropertyResolver(store));
+        return jsonSchemaParser.parseSchema(schema, name);
+    }
+
+    private SchemaDescriptor parseSchema(Schema<?> schema, String name){
 
         SchemaDescriptor schemaDescriptor = resolver.resolve(SCHEMA_REFSTRING + name);
 
         if(schema.getExternalDocs() != null)
             schemaDescriptor.setExternalDocs(ExternalDocsParser.parseOne(schema.getExternalDocs(), store));
 
-        schemaDescriptor.setObject(parseProperty(schema, name));
+        if (schema.getAllOf() != null){
+            for (Schema<?> x : schema.getAllOf()){
+                schemaDescriptor.getAllOfSchemas().add(parseObjectOrReference(x));
+            }
+        } else if (schema.getOneOf() != null){
+            for (Schema<?> x : schema.getOneOf()){
+                schemaDescriptor.getOneOfSchemas().add(parseObjectOrReference(x));
+            }
+        } else if (schema.getAnyOf() != null){
+            for (Schema<?> x : schema.getAnyOf()){
+                schemaDescriptor.getAnyOfSchemas().add(parseObjectOrReference(x));
+            }
+        } else {
+            schemaDescriptor.setIsType(parseType(schema)); // The main parsing of the schema
+        }
+
+        if (schema.getDiscriminator() != null){
+            schemaDescriptor.setDiscriminator(parseDiscriminator(schema.getDiscriminator()));
+        }
 
         return schemaDescriptor;
 
     }
 
-    private PropertyDescriptor parseProperty(Schema<?> property, String name){
-        PropertyDescriptor propertyDescriptor;
+    private DiscriminatorDescriptor parseDiscriminator(Discriminator discriminator) {
+        DiscriminatorDescriptor discriminatorDescriptor = store.create(DiscriminatorDescriptor.class);
+
+        if (discriminator.getPropertyName() != null)
+            discriminatorDescriptor.setProperty(propertyResolver.resolve(discriminator.getPropertyName()));
+
+        if (discriminator.getMapping() != null) {
+            for (Map.Entry<String, String> entry : discriminator.getMapping().entrySet()) {
+                DiscriminatorMappingDescriptor mappingDescriptor = store.create(DiscriminatorMappingDescriptor.class);
+                mappingDescriptor.setKey(entry.getKey());
+                mappingDescriptor.setValue(entry.getValue());
+                discriminatorDescriptor.getMapping().add(mappingDescriptor);
+            }
+        }
+
+        return discriminatorDescriptor;
+
+    }
+
+    private TypeDescriptor parseType(Schema<?> property){
+        TypeDescriptor typeDescriptor;
 
         if (property == null)
-            return null; // No property present
+            return null; // No Type present
 
         if (property.getType() == null) {
             if (property.get$ref() != null)
                 return parseReference(property.get$ref());
             else
-                return null; // No property present
+                return parseNull(); // No Type present
         }
 
         switch (property.getType()) {
-            case ArrayPropertyDescriptor.TYPE_NAME:
-                propertyDescriptor = parseArray(property);
+            case ArrayTypeDescriptor.TYPE_NAME:
+                typeDescriptor = parseArray(property);
                 break;
-            case BoolPropertyDescriptor.TYPE_NAME:
-                propertyDescriptor = parseBoolean(property);
+            case BoolTypeDescriptor.TYPE_NAME:
+                typeDescriptor = parseBoolean();
                 break;
-            case IntegerPropertyDescriptor.TYPE_NAME:
-                propertyDescriptor = parseInteger(property);
+            case IntegerTypeDescriptor.TYPE_NAME:
+                typeDescriptor = parseInteger(property);
                 break;
-            case NullPropertyDescriptor.TYPE_NAME:
-                propertyDescriptor = parseNull(property);
+            case NullTypeDescriptor.TYPE_NAME: // Fallback to old version if nulltype is declared
+                typeDescriptor = parseNull();
                 break;
-            case NumberPropertyDescriptor.TYPE_NAME:
-                propertyDescriptor = parseNumber(property);
+            case NumberTypeDescriptor.TYPE_NAME:
+                typeDescriptor = parseNumber(property);
                 break;
-            case ObjectPropertyDescriptor.TYPE_NAME:
-                propertyDescriptor = parseObject(name, property);
+            case ObjectTypeDescriptor.TYPE_NAME:
+                typeDescriptor = parseObject(property);
                 break;
-            case StringPropertyDescriptor.TYPE_NAME:
-                propertyDescriptor = parseString(property);
+            case StringTypeDescriptor.TYPE_NAME:
+                typeDescriptor = parseString(property);
                 break;
             default:
-                throw new UnknownTypeException("Unknown Type \"" + property.getType() + "\" in Schema: " + name);
+                throw new UnknownTypeException("Unknown Type \"" + property.getType() + "\"");
         }
 
+        return typeDescriptor;
+    }
 
-        if (name != null)
-            propertyDescriptor.setName(name);
+    private ObjectTypeDescriptor parseObject(final Schema<?> schema){
+
+        ObjectTypeDescriptor objectTypeDescriptor = store.create(
+                ObjectTypeDescriptor.class);
+
+        if (schema.getProperties() == null)
+            return objectTypeDescriptor;
+
+        for (String key : schema.getProperties().keySet()) {
+            PropertyDescriptor prop = parseProperty(schema.getProperties().get(key), key);
+            objectTypeDescriptor.getProperties().add(prop);
+        }
+
+        return objectTypeDescriptor;
+    }
+
+    private PropertyDescriptor parseProperty(final Schema<?> schema, final String name){
+
+        PropertyDescriptor propertyDescriptor = propertyResolver.resolve(name);
+        propertyDescriptor.setType(parseType(schema));
+
+        if (schema.getDescription() != null)
+            propertyDescriptor.setDescription(schema.getDescription());
 
         return propertyDescriptor;
     }
 
-    public ObjectPropertyDescriptor parseObject(final String name, final Schema<?> schema){
+    private ArrayTypeDescriptor parseArray(final Schema<?> schema){
 
-        ObjectPropertyDescriptor objectPropertyDescriptor = store.create(ObjectPropertyDescriptor.class);
-        objectPropertyDescriptor.setName(name);
+        ArrayTypeDescriptor arrayTypeDescriptor = store.create(ArrayTypeDescriptor.class);
+        arrayTypeDescriptor.setItem(parseType(schema.getItems()));
 
-        for (String key : schema.getProperties().keySet()) {
-            PropertyDescriptor prop = parseProperty(schema.getProperties().get(key), key);
-            if (prop == null)
-                continue;
-            objectPropertyDescriptor.getProperties().add(prop);
-        }
-
-        return objectPropertyDescriptor;
-
+        return arrayTypeDescriptor;
     }
 
-    ArrayPropertyDescriptor parseArray(final Schema<?> schema){
+    private BoolTypeDescriptor parseBoolean(){
 
-        ArrayPropertyDescriptor arrayPropertyDescriptor = parseDescription(schema, store.create(ArrayPropertyDescriptor.class));
-        arrayPropertyDescriptor.setItem(parseProperty(schema.getItems(), "items"));
-
-        return arrayPropertyDescriptor;
+        return store.create(BoolTypeDescriptor.class);
     }
 
-    BoolPropertyDescriptor parseBoolean(final Schema<?> schema){
+    private EnumStringTypeDescriptor parseEnum(final Schema<?> schema){
 
-        return parseDescription(schema, store.create(BoolPropertyDescriptor.class));
+        EnumStringTypeDescriptor enumStringTypeDescriptor = store.create(
+                EnumStringTypeDescriptor.class);
+        enumStringTypeDescriptor.setValues(parseEnumValues(schema.getEnum()));
+
+        return enumStringTypeDescriptor;
     }
 
-    EnumStringPropertyDescriptor parseEnum(final Schema<?> schema){
-
-        EnumStringPropertyDescriptor enumStringPropertyDescriptor = store.create(EnumStringPropertyDescriptor.class);
-        enumStringPropertyDescriptor.setValues(parseEnumValues(schema.getEnum()));
-
-        return enumStringPropertyDescriptor;
-    }
-
-    List<EnumValueDescriptor> parseEnumValues(List<?> enums){
+    private List<EnumValueDescriptor> parseEnumValues(List<?> enums){
         List<EnumValueDescriptor> ret = new ArrayList<>();
 
         enums.forEach( val -> {
@@ -135,53 +212,56 @@ public class JsonSchemaParser {
         return ret;
     }
 
-    IntegerPropertyDescriptor parseInteger(final Schema<?> schema){
+    private IntegerTypeDescriptor parseInteger(final Schema<?> schema){
 
-        return parseDescriptionAndFormat(schema, store.create(IntegerPropertyDescriptor.class));
+        return parseFormat(schema, store.create(
+                IntegerTypeDescriptor.class));
     }
 
-    NullPropertyDescriptor parseNull(final Schema<?> schema){
+    private NullTypeDescriptor parseNull(){
 
-        return parseDescription(schema, store.create(NullPropertyDescriptor.class));
+        return store.create(NullTypeDescriptor.class);
     }
 
-    NumberPropertyDescriptor parseNumber(final Schema<?> schema){
+    private NumberTypeDescriptor parseNumber(final Schema<?> schema){
 
-        return parseDescriptionAndFormat(schema, store.create(NumberPropertyDescriptor.class));
+        return parseFormat(schema, store.create(
+                NumberTypeDescriptor.class));
     }
 
-    ReferencePropertyDescriptor parseReference(String ref){
-        ReferencePropertyDescriptor referencePropertyDescriptor = store.create(ReferencePropertyDescriptor.class);
+    private ReferenceTypeDescriptor parseReference(String ref){
 
-        referencePropertyDescriptor.setReference(resolver.resolve(ref));
+        ReferenceTypeDescriptor referenceTypeDescriptor = store.create(
+                ReferenceTypeDescriptor.class);
 
-        return referencePropertyDescriptor;
+        referenceTypeDescriptor.setReference(resolver.resolve(ref));
+
+        return referenceTypeDescriptor;
     }
 
-    StringPropertyDescriptor parseString(final Schema<?> schema) {
+    private StringTypeDescriptor parseString(final Schema<?> schema) {
 
         if (schema.getEnum() == null || schema.getEnum().isEmpty()) {
-            return parseDescriptionAndFormat(schema, store.create(StringPropertyDescriptor.class));
+            return parseFormat(schema, store.create(
+                    StringTypeDescriptor.class));
         } else {
-            EnumStringPropertyDescriptor enumStringPropertyDescriptor = parseEnum(schema);
-            return parseDescription(schema, enumStringPropertyDescriptor);
+            return parseEnum(schema);
         }
     }
 
-    <D extends PropertyDescriptor> D parseDescription(Schema<?> schema, D propertyDescriptor){
-
-        if (schema.getDescription() != null)
-            propertyDescriptor.setDescription(schema.getDescription());
-
-        return propertyDescriptor;
+    private TypeDescriptor parseObjectOrReference(Schema<?> x){
+        if (x.get$ref() != null)
+            return parseReference(x.get$ref());
+        else
+            return parseType(x);
     }
 
-    <D extends PropertyDescriptor> D parseDescriptionAndFormat(Schema<?> schema, D propertyDescriptor) {
+    private <D extends TypeDescriptor> D parseFormat(Schema<?> schema, D typeDescriptor) {
 
         if (schema.getFormat() != null)
-            propertyDescriptor.setFormat(schema.getFormat());
+            typeDescriptor.setFormat(schema.getFormat());
 
-        return propertyDescriptor;
+        return typeDescriptor;
     }
 
 }

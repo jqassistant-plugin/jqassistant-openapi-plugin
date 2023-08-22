@@ -4,6 +4,7 @@ import com.buschmais.jqassistant.core.scanner.api.DefaultScope;
 import com.buschmais.jqassistant.core.test.plugin.AbstractPluginIT;
 import org.jqassistant.plugin.openapi.api.model.ContractDescriptor;
 import org.jqassistant.plugin.openapi.api.model.PathItemDescriptor;
+import org.jqassistant.plugin.openapi.api.model.ServerDescriptor;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -55,6 +56,8 @@ class PathTest extends AbstractPluginIT {
         assertThat(getPathWithUrl("/path_with_no/parameter").getParameters()).isEmpty();
         assertThat(getPathWithUrl("/path_with_a_/{single}/parameter").getParameters()).hasSize(1);
         assertThat(getPathWithUrl("/path_with_/{t}/w/{o}/parameters").getParameters()).hasSize(2);
+
+        assertThat(getPathWithUrl("/path_with_/{t}/w/{o}/parameters").getOperations().get(0).getParameters()).hasSize(1);
     }
 
     @Test
@@ -70,8 +73,28 @@ class PathTest extends AbstractPluginIT {
     @Test
     void serversTest(){
         assertThat(getPathWithUrl("/path_with_no_server").getServers()).isEmpty();
-        assertThat(getPathWithUrl("/path_with_a_server").getServers()).hasSize(1);
-        assertThat(getPathWithUrl("/path_with_servers").getServers()).hasSize(2);
+
+        PathItemDescriptor singleServerPath = getPathWithUrl("/path_with_a_server");
+        assertThat(singleServerPath.getServers()).hasSize(1);
+
+        ServerDescriptor singleServer = singleServerPath.getServers().get(0);
+        assertThat(singleServer.getDescription()).isEqualTo("beschreibung server 1");
+        assertThat(singleServer.getUrl()).isEqualTo("https://www.1.example.com");
+        assertThat(singleServer.getVariables()).isEmpty();
+
+        PathItemDescriptor twoServersPath = getPathWithUrl("/path_with_servers");
+        assertThat(twoServersPath.getServers()).hasSize(2);
+
+        ServerDescriptor firstServer = twoServersPath.getServers().get(1);
+        assertThat(firstServer.getDescription()).isEqualTo("beschreibung server 1");
+        assertThat(firstServer.getUrl()).isEqualTo("https://www.1.example.com");
+        assertThat(firstServer.getVariables()).isEmpty();
+
+        ServerDescriptor secondServer = twoServersPath.getServers().get(0);
+        assertThat(secondServer.getDescription()).isEqualTo("beschreibung server 2");
+        assertThat(secondServer.getUrl()).isEqualTo("https://www.2.example.com");
+        assertThat(secondServer.getVariables()).isEmpty();
+
     }
 
     @Test
