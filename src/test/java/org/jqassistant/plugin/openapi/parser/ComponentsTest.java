@@ -121,7 +121,7 @@ class ComponentsTest extends AbstractPluginIT {
         List<ResponseDescriptor> responses = contract.getComponents().getResponses();
         assertThat(responses).hasSize(5);
 
-        ResponseDescriptor resDefault = getResponse("default");
+        ResponseDescriptor resDefault = getResponseByStatusCodeOrDefault("default");
         assertThat(resDefault.getIsDefault()).isTrue();
         assertThat(resDefault.getStatusCode()).isNull();
         assertThat(resDefault.getDescription()).isEqualTo("a default response with all fields");
@@ -129,7 +129,7 @@ class ComponentsTest extends AbstractPluginIT {
         assertThat(resDefault.getMediaTypes()).hasSize(1);
         assertThat(resDefault.getLinks()).hasSize(1);
 
-        ResponseDescriptor resEmpty = getResponse("433");
+        ResponseDescriptor resEmpty = getResponseByStatusCodeOrDefault("433");
         assertThat(resEmpty.getIsDefault()).isFalse();
         assertThat(resEmpty.getStatusCode()).isEqualTo("433");
         assertThat(resEmpty.getDescription()).isNull();
@@ -137,7 +137,7 @@ class ComponentsTest extends AbstractPluginIT {
         assertThat(resEmpty.getMediaTypes()).isEmpty();
         assertThat(resEmpty.getLinks()).isEmpty();
 
-        ResponseDescriptor resNoFields = getResponse("434");
+        ResponseDescriptor resNoFields = getResponseByStatusCodeOrDefault("434");
         assertThat(resNoFields.getIsDefault()).isFalse();
         assertThat(resNoFields.getStatusCode()).isEqualTo("434");
         assertThat(resNoFields.getDescription()).isEqualTo("no fields");
@@ -148,7 +148,7 @@ class ComponentsTest extends AbstractPluginIT {
 
     @Test
     void testMediaType(){
-        ResponseDescriptor response404 = getResponseByName("418");
+        ResponseDescriptor response404 = getResponseByStatusCodeOrDefault("418");
         assertThat(response404.getMediaTypes()).hasSize(3);
 
         MediaTypeDescriptor mtoExample = getMediaTypeByName("multipart/form-data_example");
@@ -294,7 +294,7 @@ class ComponentsTest extends AbstractPluginIT {
         return null;
     }
 
-    private ResponseDescriptor getResponse(String statusCodeOrDefault){
+    private ResponseDescriptor getResponseByStatusCodeOrDefault(String statusCodeOrDefault){
         List<ResponseDescriptor> responses = contract.getComponents().getResponses();
         for(ResponseDescriptor response: responses) {
             if (response.getIsDefault() && statusCodeOrDefault.equals("default"))
@@ -302,14 +302,6 @@ class ComponentsTest extends AbstractPluginIT {
             if (!statusCodeOrDefault.equals("default") && statusCodeOrDefault.equals(response.getStatusCode()))
                 return response;
         }
-        return null;
-    }
-
-    private ResponseDescriptor getResponseByName(String name){
-        List<ResponseDescriptor> responses = contract.getComponents().getResponses();
-        for(ResponseDescriptor response: responses)
-            if(response.getStatusCode().equals(name))
-                return response;
         return null;
     }
 
