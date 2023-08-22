@@ -1,7 +1,6 @@
 package org.jqassistant.plugin.openapi.impl;
 
 import com.buschmais.jqassistant.core.scanner.api.Scanner;
-import com.buschmais.jqassistant.core.scanner.api.ScannerContext;
 import com.buschmais.jqassistant.core.scanner.api.ScannerPlugin.Requires;
 import com.buschmais.jqassistant.core.scanner.api.Scope;
 import com.buschmais.jqassistant.core.store.api.Store;
@@ -29,20 +28,13 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
 
     @Override
     public ContractDescriptor scan(FileResource fileResource, String path, Scope scope, Scanner scanner) throws IOException {
-        LOG.info("Starting scanning process");
-
-        ScannerContext context = scanner.getContext();
+        LOG.info("Starting scanning process for {}", path);
         final Store store = scanner.getContext().getStore();
-        final FileDescriptor fileDescriptor = context.getCurrentDescriptor();
+        final FileDescriptor fileDescriptor = scanner.getContext().getCurrentDescriptor();
+        final OpenAPI openAPIContract = new OpenAPIV3Parser().read(path); // TODO: Exception handling
+
+        LOG.info("Parsing contract");
         final ContractDescriptor contractDescriptor = store.addDescriptorType(fileDescriptor, ContractDescriptor.class);
-
-        LOG.info("Reading OpenAPI document from path: {}", path);
-        OpenAPI openAPIContract = new OpenAPIV3Parser().read(path); // TODO: Exception handling
-
-        LOG.info("Reading contract meta data");
-        contractDescriptor.setOpenApiVersion(openAPIContract.getOpenapi());
-
-        LOG.info("Parsing contract children");
         ContractParser.parse(openAPIContract, contractDescriptor,store);
 
         LOG.info("...finished");

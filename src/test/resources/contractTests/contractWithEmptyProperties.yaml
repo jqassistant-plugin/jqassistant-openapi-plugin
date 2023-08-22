@@ -1,0 +1,12 @@
+openapi: 3.1.0
+info:
+jsonSchemaDialect:
+servers:
+  -
+paths:
+webhooks:
+components:
+security:
+tags:
+externalDocs:
+
