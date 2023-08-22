@@ -4,12 +4,12 @@ import com.buschmais.xo.neo4j.api.annotation.Label;
 import com.buschmais.xo.neo4j.api.annotation.Relation;
 
 @Label("Array")
-public interface ArrayPropertyDescriptor extends PropertyDescriptor {
+public interface ArrayTypeDescriptor extends TypeDescriptor {
 
     String TYPE_NAME = "array";
 
     @Relation("HAS_ITEMS")
-    PropertyDescriptor getItem();
+    TypeDescriptor getItem();
 
-    void setItem(PropertyDescriptor item);
+    void setItem(TypeDescriptor item);
 }

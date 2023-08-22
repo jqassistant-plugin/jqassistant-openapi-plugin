@@ -6,7 +6,7 @@ import com.buschmais.xo.neo4j.api.annotation.Relation;
 import java.util.List;
 
 @Label("Object")
-public interface ObjectPropertyDescriptor extends PropertyDescriptor {
+public interface ObjectTypeDescriptor extends TypeDescriptor {
 
     String TYPE_NAME = "object";
 

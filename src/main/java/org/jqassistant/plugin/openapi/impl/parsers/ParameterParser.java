@@ -44,7 +44,7 @@ public class ParameterParser {
         if(parameter.getAllowReserved() != null)
             parameterDescriptor.setAllowsReserved(parameter.getAllowReserved());
         if(parameter.getSchema() != null)
-            parameterDescriptor.setSchema(schemaParser.parseSchema(parameter.getSchema(), parameter.getSchema().getName()));
+            parameterDescriptor.setSchema(schemaParser.parseOneSchema(parameter.getSchema(), parameter.getSchema().getName()));
         if(parameter.getExample() != null)
             parameterDescriptor.setExample(parameter.getExample());
         if(parameter.getExamples() != null)

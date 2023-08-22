@@ -192,7 +192,7 @@ class ComponentsTest extends AbstractPluginIT {
         MediaTypeDescriptor mto = contract.getComponents().getRequestBodies().get(0).getMediaTypes().get(0);
         assertThat(mto.getEncodings()).hasSize(2);
 
-        EncodingDescriptor encoding1 = mto.getEncodings().get(1);
+        EncodingDescriptor encoding1 = getEncodingByPropertyName(mto.getEncodings(), "property1");
         assertThat(encoding1.getPropertyName()).isEqualTo("property1");
         assertThat(encoding1.getContentType()).isEqualTo("application/xml; charset=utf-8");
         assertThat(encoding1.getHeaders()).hasSize(1);
@@ -200,7 +200,7 @@ class ComponentsTest extends AbstractPluginIT {
         assertThat(encoding1.getAllowsReserved()).isTrue();
         assertThat(encoding1.getStyle()).isEqualTo(Encoding.StyleEnum.valueOf("SPACE_DELIMITED"));
 
-        EncodingDescriptor encoding2 = mto.getEncodings().get(0);
+        EncodingDescriptor encoding2 = getEncodingByPropertyName(mto.getEncodings(), "property2");
         assertThat(encoding2.getPropertyName()).isEqualTo("property2");
         assertThat(encoding2.getContentType()).isNull();
         assertThat(encoding2.getHeaders()).isEmpty();
@@ -341,7 +341,15 @@ class ComponentsTest extends AbstractPluginIT {
         for(RequestBodyDescriptor requestBody: requestBodies)
             if(name.equals(requestBody.getName()))
                 return requestBody;
-        fail("no requestBody found with name %s", name);
+        fail("no requestBody found with name <%s>", name);
+        return null;
+    }
+
+    private EncodingDescriptor getEncodingByPropertyName(List<EncodingDescriptor> encodings, String propertyName){
+        for(EncodingDescriptor encoding : encodings)
+            if(propertyName.equals(encoding.getPropertyName()))
+                return encoding;
+        fail("No encoding with propertyName <%s> found.", propertyName);
         return null;
     }
 }
