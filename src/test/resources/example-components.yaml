@@ -273,15 +273,11 @@ components:
         param3:
 
   callbacks:
-    MyWebhook:
+    RichCallbackPathItem:
       '{$request.query.callbackUrl}':
         post:
-          requestBody:
-            description: "Webhook payload"
-            content:
-              application/json:
-                schema:
-                  type: object
+          description: post
           responses:
-            '200':
-              description: Successful response
+            description: Successful response
+    RichCallbackRef:
+      $ref: "#/components/callbacks/refString"
