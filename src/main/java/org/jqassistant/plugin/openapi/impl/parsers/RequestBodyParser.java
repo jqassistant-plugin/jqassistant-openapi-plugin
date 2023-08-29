@@ -13,21 +13,24 @@ public class RequestBodyParser {
     private RequestBodyParser() {throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");}
 
     public static List<RequestBodyDescriptor> parseAll(Map<String, RequestBody> requestBodiesMap, Store store){
-        return requestBodiesMap.values().stream().map(requestBody -> parseOne(requestBody, store)).collect(Collectors.toList());
+        return requestBodiesMap.entrySet().stream().map(requestBodyEntry -> parseOne(requestBodyEntry.getKey(), requestBodyEntry.getValue(), store)).collect(Collectors.toList());
     }
 
     public static RequestBodyDescriptor parseOne(RequestBody requestBody, Store store){
+        return parseOne(null, requestBody, store);
+    }
+
+    public static RequestBodyDescriptor parseOne(String name, RequestBody requestBody, Store store){
         RequestBodyDescriptor requestBodyDescriptor = store.create(RequestBodyDescriptor.class);
 
-        // read properties
-        if(requestBody.getDescription() != null && !requestBody.getDescription().isEmpty())
+        requestBodyDescriptor.setName(name); // requestBodiesMap key has to be present in entry
+
+        if(requestBody.getDescription() != null)
             requestBodyDescriptor.setDescription(requestBody.getDescription());
+        if(requestBody.getContent() != null)
+            requestBodyDescriptor.getMediaTypes().addAll(MediaTypeParser.parseAll(requestBody.getContent(), store));
         if(requestBody.getRequired() != null)
             requestBodyDescriptor.setIsRequired(requestBody.getRequired());
-
-        // read content
-        if(requestBody.getContent() != null && !requestBody.getContent().isEmpty())
-            requestBodyDescriptor.getMediaTypes().addAll(MediaTypeParser.parseAll(requestBody.getContent(), store));
 
         return requestBodyDescriptor;
     }
