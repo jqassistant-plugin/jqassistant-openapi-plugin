@@ -107,7 +107,15 @@ class ComponentsTest extends AbstractPluginIT {
     @Test
     void testCallbacks() {
         List<CallbackDescriptor> callbacks = contract.getComponents().getCallBacks();
-        assertThat(callbacks).hasSize(1);
+        assertThat(callbacks).hasSize(2);
+
+        CallbackDescriptor richCallbackPathItem = getCallbackByName("RichCallbackPathItem");
+        assertThat(richCallbackPathItem.getRef()).isNull();
+        assertThat(richCallbackPathItem.getPathItems()).hasSize(1);
+
+        CallbackDescriptor richCallbackPathRef = getCallbackByName("RichCallbackRef");
+        assertThat(richCallbackPathRef.getRef()).isEqualTo("#/components/callbacks/refString");
+        assertThat(richCallbackPathRef.getPathItems()).isEmpty();
     }
 
     @Test
@@ -311,6 +319,15 @@ class ComponentsTest extends AbstractPluginIT {
             for(MediaTypeDescriptor mediaType: response.getMediaTypes())
                 if(mediaType.getMediaType().equals(name))
                     return mediaType;
+        return null;
+    }
+
+    private CallbackDescriptor getCallbackByName(String name){
+        List<CallbackDescriptor> callbacks = contract.getComponents().getCallBacks();
+        for(CallbackDescriptor callback: callbacks)
+            if(callback.getName().equals(name))
+                return callback;
+        fail("No callback with name <%s> found", name);
         return null;
     }
 

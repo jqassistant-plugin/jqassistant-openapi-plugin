@@ -15,14 +15,18 @@ public class CallbackParser {
     }
 
     public static List<CallbackDescriptor> parseAll(Map<String, Callback> callbacksMap, Store store){
-        return callbacksMap.values().stream().map(callback -> parseOne(callback, store)).collect(Collectors.toList());
+        return callbacksMap.entrySet().stream().map(callbackEntry -> parseOne(callbackEntry.getKey(), callbackEntry.getValue(), store)).collect(Collectors.toList());
     }
 
-    public static CallbackDescriptor parseOne(Callback callback, Store store){
+    public static CallbackDescriptor parseOne(String name, Callback callback, Store store){
         CallbackDescriptor callbackDescriptor = store.create(CallbackDescriptor.class);
+
+        callbackDescriptor.setName(name);
 
         if(callback.get$ref() != null)
             callbackDescriptor.setRef(callback.get$ref());
+
+        callbackDescriptor.getPathItems().addAll(PathsParser.parsePathItems(callback, store)); // TODO implement resolver
 
         return callbackDescriptor;
     }
