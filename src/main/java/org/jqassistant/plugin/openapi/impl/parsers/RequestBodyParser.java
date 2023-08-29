@@ -16,6 +16,10 @@ public class RequestBodyParser {
         return requestBodiesMap.entrySet().stream().map(requestBodyEntry -> parseOne(requestBodyEntry.getKey(), requestBodyEntry.getValue(), store)).collect(Collectors.toList());
     }
 
+    public static RequestBodyDescriptor parseOne(RequestBody requestBody, Store store){
+        return parseOne(null, requestBody, store);
+    }
+
     public static RequestBodyDescriptor parseOne(String name, RequestBody requestBody, Store store){
         RequestBodyDescriptor requestBodyDescriptor = store.create(RequestBodyDescriptor.class);
 
