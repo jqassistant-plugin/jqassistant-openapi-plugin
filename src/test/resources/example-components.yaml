@@ -254,19 +254,41 @@ components:
       name: X-Api-Key
 
   links:
-    UserLink:
-      operationId: "getUser"
+    rich_link_with_operationId:
+      operationId: getUserAddress
+      parameters:
+        userId: $request.path.id
+      requestBody: $request.body#/user/uuid
+      description: description
+      server:
+        url: "https://www.example.com"
+    rich_link_with_operationRef:
+      operationRef: '#/paths/~12.0~1repositories~1{username}/get'
+      parameters:
+        userId: $request.path.id
+        itemId: $request.path.itemId
+      requestBody: $request.body#/user/uuid
+      description: description
+      server:
+        url: "https://www.example.com"
+    empty_link:
+      operationRef:
+      parameters:
+      requestBody:
+      description:
+      server:
+    link_with_empty_parameters:
+      parameters:
+        param1:
+        param2:
+        param3:
 
   callbacks:
-    MyWebhook:
+    RichCallbackPathItem:
       '{$request.query.callbackUrl}':
         post:
-          requestBody:
-            description: "Webhook payload"
-            content:
-              application/json:
-                schema:
-                  type: object
+          description: post
           responses:
-            '200':
-              description: Successful response
+            description: Successful response
+    RichCallbackRef:
+      $ref: "#/components/callbacks/refString"

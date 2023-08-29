@@ -23,6 +23,7 @@
         <class>org.jqassistant.plugin.openapi.api.model.SecurityRequirementDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.ServerVariableDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.EncodingDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.LinkParameterDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.InfoDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.LicenseDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.jsonschema.PropertyDescriptor</class>

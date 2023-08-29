@@ -97,15 +97,6 @@ class ComponentsTest extends AbstractPluginIT {
         assertThat(headerEmptyProps.getContent()).isEmpty();
     }
 
-    private HeaderDescriptor getHeaderByName(String name){
-        List<HeaderDescriptor> headers = contract.getComponents().getHeaders();
-        for (HeaderDescriptor header : headers){
-            if (header.getName().equals(name))
-                return header;
-        }
-        return null;
-    }
-
     @Test
     void testSecuritySchemes() {
         List<SecuritySchemeDescriptor> securitySchemes = contract.getComponents().getSecuritySchemas();
@@ -115,13 +106,65 @@ class ComponentsTest extends AbstractPluginIT {
     @Test
     void testLinks() {
         List<LinkDescriptor> links = contract.getComponents().getLinks();
-        assertThat(links).hasSize(1);
+        assertThat(links).hasSize(4);
+    }
+
+    @Test
+    void testRichLinks(){
+        LinkDescriptor richLinkOperationId = getLinkByName("rich_link_with_operationId");
+        assertThat(richLinkOperationId.getOperationId()).isEqualTo("getUserAddress");
+        assertThat(richLinkOperationId.getOperationRef()).isNull();
+        assertThat(richLinkOperationId.getParameters()).hasSize(1);
+        assertThat(richLinkOperationId.getParameters().get(0).getName()).isEqualTo("userId");
+        assertThat(richLinkOperationId.getParameters().get(0).getValue()).isEqualTo("$request.path.id");
+        assertThat(richLinkOperationId.getRequestBody()).isEqualTo("$request.body#/user/uuid");
+        assertThat(richLinkOperationId.getDescription()).isEqualTo("description");
+        assertThat(richLinkOperationId.getServer()).isNotNull();
+
+        LinkDescriptor richLinkOperationRef = getLinkByName("rich_link_with_operationRef");
+        assertThat(richLinkOperationRef.getOperationId()).isNull();
+        assertThat(richLinkOperationRef.getOperationRef()).isEqualTo("#/paths/~12.0~1repositories~1{username}/get");
+        assertThat(richLinkOperationRef.getParameters()).hasSize(2);
+        assertThat(richLinkOperationRef.getRequestBody()).isEqualTo("$request.body#/user/uuid");
+        assertThat(richLinkOperationRef.getDescription()).isEqualTo("description");
+        assertThat(richLinkOperationRef.getServer()).isNotNull();
+    }
+
+    @Test
+    void testEmptyLink(){
+        LinkDescriptor emptyLink = getLinkByName("empty_link");
+        assertThat(emptyLink.getOperationId()).isNull();
+        assertThat(emptyLink.getOperationRef()).isNull();
+        assertThat(emptyLink.getParameters()).isEmpty();
+        assertThat(emptyLink.getRequestBody()).isNull();
+        assertThat(emptyLink.getDescription()).isNull();
+        assertThat(emptyLink.getServer()).isNull();
+    }
+
+    @Test
+    void testEmptyLinkParameters(){
+        LinkDescriptor emptyParamsLink = getLinkByName("link_with_empty_parameters");
+        assertThat(emptyParamsLink.getParameters()).hasSize(3);
+        assertThat(emptyParamsLink.getParameters().get(0).getName()).isNotNull();
+        assertThat(emptyParamsLink.getParameters().get(0).getValue()).isNull();
+        assertThat(emptyParamsLink.getParameters().get(1).getName()).isNotNull();
+        assertThat(emptyParamsLink.getParameters().get(1).getValue()).isNull();
+        assertThat(emptyParamsLink.getParameters().get(2).getName()).isNotNull();
+        assertThat(emptyParamsLink.getParameters().get(2).getValue()).isNull();
     }
 
     @Test
     void testCallbacks() {
         List<CallbackDescriptor> callbacks = contract.getComponents().getCallBacks();
-        assertThat(callbacks).hasSize(1);
+        assertThat(callbacks).hasSize(2);
+
+        CallbackDescriptor richCallbackPathItem = getCallbackByName("RichCallbackPathItem");
+        assertThat(richCallbackPathItem.getRef()).isNull();
+        assertThat(richCallbackPathItem.getPathItems()).hasSize(1);
+
+        CallbackDescriptor richCallbackPathRef = getCallbackByName("RichCallbackRef");
+        assertThat(richCallbackPathRef.getRef()).isEqualTo("#/components/callbacks/refString");
+        assertThat(richCallbackPathRef.getPathItems()).isEmpty();
     }
 
     @Test
@@ -135,7 +178,7 @@ class ComponentsTest extends AbstractPluginIT {
         List<ResponseDescriptor> responses = contract.getComponents().getResponses();
         assertThat(responses).hasSize(5);
 
-        ResponseDescriptor resDefault = getResponse("default");
+        ResponseDescriptor resDefault = getResponseByStatusCodeOrDefault("default");
         assertThat(resDefault.getIsDefault()).isTrue();
         assertThat(resDefault.getStatusCode()).isNull();
         assertThat(resDefault.getDescription()).isEqualTo("a default response with all fields");
@@ -143,7 +186,7 @@ class ComponentsTest extends AbstractPluginIT {
         assertThat(resDefault.getMediaTypes()).hasSize(1);
         assertThat(resDefault.getLinks()).hasSize(1);
 
-        ResponseDescriptor resEmpty = getResponse("433");
+        ResponseDescriptor resEmpty = getResponseByStatusCodeOrDefault("433");
         assertThat(resEmpty.getIsDefault()).isFalse();
         assertThat(resEmpty.getStatusCode()).isEqualTo("433");
         assertThat(resEmpty.getDescription()).isNull();
@@ -151,7 +194,7 @@ class ComponentsTest extends AbstractPluginIT {
         assertThat(resEmpty.getMediaTypes()).isEmpty();
         assertThat(resEmpty.getLinks()).isEmpty();
 
-        ResponseDescriptor resNoFields = getResponse("434");
+        ResponseDescriptor resNoFields = getResponseByStatusCodeOrDefault("434");
         assertThat(resNoFields.getIsDefault()).isFalse();
         assertThat(resNoFields.getStatusCode()).isEqualTo("434");
         assertThat(resNoFields.getDescription()).isEqualTo("no fields");
@@ -162,7 +205,7 @@ class ComponentsTest extends AbstractPluginIT {
 
     @Test
     void testMediaType(){
-        ResponseDescriptor response404 = getResponseByName("418");
+        ResponseDescriptor response404 = getResponseByStatusCodeOrDefault("418");
         assertThat(response404.getMediaTypes()).hasSize(3);
 
         MediaTypeDescriptor mtoExample = getMediaTypeByName("multipart/form-data_example");
@@ -308,7 +351,7 @@ class ComponentsTest extends AbstractPluginIT {
         return null;
     }
 
-    private ResponseDescriptor getResponse(String statusCodeOrDefault){
+    private ResponseDescriptor getResponseByStatusCodeOrDefault(String statusCodeOrDefault){
         List<ResponseDescriptor> responses = contract.getComponents().getResponses();
         for(ResponseDescriptor response: responses) {
             if (response.getIsDefault() && statusCodeOrDefault.equals("default"))
@@ -316,14 +359,6 @@ class ComponentsTest extends AbstractPluginIT {
             if (!statusCodeOrDefault.equals("default") && statusCodeOrDefault.equals(response.getStatusCode()))
                 return response;
         }
-        return null;
-    }
-
-    private ResponseDescriptor getResponseByName(String name){
-        List<ResponseDescriptor> responses = contract.getComponents().getResponses();
-        for(ResponseDescriptor response: responses)
-            if(response.getStatusCode().equals(name))
-                return response;
         return null;
     }
 
@@ -345,11 +380,38 @@ class ComponentsTest extends AbstractPluginIT {
         return null;
     }
 
+    private CallbackDescriptor getCallbackByName(String name){
+        List<CallbackDescriptor> callbacks = contract.getComponents().getCallBacks();
+        for(CallbackDescriptor callback: callbacks)
+            if(callback.getName().equals(name))
+                return callback;
+        fail("No callback with name <%s> found", name);
+        return null;
+    }
+
+    private LinkDescriptor getLinkByName(String name){
+        List<LinkDescriptor> links = contract.getComponents().getLinks();
+        for(LinkDescriptor link: links)
+            if(link.getName().equals(name))
+                return link;
+        fail("no link with name <%s> found", name);
+        return null;
+    }
+
     private EncodingDescriptor getEncodingByPropertyName(List<EncodingDescriptor> encodings, String propertyName){
         for(EncodingDescriptor encoding : encodings)
             if(propertyName.equals(encoding.getPropertyName()))
                 return encoding;
         fail("No encoding with propertyName <%s> found.", propertyName);
+        return null;
+    }
+
+    private HeaderDescriptor getHeaderByName(String name){
+        List<HeaderDescriptor> headers = contract.getComponents().getHeaders();
+        for (HeaderDescriptor header : headers){
+            if (header.getName().equals(name))
+                return header;
+        }
         return null;
     }
 }

@@ -1,0 +1,36 @@
+openapi: 3.1.0
+info:
+  title: rich contract
+  version: 1.0.0
+jsonSchemaDialect: https://spec.openapis.org/oas/3.1/dialect/base
+servers:
+  - url: https://www1.example.com
+  - url: https://www2.example.com
+paths:
+  /examplePath1:
+    description: example path 1
+  /examplePath2:
+    description: example path 2
+webhooks:
+  /exampleWebhook1:
+    description: example webhook 1
+  /exampleWebhook2:
+    description: example webhook 2
+components:
+  links:
+    exampleLink:
+      description: example link
+security:
+  - exampleSecurity1:
+    - "write:example"
+    - "read:example"
+  - exampleSecurity2:
+    - "write:example"
+    - "read:example"
+tags:
+  - name: exampleTag1
+  - name: exampleTag2
+externalDocs:
+  description: externalDocs description
+  url: https://www.example.com
+
