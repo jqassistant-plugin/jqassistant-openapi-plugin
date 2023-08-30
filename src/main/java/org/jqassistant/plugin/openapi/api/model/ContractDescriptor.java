@@ -18,23 +18,28 @@ public interface ContractDescriptor extends OpenApiDescriptor, FileDescriptor {
     InfoDescriptor getInfo();
     void setInfo(InfoDescriptor info);
 
-    @Relation("HAS_CONTACT")
-    ContactDescriptor getContact();
-    void setContact(ContactDescriptor contact);
+    String getJsonSchemaDialect();
+    void setJsonSchemaDialect(String jsonSchemaDialect);
 
     @Relation("SERVED_BY")
     List<ServerDescriptor> getServers();
-
-    @Relation("HAS_TAG")
-    List<TagDescriptor> getTags();
 
     @Relation("DEFINES_PATHS")
     PathsDescriptor getPaths();
     void setPaths(PathsDescriptor pathsDescriptor);
 
+    @Relation("DEFINES_WEBHOOK")
+    List<PathItemDescriptor> getWebhooks();
+
     @Relation("DEFINES_COMPONENTS")
     ComponentsDescriptor getComponents();
     void setComponents(ComponentsDescriptor components);
+
+    @Relation("DEFINES_SECURITY_REQUIREMENT")
+    List<SecurityRequirementDescriptor> getSecurity();
+
+    @Relation("HAS_TAG")
+    List<TagDescriptor> getTags();
 
     @Relation("REFERENCES")
     ExternalDocsDescriptor getExternalDocs();

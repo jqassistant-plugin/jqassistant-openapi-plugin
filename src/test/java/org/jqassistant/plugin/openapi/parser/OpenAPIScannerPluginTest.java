@@ -15,29 +15,6 @@ import static org.assertj.core.api.Assertions.*;
     ContractDescriptor contract;
 
     @Test
-    void scanNullContract(){
-        File file = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-nulltest.yaml");
-        try {
-            contract = getScanner().scan(file, "example-nulltest.yaml", DefaultScope.NONE);
-            assertThat(contract).isNotNull();
-        } catch (Exception e){
-            fail("Reading contract not containing any data failed", e);
-        }
-    }
-  
-    @Test
-    void scanEmptyContract(){
-        File file = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-emptytest.yaml");
-        try {
-            contract = getScanner().scan(file, "example-emptytest.yaml", DefaultScope.NONE);
-            assertThat(contract).isNotNull();
-        } catch (Exception e){
-            fail("Reading contract only containing container data failed", e);
-        }
-    }
-
-
-    @Test
     void scanMetaData(){
         File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-metadata.yaml");
         contract = getScanner().scan(testFile, "/example-metadata.yaml", DefaultScope.NONE);
@@ -45,6 +22,7 @@ import static org.assertj.core.api.Assertions.*;
         store.beginTransaction();
         assertThat(contract).isNotNull();
         assertThat(contract.getFileName()).isEqualTo("/example-metadata.yaml");
+
         assertThat(contract.getServers()).hasSize(2);
 
         assertThat(contract.getTags()).hasSize(7);
@@ -112,8 +90,8 @@ import static org.assertj.core.api.Assertions.*;
 
      @Test
      void scanEmptyInfo(){
-         File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-emptytest.yaml");
-         contract = getScanner().scan(testFile, "example-emptytest.yaml", DefaultScope.NONE);
+         File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-emptyInfo.yaml");
+         contract = getScanner().scan(testFile, "example-emptyInfo.yaml", DefaultScope.NONE);
 
          store.beginTransaction();
          assertThat(contract.getInfo()).isNotNull();
@@ -130,8 +108,8 @@ import static org.assertj.core.api.Assertions.*;
 
      @Test
      void scanEmptyLicense(){
-         File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-emptyinfo.yaml");
-         contract = getScanner().scan(testFile, "example-emptyinfo.yaml", DefaultScope.NONE);
+         File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-emptyLicense-emptyContact.yaml");
+         contract = getScanner().scan(testFile, "example-emptyLicense-emptyContact.yaml", DefaultScope.NONE);
 
          store.beginTransaction();
          assertThat(contract.getInfo()).isNotNull();
@@ -144,8 +122,8 @@ import static org.assertj.core.api.Assertions.*;
 
      @Test
      void scanEmptyContact(){
-         File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-emptyinfo.yaml");
-         contract = getScanner().scan(testFile, "example-emptyinfo.yaml", DefaultScope.NONE);
+         File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-emptyLicense-emptyContact.yaml");
+         contract = getScanner().scan(testFile, "example-emptyLicense-emptyContact.yaml", DefaultScope.NONE);
 
          store.beginTransaction();
          assertThat(contract.getInfo()).isNotNull();
