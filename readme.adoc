@@ -21,7 +21,7 @@ TODO: How to excecute
 
 === Contract
 
-image::doc42/images/paths model.drawio.png[Model of an OpenAPI Contract]
+image::doc42/images/Contract Schema.drawio.png[Model of an OpenAPI Contract]
 
 === Schema
 image::doc42/images/JSONSchema.png[Model of an OpenAPI Schema]
