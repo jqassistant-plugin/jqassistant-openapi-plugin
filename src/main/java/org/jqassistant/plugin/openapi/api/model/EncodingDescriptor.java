@@ -6,7 +6,7 @@ import io.swagger.v3.oas.models.media.Encoding;
 
 import java.util.List;
 
-@Label("ENCODING")
+@Label("Encoding")
 public interface EncodingDescriptor extends OpenApiDescriptor{
 
     String getPropertyName();
