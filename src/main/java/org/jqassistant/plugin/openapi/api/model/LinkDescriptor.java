@@ -17,7 +17,7 @@ public interface LinkDescriptor extends OpenApiDescriptor{
     String getOperationId();
     void setOperationId(String operationId);
 
-    @Relation("USES")
+    @Relation("USES_PARAMETER")
     List<LinkParameterDescriptor> getParameters();
 
     Object getRequestBody();
@@ -26,7 +26,7 @@ public interface LinkDescriptor extends OpenApiDescriptor{
     String getDescription();
     void setDescription(String description);
 
-    @Relation("SERVED_BY")
+    @Relation("DEFINES_SERVER")
     ServerDescriptor getServer();
     void setServer(ServerDescriptor server);
 }

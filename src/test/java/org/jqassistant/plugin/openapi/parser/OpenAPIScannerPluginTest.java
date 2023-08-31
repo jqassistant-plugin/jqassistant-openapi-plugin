@@ -27,7 +27,7 @@ import static org.assertj.core.api.Assertions.*;
 
         assertThat(contract.getTags()).hasSize(7);
         TagDescriptor tag = getTagByName("issues");
-        assertThat(tag.getTag()).isEqualTo("issues");
+        assertThat(tag.getName()).isEqualTo("issues");
         assertThat(tag.getDescription()).isEqualTo("Issues API");
 
         assertThat(contract.getExternalDocs()).isNotNull();
@@ -144,17 +144,17 @@ import static org.assertj.core.api.Assertions.*;
         assertThat(contract.getTags()).hasSize(7);
 
         TagDescriptor tagAllFields = getTagByName("tag_with_all_fields");
-        assertThat(tagAllFields.getTag()).isEqualTo("tag_with_all_fields");
+        assertThat(tagAllFields.getName()).isEqualTo("tag_with_all_fields");
         assertThat(tagAllFields.getDescription()).isEqualTo("This is a tag with all fields set");
         assertThat(tagAllFields.getExternalDocs()).isNotNull();
 
         TagDescriptor tagEmptyFields = getTagByName("tag_with_empty_fields");
-        assertThat(tagEmptyFields.getTag()).isEqualTo("tag_with_empty_fields");
+        assertThat(tagEmptyFields.getName()).isEqualTo("tag_with_empty_fields");
         assertThat(tagEmptyFields.getDescription()).isNull();
         assertThat(tagEmptyFields.getExternalDocs()).isNull();
 
         TagDescriptor tagNoFields = getTagByName("tag_with_no_fields");
-        assertThat(tagNoFields.getTag()).isEqualTo("tag_with_no_fields");
+        assertThat(tagNoFields.getName()).isEqualTo("tag_with_no_fields");
         assertThat(tagNoFields.getDescription()).isNull();
         assertThat(tagNoFields.getExternalDocs()).isNull();
 
@@ -241,7 +241,7 @@ import static org.assertj.core.api.Assertions.*;
     private TagDescriptor getTagByName(String name){
         List<TagDescriptor> tags = contract.getTags();
             for(TagDescriptor tag: tags)
-                if(tag.getTag().equals(name))
+                if(tag.getName().equals(name))
                     return tag;
         return null;
     }

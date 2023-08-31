@@ -39,7 +39,7 @@ public class ComponentsParser {
             componentsDescriptor.getHeaders().addAll(HeaderParser.parseAll(components.getHeaders(), store));
 
         if (components.getSecuritySchemes() != null)
-            componentsDescriptor.getSecuritySchemas().addAll(parseSecuritySchemes(components.getSecuritySchemes(), store));
+            componentsDescriptor.getSecuritySchemes().addAll(parseSecuritySchemes(components.getSecuritySchemes(), store));
 
         if (components.getLinks() != null)
             componentsDescriptor.getLinks().addAll(LinkParser.parseAll(components.getLinks(), store));

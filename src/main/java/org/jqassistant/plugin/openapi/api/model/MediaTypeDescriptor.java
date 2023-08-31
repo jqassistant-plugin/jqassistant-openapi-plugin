@@ -18,9 +18,9 @@ public interface MediaTypeDescriptor extends OpenApiDescriptor{
     Object getExample();
     void setExample(Object example);
 
-    @Relation("PROVIDES")
+    @Relation("PROVIDES_EXAMPLE")
     List<ExampleDescriptor> getExamples();
 
-    @Relation("USES")
+    @Relation("USES_ENCODING")
     List<EncodingDescriptor> getEncodings();
 }

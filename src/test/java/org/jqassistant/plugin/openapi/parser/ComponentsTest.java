@@ -99,7 +99,7 @@ class ComponentsTest extends AbstractPluginIT {
 
     @Test
     void testSecuritySchemes() {
-        List<SecuritySchemeDescriptor> securitySchemes = contract.getComponents().getSecuritySchemas();
+        List<SecuritySchemeDescriptor> securitySchemes = contract.getComponents().getSecuritySchemes();
         assertThat(securitySchemes).hasSize(1);
     }
 

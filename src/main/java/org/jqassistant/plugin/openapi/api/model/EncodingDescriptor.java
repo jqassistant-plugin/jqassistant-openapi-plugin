@@ -15,7 +15,7 @@ public interface EncodingDescriptor extends OpenApiDescriptor{
     String getContentType();
     void setContentType(String contentType);
 
-    @Relation("ACCEPTS")
+    @Relation("USES_HEADER")
     List<HeaderDescriptor> getHeaders();
 
     Encoding.StyleEnum getStyle();
