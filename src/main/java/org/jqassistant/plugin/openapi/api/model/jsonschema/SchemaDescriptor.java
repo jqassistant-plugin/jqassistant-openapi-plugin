@@ -11,7 +11,7 @@ public interface SchemaDescriptor extends JsonSchemaDescriptor {
     String getName();
     void setName(String name);
 
-    @Relation("REFERENCES")
+    @Relation("REFERENCES_EXTERNAL_DOCS")
     ExternalDocsDescriptor getExternalDocs();
     void setExternalDocs(ExternalDocsDescriptor externalDoc);
 
