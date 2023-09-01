@@ -60,7 +60,7 @@ public class PathsParser {
 
     private static void setProperties(PathItemDescriptor pathItemDescriptor, PathItem pathItem){
         if(pathItem.get$ref() != null && !pathItem.get$ref().isEmpty())
-            pathItemDescriptor.setReferenceString(pathItem.get$ref());
+            pathItemDescriptor.setRef(pathItem.get$ref());
         if(pathItem.getSummary() != null && !pathItem.getSummary().isEmpty())
             pathItemDescriptor.setSummary(pathItem.getSummary());
         if(pathItem.getDescription() != null && !pathItem.getDescription().isEmpty())

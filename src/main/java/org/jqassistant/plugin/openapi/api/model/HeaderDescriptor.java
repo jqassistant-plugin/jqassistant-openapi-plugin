@@ -31,11 +31,11 @@ public interface HeaderDescriptor extends OpenApiDescriptor{
     Object getExample();
     void setExample(Object example);
 
-    @Relation("DEFINES")
+    @Relation("DEFINED_BY")
     SchemaDescriptor getSchema();
     void setSchema(SchemaDescriptor schema);
 
-    @Relation("PROVIDES")
+    @Relation("PROVIDES_EXAMPLE")
     List<ExampleDescriptor> getExamples();
 
     @Relation("CONTAINS")

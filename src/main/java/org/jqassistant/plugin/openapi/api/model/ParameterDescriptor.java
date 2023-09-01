@@ -48,7 +48,7 @@ public interface ParameterDescriptor extends OpenApiDescriptor{
     Object getExample();
     void setExample(Object example);
 
-    @Relation("PROVIDES")
+    @Relation("PROVIDES_EXAMPLE")
     List<ExampleDescriptor> getExamples();
 
     @Relation("CONTAINS")

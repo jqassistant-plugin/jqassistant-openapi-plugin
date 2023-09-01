@@ -14,6 +14,6 @@ public interface CallbackDescriptor extends OpenApiDescriptor{
     String getRef();
     void setRef(String ref);
 
-    @Relation("HOLDS_PATH_ITEM")
+    @Relation("REFERENCES_PATH_ITEM")
     List<PathItemDescriptor> getPathItems();
 }

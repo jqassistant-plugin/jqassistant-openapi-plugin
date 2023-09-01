@@ -21,7 +21,7 @@ public interface ContractDescriptor extends OpenApiDescriptor, FileDescriptor {
     String getJsonSchemaDialect();
     void setJsonSchemaDialect(String jsonSchemaDialect);
 
-    @Relation("SERVED_BY")
+    @Relation("DEFINES_SERVER")
     List<ServerDescriptor> getServers();
 
     @Relation("DEFINES_PATHS")
@@ -35,13 +35,13 @@ public interface ContractDescriptor extends OpenApiDescriptor, FileDescriptor {
     ComponentsDescriptor getComponents();
     void setComponents(ComponentsDescriptor components);
 
-    @Relation("DEFINES_SECURITY_REQUIREMENT")
+    @Relation("DEFINES_SECURITY")
     List<SecurityRequirementDescriptor> getSecurity();
 
     @Relation("HAS_TAG")
     List<TagDescriptor> getTags();
 
-    @Relation("REFERENCES")
+    @Relation("REFERENCES_EXTERNAL_DOCS")
     ExternalDocsDescriptor getExternalDocs();
     void setExternalDocs(ExternalDocsDescriptor externalDocs);
 }

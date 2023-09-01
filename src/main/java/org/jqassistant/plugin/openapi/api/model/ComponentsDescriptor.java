@@ -8,34 +8,34 @@ import java.util.List;
 @Label("Components")
 public interface ComponentsDescriptor extends OpenApiDescriptor{
 
-    @Relation("INCLUDES")
+    @Relation("DEFINES_REQUEST_BODY")
     List<RequestBodyDescriptor> getRequestBodies();
 
-    @Relation("INCLUDES")
+    @Relation("DEFINES_HEADER")
     List<HeaderDescriptor> getHeaders();
 
-    @Relation("INCLUDES")
-    List<SecuritySchemeDescriptor> getSecuritySchemas();
+    @Relation("DEFINES_SECURITY_SCHEME")
+    List<SecuritySchemeDescriptor> getSecuritySchemes();
 
-    @Relation("INCLUDES")
+    @Relation("DEFINES_LINK")
     List<LinkDescriptor> getLinks();
 
-    @Relation("INCLUDES")
+    @Relation("DEFINES_CALLBACK")
     List<CallbackDescriptor> getCallBacks();
 
-    @Relation("INCLUDES")
-    List<PathItemDescriptor> getPaths();
+    @Relation("DEFINES_PATH_ITEM")
+    List<PathItemDescriptor> getPathItems();
 
-    @Relation("INCLUDES")
+    @Relation("DEFINES_EXAMPLE")
     List<ExampleDescriptor> getExamples();
 
-    @Relation("INCLUDES")
+    @Relation("DEFINES_RESPONSE")
     List<ResponseDescriptor> getResponses();
 
-    @Relation("INCLUDES")
+    @Relation("DEFINES_PARAMETER")
     List<ParameterDescriptor> getParameters();
 
-    @Relation("INCLUDES")
+    @Relation("DEFINES_SCHEMA")
     List<SchemaDescriptor> getSchemas();
 
 

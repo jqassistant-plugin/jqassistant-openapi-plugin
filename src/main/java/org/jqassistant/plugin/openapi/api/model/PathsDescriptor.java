@@ -8,6 +8,6 @@ import java.util.List;
 @Label("Paths")
 public interface PathsDescriptor extends OpenApiDescriptor{
 
-    @Relation("INCLUDES")
+    @Relation("DEFINES_PATH_ITEM")
     List<PathItemDescriptor> getPathItems();
 }

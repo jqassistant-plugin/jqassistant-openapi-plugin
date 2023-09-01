@@ -22,33 +22,33 @@ public interface OperationDescriptor extends OpenApiDescriptor {
     String getDescription();
     void setDescription(String description);
 
-    @Relation("REFERENCES")
+    @Relation("REFERENCES_EXTERNAL_DOCS")
     ExternalDocsDescriptor getExternalDocs();
     void setExternalDocs(ExternalDocsDescriptor externalDocs);
 
     String getOperationId();
     void setOperationId(String operationId);
 
-    @Relation("ACCEPTS")
+    @Relation("USES_PARAMETER")
     List<ParameterDescriptor> getParameters();
 
-    @Relation("EXPECTS")
+    @Relation("DEFINES_REQUEST_BODY")
     RequestBodyDescriptor getRequestBody();
     void setRequestBody(RequestBodyDescriptor requestBody);
 
-    @Relation("RETURNS")
+    @Relation("DEFINES_RESPONSE")
     List<ResponseDescriptor> getResponses();
 
-    @Relation("HAS_CALLBACK")
+    @Relation("DEFINES_CALLBACK")
     List<CallbackDescriptor> getCallbacks();
 
     Boolean getIsDeprecated();
     void setIsDeprecated(Boolean isDeprecated);
 
-    @Relation("DECLARES")
+    @Relation("DEFINES_SECURITY")
     List<SecurityRequirementDescriptor> getSecurityRequirements();
 
-    @Relation("SERVED_BY")
+    @Relation("DEFINES_SERVER")
     List<ServerDescriptor> getServers();
 
 
