@@ -16,9 +16,9 @@ Add the plugin to the plugins section of the `.jqassistant.yml` configuration fi
 ---- 
 jqassistant:
   plugins:
-  	- group-id: org.jqassistant.plugin
-        artifact-id: jqassistant-openapi-plugin
-        version: 2.0.0-SNAPSHOT
+    - group-id: org.jqassistant.plugin
+      artifact-id: jqassistant-openapi-plugin
+      version: 2.0.0-SNAPSHOT
   scan:
     include:
       files:
@@ -29,6 +29,7 @@ jqassistant:
 ==== How to run
 
 Windows: jqassistant.bat scan 
+
 Unix: jqassistant.sh scan
 
 == Model
