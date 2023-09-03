@@ -3,11 +3,16 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-introduction-and-goals]]
 == Introduction and Goals
 
-
+This is the OpenAPI Plugin for https://jqassistant.org/[jQAssistant] by https://www.buschmais.de/[BUSCHMAIS GbR] .
 
 === Requirements Overview
 
+jQAssistant is a QA tool, which allows the definition and validation of project specific rules on a structural level.
+It is built upon the graph database Neo4j and can easily be plugged into the build process to automate detection of
+constraint violations and generate reports about user defined concepts and metrics.
 
+This plugins provides a scanner for https://www.openapis.org/[openAPI] files, which define the communication between multiple microservices
+and thus enables the user to analyze according software structures in the typical jQa fashion.
 
 === Quality Goals
 
