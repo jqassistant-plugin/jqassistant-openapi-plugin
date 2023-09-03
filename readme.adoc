@@ -7,15 +7,30 @@ For more information on jQAssistant see https://jqassistant.org[^].
 
 == Usage
 
+Build your jQAssistant local.
+
 Add the plugin to the plugins section of the `.jqassistant.yml` configuration file:
 
 [source,yaml]
 ..jqassistant.yml
-----
-TODO!
+---- 
+jqassistant:
+  plugins:
+    - group-id: org.jqassistant.plugin
+      artifact-id: jqassistant-openapi-plugin
+      version: 2.0.0-SNAPSHOT
+  scan:
+    include:
+      files:
+        -relativ to path or absolute path to openapi.yml
 ----
 
-TODO: How to excecute
+
+==== How to run
+
+Windows: jqassistant.bat scan 
+
+Unix: jqassistant.sh scan
 
 == Model
 
