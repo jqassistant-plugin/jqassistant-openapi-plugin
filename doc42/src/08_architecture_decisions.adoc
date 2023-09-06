@@ -5,8 +5,16 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 * The data model is kept as close to the structure of an OpenAPI Contract as possible.
 ** because of that grouping nodes like `Components` got introduced, instead of just using edges to describe this dependency.
+** because of that relationship labels were chosen based on the purpose of the relationship and the name of the node being referenced.
 
 === Parser
+
+To translate openapi contracts into neo4j nodes, the contract first needs to be parsed into java objects.
+As openapi publicly provides such a parser, there is no need to implement some proprietary solution for this problem.
+Using opensource libraries decreases development expense and increases the comprehensibility and quality of the plugins code base.
+
+The swagger-parser library was chosen mainly because it is maintained by openApi and covered at the time of selection the latest openapi versions.
+
 
 === Resolver
 
