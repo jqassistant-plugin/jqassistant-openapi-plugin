@@ -1,7 +1,13 @@
-ifndef::imagesdir[:imagesdir: ../images]
-
 [[section-solution-strategy]]
 == Solution Strategy
+
+=== Data Flow
+
+==== current version
+image::../images/current flow chart.drawio.png[current data flow]
+
+==== optimal version
+image::../images/optimal flow chart.drawio.png[current data flow]
 
 
 
