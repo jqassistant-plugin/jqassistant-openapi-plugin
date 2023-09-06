@@ -11,7 +11,7 @@ jQAssistant is a QA tool, which allows the definition and validation of project 
 It is built upon the graph database Neo4j and can easily be plugged into the build process to automate detection of
 constraint violations and generate reports about user defined concepts and metrics.
 
-This plugins provides a scanner for https://www.openapis.org/[openAPI] files, which define the communication between multiple microservices
+This plugin provides a scanner for https://www.openapis.org/[openAPI] files, which define the communication between multiple microservices
 and thus enables the user to analyze according software structures in the typical jQa fashion.
 
 === Quality Goals
