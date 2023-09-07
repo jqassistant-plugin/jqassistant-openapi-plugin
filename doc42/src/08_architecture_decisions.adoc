@@ -6,6 +6,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 * The data model is kept as close to the structure of an OpenAPI Contract as possible.
 ** because of that grouping nodes like `Components` got introduced, instead of just using edges to describe this dependency.
 ** because of that relationship labels were chosen based on the purpose of the relationship and the name of the node being referenced.
+* all descriptors, which get referenced by componentsDescriptor additionally hold some kind of name which represents the key of the map<key,Descriptor> from components
 
 === Parser
 
