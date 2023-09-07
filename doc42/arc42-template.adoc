@@ -31,9 +31,6 @@ endif::backend-html5[]
 // horizontal line
 ***
 
-
-
-
 // numbering from here on
 :numbered:
 
@@ -47,11 +44,11 @@ include::src/02_architecture_constraints.adoc[]
 
 <<<<
 // 3. System Scope and Context
-include::src/03_system_scope_and_context.adoc[]
+// include::src/03_system_scope_and_context.adoc[]
 
 <<<<
 // 4. Solution Strategy
-include::src/04_solution_strategy.adoc[]
+// include::src/04_solution_strategy.adoc[]
 
 <<<<
 // 5. Building Block View
@@ -59,11 +56,11 @@ include::src/05_building_block_view.adoc[]
 
 <<<<
 // 6. Runtime View
-include::src/06_runtime_view.adoc[]
+// include::src/06_runtime_view.adoc[]
 
 <<<<
 // 8. Concepts
-include::src/07_concepts.adoc[]
+// include::src/07_concepts.adoc[]
 
 <<<<
 // 9. Architecture Decisions
@@ -79,6 +76,6 @@ include::src/10_technical_risks.adoc[]
 
 <<<<
 // 12. Glossary
-include::src/11_glossary.adoc[]
+// include::src/11_glossary.adoc[]
 
 
