@@ -3,13 +3,13 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-quality-scenarios]]
 == Quality Requirements
 
-
-
-
-=== Quality Tree
-
-
-
 === Quality Scenarios
+
+==== Testability / Coverage
+By using SonarQube during development and the build process ensure a code coverage of at least 80%.
+
+==== Code smells
+By using SonarQube during development and the build process ensure the fewest possible code smells.
+
 
 
