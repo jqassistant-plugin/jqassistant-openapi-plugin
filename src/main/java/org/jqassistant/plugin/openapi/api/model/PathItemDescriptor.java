@@ -9,18 +9,18 @@ import java.util.List;
 public interface PathItemDescriptor extends OpenApiDescriptor, DescriptionTemplate {
     String getPathUrl();
     void setPathUrl(String pathUrl);
-    String getReferenceString();
-    void setReferenceString(String referenceString);
+    String getRef();
+    void setRef(String ref);
     String getSummary();
     void setSummary(String summary);
 
-    @Relation("SERVED_BY")
+    @Relation("DEFINES_SERVER")
     List<ServerDescriptor> getServers();
 
-    @Relation("ACCEPTS")
+    @Relation("USES_PARAMETER")
     List<ParameterDescriptor> getParameters();
 
-    @Relation("PROVIDES")
+    @Relation("DEFINES_OPERATION")
     List<OperationDescriptor> getOperations();
 
 }

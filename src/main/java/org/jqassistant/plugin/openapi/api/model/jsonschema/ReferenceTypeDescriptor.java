@@ -6,7 +6,7 @@ import com.buschmais.xo.neo4j.api.annotation.Relation;
 @Label("Reference")
 public interface ReferenceTypeDescriptor extends TypeDescriptor {
 
-    @Relation("REF")
+    @Relation("REFERENCES_SCHEMA")
     SchemaDescriptor getReference();
 
     void setReference(SchemaDescriptor reference);

@@ -16,12 +16,12 @@ public interface ResponseDescriptor extends OpenApiDescriptor{
     String getDescription();
     void setDescription(String description);
 
-    @Relation("ACCEPTS")
+    @Relation("USES_HEADER")
     List<HeaderDescriptor> getHeaders();
 
     @Relation("CONTAINS")
     List<MediaTypeDescriptor> getMediaTypes();
 
-    @Relation("PROVIDES")
+    @Relation("PROVIDES_LINK")
     List<LinkDescriptor> getLinks();
 }

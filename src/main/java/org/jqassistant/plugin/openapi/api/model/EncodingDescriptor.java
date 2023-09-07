@@ -6,7 +6,7 @@ import io.swagger.v3.oas.models.media.Encoding;
 
 import java.util.List;
 
-@Label("ENCODING")
+@Label("Encoding")
 public interface EncodingDescriptor extends OpenApiDescriptor{
 
     String getPropertyName();
@@ -15,7 +15,7 @@ public interface EncodingDescriptor extends OpenApiDescriptor{
     String getContentType();
     void setContentType(String contentType);
 
-    @Relation("ACCEPTS")
+    @Relation("USES_HEADER")
     List<HeaderDescriptor> getHeaders();
 
     Encoding.StyleEnum getStyle();
