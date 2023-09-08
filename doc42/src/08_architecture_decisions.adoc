@@ -19,6 +19,8 @@ The swagger-parser library was chosen mainly because it is maintained by openApi
 
 === Resolver
 
+The resolver ideally gets invoked before the parsing classes to check if to object to parse is already existing in database. In this case a reference to this node is passed back to the invoking instance. If the object does not already exist, the according parser gets called, creates the node and passes back the reference, which than gets stored in memory by the resolver and passed on to the invoking instance.
+
 === JSON Schema
 
 * The attribute `name` of a Type is *stored* in the types corresponding Descriptor (the name matches JSON-Schema name to the data model name).
