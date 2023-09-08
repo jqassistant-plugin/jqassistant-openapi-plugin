@@ -42,7 +42,7 @@ image::doc42/images/Contract Schema.drawio.png[Model of an OpenAPI Contract]
 image::doc42/images/JSONSchema.drawio.png[Model of an OpenAPI Schema]
 
 
-== Use Cases
+// == Use Cases
 
 
 
