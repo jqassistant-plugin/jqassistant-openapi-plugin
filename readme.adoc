@@ -48,7 +48,4 @@ image::doc42/images/JSONSchema.drawio.png[Model of an OpenAPI Schema]
 
 == Supported Versions
 
-Tested with OpenAPI Version TODO!
-== Changelog
-
-TBD
+Tested with OpenAPI Version 3.0 and 3.1
