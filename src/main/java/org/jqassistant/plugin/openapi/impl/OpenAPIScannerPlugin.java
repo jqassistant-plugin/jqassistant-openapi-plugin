@@ -31,7 +31,7 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
         LOG.info("Starting scanning process for {}", path);
         final Store store = scanner.getContext().getStore();
         final FileDescriptor fileDescriptor = scanner.getContext().getCurrentDescriptor();
-        final OpenAPI openAPIContract = new OpenAPIV3Parser().read(path); // TODO: Exception handling
+        final OpenAPI openAPIContract = new OpenAPIV3Parser().read(fileResource.getFile().getAbsolutePath()); // TODO: Exception handling
 
         LOG.info("Parsing contract");
         final ContractDescriptor contractDescriptor = store.addDescriptorType(fileDescriptor, ContractDescriptor.class);
