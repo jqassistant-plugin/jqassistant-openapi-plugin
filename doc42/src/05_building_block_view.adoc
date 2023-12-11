@@ -1,0 +1,15 @@
+ifndef::imagesdir[:imagesdir: ../images]
+
+[[section-building-block-view]]
+
+
+== Building Block View
+
+=== Whitebox Overall System
+
+==== current implementation
+image::../images/current flow chart.drawio.png[current data flow]
+
+==== ideal implementation
+image::../images/optimal flow chart.drawio.png[current data flow]
+
