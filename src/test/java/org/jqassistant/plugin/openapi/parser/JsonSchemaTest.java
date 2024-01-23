@@ -1,7 +1,7 @@
 package org.jqassistant.plugin.openapi.parser;
 
-import com.buschmais.jqassistant.core.scanner.api.DefaultScope;
 import com.buschmais.jqassistant.core.test.plugin.AbstractPluginIT;
+import org.jqassistant.plugin.openapi.api.OpenApiScope;
 import org.jqassistant.plugin.openapi.api.model.ComponentsDescriptor;
 import org.jqassistant.plugin.openapi.api.model.ContractDescriptor;
 import org.jqassistant.plugin.openapi.api.model.jsonschema.*;
@@ -25,7 +25,7 @@ class JsonSchemaTest extends AbstractPluginIT {
     @BeforeEach
     void init(){
         File file = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-jsonschema.yaml");
-        contract = getScanner().scan(file, "/example-jsonschema.yaml", DefaultScope.NONE);
+        contract = getScanner().scan(file, "/example-jsonschema.yaml", OpenApiScope.CONTRACT);
 
         store.beginTransaction();
 

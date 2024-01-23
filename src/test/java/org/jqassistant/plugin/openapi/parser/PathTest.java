@@ -1,7 +1,7 @@
 package org.jqassistant.plugin.openapi.parser;
 
-import com.buschmais.jqassistant.core.scanner.api.DefaultScope;
 import com.buschmais.jqassistant.core.test.plugin.AbstractPluginIT;
+import org.jqassistant.plugin.openapi.api.OpenApiScope;
 import org.jqassistant.plugin.openapi.api.model.ContractDescriptor;
 import org.jqassistant.plugin.openapi.api.model.PathItemDescriptor;
 import org.jqassistant.plugin.openapi.api.model.ServerDescriptor;
@@ -21,7 +21,7 @@ class PathTest extends AbstractPluginIT {
     @BeforeEach
     void init(){
         File file = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-path.yaml");
-        contract = getScanner().scan(file, "/example-path.yaml", DefaultScope.NONE);
+        contract = getScanner().scan(file, "/example-path.yaml", OpenApiScope.CONTRACT);
 
         store.beginTransaction();
 

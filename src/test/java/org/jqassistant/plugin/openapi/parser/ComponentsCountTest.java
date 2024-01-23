@@ -1,7 +1,7 @@
 package org.jqassistant.plugin.openapi.parser;
 
-import com.buschmais.jqassistant.core.scanner.api.DefaultScope;
 import com.buschmais.jqassistant.core.test.plugin.AbstractPluginIT;
+import org.jqassistant.plugin.openapi.api.OpenApiScope;
 import org.jqassistant.plugin.openapi.api.model.*;
 import org.jqassistant.plugin.openapi.api.model.jsonschema.SchemaDescriptor;
 import org.junit.jupiter.api.AfterEach;
@@ -20,7 +20,7 @@ class ComponentsCountTest extends AbstractPluginIT {
     @BeforeEach
     void init(){
         File file = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-components-counttest.yaml");
-        contract = getScanner().scan(file, "/example-components-counttest.yaml", DefaultScope.NONE);
+        contract = getScanner().scan(file, "/example-components-counttest.yaml", OpenApiScope.CONTRACT);
 
         store.beginTransaction();
 

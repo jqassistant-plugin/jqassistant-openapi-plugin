@@ -1,7 +1,7 @@
 package org.jqassistant.plugin.openapi.parser;
 
-import com.buschmais.jqassistant.core.scanner.api.DefaultScope;
 import com.buschmais.jqassistant.core.test.plugin.AbstractPluginIT;
+import org.jqassistant.plugin.openapi.api.OpenApiScope;
 import org.jqassistant.plugin.openapi.api.model.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -10,14 +10,15 @@ import java.io.File;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
- class OpenAPIScannerPluginTest extends AbstractPluginIT {
+
+class OpenAPIScannerPluginTest extends AbstractPluginIT {
 
     ContractDescriptor contract;
 
     @Test
     void scanMetaData(){
         File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-metadata.yaml");
-        contract = getScanner().scan(testFile, "/example-metadata.yaml", DefaultScope.NONE);
+        contract = getScanner().scan(testFile, "/example-metadata.yaml", OpenApiScope.CONTRACT);
 
         store.beginTransaction();
         assertThat(contract).isNotNull();
@@ -40,7 +41,7 @@ import static org.assertj.core.api.Assertions.*;
     @Test
     void scanRichInfo(){
         File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-metadata.yaml");
-        contract = getScanner().scan(testFile, "/example-metadata.yaml", DefaultScope.NONE);
+        contract = getScanner().scan(testFile, "/example-metadata.yaml", OpenApiScope.CONTRACT);
 
         store.beginTransaction();
         assertThat(contract.getInfo()).isNotNull();
@@ -61,7 +62,7 @@ import static org.assertj.core.api.Assertions.*;
     @Test
     void scanLicenseWithUrl(){
         File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-metadata.yaml");
-        contract = getScanner().scan(testFile, "/example-metadata.yaml", DefaultScope.NONE);
+        contract = getScanner().scan(testFile, "/example-metadata.yaml", OpenApiScope.CONTRACT);
 
         store.beginTransaction();
         assertThat(contract.getInfo()).isNotNull();
@@ -76,7 +77,7 @@ import static org.assertj.core.api.Assertions.*;
      @Test
      void scanLicenseWithIdentifier(){
          File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-components.yaml");
-         contract = getScanner().scan(testFile, "/example-components.yaml", DefaultScope.NONE);
+         contract = getScanner().scan(testFile, "/example-components.yaml", OpenApiScope.CONTRACT);
 
          store.beginTransaction();
          assertThat(contract.getInfo()).isNotNull();
@@ -91,7 +92,7 @@ import static org.assertj.core.api.Assertions.*;
      @Test
      void scanEmptyInfo(){
          File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-emptyInfo.yaml");
-         contract = getScanner().scan(testFile, "example-emptyInfo.yaml", DefaultScope.NONE);
+         contract = getScanner().scan(testFile, "example-emptyInfo.yaml", OpenApiScope.CONTRACT);
 
          store.beginTransaction();
          assertThat(contract.getInfo()).isNotNull();
@@ -109,7 +110,7 @@ import static org.assertj.core.api.Assertions.*;
      @Test
      void scanEmptyLicense(){
          File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-emptyLicense-emptyContact.yaml");
-         contract = getScanner().scan(testFile, "example-emptyLicense-emptyContact.yaml", DefaultScope.NONE);
+         contract = getScanner().scan(testFile, "example-emptyLicense-emptyContact.yaml", OpenApiScope.CONTRACT);
 
          store.beginTransaction();
          assertThat(contract.getInfo()).isNotNull();
@@ -123,7 +124,7 @@ import static org.assertj.core.api.Assertions.*;
      @Test
      void scanEmptyContact(){
          File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-emptyLicense-emptyContact.yaml");
-         contract = getScanner().scan(testFile, "example-emptyLicense-emptyContact.yaml", DefaultScope.NONE);
+         contract = getScanner().scan(testFile, "example-emptyLicense-emptyContact.yaml", OpenApiScope.CONTRACT);
 
          store.beginTransaction();
          assertThat(contract.getInfo()).isNotNull();
@@ -137,7 +138,7 @@ import static org.assertj.core.api.Assertions.*;
     @Test
     void scanTags(){
         File testFile = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-metadata.yaml");
-        contract = getScanner().scan(testFile, "/example-metadata.yaml", DefaultScope.NONE);
+        contract = getScanner().scan(testFile, "/example-metadata.yaml", OpenApiScope.CONTRACT);
 
         store.beginTransaction();
         assertThat(contract).isNotNull();
@@ -165,7 +166,7 @@ import static org.assertj.core.api.Assertions.*;
     void scanWholeContract(){
         File file = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example.yaml");
         try {
-            ContractDescriptor contract = getScanner().scan(file, "example.yaml", DefaultScope.NONE);
+            ContractDescriptor contract = getScanner().scan(file, "example.yaml", OpenApiScope.CONTRACT);
             assertThat(contract).isNotNull();
         } catch (Exception e){
             fail("Reading whole example contract failed", e);
@@ -177,9 +178,9 @@ import static org.assertj.core.api.Assertions.*;
     void scanWholeContractTwo(){
         File file = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example.yaml");
         try {
-            ContractDescriptor contractOne = getScanner().scan(file, "exampleOne.yaml", DefaultScope.NONE);
+            ContractDescriptor contractOne = getScanner().scan(file, "exampleOne.yaml", OpenApiScope.CONTRACT);
             assertThat(contractOne).isNotNull();
-            ContractDescriptor contractTwo = getScanner().scan(file, "exampleTwo.yaml", DefaultScope.NONE);
+            ContractDescriptor contractTwo = getScanner().scan(file, "exampleTwo.yaml", OpenApiScope.CONTRACT);
             assertThat(contractTwo).isNotNull();
         } catch (Exception e){
             fail("Reading whole example contract failed", e);
@@ -190,7 +191,7 @@ import static org.assertj.core.api.Assertions.*;
     void testExternalDocs(){
         File file = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-metadata.yaml");
         try {
-            contract = getScanner().scan(file, "example-metadata.yaml", DefaultScope.NONE);
+            contract = getScanner().scan(file, "example-metadata.yaml", OpenApiScope.CONTRACT);
             assertThat(contract).isNotNull();
         } catch (Exception e){
             fail("Reading contract only containing container data failed", e);
@@ -220,7 +221,7 @@ import static org.assertj.core.api.Assertions.*;
     void testServerVariable(){
         File file = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-metadata.yaml");
         try {
-            contract = getScanner().scan(file, "example-metadata.yaml", DefaultScope.NONE);
+            contract = getScanner().scan(file, "example-metadata.yaml", OpenApiScope.CONTRACT);
             assertThat(contract).isNotNull();
         } catch (Exception e){
             fail("Reading contract only containing container data failed", e);

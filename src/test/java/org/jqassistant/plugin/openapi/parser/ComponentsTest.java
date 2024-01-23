@@ -6,11 +6,11 @@ import static org.assertj.core.api.Assertions.fail;
 import java.io.File;
 import java.util.List;
 
-import com.buschmais.jqassistant.core.scanner.api.DefaultScope;
 import com.buschmais.jqassistant.core.test.plugin.AbstractPluginIT;
 import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.headers.Header;
 import io.swagger.v3.oas.models.media.Encoding;
+import org.jqassistant.plugin.openapi.api.OpenApiScope;
 import org.jqassistant.plugin.openapi.api.model.*;
 import org.jqassistant.plugin.openapi.api.model.jsonschema.SchemaDescriptor;
 import org.junit.jupiter.api.AfterEach;
@@ -24,7 +24,7 @@ class ComponentsTest extends AbstractPluginIT {
     @BeforeEach
     void init(){
         File file = new File(getClassesDirectory(OpenAPIScannerPluginTest.class), "example-components.yaml");
-        contract = getScanner().scan(file, "/example-components.yaml", DefaultScope.NONE);
+        contract = getScanner().scan(file, "/example-components.yaml", OpenApiScope.CONTRACT);
 
         store.beginTransaction();
 
