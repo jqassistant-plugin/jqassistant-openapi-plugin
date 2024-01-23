@@ -9,6 +9,7 @@ import com.buschmais.jqassistant.plugin.common.api.scanner.AbstractScannerPlugin
 import com.buschmais.jqassistant.plugin.common.api.scanner.filesystem.FileResource;
 import io.swagger.v3.oas.models.*;
 import io.swagger.v3.parser.OpenAPIV3Parser;
+import org.jqassistant.plugin.openapi.api.OpenApiScope;
 import org.jqassistant.plugin.openapi.api.model.*;
 import org.jqassistant.plugin.openapi.impl.parsers.ContractParser;
 import org.slf4j.Logger;
@@ -23,7 +24,8 @@ public class OpenAPIScannerPlugin extends AbstractScannerPlugin<FileResource, Co
 
     @Override
     public boolean accepts(FileResource fileResource, String path, Scope scope) throws IOException {
-        return path.toLowerCase().endsWith(".yaml");  // TODO maybe add more testing
+        return OpenApiScope.CONTRACT.equals(scope) &&
+                (path.toLowerCase().endsWith(".yml") || path.toLowerCase().endsWith(".yaml"));
     }
 
     @Override

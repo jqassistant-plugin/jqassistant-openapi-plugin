@@ -7,30 +7,25 @@ For more information on jQAssistant see https://jqassistant.org[^].
 
 == Usage
 
-Build your jQAssistant local.
-
-Add the plugin to the plugins section of the `.jqassistant.yml` configuration file:
+To be able to use the plug-in, it must be specified as a plug-in to jQAssistant.
+Additionally, it must be configured as a scan-include where jQAssistant can find the OpenAPI-contracts.
 
 [source,yaml]
 ..jqassistant.yml
 ---- 
 jqassistant:
   plugins:
-    - group-id: org.jqassistant.plugin
+    - group-id: org.jqassistant.plugin <1>
       artifact-id: jqassistant-openapi-plugin
       version: 2.0.0-SNAPSHOT
   scan:
     include:
       files:
-        -relativ to path or absolute path to openapi.yml
+        -openapi:contract::${project.basedir}/path/to/api.yml <2>
 ----
+<1> Dependency to the OpenAPI plugin
+<2> Scan include of the OpenAPI contract
 
-
-==== How to run
-
-Windows: jqassistant.bat scan 
-
-Unix: jqassistant.sh scan
 
 == Model
 
@@ -39,13 +34,9 @@ Unix: jqassistant.sh scan
 image::doc42/images/Contract Schema.drawio.png[Model of an OpenAPI Contract]
 
 === Schema
+
 image::doc42/images/JSONSchema.drawio.png[Model of an OpenAPI Schema]
 
-
-// == Use Cases
-
-
-
-== Supported Versions
+== Supported OpenAPI Versions
 
 Tested with OpenAPI Version 3.0 and 3.1

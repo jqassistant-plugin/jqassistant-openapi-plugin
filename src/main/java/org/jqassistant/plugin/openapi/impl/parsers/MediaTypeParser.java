@@ -31,7 +31,7 @@ public class MediaTypeParser {
         if(mediaType.getSchema() != null)
             mediaTypeDescriptor.setSchema(schemaParser.parseOneSchema(mediaType.getSchema(), null));
         if(mediaType.getExampleSetFlag())
-            mediaTypeDescriptor.setExample(mediaType.getExample());
+            mediaTypeDescriptor.setExample(mediaType.getExample().toString()); // todo should be parsed. What's the difference to below?
         if(mediaType.getExamples() != null)
             mediaTypeDescriptor.getExamples().addAll(ExampleParser.parseAll(mediaType.getExamples(), store));
         if(mediaType.getEncoding() != null)
