@@ -42,11 +42,22 @@
         <class>org.jqassistant.plugin.openapi.api.model.jsonschema.ReferenceTypeDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.jsonschema.SchemaDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.jsonschema.StringTypeDescriptor</class>
+
+        <class>org.jqassistant.plugin.asyncapi.api.model.ContractDescriptor</class>
+        <class>org.jqassistant.plugin.asyncapi.api.model.InfoDescriptor</class>
+        <class>org.jqassistant.plugin.asyncapi.api.model.ContactDescriptor</class>
+        <class>org.jqassistant.plugin.asyncapi.api.model.LicenseDescriptor</class>
+        <class>org.jqassistant.plugin.asyncapi.api.model.ContactDescriptor</class>
+        <class>org.jqassistant.plugin.asyncapi.api.model.ExternalDocsDescriptor</class>
+        <class>org.jqassistant.plugin.asyncapi.api.model.TagDescriptor</class>
+        <class>org.jqassistant.plugin.asyncapi.api.model.ChannelDescriptor</class>
     </model>
     <scope>
         <class>org.jqassistant.plugin.openapi.api.OpenApiScope</class>
+        <class>org.jqassistant.plugin.asyncapi.api.AsyncApiScope</class>
     </scope>
     <scanner>
         <class>org.jqassistant.plugin.openapi.impl.OpenAPIScannerPlugin</class>
+        <class>org.jqassistant.plugin.asyncapi.impl.AsyncAPIScannerPlugin</class>
     </scanner>
 </jqassistant-plugin>

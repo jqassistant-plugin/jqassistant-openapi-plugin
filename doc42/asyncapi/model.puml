@@ -1,0 +1,181 @@
+@startuml
+skinparam linetype polyline
+skinparam linetype ortho
+
+
+class AsyncAPIDoc{
+    String: id
+    String: version
+}
+AsyncAPIDoc *-- "1"  Info: > has
+AsyncAPIDoc *-- "n"  Channel: > has
+AsyncAPIDoc *-- "n"  Component: > has
+AsyncAPIDoc *-- "n"  Operation: > has
+AsyncAPIDoc *----- "n"  Server:  has
+
+class Info{
+    String: title
+    String: version
+    String: description
+    String: termsOfService
+}
+Info *-- Contact
+Info *-- License
+Info *---- "*"  Tag
+Info *-- ExternalDocumentation
+
+class Contact{
+    String: name
+    String: url
+    String: email
+}
+
+class License{
+    String: name
+    String: url
+}
+
+class Tag{
+    String: name
+    String: description
+}
+
+class ExternalDocumentation{
+    String: description
+    String: url
+}
+
+class Server {
+    String: host
+    String: url
+    String: protocol
+    String: protocolVersion
+    String: pathname
+    String: description
+    String: title
+    String: summary
+}
+
+Server *--- ServerVariableObject: has variables
+Server *-- "*"  Tag
+Server *-- Security: declares
+Server *-- ExternalDocumentation
+Server *-- "*" Binding: <Map> bindings
+
+class ServerVariableObject{
+    String: enum
+    String: default
+    String: description
+    String: examples
+}
+
+class Security{
+    String: type
+    String: description
+    String: name
+    String: in (location of API key))
+    String: scheme
+    String: bearerFormat
+    String: openIdConnectUrl
+    String: scope
+}
+
+Security *-- OAuthFlows
+
+class OAuthFlows{
+    OAuthFlow: implicit
+    OAuthFlow: password
+    OAuthFlow: clientCredentials
+    OAuthFlow: authorizationCode
+    }
+
+OAuthFlows *-- "*" OAuthFlow
+
+class OAuthFlow{
+    String: authorizationUrl
+    String: tokenUrl
+    String: refreshUrl
+    Map<Sting,String>: availableScopes
+    }
+
+class Channel{
+    String: address
+    String: title
+    String: summary
+    String: description
+    Map: parameters
+}
+
+Channel ..> "*"  Server
+Channel *-- "*"  Message
+Channel *-- "*"  Tag
+Channel *-- ExternalDocumentation
+Channel *-- ExternalDocumentation
+
+class Message{
+    String: contentType
+    String: name
+    String: title
+    String: summary
+    String: description
+    List: examples
+
+}
+
+Message *-- MultiFormatSchema: Map: headers
+Message *-- ExternalDocumentation
+Message *-- CorrelationId
+Message *-- "n" Binding
+Message *-- MessageTrait
+
+class MultiFormatSchema{
+    String: schemaFormat
+    String: schema
+    }
+
+class CorrelationId{
+    String: description
+    String: location
+    }
+
+class Operation{
+    String: action
+    String: title
+    String: summary
+    String: description
+    Object: security
+    List <Object>: traits
+}
+
+Operation ..> Channel: has_ref
+Operation ..> Message: has_ref
+Operation *-- "*" Tag
+Operation *-- ExternalDocumentation
+Operation *-- "*" Binding
+Operation *-- OperationReply
+
+class OperationReply{
+    Object: address
+    }
+
+OperationReply ..> Channel: has_ref
+OperationReply ..> Message: has_ref
+
+class Component{
+    Map: schemas
+    Map: servers
+    Map: serverVariable
+    Map: channels
+    Map: messages
+    Map: securitySchemes
+    Map: parameters
+    Map: correlationId
+    Map: operationTraits
+    Map: messageTraits
+    Map: serverBindings
+    Map: channelBindings
+    Map: operationBindings
+    Map: messageBindings
+}
+
+@enduml
