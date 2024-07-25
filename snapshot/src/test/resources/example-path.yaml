@@ -1,0 +1,157 @@
+openapi: 3.1.0
+paths:
+  /path_sample:
+    put:
+      summary: This is a sample path
+      description: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+      externalDocs:
+        description: "external docs description"
+        url: "https://www.example.com"
+  /path_sample/sub_path:
+    put:
+      summary: This is a sample path
+      description: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+  /path_with_two_ops:
+    get:
+      summary: gets something
+    put:
+      summary: puts something
+  /path_with_nothing:
+  /path_with_no_server:
+    get:
+      summary: path with a server
+    servers:
+  /path_with_a_server:
+    get:
+      summary: path with a server
+    servers:
+      - url: https://www.1.example.com
+        description: beschreibung server 1
+  /path_with_servers:
+    get:
+      summary: path with servers
+    servers:
+      - url: https://www.1.example.com
+        description: beschreibung server 1
+      - url: https://www.2.example.com
+        description: beschreibung server 2
+  /path_with_no/parameter:
+    put:
+      summary: This is a sample path with no parameter
+      description: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+    parameters:
+  /path_with_a_/{single}/parameter:
+    put:
+      summary: This is a sample path with one parameter
+      description: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+    parameters:
+      - name: single
+        in: path
+        description: ID of pet to use
+        required: true
+        schema:
+          type: string
+        style: simple
+  /path_with_/{t}/w/{o}/parameters:
+    put:
+      summary: This is a sample path with two parameters
+      description: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+      parameters:
+        - name: t
+          in: path
+          description: ''
+          required: false
+          schema:
+            type: string
+    parameters:
+      - name: t
+        in: path
+        description: ''
+        required: false
+        schema:
+          type: string
+      - name: o
+        in: path
+        description: Pet id to delete
+        required: true
+        schema:
+          type: integer
+          format: int64x
+  /path_with_ref_string:
+    $ref: '#/components/pathItems/path_with_ref_string'
+  /path_with_empty_ref_string:
+    summary: This is a simple path with empty ref string --> should not be parsed properly
+    description: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+    $ref:
+  /path_with_empty_description:
+    description:
+    options:
+      summary: This is a sample path with empty description
+  /path_with_no_description:
+    head:
+      summary: This is a sample path with no description
+  /path_with_a_description:
+    description: This is a sample path with a description
+    patch:
+      summary: This is a sample path with a description
+  /path_with_empty_summary:
+    description: This is a sample path with an empty summary
+    summary:
+    trace:
+      summary: This is a sample path with empty description
+  /path_with_no_summary:
+    description: This is a sample path no summary
+    put:
+      summary: This is a sample path with no description
+  /path_with_a_summary:
+    description: This is a sample path with a summary
+    summary: This is a extremely short summary.
+    put:
+      summary: This is a sample path with a description
+
+  /example_from_sawgger_io:
+    put:
+      tags:
+        - pet
+      summary: Update an existing pet
+      description: Update an existing pet by Id
+      operationId: updatePet
+      requestBody:
+        description: Update an existent pet in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pet'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Pet'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Pet'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Pet'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        '405':
+          description: Validation exception
+      security:
+        - petstore_auth:
+            - write:pets
+            - read:pets
+components:
+  pathItems:
+    path_with_ref_string:
+      put:
+          summary: This is a sample path component which can be referenced
+          description: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.

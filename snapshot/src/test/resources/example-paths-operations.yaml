@@ -1,0 +1,74 @@
+openapi: 3.1.0
+info:
+paths:
+  /richOperation:
+    get:
+      tags:
+        - tag1
+        - tag2
+      summary: operation with all fields populated
+      description: same as summary
+      externalDocs:
+        description: external docs
+        url: "https://www.example.com"
+      operationId: operationId
+      parameters:
+        - name: param1
+          in: path
+        - name: param2
+          in: path
+      requestBody:
+        description: example request body
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: success response
+          content:
+            'application/json': { }
+            'application/xml': { }
+        '405':
+          description: not allowed response
+          content:
+            'application/json': { }
+            'application/xml': { }
+      callbacks:
+        exampleCallback:
+          "https://www.example.com":
+            post:
+              requestBody:
+                description: Callback payload
+              responses:
+                '200':
+                  description: callback successfully processed
+      deprecated: true
+      security:
+        - example_auth:
+            - write:pets
+            - read:pets
+      servers:
+        - url: https://development.gigantic-server.example.com/v1
+          description: Development server
+        - url: https://staging.gigantic-server.example.com/v1
+          description: Staging server
+        - url: https://api.gigantic-server.example.com/v1
+          description: Production server
+  /emptyOperation:
+    get:
+      tags:
+      summary:
+      description:
+      externalDocs:
+      operationId:
+      parameters:
+      requestBody:
+      responses:
+      callbacks:
+      deprecated:
+      security:
+      servers:
+  /noFieldsOperation:
+      get:
+        operationId: no fields operation

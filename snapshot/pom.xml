@@ -1,0 +1,131 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.jqassistant.plugin</groupId>
+        <artifactId>parent</artifactId>
+        <version>2.2.0</version>
+        <relativePath />
+    </parent>
+
+    <artifactId>jqassistant-openapi-plugin</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <name>jQAssistant OpenAPI Plugin</name>
+    <description>The jQAssistant plugin providing scanners for OpenAPI contracts.</description>
+    <url>https://jqassistant.org/</url>
+
+    <organization>
+        <name>jQAssistant Development Team</name>
+        <url>https://jqassistant.org</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <id>dirk-mahler</id>
+            <name>Dirk Mahler</name>
+            <email>dirk.mahler@buschmais.com</email>
+        </developer>
+        <developer>
+            <id>Ansgar Dabow</id>
+            <name>Ansgar Dabow</name>
+            <email>jp06upel@studserv.uni-leipzig.de</email>
+        </developer>
+        <developer>
+            <id>Lukas Reichelt</id>
+            <name>Lukas Reichelt</name>
+            <email>ge24nete@studserv.uni-leipzig.de</email>
+        </developer>
+        <developer>
+            <id>Robin Kupfer</id>
+            <name>Robin Kupfer</name>
+            <email>robin.kupfer@ideeaner.de</email>
+        </developer>
+        <developer>
+            <id>Uzeyir Mammadov</id>
+            <name>Uzeyir Mammadov</name>
+            <email>uzeyirmammad@gmail.com</email>
+        </developer>
+        <developer>
+            <id>stephan.pirnbaum</id>
+            <name>Stephan Pirnbaum</name>
+            <email>stephan.pirnbaum@buschmais.com</email>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>GNU General Public License, v3</name>
+            <url>https://www.gnu.org/licenses/gpl-3.0.html</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:https://github.com/jqassistant-plugin/jqassistant-openapi-plugin.git</connection>
+        <developerConnection>scm:git:https://github.com/jqassistant-plugin/jqassistant-openapi-plugin.git</developerConnection>
+        <url>https://github.com/jqassistant-plugin/jqassistant-openapi-plugin</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.buschmais.jqassistant.plugin</groupId>
+            <artifactId>common</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.buschmais.xo</groupId>
+            <artifactId>xo.api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger.parser.v3</groupId>
+            <artifactId>swagger-parser</artifactId>
+            <version>2.1.14</version>
+        </dependency>
+        <!-- unit tests -->
+        <dependency>
+            <groupId>com.buschmais.jqassistant.core</groupId>
+            <artifactId>test</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
+        </dependency> 
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+        </dependency>
+        <dependency> 
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+        </dependency>
+    </dependencies>
+</project>

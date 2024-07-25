@@ -1,0 +1,121 @@
+openapi: 3.0.2
+components:
+  schemas:
+    EmptySchema:
+    SchemaWithEmptyProperty:
+      type: object
+      properties:
+    SchemaWithOtherTypeThenObject:
+      type: integer
+    IntegerSchema:
+      type: integer
+      externalDocs:
+        description: "external docs for integerschema"
+        url: "https://www.example.com"
+    SchemaWithObject:
+      type: object
+      properties:
+        test:
+          type: integer
+    SchemaWithObjectAndAllTypes:
+      type: object
+      properties:
+        ArrayType:
+          type: array
+          items:
+            type: integer
+        BoolType:
+          type: boolean
+        StringType:
+          type: string
+        IntegerType:
+          type: integer
+        NullType:
+          type: null
+        NumberType:
+          type: number
+    SchemaWithArrays:
+      type: object
+      properties:
+        ArrayWithSimpleType:
+          type: array
+          items:
+            type: integer
+        ArrayWithReference:
+          type: array
+          items:
+            $ref: '#/components/schemas/SchemaWithObject'
+    SchemaWithStringTypes:
+      type: object
+      properties:
+        StringType:
+          type: string
+        EnumType:
+          type: string
+          enum:
+            - foo
+            - baa
+            - baz
+    SchemaWithIntegerTypes:
+      type: object
+      properties:
+        Integer32:
+          type: integer
+          format: int32
+        Integer64:
+          type: integer
+          format: int64
+    SchemaWithNumberTypes:
+      type: object
+      properties:
+        DoubleValue:
+          type: number
+          format: double
+        FloatValue:
+          type: number
+          format: float
+    SchemaWithReferenceType:
+      type: object
+      properties:
+        TheReference:
+          $ref: '#/components/schemas/SchemaWithObject'
+    SchemaWithInherentAllOf:
+      allOf:
+        - $ref: '#/components/schemas/SchemaWithObject'
+        - type: object
+          properties:
+            name123:
+              type: string
+    SchemaWithInherentOneOf:
+      oneOf:
+        - $ref: '#/components/schemas/SchemaWithObject'
+        - type: object
+          properties:
+            name123:
+              type: string
+    SchemaWithInherentAnyOf:
+      anyOf:
+        - $ref: '#/components/schemas/SchemaWithDiscriminator'
+        - type: object
+          properties:
+            name123:
+              type: string
+    SchemaWithDiscriminator:
+      type: object
+      properties:
+        theDiscriminator:
+          type: string
+        randomField:
+          type: integer
+      discriminator:
+        propertyName: theDiscriminator
+    SchemaWithMappingDiscriminator:
+      type: object
+      properties:
+        aDiscriminator:
+          type: string
+      discriminator:
+        propertyName: aDiscriminator
+        mapping:
+          foo: BAA
+          baz: '#/components/schemas/SchemaWithObject'

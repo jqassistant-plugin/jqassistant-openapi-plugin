@@ -1,0 +1,57 @@
+openapi: 3.1.0
+servers:
+  - url: /rest/v1/users
+  - url: /url/with/{first_variable}/and/{second_variable}/{no_fields_variable}
+    variables:
+      first_variable:
+        enum:
+          - "value1"
+          - "value2"
+        default: "value3"
+        description: variable description
+      second_variable:
+        enum:
+        default:
+        description:
+      no_fields_variable:
+        default: no fields default
+info:
+  title: Issues
+  summary: "summary"
+  description: "Issues API"
+  termsOfService: "TOS"
+  contact:
+    email: "email@example.com"
+    name: "Example Name"
+    url: "contact.example.com"
+  license:
+    url: "licenseUrl"
+    name: "License Name"
+  version: 1.0.0
+tags:
+  - name: issues
+    description: Issues API
+    externalDocs:
+      description: "issues - external docs description"
+      url: "https://www.1.example.com"
+  - name: externalDocs_without_description
+    externalDocs:
+      url: "https://www.2.example.com"
+  - name: externalDocs_without_url
+    externalDocs:
+      description: "external docs without url"
+  - name: externalDocs_with_empty_props
+    externalDocs:
+      description:
+      url:
+  - name: tag_with_all_fields
+    description: "This is a tag with all fields set"
+    externalDocs:
+      url: "https://www.example.com"
+  - name: tag_with_empty_fields
+    description:
+    externalDocs:
+  - name: tag_with_no_fields
+externalDocs:
+  description: "external docs on contract level"
+  url: "https://www.contract.example.com"

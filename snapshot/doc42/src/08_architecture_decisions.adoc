@@ -1,0 +1,29 @@
+ifndef::imagesdir[:imagesdir: ../images]
+
+[[section-design-decisions]]
+== Architecture Decisions
+
+* The data model is kept as close to the structure of an OpenAPI Contract as possible.
+** because of that grouping nodes like `Components` got introduced, instead of just using edges to describe this dependency.
+** because of that relationship labels were chosen based on the purpose of the relationship and the name of the node being referenced.
+* all descriptors, which get referenced by componentsDescriptor additionally hold some kind of name which represents the key of the map<key,Descriptor> from components
+
+=== Parser
+
+To translate openapi contracts into neo4j nodes, the contract first needs to be parsed into java objects.
+As openapi publicly provides such a parser, there is no need to implement some proprietary solution for this problem.
+Using opensource libraries decreases development expense and increases the comprehensibility and quality of the plugins code base.
+
+The swagger-parser library was chosen mainly because it is maintained by openApi and covered at the time of selection the latest openapi versions.
+
+
+=== Resolver
+
+The resolver ideally gets invoked before the parsing classes to check if to object to parse is already existing in database. In this case a reference to this node is passed back to the invoking instance. If the object does not already exist, the according parser gets called, creates the node and passes back the reference, which than gets stored in memory by the resolver and passed on to the invoking instance.
+
+=== JSON Schema
+
+* The attribute `name` of a Type is *stored* in the types corresponding Descriptor (the name matches JSON-Schema name to the data model name).
+* Types are represented as Labels, not as attribute.
+
+

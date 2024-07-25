@@ -1,0 +1,294 @@
+openapi: 3.1.0
+info:
+  title: Sample API
+  description: API description in Markdown.
+  version: 1.0.0
+  license:
+    name: "License Name"
+    identifier: "id123"
+paths: {}
+
+components:
+  schemas:
+    Category:
+      type: object
+      properties:
+        name:
+          type: string
+
+  responses:
+    200:
+      description: "Successful operation"
+    "default":
+      description: a default response with all fields
+      headers:
+        X-Request-Id:
+          description: "Request ID header"
+          schema:
+            type: string
+      links:
+        address:
+          operationId: getUserAddress
+          parameters:
+            userId: $request.path.id
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Pet'
+    "433":
+      description:
+      headers:
+      content:
+      links:
+    "434":
+      description: no fields
+    "418":
+      content:
+        multipart/form-data_example:
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+              address:
+                type: object
+              historyMetadata:
+                description: metadata in XML format
+                type: object
+              profileImage:
+                type: object
+          example: "{ id: \"idString\", address: { }, historyMetadata: { }, profileImage: { } }"
+          encoding:
+            historyMetadata:
+              contentType: application/xml; charset=utf-8
+            profileImage:
+              contentType: image/png, image/jpeg
+              headers:
+                X-Rate-Limit-Limit:
+                  description: The number of allowed requests in the current period
+                  schema:
+                    type: integer
+        multipart/form-data_examples:
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+              address:
+                type: object
+              historyMetadata:
+                description: metadata in XML format
+                type: object
+              profileImage:
+                type: object
+          examples:
+            example1:
+              value: "{ id: \"idString1\", address: { }, historyMetadata: { }, profileImage: { } }"
+            example2:
+              value: "{ id: \"idString2\", address: { }, historyMetadata: { }, profileImage: { } }"
+          encoding:
+        multipart/form-data_empty:
+          schema:
+          examples:
+          encoding:
+
+
+  parameters:
+    param_all_fields_content:
+      name: param_all_fields_content
+      in: header
+      description: token to be passed as a header
+      required: true
+      deprecated: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - lat
+              - long
+            properties:
+              lat:
+                type: number
+              long:
+                type: number
+    param_all_fields_examples:
+      name: param_all_fields_examples
+      in: query
+      description: token to be passed as a header
+      required: false
+      deprecated: false
+      allowEmptyValue: true
+      style: pipeDelimited
+      explode: true
+      allowReserved: true
+      schema:
+        type: array
+        items:
+          type: integer
+          format: int64
+      examples:
+        example1:
+          value: "example value1"
+        example2:
+          value: "example value2"
+
+    param_all_fields_example:
+      name: param_all_fields_example
+      in: query
+      description: token to be passed as a header
+      required: false
+      deprecated: false
+      allowEmptyValue: true
+      style: pipeDelimited
+      explode: true
+      allowReserved: true
+      schema:
+        type: array
+        items:
+          type: integer
+          format: int64
+      example: "[1,2]"
+
+    param_empty_fields:
+      name: param_empty_fields
+      in: header
+      description:
+      required:
+      deprecated:
+      allowEmptyValue:
+      style:
+      explode:
+      allowReserved:
+      schema:
+      example:
+      content:
+    param_no_fields:
+      name: param_no_fields
+      in: path
+
+  examples:
+    UserData:
+      summary: "Example user data"
+
+  requestBodies:
+    UserBody:
+      description: "A user object that needs to be added to the system"
+      content:
+        application/json:
+          schema:
+            type: object
+          encoding:
+            property1:
+              contentType: application/xml; charset=utf-8
+              headers:
+                X-Rate-Limit-Limit:
+                  description: The number of allowed requests in the current period
+                  schema:
+                    type: integer
+              explode: true
+              allowReserved: true
+              style: spaceDelimited
+            property2:
+              contentType:
+              headers:
+              explode:
+              allowReserved:
+              style:
+    RichRequestBody:
+      description: rich requestBody
+      content:
+        application/json:
+          schema:
+            type: string
+      required: true
+    EmptyRequestBody:
+      description:
+      content:
+      required:
+
+
+  headers:
+    header_all_props:
+      description: "This is an header with all possible props set"
+      required: true
+      deprecated: true
+      style: simple
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
+      examples:
+        example1:
+          summary: "Summary of example 1"
+          value: ["one", "two"]
+        example2:
+          summary: "Summary of example 2"
+          value: [ "three", "four"]
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: string
+    header_example_prop:
+      description: "This is an header with the example prop set"
+      example: 20
+      schema:
+        type: integer
+    header_empty_props:
+      description:
+      required:
+      deprecated:
+      style:
+      explode:
+      schema:
+      examples:
+      content:
+
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+
+  links:
+    rich_link_with_operationId:
+      operationId: getUserAddress
+      parameters:
+        userId: $request.path.id
+      requestBody: $request.body#/user/uuid
+      description: description
+      server:
+        url: "https://www.example.com"
+    rich_link_with_operationRef:
+      operationRef: '#/paths/~12.0~1repositories~1{username}/get'
+      parameters:
+        userId: $request.path.id
+        itemId: $request.path.itemId
+      requestBody: $request.body#/user/uuid
+      description: description
+      server:
+        url: "https://www.example.com"
+    empty_link:
+      operationRef:
+      parameters:
+      requestBody:
+      description:
+      server:
+    link_with_empty_parameters:
+      parameters:
+        param1:
+        param2:
+        param3:
+
+  callbacks:
+    RichCallbackPathItem:
+      '{$request.query.callbackUrl}':
+        post:
+          description: post
+          responses:
+            description: Successful response
+    RichCallbackRef:
+      $ref: "#/components/callbacks/refString"
