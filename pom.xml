@@ -12,7 +12,7 @@
     <version>1.0.0-SNAPSHOT</version>
 
     <name>jQAssistant OpenAPI Plugin</name>
-    <description>The jQAssistant plugin providing scanners for OpenAPI contracts.</description>
+    <description>The jQAssistant plugin providing a scanner for OpenAPI contracts.</description>
     <url>https://jqassistant.org/</url>
 
     <organization>

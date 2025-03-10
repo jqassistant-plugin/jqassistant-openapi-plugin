@@ -2,7 +2,7 @@
                     id="jqa.plugin.openapi"
                     name="jQAssistant OpenApi Plugin"
                     version="${project.version}">
-    <description>Provides a scanner for OpenAPI files.</description>
+    <description>${project.description}</description>
     <model>
         <class>org.jqassistant.plugin.openapi.api.model.ContactDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.ContractDescriptor</class>
