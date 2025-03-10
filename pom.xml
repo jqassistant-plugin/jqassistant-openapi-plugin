@@ -13,7 +13,7 @@
 
     <name>jQAssistant OpenAPI Plugin</name>
     <description>The jQAssistant plugin providing a scanner for OpenAPI contracts.</description>
-    <url>https://jqassistant.org/</url>
+    <url>https://github.com/jqassistant-plugin/jqassistant-openapi-plugin</url>
 
     <organization>
         <name>jQAssistant Development Team</name>
