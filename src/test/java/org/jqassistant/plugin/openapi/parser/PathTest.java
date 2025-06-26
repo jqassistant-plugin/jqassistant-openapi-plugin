@@ -1,6 +1,10 @@
 package org.jqassistant.plugin.openapi.parser;
 
+import java.io.File;
+import java.util.List;
+
 import com.buschmais.jqassistant.core.test.plugin.AbstractPluginIT;
+
 import org.jqassistant.plugin.openapi.api.OpenApiScope;
 import org.jqassistant.plugin.openapi.api.model.ContractDescriptor;
 import org.jqassistant.plugin.openapi.api.model.PathItemDescriptor;
@@ -8,9 +12,6 @@ import org.jqassistant.plugin.openapi.api.model.ServerDescriptor;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.io.File;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -85,16 +86,19 @@ class PathTest extends AbstractPluginIT {
         PathItemDescriptor twoServersPath = getPathWithUrl("/path_with_servers");
         assertThat(twoServersPath.getServers()).hasSize(2);
 
-        ServerDescriptor firstServer = twoServersPath.getServers().get(1);
-        assertThat(firstServer.getDescription()).isEqualTo("beschreibung server 1");
-        assertThat(firstServer.getUrl()).isEqualTo("https://www.1.example.com");
-        assertThat(firstServer.getVariables()).isEmpty();
+        assertThat(twoServersPath.getServers()
+                .stream()
+                .anyMatch(server -> server.getDescription()
+                        .equals("beschreibung server 1") && server.getUrl()
+                        .equals("https://www.1.example.com") && server.getVariables()
+                        .isEmpty())).isTrue();
 
-        ServerDescriptor secondServer = twoServersPath.getServers().get(0);
-        assertThat(secondServer.getDescription()).isEqualTo("beschreibung server 2");
-        assertThat(secondServer.getUrl()).isEqualTo("https://www.2.example.com");
-        assertThat(secondServer.getVariables()).isEmpty();
-
+        assertThat(twoServersPath.getServers()
+                .stream()
+                .anyMatch(server -> server.getDescription()
+                        .equals("beschreibung server 2") && server.getUrl()
+                        .equals("https://www.2.example.com") && server.getVariables()
+                        .isEmpty())).isTrue();
     }
 
     @Test
