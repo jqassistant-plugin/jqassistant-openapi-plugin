@@ -3,12 +3,12 @@
   <context>
     <build>
       <name>jQAssistant OpenAPI Plugin</name>
-      <timestamp>2026-05-27T06:16:09.035Z</timestamp>
+      <timestamp>2026-06-16T15:33:39.331Z</timestamp>
       <properties></properties>
     </build>
   </context>
-  <group id="jqassistant-plugin:Default" date="2026-05-27T06:17:04">
-    <group id="jqassistant-plugin-maven:Default" date="2026-05-27T06:17:04">
+  <group id="jqassistant-plugin:Default" date="2026-06-16T15:34:31">
+    <group id="jqassistant-plugin-maven:Default" date="2026-06-16T15:34:31">
       <constraint id="jqassistant-plugin-maven:GroupId">
         <description>The groupId for jQAssistant plugin Maven projects must follow the pattern 'org.jqassistant.plugin.&lt;project&gt;'.</description>
         <verificationResult>
@@ -17,7 +17,7 @@
         </verificationResult>
         <status>success</status>
         <severity level="2">major</severity>
-        <duration>111</duration>
+        <duration>109</duration>
       </constraint>
       <concept id="jqassistant-plugin-maven:ParentProject" abstract="false">
         <description>Labels all Maven projects which declare "org.jqassistant.plugin:parent" as parent module with "Parent".</description>
@@ -41,7 +41,7 @@
         </verificationResult>
         <status>success</status>
         <severity level="4">info</severity>
-        <duration>120</duration>
+        <duration>141</duration>
       </concept>
       <constraint id="jqassistant-plugin-maven:MavenModulesMustUseParentGroupId">
         <description>All Maven projects must define the same groupId as the parent of the plugin project.</description>
@@ -51,7 +51,7 @@
         </verificationResult>
         <status>success</status>
         <severity level="2">major</severity>
-        <duration>73</duration>
+        <duration>93</duration>
         <required-concept id="jqassistant-plugin-maven:ParentProject">
           <status>success</status>
         </required-concept>
@@ -64,7 +64,7 @@
         </verificationResult>
         <status>success</status>
         <severity level="2">major</severity>
-        <duration>86</duration>
+        <duration>93</duration>
         <required-concept id="jqassistant-plugin-maven:ParentProject">
           <status>success</status>
         </required-concept>
@@ -77,7 +77,7 @@
         </verificationResult>
         <status>success</status>
         <severity level="2">major</severity>
-        <duration>93</duration>
+        <duration>108</duration>
         <required-concept id="jqassistant-plugin-maven:ParentProject">
           <status>success</status>
         </required-concept>
@@ -90,14 +90,14 @@
         </verificationResult>
         <status>success</status>
         <severity level="2">major</severity>
-        <duration>180</duration>
+        <duration>210</duration>
         <required-concept id="jqassistant-plugin-maven:ParentProject">
           <status>success</status>
         </required-concept>
       </constraint>
-      <duration>873</duration>
+      <duration>995</duration>
     </group>
-    <group id="jqassistant-plugin-test:Default" date="2026-05-27T06:17:05">
+    <group id="jqassistant-plugin-test:Default" date="2026-06-16T15:34:32">
       <concept id="junit5:ParameterizedTestMethod" abstract="false">
         <description>Finds all test methods (i.e. annotated with "@org.junit.jupiter.api.ParameterizedTest") and
 labels them with "Test", "Parameterized", and "Junit5".</description>
@@ -107,7 +107,7 @@ labels them with "Test", "Parameterized", and "Junit5".</description>
         </verificationResult>
         <status>success</status>
         <severity level="4">info</severity>
-        <duration>70</duration>
+        <duration>76</duration>
       </concept>
       <concept id="junit5:TestMethod" abstract="false">
         <description>Finds all test methods (i.e. annotated with "@org.junit.jupiter.api.Test") and
@@ -117,76 +117,13 @@ labels them with "Test" and "Junit5".</description>
             <column>Test</column>
           </columns>
           <rows count="69">
-            <row key="7105224c61d886cde1d3b7d75b8592f0a08be9788f8b0e7f8d85ce38575b2db4">
+            <row key="5bc9e0ef9dd913657f065a82e891ce44bbb8e842526f832135c3dbd28001802d">
               <column name="Test">
                 <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsTest.java" startLine="41" endLine="43">
+                <source fileName="/org/jqassistant/plugin/openapi/parser/JsonSchemaTest.java" startLine="42" endLine="47">
                   <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
                 </source>
-                <value>void testRequestBodies()</value>
-              </column>
-            </row>
-            <row key="b3321152c504184299d1460fa88c33b375a6ce3ccd1d1ef104b6daeae747172a">
-              <column name="Test">
-                <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/OpenAPIScannerPluginTest.java" startLine="192" endLine="218">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>void testExternalDocs()</value>
-              </column>
-            </row>
-            <row key="70a88a24c4912b901c4de3b00c1e608f8a01ad6270793bb25dc89d00ee4cb0a2">
-              <column name="Test">
-                <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/OpenAPIScannerPluginTest.java" startLine="64" endLine="75">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>void scanLicenseWithUrl()</value>
-              </column>
-            </row>
-            <row key="636f7c4a95ead3fc1deee38667192d6dcfd5c0bd9998df2b1360c04afd81f0b8">
-              <column name="Test">
-                <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/OpenAPIScannerPluginTest.java" startLine="112" endLine="122">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>void scanEmptyLicense()</value>
-              </column>
-            </row>
-            <row key="23ca4e8126aa1bb515cfe07d6d0947a495ddb9a8b60a8d896ffbe2f047d4b77f">
-              <column name="Test">
-                <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsTest.java" startLine="63" endLine="65">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>void testHeaders()</value>
-              </column>
-            </row>
-            <row key="ca08a07dd1f1c3b6a570fe9f2ddee2c1ee3eb4128667bee7f0bec28dc9d5302f">
-              <column name="Test">
-                <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/PathTest.java" startLine="107" endLine="120">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>void propertiesTest()</value>
-              </column>
-            </row>
-            <row key="b8117b5f51f8cffbf963a3f20e90a996f3a4922760bacba484c334d2a4ed46ff">
-              <column name="Test">
-                <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/OpenAPIScannerPluginTest.java" startLine="167" endLine="174">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>void scanWholeContract()</value>
-              </column>
-            </row>
-            <row key="718f191c9ce36e79d4434c19684fe363187906bb0c2ec6d6a209eabb01c4e2e1">
-              <column name="Test">
-                <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsTest.java" startLine="178" endLine="204">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>void testResponses()</value>
+                <value>void readyAnySchemaTest()</value>
               </column>
             </row>
             <row key="988c29b8b70713733635928a0d1bcc13412425ca46b6d2529d845e1bb6a93877">
@@ -198,114 +135,6 @@ labels them with "Test" and "Junit5".</description>
                 <value>void resolveNonExistingSchema()</value>
               </column>
             </row>
-            <row key="5d06c26a88bc70db2800a0b14e03b058204da803150bfff8f1277f62eeab7eaa">
-              <column name="Test">
-                <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/OpenAPIScannerPluginTest.java" startLine="179" endLine="188">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>void scanWholeContractTwo()</value>
-              </column>
-            </row>
-            <row key="d3813bb6f95efa3a22f55f82b1088d081aa50844af350616a11243fb1da044d1">
-              <column name="Test">
-                <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/JsonSchemaTest.java" startLine="234" endLine="257">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>void schemaWithNumberTypesTest()</value>
-              </column>
-            </row>
-            <row key="c3002023844f892578691f65636ac94f945c8696545c18fdbc747086719ebaa3">
-              <column name="Test">
-                <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsTest.java" startLine="114" endLine="131">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>void testRichLinks()</value>
-              </column>
-            </row>
-            <row key="1af38389c2e9d6780af5195af995b0685f5f2baeda87a7bd6d3d293e62234833">
-              <column name="Test">
-                <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/ContractIT.java" startLine="51" endLine="63">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>void contractWithEmptyProperties()</value>
-              </column>
-            </row>
-            <row key="84f3112353f0e0230a7fe4c7b154c206962443c718c3924e0f1978200dea24ad">
-              <column name="Test">
-                <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/PathTest.java" startLine="71" endLine="72">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>void emptyPathTest()</value>
-              </column>
-            </row>
-            <row key="1d74a8bed22900b1f53f5cf372105092c49f32e5086dd7588c67f3b0d7027565">
-              <column name="Test">
-                <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsTest.java" startLine="135" endLine="142">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>void testEmptyLink()</value>
-              </column>
-            </row>
-            <row key="0b43b356905c992da06cdf17373bf24335e940909ef1953816207c2833938aa6">
-              <column name="Test">
-                <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/ResolverTest.java" startLine="41" endLine="52">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>void resolveExistingSchema()</value>
-              </column>
-            </row>
-            <row key="ce26f4476d8b03501b7c34be811b965c36b2b2eeb5490da111a16513eb1b67b7">
-              <column name="Test">
-                <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/ContractIT.java" startLine="67" endLine="79">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>void richContract()</value>
-              </column>
-            </row>
-            <row key="c731fa557e64bf3c2c12dfccb278a6e6ccb73a166f28af8f4be59ace6cbc4620">
-              <column name="Test">
-                <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/OperationsFromPathsTest.java" startLine="62" endLine="76">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>void emptyOperation()</value>
-              </column>
-            </row>
-            <row key="a26b194c8e44e158e1d5ca18ee898d38b85c4160a471700d85dd93f6db4ecb96">
-              <column name="Test">
-                <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/JsonSchemaTest.java" startLine="327" endLine="347">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>void schemaWithMappingDiscriminatorTest()</value>
-              </column>
-            </row>
-            <row key="a0effe6894a440c0220cf4cd0371396e74385f72956caadcfd88d3b71b406f7d">
-              <column name="Test">
-                <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/JsonSchemaTest.java" startLine="80" endLine="92">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>void schemaWithNativeTypeTest()</value>
-              </column>
-            </row>
-            <row key="7105224c61d886cde1d3b7d75b8592f0a08be9788f8b0e7f8d85ce38575b2db4">
-              <column name="Test">
-                <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsCountTest.java" startLine="37" endLine="39">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>void testRequestBodies()</value>
-              </column>
-            </row>
             <row key="2fed223bfc5da75bdd476a1d45f04e48f953c7e197e74df1df39c5f4fc0d4d20">
               <column name="Test">
                 <element language="Java">Method</element>
@@ -313,78 +142,6 @@ labels them with "Test" and "Junit5".</description>
                   <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
                 </source>
                 <value>void scanTags()</value>
-              </column>
-            </row>
-            <row key="0e6b948c68087a1fbf95c5f73f922a80091f49f3318983db03c60cc4c8c8860e">
-              <column name="Test">
-                <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsTest.java" startLine="235" endLine="253">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>void testEncodings()</value>
-              </column>
-            </row>
-            <row key="560ad1b9a5b677d622b85c0fcf19eda056e14b8af1233fda81b4584816134b8a">
-              <column name="Test">
-                <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsTest.java" startLine="70" endLine="98">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>void testHeaderProperties()</value>
-              </column>
-            </row>
-            <row key="21d4b840a5346d9077ac9d1222027abc31cc810eb8823021b1f618bb20867daa">
-              <column name="Test">
-                <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/PathTest.java" startLine="39" endLine="42">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>void basicTest()</value>
-              </column>
-            </row>
-            <row key="fcb2f29cbc9d7fb68dc1cc10256b5ac8081214ab54f0489ae52ce4915199da4f">
-              <column name="Test">
-                <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/OpenAPIScannerPluginTest.java" startLine="79" endLine="90">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>void scanLicenseWithIdentifier()</value>
-              </column>
-            </row>
-            <row key="af421c81d719355f66595d016155b458a6ad80f93a97123b02be60ed506bbd95">
-              <column name="Test">
-                <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/OperationsFromPathsTest.java" startLine="44" endLine="58">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>void richOperation()</value>
-              </column>
-            </row>
-            <row key="ea947a2220baf2ae6bc79955358b8bd5f4a9bd052f748c1b226dd9b2b2f4bf17">
-              <column name="Test">
-                <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsTest.java" startLine="108" endLine="110">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>void testLinks()</value>
-              </column>
-            </row>
-            <row key="4785491ea6579d166175b3ead576128e28f8afba72115f3ba4d3b044e2f4bceb">
-              <column name="Test">
-                <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsTest.java" startLine="102" endLine="104">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>void testSecuritySchemes()</value>
-              </column>
-            </row>
-            <row key="5bc9e0ef9dd913657f065a82e891ce44bbb8e842526f832135c3dbd28001802d">
-              <column name="Test">
-                <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/JsonSchemaTest.java" startLine="42" endLine="47">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>void readyAnySchemaTest()</value>
               </column>
             </row>
             <row key="acf58b939758ef70a2250904090190e577702679bc1e790989d5176558de9f08">
@@ -396,76 +153,40 @@ labels them with "Test" and "Junit5".</description>
                 <value>void testEmptyLinkParameters()</value>
               </column>
             </row>
-            <row key="bed0d27250d190a20e30c0f427e6783cf9d0d5ffd6e248a98d18d35cde293525">
+            <row key="68577d5ae9e943cdfa11668b77294b760ff68b510a3b2228f19672117a260905">
               <column name="Test">
                 <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/PathTest.java" startLine="47" endLine="48">
+                <source fileName="/org/jqassistant/plugin/openapi/parser/OperationsFromPathsTest.java" startLine="80" endLine="94">
                   <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
                 </source>
-                <value>void subPathTest()</value>
+                <value>void noFieldsOperation()</value>
               </column>
             </row>
-            <row key="2317d26923bba96e0fd81b815bd2863497756cb82b4c88d87c3059d5946814bb">
+            <row key="a451c4da93178382b436d99c1749dbe04dd59b9f9c3484b0af7f96ce2d9c9c46">
               <column name="Test">
                 <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsTest.java" startLine="257" endLine="259">
+                <source fileName="/org/jqassistant/plugin/openapi/parser/JsonSchemaTest.java" startLine="297" endLine="308">
                   <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
                 </source>
-                <value>void testParameterRelation()</value>
+                <value>void SchemaWithInherentOneOf()</value>
               </column>
             </row>
-            <row key="e0a476c3dac976336601b3da11fbb759693c559e5240d3b13205459fe69820f3">
+            <row key="c3002023844f892578691f65636ac94f945c8696545c18fdbc747086719ebaa3">
               <column name="Test">
                 <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/OperationsFromPathsTest.java" startLine="39" endLine="40">
+                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsTest.java" startLine="114" endLine="131">
                   <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
                 </source>
-                <value>void allPathsPresent()</value>
+                <value>void testRichLinks()</value>
               </column>
             </row>
-            <row key="d2961ffdd986f05ee6db9d001d0ac522915afe0293be8cecabf41001a17c5783">
+            <row key="1d34e88b227be8391d540d96cf92b13f387b075fdf1c43886f2e792a5515ec03">
               <column name="Test">
                 <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsTest.java" startLine="47" endLine="51">
+                <source fileName="/org/jqassistant/plugin/openapi/parser/JsonSchemaTest.java" startLine="207" endLine="230">
                   <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
                 </source>
-                <value>void testRichRequestBody()</value>
-              </column>
-            </row>
-            <row key="74b34465ebddd418b5471a858998cfcad039365102aa41fc849ee356008e7553">
-              <column name="Test">
-                <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/ContractIT.java" startLine="35" endLine="47">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>void contractWithOnlyOpenApiVersion()</value>
-              </column>
-            </row>
-            <row key="959e4059822a64b592aa32252d5e44f43ece359f0bd9a6dfc8d37728fbfbfa62">
-              <column name="Test">
-                <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/OpenAPIScannerPluginTest.java" startLine="222" endLine="254">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>void testServerVariable()</value>
-              </column>
-            </row>
-            <row key="d7a64dab2ceaac5215c9bfc42eb782de1c44c39c21c189626ef6bc21e8e5577a">
-              <column name="Test">
-                <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/ResolverTest.java" startLine="57" endLine="68">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>void resolveInvalidSchemaReference()</value>
-              </column>
-            </row>
-            <row key="2cb083faec1afce43e2219b6e32499d84343bd7f5592f3dc518d0a681364d2a6">
-              <column name="Test">
-                <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/PathTest.java" startLine="66" endLine="67">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>void multibeOperationsTest()</value>
+                <value>void schemaWithIntegerTypesTest()</value>
               </column>
             </row>
             <row key="48c8c117a8e36a815c576c0460c701925772304a6895683786f61fa718c5311a">
@@ -477,22 +198,139 @@ labels them with "Test" and "Junit5".</description>
                 <value>void testMediaType()</value>
               </column>
             </row>
-            <row key="5ad25d334ef5b22bc0b5affc705990bada037b7609f27fe45e7ee30b201b0926">
+            <row key="72faada8e89010e4285939bc93877e20ef94c8308f49d4112a7df65d018bd351">
               <column name="Test">
                 <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/JsonSchemaTest.java" startLine="282" endLine="293">
+                <source fileName="/org/jqassistant/plugin/openapi/parser/JsonSchemaTest.java" startLine="67" endLine="77">
                   <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
                 </source>
-                <value>void SchemaWithInherentAllOf()</value>
+                <value>void schemaWithOtherTypeThenObjectTest()</value>
               </column>
             </row>
-            <row key="dbf0bab80e17ff10e427d59f92a4343dbce752a52627fc8dfaa888c667924ed9">
+            <row key="84f3112353f0e0230a7fe4c7b154c206962443c718c3924e0f1978200dea24ad">
               <column name="Test">
                 <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/OpenAPIScannerPluginTest.java" startLine="43" endLine="60">
+                <source fileName="/org/jqassistant/plugin/openapi/parser/PathTest.java" startLine="71" endLine="72">
                   <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
                 </source>
-                <value>void scanRichInfo()</value>
+                <value>void emptyPathTest()</value>
+              </column>
+            </row>
+            <row key="57fda04f118be5d3c55510bc7d80a3edf319d9fa0d4d3101a0490fc9cc200a03">
+              <column name="Test">
+                <element language="Java">Method</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/JsonSchemaTest.java" startLine="110" endLine="139">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>void schemaWithObjectAndAllTypesTest()</value>
+              </column>
+            </row>
+            <row key="0e6b948c68087a1fbf95c5f73f922a80091f49f3318983db03c60cc4c8c8860e">
+              <column name="Test">
+                <element language="Java">Method</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsTest.java" startLine="235" endLine="253">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>void testEncodings()</value>
+              </column>
+            </row>
+            <row key="0b43b356905c992da06cdf17373bf24335e940909ef1953816207c2833938aa6">
+              <column name="Test">
+                <element language="Java">Method</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/ResolverTest.java" startLine="41" endLine="52">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>void resolveExistingSchema()</value>
+              </column>
+            </row>
+            <row key="99e4dc8586a4a923bcbd0fce5abd7794226b4101fff05f34745c692da8ed6a26">
+              <column name="Test">
+                <element language="Java">Method</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsTest.java" startLine="263" endLine="276">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>void testRichParametersWithContent()</value>
+              </column>
+            </row>
+            <row key="560ad1b9a5b677d622b85c0fcf19eda056e14b8af1233fda81b4584816134b8a">
+              <column name="Test">
+                <element language="Java">Method</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsTest.java" startLine="70" endLine="98">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>void testHeaderProperties()</value>
+              </column>
+            </row>
+            <row key="636f7c4a95ead3fc1deee38667192d6dcfd5c0bd9998df2b1360c04afd81f0b8">
+              <column name="Test">
+                <element language="Java">Method</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/OpenAPIScannerPluginTest.java" startLine="112" endLine="122">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>void scanEmptyLicense()</value>
+              </column>
+            </row>
+            <row key="8e5d5661a4a8100e3370babcc6ddc81262ff8d93cb68159d22b8195f2b2321cb">
+              <column name="Test">
+                <element language="Java">Method</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/OpenAPIScannerPluginTest.java" startLine="94" endLine="108">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>void scanEmptyInfo()</value>
+              </column>
+            </row>
+            <row key="74b34465ebddd418b5471a858998cfcad039365102aa41fc849ee356008e7553">
+              <column name="Test">
+                <element language="Java">Method</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/ContractIT.java" startLine="35" endLine="47">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>void contractWithOnlyOpenApiVersion()</value>
+              </column>
+            </row>
+            <row key="7105224c61d886cde1d3b7d75b8592f0a08be9788f8b0e7f8d85ce38575b2db4">
+              <column name="Test">
+                <element language="Java">Method</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsCountTest.java" startLine="37" endLine="39">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>void testRequestBodies()</value>
+              </column>
+            </row>
+            <row key="7105224c61d886cde1d3b7d75b8592f0a08be9788f8b0e7f8d85ce38575b2db4">
+              <column name="Test">
+                <element language="Java">Method</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsTest.java" startLine="41" endLine="43">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>void testRequestBodies()</value>
+              </column>
+            </row>
+            <row key="ba9577b9fa64ca14ab660a5b7cd2cf53f07de9b21a6e39507bababa68926ae24">
+              <column name="Test">
+                <element language="Java">Method</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/JsonSchemaTest.java" startLine="143" endLine="171">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>void schemaWithArraysTest()</value>
+              </column>
+            </row>
+            <row key="a0effe6894a440c0220cf4cd0371396e74385f72956caadcfd88d3b71b406f7d">
+              <column name="Test">
+                <element language="Java">Method</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/JsonSchemaTest.java" startLine="80" endLine="92">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>void schemaWithNativeTypeTest()</value>
+              </column>
+            </row>
+            <row key="d2961ffdd986f05ee6db9d001d0ac522915afe0293be8cecabf41001a17c5783">
+              <column name="Test">
+                <element language="Java">Method</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsTest.java" startLine="47" endLine="51">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>void testRichRequestBody()</value>
               </column>
             </row>
             <row key="8f57aad66d72d488e55be33895ffd2e5723db2d028991eec0a2464fffc8ef0b1">
@@ -513,73 +351,73 @@ labels them with "Test" and "Junit5".</description>
                 <value>void testEmptyParameters()</value>
               </column>
             </row>
-            <row key="97ac273a815ffe80b73376c398a9889d061a0e1d3e9713e42fb5a45f45befc07">
+            <row key="a26b194c8e44e158e1d5ca18ee898d38b85c4160a471700d85dd93f6db4ecb96">
               <column name="Test">
                 <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsTest.java" startLine="172" endLine="174">
+                <source fileName="/org/jqassistant/plugin/openapi/parser/JsonSchemaTest.java" startLine="327" endLine="347">
                   <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
                 </source>
-                <value>void testExamples()</value>
+                <value>void schemaWithMappingDiscriminatorTest()</value>
               </column>
             </row>
-            <row key="534ebc1b7eba46d035d3f3321ea0ef8018a27c7e8d18c09e409f9f8137b89809">
+            <row key="648b8460de4b8a563af445bb3af291b5310b85928ce9ad749e536d222e199aa2">
               <column name="Test">
                 <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/JsonSchemaTest.java" startLine="96" endLine="106">
+                <source fileName="/org/jqassistant/plugin/openapi/parser/JsonSchemaTest.java" startLine="312" endLine="323">
                   <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
                 </source>
-                <value>void schemaWithObjectTest()</value>
+                <value>void SchemaWithInherentAnyOf()</value>
               </column>
             </row>
-            <row key="72faada8e89010e4285939bc93877e20ef94c8308f49d4112a7df65d018bd351">
+            <row key="5ad25d334ef5b22bc0b5affc705990bada037b7609f27fe45e7ee30b201b0926">
               <column name="Test">
                 <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/JsonSchemaTest.java" startLine="67" endLine="77">
+                <source fileName="/org/jqassistant/plugin/openapi/parser/JsonSchemaTest.java" startLine="282" endLine="293">
                   <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
                 </source>
-                <value>void schemaWithOtherTypeThenObjectTest()</value>
+                <value>void SchemaWithInherentAllOf()</value>
               </column>
             </row>
-            <row key="d668f87a00d24a924ccd2894fbcfb7f491500024a81d0a344becd9a4f33d70e7">
+            <row key="718f191c9ce36e79d4434c19684fe363187906bb0c2ec6d6a209eabb01c4e2e1">
               <column name="Test">
                 <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/PathTest.java" startLine="76" endLine="102">
+                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsTest.java" startLine="178" endLine="204">
                   <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
                 </source>
-                <value>void serversTest()</value>
+                <value>void testResponses()</value>
               </column>
             </row>
-            <row key="99e4dc8586a4a923bcbd0fce5abd7794226b4101fff05f34745c692da8ed6a26">
+            <row key="d3813bb6f95efa3a22f55f82b1088d081aa50844af350616a11243fb1da044d1">
               <column name="Test">
                 <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsTest.java" startLine="263" endLine="276">
+                <source fileName="/org/jqassistant/plugin/openapi/parser/JsonSchemaTest.java" startLine="234" endLine="257">
                   <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
                 </source>
-                <value>void testRichParametersWithContent()</value>
+                <value>void schemaWithNumberTypesTest()</value>
               </column>
             </row>
-            <row key="0e3804b606cf152b05c6a22d7811f39fa6fe8181f70309c6d031365200c1c47f">
+            <row key="bbc16ef02081ad57b943489db459902a992190655a570e6e3d90572faa75678e">
               <column name="Test">
                 <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/PathTest.java" startLine="52" endLine="53">
+                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsTest.java" startLine="280" endLine="307">
                   <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
                 </source>
-                <value>void realWorldExampleTest()</value>
+                <value>void testRichParametersWithSchema()</value>
               </column>
             </row>
-            <row key="68577d5ae9e943cdfa11668b77294b760ff68b510a3b2228f19672117a260905">
+            <row key="c731fa557e64bf3c2c12dfccb278a6e6ccb73a166f28af8f4be59ace6cbc4620">
               <column name="Test">
                 <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/OperationsFromPathsTest.java" startLine="80" endLine="94">
+                <source fileName="/org/jqassistant/plugin/openapi/parser/OperationsFromPathsTest.java" startLine="62" endLine="76">
                   <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
                 </source>
-                <value>void noFieldsOperation()</value>
+                <value>void emptyOperation()</value>
               </column>
             </row>
             <row key="23ca4e8126aa1bb515cfe07d6d0947a495ddb9a8b60a8d896ffbe2f047d4b77f">
               <column name="Test">
                 <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsCountTest.java" startLine="43" endLine="45">
+                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsTest.java" startLine="63" endLine="65">
                   <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
                 </source>
                 <value>void testHeaders()</value>
@@ -594,22 +432,13 @@ labels them with "Test" and "Junit5".</description>
                 <value>void parameterTest()</value>
               </column>
             </row>
-            <row key="c0d1acc31714354ed880812fc94fb52c5aac7eb89a5d859637bd66175d5584b9">
+            <row key="af421c81d719355f66595d016155b458a6ad80f93a97123b02be60ed506bbd95">
               <column name="Test">
                 <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/JsonSchemaTest.java" startLine="175" endLine="203">
+                <source fileName="/org/jqassistant/plugin/openapi/parser/OperationsFromPathsTest.java" startLine="44" endLine="58">
                   <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
                 </source>
-                <value>void schemaWithStringTypesTest()</value>
-              </column>
-            </row>
-            <row key="648b8460de4b8a563af445bb3af291b5310b85928ce9ad749e536d222e199aa2">
-              <column name="Test">
-                <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/JsonSchemaTest.java" startLine="312" endLine="323">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>void SchemaWithInherentAnyOf()</value>
+                <value>void richOperation()</value>
               </column>
             </row>
             <row key="510c1cf889a0a5658786ca4ec87713c5bfca635e2bf1daa0329b4adb90e0bd97">
@@ -621,6 +450,60 @@ labels them with "Test" and "Junit5".</description>
                 <value>void testEmptyRequestBody()</value>
               </column>
             </row>
+            <row key="959e4059822a64b592aa32252d5e44f43ece359f0bd9a6dfc8d37728fbfbfa62">
+              <column name="Test">
+                <element language="Java">Method</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/OpenAPIScannerPluginTest.java" startLine="222" endLine="254">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>void testServerVariable()</value>
+              </column>
+            </row>
+            <row key="2cb083faec1afce43e2219b6e32499d84343bd7f5592f3dc518d0a681364d2a6">
+              <column name="Test">
+                <element language="Java">Method</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/PathTest.java" startLine="66" endLine="67">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>void multibeOperationsTest()</value>
+              </column>
+            </row>
+            <row key="fcb2f29cbc9d7fb68dc1cc10256b5ac8081214ab54f0489ae52ce4915199da4f">
+              <column name="Test">
+                <element language="Java">Method</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/OpenAPIScannerPluginTest.java" startLine="79" endLine="90">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>void scanLicenseWithIdentifier()</value>
+              </column>
+            </row>
+            <row key="1af38389c2e9d6780af5195af995b0685f5f2baeda87a7bd6d3d293e62234833">
+              <column name="Test">
+                <element language="Java">Method</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/ContractIT.java" startLine="51" endLine="63">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>void contractWithEmptyProperties()</value>
+              </column>
+            </row>
+            <row key="97ac273a815ffe80b73376c398a9889d061a0e1d3e9713e42fb5a45f45befc07">
+              <column name="Test">
+                <element language="Java">Method</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsCountTest.java" startLine="49" endLine="51">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>void testExamples()</value>
+              </column>
+            </row>
+            <row key="e0a476c3dac976336601b3da11fbb759693c559e5240d3b13205459fe69820f3">
+              <column name="Test">
+                <element language="Java">Method</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/OperationsFromPathsTest.java" startLine="39" endLine="40">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>void allPathsPresent()</value>
+              </column>
+            </row>
             <row key="8f57aad66d72d488e55be33895ffd2e5723db2d028991eec0a2464fffc8ef0b1">
               <column name="Test">
                 <element language="Java">Method</element>
@@ -630,28 +513,28 @@ labels them with "Test" and "Junit5".</description>
                 <value>void testSchemas()</value>
               </column>
             </row>
-            <row key="94b53b58cd6d74bca4083d1f77f0f223bfd32a99c8b9bef48b60b25090339c29">
+            <row key="70d29d65e73abd4df51dc6e80d7e2406fb82dc85ea491131f2775727b350f839">
               <column name="Test">
                 <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/OpenAPIScannerPluginTest.java" startLine="126" endLine="136">
+                <source fileName="/org/jqassistant/plugin/openapi/parser/OpenAPIScannerPluginTest.java" startLine="20" endLine="39">
                   <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
                 </source>
-                <value>void scanEmptyContact()</value>
+                <value>void scanMetaData()</value>
               </column>
             </row>
-            <row key="a451c4da93178382b436d99c1749dbe04dd59b9f9c3484b0af7f96ce2d9c9c46">
+            <row key="5d06c26a88bc70db2800a0b14e03b058204da803150bfff8f1277f62eeab7eaa">
               <column name="Test">
                 <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/JsonSchemaTest.java" startLine="297" endLine="308">
+                <source fileName="/org/jqassistant/plugin/openapi/parser/OpenAPIScannerPluginTest.java" startLine="179" endLine="188">
                   <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
                 </source>
-                <value>void SchemaWithInherentOneOf()</value>
+                <value>void scanWholeContractTwo()</value>
               </column>
             </row>
             <row key="97ac273a815ffe80b73376c398a9889d061a0e1d3e9713e42fb5a45f45befc07">
               <column name="Test">
                 <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsCountTest.java" startLine="49" endLine="51">
+                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsTest.java" startLine="172" endLine="174">
                   <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
                 </source>
                 <value>void testExamples()</value>
@@ -666,67 +549,58 @@ labels them with "Test" and "Junit5".</description>
                 <value>void testCallbacks()</value>
               </column>
             </row>
-            <row key="70d29d65e73abd4df51dc6e80d7e2406fb82dc85ea491131f2775727b350f839">
+            <row key="ea947a2220baf2ae6bc79955358b8bd5f4a9bd052f748c1b226dd9b2b2f4bf17">
               <column name="Test">
                 <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/OpenAPIScannerPluginTest.java" startLine="20" endLine="39">
+                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsTest.java" startLine="108" endLine="110">
                   <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
                 </source>
-                <value>void scanMetaData()</value>
+                <value>void testLinks()</value>
               </column>
             </row>
-            <row key="57fda04f118be5d3c55510bc7d80a3edf319d9fa0d4d3101a0490fc9cc200a03">
+            <row key="d668f87a00d24a924ccd2894fbcfb7f491500024a81d0a344becd9a4f33d70e7">
               <column name="Test">
                 <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/JsonSchemaTest.java" startLine="110" endLine="139">
+                <source fileName="/org/jqassistant/plugin/openapi/parser/PathTest.java" startLine="76" endLine="102">
                   <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
                 </source>
-                <value>void schemaWithObjectAndAllTypesTest()</value>
+                <value>void serversTest()</value>
               </column>
             </row>
-            <row key="1d34e88b227be8391d540d96cf92b13f387b075fdf1c43886f2e792a5515ec03">
+            <row key="b3321152c504184299d1460fa88c33b375a6ce3ccd1d1ef104b6daeae747172a">
               <column name="Test">
                 <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/JsonSchemaTest.java" startLine="207" endLine="230">
+                <source fileName="/org/jqassistant/plugin/openapi/parser/OpenAPIScannerPluginTest.java" startLine="192" endLine="218">
                   <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
                 </source>
-                <value>void schemaWithIntegerTypesTest()</value>
+                <value>void testExternalDocs()</value>
               </column>
             </row>
-            <row key="6a0fd6c54de5efb6cf7652cfe4432e448972ab5102c45f98b0daa53970f14a09">
+            <row key="0e3804b606cf152b05c6a22d7811f39fa6fe8181f70309c6d031365200c1c47f">
               <column name="Test">
                 <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/JsonSchemaTest.java" startLine="261" endLine="278">
+                <source fileName="/org/jqassistant/plugin/openapi/parser/PathTest.java" startLine="52" endLine="53">
                   <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
                 </source>
-                <value>void schemaWithReferenceTypeTest()</value>
+                <value>void realWorldExampleTest()</value>
               </column>
             </row>
-            <row key="bbc16ef02081ad57b943489db459902a992190655a570e6e3d90572faa75678e">
+            <row key="21d4b840a5346d9077ac9d1222027abc31cc810eb8823021b1f618bb20867daa">
               <column name="Test">
                 <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsTest.java" startLine="280" endLine="307">
+                <source fileName="/org/jqassistant/plugin/openapi/parser/PathTest.java" startLine="39" endLine="42">
                   <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
                 </source>
-                <value>void testRichParametersWithSchema()</value>
+                <value>void basicTest()</value>
               </column>
             </row>
-            <row key="ba9577b9fa64ca14ab660a5b7cd2cf53f07de9b21a6e39507bababa68926ae24">
+            <row key="534ebc1b7eba46d035d3f3321ea0ef8018a27c7e8d18c09e409f9f8137b89809">
               <column name="Test">
                 <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/JsonSchemaTest.java" startLine="143" endLine="171">
+                <source fileName="/org/jqassistant/plugin/openapi/parser/JsonSchemaTest.java" startLine="96" endLine="106">
                   <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
                 </source>
-                <value>void schemaWithArraysTest()</value>
-              </column>
-            </row>
-            <row key="8e5d5661a4a8100e3370babcc6ddc81262ff8d93cb68159d22b8195f2b2321cb">
-              <column name="Test">
-                <element language="Java">Method</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/OpenAPIScannerPluginTest.java" startLine="94" endLine="108">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>void scanEmptyInfo()</value>
+                <value>void schemaWithObjectTest()</value>
               </column>
             </row>
             <row key="f584ce8973cab5ed06bf0b61e2f4b8c0335546e526408317dedd82e56376bb6b">
@@ -738,6 +612,132 @@ labels them with "Test" and "Junit5".</description>
                 <value>void schemaWithEmptyPropertyTest()</value>
               </column>
             </row>
+            <row key="2317d26923bba96e0fd81b815bd2863497756cb82b4c88d87c3059d5946814bb">
+              <column name="Test">
+                <element language="Java">Method</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsTest.java" startLine="257" endLine="259">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>void testParameterRelation()</value>
+              </column>
+            </row>
+            <row key="b8117b5f51f8cffbf963a3f20e90a996f3a4922760bacba484c334d2a4ed46ff">
+              <column name="Test">
+                <element language="Java">Method</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/OpenAPIScannerPluginTest.java" startLine="167" endLine="174">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>void scanWholeContract()</value>
+              </column>
+            </row>
+            <row key="1d74a8bed22900b1f53f5cf372105092c49f32e5086dd7588c67f3b0d7027565">
+              <column name="Test">
+                <element language="Java">Method</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsTest.java" startLine="135" endLine="142">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>void testEmptyLink()</value>
+              </column>
+            </row>
+            <row key="d7a64dab2ceaac5215c9bfc42eb782de1c44c39c21c189626ef6bc21e8e5577a">
+              <column name="Test">
+                <element language="Java">Method</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/ResolverTest.java" startLine="57" endLine="68">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>void resolveInvalidSchemaReference()</value>
+              </column>
+            </row>
+            <row key="dbf0bab80e17ff10e427d59f92a4343dbce752a52627fc8dfaa888c667924ed9">
+              <column name="Test">
+                <element language="Java">Method</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/OpenAPIScannerPluginTest.java" startLine="43" endLine="60">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>void scanRichInfo()</value>
+              </column>
+            </row>
+            <row key="94b53b58cd6d74bca4083d1f77f0f223bfd32a99c8b9bef48b60b25090339c29">
+              <column name="Test">
+                <element language="Java">Method</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/OpenAPIScannerPluginTest.java" startLine="126" endLine="136">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>void scanEmptyContact()</value>
+              </column>
+            </row>
+            <row key="4785491ea6579d166175b3ead576128e28f8afba72115f3ba4d3b044e2f4bceb">
+              <column name="Test">
+                <element language="Java">Method</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsTest.java" startLine="102" endLine="104">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>void testSecuritySchemes()</value>
+              </column>
+            </row>
+            <row key="bed0d27250d190a20e30c0f427e6783cf9d0d5ffd6e248a98d18d35cde293525">
+              <column name="Test">
+                <element language="Java">Method</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/PathTest.java" startLine="47" endLine="48">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>void subPathTest()</value>
+              </column>
+            </row>
+            <row key="70a88a24c4912b901c4de3b00c1e608f8a01ad6270793bb25dc89d00ee4cb0a2">
+              <column name="Test">
+                <element language="Java">Method</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/OpenAPIScannerPluginTest.java" startLine="64" endLine="75">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>void scanLicenseWithUrl()</value>
+              </column>
+            </row>
+            <row key="23ca4e8126aa1bb515cfe07d6d0947a495ddb9a8b60a8d896ffbe2f047d4b77f">
+              <column name="Test">
+                <element language="Java">Method</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsCountTest.java" startLine="43" endLine="45">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>void testHeaders()</value>
+              </column>
+            </row>
+            <row key="6a0fd6c54de5efb6cf7652cfe4432e448972ab5102c45f98b0daa53970f14a09">
+              <column name="Test">
+                <element language="Java">Method</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/JsonSchemaTest.java" startLine="261" endLine="278">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>void schemaWithReferenceTypeTest()</value>
+              </column>
+            </row>
+            <row key="ca08a07dd1f1c3b6a570fe9f2ddee2c1ee3eb4128667bee7f0bec28dc9d5302f">
+              <column name="Test">
+                <element language="Java">Method</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/PathTest.java" startLine="107" endLine="120">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>void propertiesTest()</value>
+              </column>
+            </row>
+            <row key="c0d1acc31714354ed880812fc94fb52c5aac7eb89a5d859637bd66175d5584b9">
+              <column name="Test">
+                <element language="Java">Method</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/JsonSchemaTest.java" startLine="175" endLine="203">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>void schemaWithStringTypesTest()</value>
+              </column>
+            </row>
+            <row key="ce26f4476d8b03501b7c34be811b965c36b2b2eeb5490da111a16513eb1b67b7">
+              <column name="Test">
+                <element language="Java">Method</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/ContractIT.java" startLine="67" endLine="79">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>void richContract()</value>
+              </column>
+            </row>
           </rows>
         </result>
         <verificationResult>
@@ -746,7 +746,7 @@ labels them with "Test" and "Junit5".</description>
         </verificationResult>
         <status>success</status>
         <severity level="4">info</severity>
-        <duration>126</duration>
+        <duration>175</duration>
       </concept>
       <concept id="junit5:TestTemplateMethod" abstract="false">
         <description>Labels all methods annotated by "@org.junit.jupiter.api.TestTemplate"
@@ -757,7 +757,7 @@ with "Junit5", "Test" and "Template".</description>
         </verificationResult>
         <status>success</status>
         <severity level="4">info</severity>
-        <duration>77</duration>
+        <duration>92</duration>
       </concept>
       <concept id="junit5:RepeatedTestMethod" abstract="false">
         <description>Finds all test methods (i.e. annotated with "@org.junit.jupiter.api.RepeatedTest") and
@@ -768,7 +768,7 @@ labels them with "Test", "Repeated", and "Junit5".</description>
         </verificationResult>
         <status>success</status>
         <severity level="4">info</severity>
-        <duration>54</duration>
+        <duration>78</duration>
       </concept>
       <concept id="junit5:TestClass" abstract="false">
         <description>Labels all classes containing test methods with "Test" and "Junit5".</description>
@@ -778,67 +778,7 @@ labels them with "Test", "Repeated", and "Junit5".</description>
             <column>TestMethods</column>
           </columns>
           <rows count="8">
-            <row key="13e673ea048f205bbb776613426798fe1578615223784025dd5dfcd514410dcb">
-              <column name="TestClass">
-                <element language="Java">Type</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/JsonSchemaTest.java">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>org.jqassistant.plugin.openapi.parser.JsonSchemaTest</value>
-              </column>
-              <column name="TestMethods">
-                <value>void schemaWithOtherTypeThenObjectTest(), void readyAnySchemaTest(), void schemaWithNativeTypeTest(), void schemaWithMappingDiscriminatorTest(), void schemaWithEmptyPropertyTest(), void SchemaWithInherentOneOf(), void schemaWithStringTypesTest(), void schemaWithReferenceTypeTest(), void schemaWithObjectAndAllTypesTest(), void SchemaWithInherentAnyOf(), void SchemaWithInherentAllOf(), void schemaWithIntegerTypesTest(), void schemaWithObjectTest(), void schemaWithArraysTest(), void schemaWithNumberTypesTest()</value>
-              </column>
-            </row>
-            <row key="a97e9fef91fbd21097dfdd7d0ac1a6e473f77bc5c8bbf76ad5d471fc57c406c9">
-              <column name="TestClass">
-                <element language="Java">Type</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/OpenAPIScannerPluginTest.java">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>org.jqassistant.plugin.openapi.parser.OpenAPIScannerPluginTest</value>
-              </column>
-              <column name="TestMethods">
-                <value>void testServerVariable(), void scanWholeContractTwo(), void scanLicenseWithIdentifier(), void scanLicenseWithUrl(), void scanEmptyInfo(), void scanMetaData(), void scanEmptyLicense(), void scanTags(), void scanEmptyContact(), void testExternalDocs(), void scanWholeContract(), void scanRichInfo()</value>
-              </column>
-            </row>
-            <row key="b37c8ebd86ac4a7620641d873177464ffb4d00120dae46d5697c6e48136cb506">
-              <column name="TestClass">
-                <element language="Java">Type</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsTest.java">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>org.jqassistant.plugin.openapi.parser.ComponentsTest</value>
-              </column>
-              <column name="TestMethods">
-                <value>void testSchemas(), void testResponses(), void testRichRequestBody(), void testEmptyParameters(), void testEmptyLink(), void testExamples(), void testLinks(), void testHeaders(), void testRichParametersWithSchema(), void testRichLinks(), void testSecuritySchemes(), void testParameterRelation(), void testMediaType(), void testRichParametersWithContent(), void testHeaderProperties(), void testEmptyLinkParameters(), void testEncodings(), void testCallbacks(), void testRequestBodies(), void testEmptyRequestBody()</value>
-              </column>
-            </row>
-            <row key="09f949358a6bdcfab19ced4eb5ad7469d709522ff23313b5f0a716632fa2a430">
-              <column name="TestClass">
-                <element language="Java">Type</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/ResolverTest.java">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>org.jqassistant.plugin.openapi.parser.ResolverTest</value>
-              </column>
-              <column name="TestMethods">
-                <value>void resolveNonExistingSchema(), void resolveInvalidSchemaReference(), void resolveExistingSchema()</value>
-              </column>
-            </row>
-            <row key="c56426d53e92c27ef8c6fae919ada869a8a5bede3ed492a4de27ef181754e158">
-              <column name="TestClass">
-                <element language="Java">Type</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsCountTest.java">
-                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
-                </source>
-                <value>org.jqassistant.plugin.openapi.parser.ComponentsCountTest</value>
-              </column>
-              <column name="TestMethods">
-                <value>void testHeaders(), void testRequestBodies(), void testExamples(), void testSchemas()</value>
-              </column>
-            </row>
-            <row key="2168165a7637b34d66bc5b8dd84a42089f365d416d1dc6e66d0bb845d07f5b53">
+            <row key="6d3a026defda01cbdf598f6192fe21a104f42ba3fa96a4905599c689dade6303">
               <column name="TestClass">
                 <element language="Java">Type</element>
                 <source fileName="/org/jqassistant/plugin/openapi/parser/ContractIT.java">
@@ -847,22 +787,34 @@ labels them with "Test", "Repeated", and "Junit5".</description>
                 <value>org.jqassistant.plugin.openapi.parser.ContractIT</value>
               </column>
               <column name="TestMethods">
-                <value>void contractWithEmptyProperties(), void richContract(), void contractWithOnlyOpenApiVersion()</value>
+                <value>void richContract(), void contractWithOnlyOpenApiVersion(), void contractWithEmptyProperties()</value>
               </column>
             </row>
-            <row key="a0ba21bbde564846039d54b9c9c0606af6160ff7fedd42554c4cc9cb41a4fea1">
+            <row key="9b5967f976594a76e49525da3b30d64573961b5907c56fb0c0ca7c7fb1f2892c">
               <column name="TestClass">
                 <element language="Java">Type</element>
-                <source fileName="/org/jqassistant/plugin/openapi/parser/OperationsFromPathsTest.java">
+                <source fileName="/org/jqassistant/plugin/openapi/parser/OpenAPIScannerPluginTest.java">
                   <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
                 </source>
-                <value>org.jqassistant.plugin.openapi.parser.OperationsFromPathsTest</value>
+                <value>org.jqassistant.plugin.openapi.parser.OpenAPIScannerPluginTest</value>
               </column>
               <column name="TestMethods">
-                <value>void emptyOperation(), void allPathsPresent(), void richOperation(), void noFieldsOperation()</value>
+                <value>void scanTags(), void scanLicenseWithIdentifier(), void testExternalDocs(), void scanEmptyLicense(), void scanRichInfo(), void testServerVariable(), void scanEmptyInfo(), void scanWholeContractTwo(), void scanLicenseWithUrl(), void scanWholeContract(), void scanMetaData(), void scanEmptyContact()</value>
               </column>
             </row>
-            <row key="f10715c38ed6ffca566c310fa9b488b80d9c0b449201c084745d9096d46755af">
+            <row key="03e0bc42d377c35bc2f8d5311f92a20712478f02dc7e384fc4280791eb18cbc5">
+              <column name="TestClass">
+                <element language="Java">Type</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsTest.java">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>org.jqassistant.plugin.openapi.parser.ComponentsTest</value>
+              </column>
+              <column name="TestMethods">
+                <value>void testEmptyRequestBody(), void testRichLinks(), void testResponses(), void testHeaderProperties(), void testRequestBodies(), void testEmptyParameters(), void testEmptyLink(), void testMediaType(), void testParameterRelation(), void testRichParametersWithSchema(), void testHeaders(), void testRichRequestBody(), void testExamples(), void testRichParametersWithContent(), void testEncodings(), void testEmptyLinkParameters(), void testLinks(), void testSchemas(), void testCallbacks(), void testSecuritySchemes()</value>
+              </column>
+            </row>
+            <row key="5c3fa735bebc74422a0e6938b0f9a73e6824e000e25086016207261506c3642e">
               <column name="TestClass">
                 <element language="Java">Type</element>
                 <source fileName="/org/jqassistant/plugin/openapi/parser/PathTest.java">
@@ -871,7 +823,55 @@ labels them with "Test", "Repeated", and "Junit5".</description>
                 <value>org.jqassistant.plugin.openapi.parser.PathTest</value>
               </column>
               <column name="TestMethods">
-                <value>void multibeOperationsTest(), void subPathTest(), void realWorldExampleTest(), void basicTest(), void emptyPathTest(), void parameterTest(), void propertiesTest(), void serversTest()</value>
+                <value>void subPathTest(), void basicTest(), void emptyPathTest(), void realWorldExampleTest(), void multibeOperationsTest(), void propertiesTest(), void parameterTest(), void serversTest()</value>
+              </column>
+            </row>
+            <row key="64d898d0805d781baeef14f1392a03ae0307a069661b03f149c8ebf252d28f8d">
+              <column name="TestClass">
+                <element language="Java">Type</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/ResolverTest.java">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>org.jqassistant.plugin.openapi.parser.ResolverTest</value>
+              </column>
+              <column name="TestMethods">
+                <value>void resolveNonExistingSchema(), void resolveExistingSchema(), void resolveInvalidSchemaReference()</value>
+              </column>
+            </row>
+            <row key="b3f9771da1d526d0a217beca6026b5fb7aa4b9d70428574c94e8d2269860402a">
+              <column name="TestClass">
+                <element language="Java">Type</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/ComponentsCountTest.java">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>org.jqassistant.plugin.openapi.parser.ComponentsCountTest</value>
+              </column>
+              <column name="TestMethods">
+                <value>void testSchemas(), void testExamples(), void testRequestBodies(), void testHeaders()</value>
+              </column>
+            </row>
+            <row key="b39988a82faf69aa30e7a5c3f2d620c2e79eff208b35702005d839aa5c6bb364">
+              <column name="TestClass">
+                <element language="Java">Type</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/OperationsFromPathsTest.java">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>org.jqassistant.plugin.openapi.parser.OperationsFromPathsTest</value>
+              </column>
+              <column name="TestMethods">
+                <value>void emptyOperation(), void allPathsPresent(), void noFieldsOperation(), void richOperation()</value>
+              </column>
+            </row>
+            <row key="d949fb601824f09886c8e8c12859fc40d440df55707fb405259bdc90b107b5e7">
+              <column name="TestClass">
+                <element language="Java">Type</element>
+                <source fileName="/org/jqassistant/plugin/openapi/parser/JsonSchemaTest.java">
+                  <parent fileName="/home/runner/.m2/repository/org/jqassistant/plugin/jqassistant-openapi-plugin/1.0.0-SNAPSHOT/jqassistant-openapi-plugin-1.0.0-SNAPSHOT-tests.test-jar" group="org.jqassistant.plugin" name="jqassistant-openapi-plugin" type="test-jar" version="1.0.0-SNAPSHOT" classifier="tests"></parent>
+                </source>
+                <value>org.jqassistant.plugin.openapi.parser.JsonSchemaTest</value>
+              </column>
+              <column name="TestMethods">
+                <value>void schemaWithNumberTypesTest(), void schemaWithArraysTest(), void schemaWithReferenceTypeTest(), void schemaWithOtherTypeThenObjectTest(), void schemaWithObjectAndAllTypesTest(), void SchemaWithInherentOneOf(), void schemaWithIntegerTypesTest(), void schemaWithMappingDiscriminatorTest(), void SchemaWithInherentAnyOf(), void readyAnySchemaTest(), void schemaWithStringTypesTest(), void SchemaWithInherentAllOf(), void schemaWithObjectTest(), void schemaWithNativeTypeTest(), void schemaWithEmptyPropertyTest()</value>
               </column>
             </row>
           </rows>
@@ -882,7 +882,7 @@ labels them with "Test", "Repeated", and "Junit5".</description>
         </verificationResult>
         <status>success</status>
         <severity level="4">info</severity>
-        <duration>94</duration>
+        <duration>119</duration>
         <required-concept id="junit5:ParameterizedTestMethod">
           <status>success</status>
         </required-concept>
@@ -904,7 +904,7 @@ labels them with "Test", "Repeated", and "Junit5".</description>
         </verificationResult>
         <status>success</status>
         <severity level="4">info</severity>
-        <duration>123</duration>
+        <duration>129</duration>
         <required-concept id="junit5:TestClass">
           <status>success</status>
         </required-concept>
@@ -917,14 +917,14 @@ labels them with "Test", "Repeated", and "Junit5".</description>
         </verificationResult>
         <status>success</status>
         <severity level="2">major</severity>
-        <duration>31</duration>
+        <duration>34</duration>
         <required-concept id="jqassistant-plugin-test:IT">
           <status>success</status>
         </required-concept>
       </constraint>
-      <duration>629</duration>
+      <duration>762</duration>
     </group>
-    <group id="jqassistant-plugin-plugin:Default" date="2026-05-27T06:17:06">
+    <group id="jqassistant-plugin-plugin:Default" date="2026-06-16T15:34:33">
       <concept id="neo4j:Procedure" abstract="false">
         <description>Labels all types annotated with "@org.neo4j.procedure.Procedure" with `Neo4j` and `Procedure`.</description>
         <verificationResult>
@@ -933,7 +933,7 @@ labels them with "Test", "Repeated", and "Junit5".</description>
         </verificationResult>
         <status>success</status>
         <severity level="4">info</severity>
-        <duration>63</duration>
+        <duration>59</duration>
       </concept>
       <concept id="jqassistant-plugin-plugin:PluginDescriptor" abstract="false">
         <description>Labels jQAssistant plugin descriptor files with `jQAssistant` and `PluginDescriptor`.</description>
@@ -965,7 +965,7 @@ labels them with "Test", "Repeated", and "Junit5".</description>
         </verificationResult>
         <status>success</status>
         <severity level="4">info</severity>
-        <duration>59</duration>
+        <duration>62</duration>
       </concept>
       <concept id="jqassistant-plugin-plugin:PluginRegistersProcedure" abstract="false">
         <description>Creates a `REGISTERS` relation between all procedure class elements of the jQAssistant plugin
@@ -976,7 +976,7 @@ labels them with "Test", "Repeated", and "Junit5".</description>
         </verificationResult>
         <status>success</status>
         <severity level="4">info</severity>
-        <duration>167</duration>
+        <duration>203</duration>
         <required-concept id="jqassistant-plugin-plugin:PluginDescriptor">
           <status>success</status>
         </required-concept>
@@ -989,7 +989,7 @@ labels them with "Test", "Repeated", and "Junit5".</description>
         </verificationResult>
         <status>success</status>
         <severity level="2">major</severity>
-        <duration>49</duration>
+        <duration>55</duration>
         <required-concept id="neo4j:Procedure">
           <status>success</status>
         </required-concept>
@@ -1006,7 +1006,7 @@ labels them with "Test", "Repeated", and "Junit5".</description>
         </verificationResult>
         <status>success</status>
         <severity level="4">info</severity>
-        <duration>49</duration>
+        <duration>56</duration>
       </concept>
       <concept id="jqassistant-plugin-plugin:PluginRegistersUserFunction" abstract="false">
         <description>Creates a `REGISTERS` relation between all function class elements of the jQAssistant plugin
@@ -1017,7 +1017,7 @@ labels them with "Test", "Repeated", and "Junit5".</description>
         </verificationResult>
         <status>success</status>
         <severity level="4">info</severity>
-        <duration>150</duration>
+        <duration>177</duration>
         <required-concept id="jqassistant-plugin-plugin:PluginDescriptor">
           <status>success</status>
         </required-concept>
@@ -1030,7 +1030,7 @@ labels them with "Test", "Repeated", and "Junit5".</description>
         </verificationResult>
         <status>success</status>
         <severity level="2">major</severity>
-        <duration>49</duration>
+        <duration>54</duration>
         <required-concept id="neo4j:UserFunction">
           <status>success</status>
         </required-concept>
@@ -1046,14 +1046,14 @@ labels them with "Test", "Repeated", and "Junit5".</description>
         </verificationResult>
         <status>success</status>
         <severity level="3">minor</severity>
-        <duration>180</duration>
+        <duration>210</duration>
         <required-concept id="jqassistant-plugin-plugin:PluginDescriptor">
           <status>success</status>
         </required-concept>
       </constraint>
-      <duration>818</duration>
+      <duration>938</duration>
     </group>
-    <group id="jqassistant-plugin-package:Default" date="2026-05-27T06:17:06">
+    <group id="jqassistant-plugin-package:Default" date="2026-06-16T15:34:34">
       <concept id="java:GeneratedLombokType" abstract="false">
         <description>Labels types generated by Lombok as 'Generated' (requires 'lombok.addLombokGeneratedAnnotation=true' in 'lombok.config').</description>
         <result>
@@ -1074,7 +1074,7 @@ labels them with "Test", "Repeated", and "Junit5".</description>
         </verificationResult>
         <status>warning</status>
         <severity level="3">minor</severity>
-        <duration>50</duration>
+        <duration>67</duration>
       </concept>
       <concept id="java:GeneratedType" abstract="false">
         <description>Reports the count of types labeled with `Generated`, grouped by containing artifact.</description>
@@ -1084,7 +1084,7 @@ labels them with "Test", "Repeated", and "Junit5".</description>
         </verificationResult>
         <status>success</status>
         <severity level="3">minor</severity>
-        <duration>1</duration>
+        <duration>0</duration>
         <providing-concept id="java:GeneratedLombokType">
           <status>failure</status>
         </providing-concept>
@@ -1097,13 +1097,13 @@ labels them with "Test", "Repeated", and "Junit5".</description>
         </verificationResult>
         <status>success</status>
         <severity level="2">major</severity>
-        <duration>100</duration>
+        <duration>123</duration>
         <required-concept id="java:GeneratedType">
           <status>success</status>
         </required-concept>
       </constraint>
-      <duration>167</duration>
+      <duration>215</duration>
     </group>
-    <duration>169</duration>
+    <duration>218</duration>
   </group>
 </jqassistant-report>

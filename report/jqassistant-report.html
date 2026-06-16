@@ -192,7 +192,7 @@
             jQAssistant Report - jQAssistant OpenAPI Plugin</h1>
         <h5>
                         Timestamp:
-            <span class="timeStamp">2026-05-27T06:16:09.035Z</span>
+            <span class="timeStamp">2026-06-16T15:33:39.331Z</span>
         </h5>
         <div>
             <h3>Constraints</h3>
@@ -772,28 +772,28 @@ with "Junit5", "Test" and "Template".</pre>
                                     <th>TestClass</th><th>TestMethods</th>
                                 </tr>
                                 <tr>
-                                    <td>org.jqassistant.plugin.openapi.parser.JsonSchemaTest</td><td>void schemaWithOtherTypeThenObjectTest(), void readyAnySchemaTest(), void schemaWithNativeTypeTest(), void schemaWithMappingDiscriminatorTest(), void schemaWithEmptyPropertyTest(), void SchemaWithInherentOneOf(), void schemaWithStringTypesTest(), void schemaWithReferenceTypeTest(), void schemaWithObjectAndAllTypesTest(), void SchemaWithInherentAnyOf(), void SchemaWithInherentAllOf(), void schemaWithIntegerTypesTest(), void schemaWithObjectTest(), void schemaWithArraysTest(), void schemaWithNumberTypesTest()</td>
+                                    <td>org.jqassistant.plugin.openapi.parser.ContractIT</td><td>void richContract(), void contractWithOnlyOpenApiVersion(), void contractWithEmptyProperties()</td>
                                 </tr>
                                 <tr>
-                                    <td>org.jqassistant.plugin.openapi.parser.OpenAPIScannerPluginTest</td><td>void testServerVariable(), void scanWholeContractTwo(), void scanLicenseWithIdentifier(), void scanLicenseWithUrl(), void scanEmptyInfo(), void scanMetaData(), void scanEmptyLicense(), void scanTags(), void scanEmptyContact(), void testExternalDocs(), void scanWholeContract(), void scanRichInfo()</td>
+                                    <td>org.jqassistant.plugin.openapi.parser.OpenAPIScannerPluginTest</td><td>void scanTags(), void scanLicenseWithIdentifier(), void testExternalDocs(), void scanEmptyLicense(), void scanRichInfo(), void testServerVariable(), void scanEmptyInfo(), void scanWholeContractTwo(), void scanLicenseWithUrl(), void scanWholeContract(), void scanMetaData(), void scanEmptyContact()</td>
                                 </tr>
                                 <tr>
-                                    <td>org.jqassistant.plugin.openapi.parser.ComponentsTest</td><td>void testSchemas(), void testResponses(), void testRichRequestBody(), void testEmptyParameters(), void testEmptyLink(), void testExamples(), void testLinks(), void testHeaders(), void testRichParametersWithSchema(), void testRichLinks(), void testSecuritySchemes(), void testParameterRelation(), void testMediaType(), void testRichParametersWithContent(), void testHeaderProperties(), void testEmptyLinkParameters(), void testEncodings(), void testCallbacks(), void testRequestBodies(), void testEmptyRequestBody()</td>
+                                    <td>org.jqassistant.plugin.openapi.parser.ComponentsTest</td><td>void testEmptyRequestBody(), void testRichLinks(), void testResponses(), void testHeaderProperties(), void testRequestBodies(), void testEmptyParameters(), void testEmptyLink(), void testMediaType(), void testParameterRelation(), void testRichParametersWithSchema(), void testHeaders(), void testRichRequestBody(), void testExamples(), void testRichParametersWithContent(), void testEncodings(), void testEmptyLinkParameters(), void testLinks(), void testSchemas(), void testCallbacks(), void testSecuritySchemes()</td>
                                 </tr>
                                 <tr>
-                                    <td>org.jqassistant.plugin.openapi.parser.ResolverTest</td><td>void resolveNonExistingSchema(), void resolveInvalidSchemaReference(), void resolveExistingSchema()</td>
+                                    <td>org.jqassistant.plugin.openapi.parser.PathTest</td><td>void subPathTest(), void basicTest(), void emptyPathTest(), void realWorldExampleTest(), void multibeOperationsTest(), void propertiesTest(), void parameterTest(), void serversTest()</td>
                                 </tr>
                                 <tr>
-                                    <td>org.jqassistant.plugin.openapi.parser.ComponentsCountTest</td><td>void testHeaders(), void testRequestBodies(), void testExamples(), void testSchemas()</td>
+                                    <td>org.jqassistant.plugin.openapi.parser.ResolverTest</td><td>void resolveNonExistingSchema(), void resolveExistingSchema(), void resolveInvalidSchemaReference()</td>
                                 </tr>
                                 <tr>
-                                    <td>org.jqassistant.plugin.openapi.parser.ContractIT</td><td>void contractWithEmptyProperties(), void richContract(), void contractWithOnlyOpenApiVersion()</td>
+                                    <td>org.jqassistant.plugin.openapi.parser.ComponentsCountTest</td><td>void testSchemas(), void testExamples(), void testRequestBodies(), void testHeaders()</td>
                                 </tr>
                                 <tr>
-                                    <td>org.jqassistant.plugin.openapi.parser.OperationsFromPathsTest</td><td>void emptyOperation(), void allPathsPresent(), void richOperation(), void noFieldsOperation()</td>
+                                    <td>org.jqassistant.plugin.openapi.parser.OperationsFromPathsTest</td><td>void emptyOperation(), void allPathsPresent(), void noFieldsOperation(), void richOperation()</td>
                                 </tr>
                                 <tr>
-                                    <td>org.jqassistant.plugin.openapi.parser.PathTest</td><td>void multibeOperationsTest(), void subPathTest(), void realWorldExampleTest(), void basicTest(), void emptyPathTest(), void parameterTest(), void propertiesTest(), void serversTest()</td>
+                                    <td>org.jqassistant.plugin.openapi.parser.JsonSchemaTest</td><td>void schemaWithNumberTypesTest(), void schemaWithArraysTest(), void schemaWithReferenceTypeTest(), void schemaWithOtherTypeThenObjectTest(), void schemaWithObjectAndAllTypesTest(), void SchemaWithInherentOneOf(), void schemaWithIntegerTypesTest(), void schemaWithMappingDiscriminatorTest(), void SchemaWithInherentAnyOf(), void readyAnySchemaTest(), void schemaWithStringTypesTest(), void SchemaWithInherentAllOf(), void schemaWithObjectTest(), void schemaWithNativeTypeTest(), void schemaWithEmptyPropertyTest()</td>
                                 </tr>
                             </table>
                         </div>
@@ -838,130 +838,76 @@ labels them with "Test" and "Junit5".</pre>
                                     <th>Test</th>
                                 </tr>
                                 <tr>
-                                    <td>void testRequestBodies()</td>
-                                </tr>
-                                <tr>
-                                    <td>void testExternalDocs()</td>
-                                </tr>
-                                <tr>
-                                    <td>void scanLicenseWithUrl()</td>
-                                </tr>
-                                <tr>
-                                    <td>void scanEmptyLicense()</td>
-                                </tr>
-                                <tr>
-                                    <td>void testHeaders()</td>
-                                </tr>
-                                <tr>
-                                    <td>void propertiesTest()</td>
-                                </tr>
-                                <tr>
-                                    <td>void scanWholeContract()</td>
-                                </tr>
-                                <tr>
-                                    <td>void testResponses()</td>
+                                    <td>void readyAnySchemaTest()</td>
                                 </tr>
                                 <tr>
                                     <td>void resolveNonExistingSchema()</td>
                                 </tr>
                                 <tr>
-                                    <td>void scanWholeContractTwo()</td>
-                                </tr>
-                                <tr>
-                                    <td>void schemaWithNumberTypesTest()</td>
-                                </tr>
-                                <tr>
-                                    <td>void testRichLinks()</td>
-                                </tr>
-                                <tr>
-                                    <td>void contractWithEmptyProperties()</td>
-                                </tr>
-                                <tr>
-                                    <td>void emptyPathTest()</td>
-                                </tr>
-                                <tr>
-                                    <td>void testEmptyLink()</td>
-                                </tr>
-                                <tr>
-                                    <td>void resolveExistingSchema()</td>
-                                </tr>
-                                <tr>
-                                    <td>void richContract()</td>
-                                </tr>
-                                <tr>
-                                    <td>void emptyOperation()</td>
-                                </tr>
-                                <tr>
-                                    <td>void schemaWithMappingDiscriminatorTest()</td>
-                                </tr>
-                                <tr>
-                                    <td>void schemaWithNativeTypeTest()</td>
-                                </tr>
-                                <tr>
-                                    <td>void testRequestBodies()</td>
-                                </tr>
-                                <tr>
                                     <td>void scanTags()</td>
-                                </tr>
-                                <tr>
-                                    <td>void testEncodings()</td>
-                                </tr>
-                                <tr>
-                                    <td>void testHeaderProperties()</td>
-                                </tr>
-                                <tr>
-                                    <td>void basicTest()</td>
-                                </tr>
-                                <tr>
-                                    <td>void scanLicenseWithIdentifier()</td>
-                                </tr>
-                                <tr>
-                                    <td>void richOperation()</td>
-                                </tr>
-                                <tr>
-                                    <td>void testLinks()</td>
-                                </tr>
-                                <tr>
-                                    <td>void testSecuritySchemes()</td>
-                                </tr>
-                                <tr>
-                                    <td>void readyAnySchemaTest()</td>
                                 </tr>
                                 <tr>
                                     <td>void testEmptyLinkParameters()</td>
                                 </tr>
                                 <tr>
-                                    <td>void subPathTest()</td>
+                                    <td>void noFieldsOperation()</td>
                                 </tr>
                                 <tr>
-                                    <td>void testParameterRelation()</td>
+                                    <td>void SchemaWithInherentOneOf()</td>
                                 </tr>
                                 <tr>
-                                    <td>void allPathsPresent()</td>
+                                    <td>void testRichLinks()</td>
                                 </tr>
                                 <tr>
-                                    <td>void testRichRequestBody()</td>
-                                </tr>
-                                <tr>
-                                    <td>void contractWithOnlyOpenApiVersion()</td>
-                                </tr>
-                                <tr>
-                                    <td>void testServerVariable()</td>
-                                </tr>
-                                <tr>
-                                    <td>void resolveInvalidSchemaReference()</td>
-                                </tr>
-                                <tr>
-                                    <td>void multibeOperationsTest()</td>
+                                    <td>void schemaWithIntegerTypesTest()</td>
                                 </tr>
                                 <tr>
                                     <td>void testMediaType()</td>
                                 </tr>
                                 <tr>
-                                    <td>void SchemaWithInherentAllOf()</td>
+                                    <td>void schemaWithOtherTypeThenObjectTest()</td>
                                 </tr>
                                 <tr>
-                                    <td>void scanRichInfo()</td>
+                                    <td>void emptyPathTest()</td>
+                                </tr>
+                                <tr>
+                                    <td>void schemaWithObjectAndAllTypesTest()</td>
+                                </tr>
+                                <tr>
+                                    <td>void testEncodings()</td>
+                                </tr>
+                                <tr>
+                                    <td>void resolveExistingSchema()</td>
+                                </tr>
+                                <tr>
+                                    <td>void testRichParametersWithContent()</td>
+                                </tr>
+                                <tr>
+                                    <td>void testHeaderProperties()</td>
+                                </tr>
+                                <tr>
+                                    <td>void scanEmptyLicense()</td>
+                                </tr>
+                                <tr>
+                                    <td>void scanEmptyInfo()</td>
+                                </tr>
+                                <tr>
+                                    <td>void contractWithOnlyOpenApiVersion()</td>
+                                </tr>
+                                <tr>
+                                    <td>void testRequestBodies()</td>
+                                </tr>
+                                <tr>
+                                    <td>void testRequestBodies()</td>
+                                </tr>
+                                <tr>
+                                    <td>void schemaWithArraysTest()</td>
+                                </tr>
+                                <tr>
+                                    <td>void schemaWithNativeTypeTest()</td>
+                                </tr>
+                                <tr>
+                                    <td>void testRichRequestBody()</td>
                                 </tr>
                                 <tr>
                                     <td>void testSchemas()</td>
@@ -970,25 +916,25 @@ labels them with "Test" and "Junit5".</pre>
                                     <td>void testEmptyParameters()</td>
                                 </tr>
                                 <tr>
-                                    <td>void testExamples()</td>
+                                    <td>void schemaWithMappingDiscriminatorTest()</td>
                                 </tr>
                                 <tr>
-                                    <td>void schemaWithObjectTest()</td>
+                                    <td>void SchemaWithInherentAnyOf()</td>
                                 </tr>
                                 <tr>
-                                    <td>void schemaWithOtherTypeThenObjectTest()</td>
+                                    <td>void SchemaWithInherentAllOf()</td>
                                 </tr>
                                 <tr>
-                                    <td>void serversTest()</td>
+                                    <td>void testResponses()</td>
                                 </tr>
                                 <tr>
-                                    <td>void testRichParametersWithContent()</td>
+                                    <td>void schemaWithNumberTypesTest()</td>
                                 </tr>
                                 <tr>
-                                    <td>void realWorldExampleTest()</td>
+                                    <td>void testRichParametersWithSchema()</td>
                                 </tr>
                                 <tr>
-                                    <td>void noFieldsOperation()</td>
+                                    <td>void emptyOperation()</td>
                                 </tr>
                                 <tr>
                                     <td>void testHeaders()</td>
@@ -997,22 +943,37 @@ labels them with "Test" and "Junit5".</pre>
                                     <td>void parameterTest()</td>
                                 </tr>
                                 <tr>
-                                    <td>void schemaWithStringTypesTest()</td>
-                                </tr>
-                                <tr>
-                                    <td>void SchemaWithInherentAnyOf()</td>
+                                    <td>void richOperation()</td>
                                 </tr>
                                 <tr>
                                     <td>void testEmptyRequestBody()</td>
                                 </tr>
                                 <tr>
+                                    <td>void testServerVariable()</td>
+                                </tr>
+                                <tr>
+                                    <td>void multibeOperationsTest()</td>
+                                </tr>
+                                <tr>
+                                    <td>void scanLicenseWithIdentifier()</td>
+                                </tr>
+                                <tr>
+                                    <td>void contractWithEmptyProperties()</td>
+                                </tr>
+                                <tr>
+                                    <td>void testExamples()</td>
+                                </tr>
+                                <tr>
+                                    <td>void allPathsPresent()</td>
+                                </tr>
+                                <tr>
                                     <td>void testSchemas()</td>
                                 </tr>
                                 <tr>
-                                    <td>void scanEmptyContact()</td>
+                                    <td>void scanMetaData()</td>
                                 </tr>
                                 <tr>
-                                    <td>void SchemaWithInherentOneOf()</td>
+                                    <td>void scanWholeContractTwo()</td>
                                 </tr>
                                 <tr>
                                     <td>void testExamples()</td>
@@ -1021,28 +982,67 @@ labels them with "Test" and "Junit5".</pre>
                                     <td>void testCallbacks()</td>
                                 </tr>
                                 <tr>
-                                    <td>void scanMetaData()</td>
+                                    <td>void testLinks()</td>
                                 </tr>
                                 <tr>
-                                    <td>void schemaWithObjectAndAllTypesTest()</td>
+                                    <td>void serversTest()</td>
                                 </tr>
                                 <tr>
-                                    <td>void schemaWithIntegerTypesTest()</td>
+                                    <td>void testExternalDocs()</td>
+                                </tr>
+                                <tr>
+                                    <td>void realWorldExampleTest()</td>
+                                </tr>
+                                <tr>
+                                    <td>void basicTest()</td>
+                                </tr>
+                                <tr>
+                                    <td>void schemaWithObjectTest()</td>
+                                </tr>
+                                <tr>
+                                    <td>void schemaWithEmptyPropertyTest()</td>
+                                </tr>
+                                <tr>
+                                    <td>void testParameterRelation()</td>
+                                </tr>
+                                <tr>
+                                    <td>void scanWholeContract()</td>
+                                </tr>
+                                <tr>
+                                    <td>void testEmptyLink()</td>
+                                </tr>
+                                <tr>
+                                    <td>void resolveInvalidSchemaReference()</td>
+                                </tr>
+                                <tr>
+                                    <td>void scanRichInfo()</td>
+                                </tr>
+                                <tr>
+                                    <td>void scanEmptyContact()</td>
+                                </tr>
+                                <tr>
+                                    <td>void testSecuritySchemes()</td>
+                                </tr>
+                                <tr>
+                                    <td>void subPathTest()</td>
+                                </tr>
+                                <tr>
+                                    <td>void scanLicenseWithUrl()</td>
+                                </tr>
+                                <tr>
+                                    <td>void testHeaders()</td>
                                 </tr>
                                 <tr>
                                     <td>void schemaWithReferenceTypeTest()</td>
                                 </tr>
                                 <tr>
-                                    <td>void testRichParametersWithSchema()</td>
+                                    <td>void propertiesTest()</td>
                                 </tr>
                                 <tr>
-                                    <td>void schemaWithArraysTest()</td>
+                                    <td>void schemaWithStringTypesTest()</td>
                                 </tr>
                                 <tr>
-                                    <td>void scanEmptyInfo()</td>
-                                </tr>
-                                <tr>
-                                    <td>void schemaWithEmptyPropertyTest()</td>
+                                    <td>void richContract()</td>
                                 </tr>
                             </table>
                         </div>
