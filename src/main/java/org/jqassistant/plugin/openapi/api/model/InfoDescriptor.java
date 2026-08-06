@@ -3,6 +3,8 @@ package org.jqassistant.plugin.openapi.api.model;
 import com.buschmais.xo.neo4j.api.annotation.Label;
 import com.buschmais.xo.neo4j.api.annotation.Relation;
 
+import java.util.List;
+
 @Label("Info")
 public interface InfoDescriptor extends OpenApiDescriptor{
 
@@ -25,6 +27,9 @@ public interface InfoDescriptor extends OpenApiDescriptor{
     @Relation("INCLUDES_LICENSE")
     LicenseDescriptor getLicense();
     void setLicense(LicenseDescriptor license);
+
+    @Relation("HAS_EXTENSION")
+    List<ExtensionDescriptor> getExtensions();
 
     String getVersion();
     void setVersion(String version);
