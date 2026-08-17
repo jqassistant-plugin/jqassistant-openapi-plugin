@@ -7,10 +7,15 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 import org.jqassistant.plugin.openapi.api.model.ContactDescriptor;
 import org.jqassistant.plugin.openapi.api.model.ContractDescriptor;
+import org.jqassistant.plugin.openapi.api.model.ExtensionDescriptor;
 import org.jqassistant.plugin.openapi.api.model.InfoDescriptor;
 import org.jqassistant.plugin.openapi.api.model.LicenseDescriptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ContractParser {
 
@@ -65,6 +70,8 @@ public class ContractParser {
             infoDescriptor.setContact(parseContact(info.getContact(), store));
         if(info.getLicense() != null)
             infoDescriptor.setLicense(parseLicense(info.getLicense(), store));
+        if(info.getExtensions() != null)
+            infoDescriptor.getExtensions().addAll(parseExtensions(info.getExtensions(), store));
 
         infoDescriptor.setVersion(info.getVersion());
 
@@ -94,4 +101,18 @@ public class ContractParser {
         return licenseDescriptor;
     }
 
+    private static List<ExtensionDescriptor> parseExtensions(Map<String, Object> extensions, Store store){
+        return extensions.keySet().stream()
+                .map(key -> parseExtension(key, extensions.get(key), store))
+                .collect(Collectors.toList());
+    }
+
+    private static ExtensionDescriptor parseExtension(String key, Object value, Store store){
+        ExtensionDescriptor extensionDescriptor = store.create(ExtensionDescriptor.class);
+
+        extensionDescriptor.setKey(key);
+        extensionDescriptor.setValue(value);
+
+        return extensionDescriptor;
+    }
 }

@@ -1,13 +1,16 @@
 package org.jqassistant.plugin.openapi.parser;
 
-import com.buschmais.jqassistant.core.scanner.api.DefaultScope;
 import com.buschmais.jqassistant.core.test.plugin.AbstractPluginIT;
 import org.jqassistant.plugin.openapi.api.OpenApiScope;
 import org.jqassistant.plugin.openapi.api.model.ContractDescriptor;
+import org.jqassistant.plugin.openapi.api.model.ExtensionDescriptor;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -76,5 +79,19 @@ class ContractIT extends AbstractPluginIT {
         assertThat(contract.getSecurity()).hasSize(2);
         assertThat(contract.getTags()).hasSize(2);
         assertThat(contract.getExternalDocs()).isNotNull();
+    }
+
+    @Test
+    void contractWithInfoExtension() {
+        ContractDescriptor contract = parseContract("contractWithInfoExtension.yaml");
+
+        assertThat(contract.getInfo()).isNotNull();
+        List<ExtensionDescriptor> extensions = contract.getInfo().getExtensions();
+        assertThat(extensions).isNotNull();
+        assertThat(extensions.size()).isEqualTo(2);
+        Map<String, Object> extensionMap = extensions.stream().collect(Collectors.toMap(ExtensionDescriptor::getKey, ExtensionDescriptor::getValue));
+
+        assertThat(extensionMap).containsEntry("x-custom-extension-1", "value");
+        assertThat(extensionMap).containsEntry("x-custom-extension-2", "another value");
     }
 }

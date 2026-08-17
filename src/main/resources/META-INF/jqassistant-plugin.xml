@@ -29,6 +29,7 @@
         <class>org.jqassistant.plugin.openapi.api.model.LinkParameterDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.InfoDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.LicenseDescriptor</class>
+        <class>org.jqassistant.plugin.openapi.api.model.ExtensionDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.jsonschema.PropertyDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.jsonschema.ArrayTypeDescriptor</class>
         <class>org.jqassistant.plugin.openapi.api.model.jsonschema.BoolTypeDescriptor</class>
